@@ -40,7 +40,12 @@ public class WelcomeFragment extends Fragment {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                loadLastPage(position == 2);
+                if (position == 2) {
+                    loadLastPage(true);
+                }
+                else if (binding.btnGetStarted.getVisibility() == View.VISIBLE) {
+                    loadLastPage(false);
+                }
             }
         });
 
