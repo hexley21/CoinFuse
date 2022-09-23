@@ -12,7 +12,13 @@
         tools:layout="@layout/fragment_welcome">
         <action
             android:id="@+id/action_welcomeFragment_to_coinsFragment"
-            app:destination="@id/coinsFragment" />
+            app:destination="@id/coinsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/welcomeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -22,7 +28,11 @@
         tools:layout="@layout/fragment_coins">
         <action
             android:id="@+id/action_coinsFragment_to_coinDetailsFragment"
-            app:destination="@id/coinDetailsFragment" />
+            app:destination="@id/coinDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment

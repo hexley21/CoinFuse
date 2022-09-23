@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Crypto Numismatist</string>
+    <string name="tv_skip">Пропустить</string>
+    <string name="btn_get_started">Приступить</string>
+    <string name="btn_next">Дальше</string>
+    <string name="cd_img_walkthrough">Изображение туториала</string>
+</resources>

@@ -33,10 +33,14 @@ android {
 }
 
 dependencies {
+    def circle_indicator = "2.1.6"
     def nav_version = "2.5.2"
 
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
+
+    // Circle Tab Indicator
+    implementation "me.relex:circleindicator:$circle_indicator"
 
     // Navigation Components
     implementation "androidx.navigation:navigation-fragment:$nav_version"

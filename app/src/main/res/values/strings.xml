@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">Crypto Numismatist</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+
+    <!-- Welcome -->
+    <string name="btn_next">Next</string>
+    <string name="btn_get_started">Get Started</string>
+    <string name="tv_skip">Skip</string>
+
+
+    <!-- Content Description -->
+    <string name="cd_img_walkthrough">Walkthrough Image</string>
 </resources>
