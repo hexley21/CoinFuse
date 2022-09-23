@@ -10,7 +10,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="30dp">
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -31,19 +32,21 @@
             android:id="@+id/img_walkthrough"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:contentDescription="@string/cd_img_walkthrough"
             app:layout_constraintBottom_toTopOf="@+id/gl_end"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/gl_start"
-            tools:srcCompat="@tools:sample/avatars"
-            android:contentDescription="@string/cd_img_walkthrough" />
+            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/tv_walkthrough_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="16dp"
+            android:elegantTextHeight="true"
             android:text="@{title}"
+            android:textAlignment="center"
             android:textSize="34sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,8 +58,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:elegantTextHeight="true"
             android:text="@{description}"
-            android:textSize="16sp"
+            android:textAlignment="center"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_walkthrough_title" />

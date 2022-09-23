@@ -26,6 +26,7 @@ public class WalkthroughItem extends Fragment {
         if (getArguments() != null) {
             binding.setTitle(getArguments().getString("title"));
             binding.setDescription(getArguments().getString("description"));
+
             binding.imgWalkthrough.setImageDrawable(
                     ContextCompat.getDrawable(requireContext(), getArguments().getInt("image"))
             );

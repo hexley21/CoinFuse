@@ -30,10 +30,13 @@ public class WelcomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ViewPager2 walkthroughPager = binding.walkthroughPager;
+        String[] titles = getStringArray(R.array.walkthrough_titles);
+        String[] descriptions = getStringArray(R.array.walkthrough_descriptions);
+
         Walkthrough[] walkthroughs = {
-                new Walkthrough("1", "1", R.drawable.ic_launcher_foreground),
-                new Walkthrough("2", "2", R.drawable.ic_launcher_foreground),
-                new Walkthrough("3", "3", R.drawable.ic_launcher_foreground),
+                new Walkthrough(titles[0], descriptions[0], R.drawable.logo),
+                new Walkthrough(titles[1], descriptions[1], R.drawable.coin),
+                new Walkthrough(titles[2], descriptions[2], R.drawable.node),
         };
         walkthroughPager.setAdapter(new WalkthroughPagerAdapter(this, walkthroughs));
         walkthroughPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -57,6 +60,10 @@ public class WelcomeFragment extends Fragment {
 
         binding.btnGetStarted.setOnClickListener(view1 -> openCoinFragment());
         binding.tvSkip.setOnClickListener(view1 -> openCoinFragment());
+    }
+
+    private String[] getStringArray(int id) {
+        return requireContext().getResources().getStringArray(id);
     }
 
     private void openCoinFragment() {
