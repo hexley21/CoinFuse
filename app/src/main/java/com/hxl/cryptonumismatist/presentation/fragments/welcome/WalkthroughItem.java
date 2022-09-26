@@ -1,5 +1,6 @@
 package com.hxl.cryptonumismatist.presentation.fragments.welcome;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,13 +25,18 @@ public class WalkthroughItem extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (getArguments() != null) {
-            binding.setTitle(getArguments().getString("title"));
-            binding.setDescription(getArguments().getString("description"));
-
-            binding.imgWalkthrough.setImageDrawable(
-                    ContextCompat.getDrawable(requireContext(), getArguments().getInt("image"))
-            );
+            binding.setTitle(getStringResource(getArguments().getInt("title")));
+            binding.setDescription(getStringResource(getArguments().getInt("description")));
+            binding.imgWalkthrough.setImageDrawable(getDrawableResource(getArguments().getInt("image")));
         }
+    }
+
+    private String getStringResource(int id) {
+        return getResources().getString(id);
+    }
+
+    private Drawable getDrawableResource(int id) {
+        return ContextCompat.getDrawable(requireContext(), id);
     }
 
 }

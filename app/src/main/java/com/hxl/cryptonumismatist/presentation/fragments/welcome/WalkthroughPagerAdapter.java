@@ -8,11 +8,11 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class WalkthroughPagerAdapter extends FragmentStateAdapter {
 
-    private final Walkthrough[] walkthroughs;
+    private final WalkthroughEnums[] walkthroughs;
 
     public WalkthroughPagerAdapter(
             Fragment fragment,
-            Walkthrough[] walkthroughs
+            WalkthroughEnums[] walkthroughs
     ) {
         super(fragment);
         this.walkthroughs = walkthroughs;
@@ -23,15 +23,17 @@ public class WalkthroughPagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         WalkthroughItem item = new WalkthroughItem();
-        
+        Walkthrough info = walkthroughs[position].walkthrough;
+
         Bundle bundle = new Bundle();
-        bundle.putString("title", walkthroughs[position].title);
-        bundle.putString("description", walkthroughs[position].description);
-        bundle.putInt("image", walkthroughs[position].image);
+        bundle.putInt("title", info.title);
+        bundle.putInt("description", info.description);
+        bundle.putInt("image", info.image);
         item.setArguments(bundle);
         
         return item;
     }
+    
 
     @Override
     public int getItemCount() {

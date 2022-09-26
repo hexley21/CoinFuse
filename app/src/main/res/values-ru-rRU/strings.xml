@@ -5,14 +5,13 @@
     <string name="btn_next">Дальше</string>
     <string name="cd_img_walkthrough">Изображение туториала</string>
     <!-- Walkthrough -->
-    <string-array name="walkthrough_titles">
-        <item>Добро пожаловать</item>
-        <item>Исследуй</item>
-        <item>Анализируй</item>
-    </string-array>
-    <string-array name="walkthrough_descriptions">
-        <item>В приложение Крипто Нумизматист. \n Рыночная капитализация криптовалют в реальном времени, цены и многое другое.</item>
-        <item>История цен, рынки и Последние изменения каждой криптовалюты.</item>
-        <item>Предоставленные данные в простом и компактном дизайне, а также поделитесь с друзьями.</item>
-    </string-array>
+    <!-- Titles -->
+    <string name="title_welcome">Добро пожаловать!</string>
+    <string name="title_explore">Исследуй</string>
+    <string name="title_analyze">Анализируй</string>
+    <!-- Descriptions -->
+    <string name="desc_welcome">В приложение Крипто Нумизматист. \n Рыночная капитализация криптовалют в реальном времени, цены и многое другое.</string>
+    <string name="desc_explore">История цен, рынки и Последние изменения каждой криптовалюты.</string>
+    <string name="desc_analye">Предоставленные данные в простом и компактном дизайне, а также поделитесь с друзьями.</string>
+
 </resources>
