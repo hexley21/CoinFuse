@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Crypto Numismatist</string>
     <string name="btn_next">შემდეგი</string>
     <string name="btn_get_started">დაწყება</string>
     <string name="tv_skip">გამოტოვება</string>

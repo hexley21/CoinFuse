@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<resources>
-    <color name="seed">#00c555</color>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="seed" tools:keep="@color/seed">#00c555</color>
     <color name="md_theme_light_primary">#006E2C</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
     <color name="md_theme_light_primaryContainer">#68FF8A</color>
@@ -28,9 +28,9 @@
     <color name="md_theme_light_inverseOnSurface">#F0F1EB</color>
     <color name="md_theme_light_inverseSurface">#2E312D</color>
     <color name="md_theme_light_inversePrimary">#3FE26E</color>
-    <color name="md_theme_light_shadow">#000000</color>
+    <color name="md_theme_light_shadow" tools:keep="@color/md_theme_light_shadow">#000000</color>
     <color name="md_theme_light_surfaceTint">#006E2C</color>
-    <color name="md_theme_light_surfaceTintColor">#006E2C</color>
+    <color name="md_theme_light_surfaceTintColor" tools:ignore="UnusedResources">#006E2C</color>
     <color name="md_theme_dark_primary">#3FE26E</color>
     <color name="md_theme_dark_onPrimary">#003913</color>
     <color name="md_theme_dark_primaryContainer">#00531F</color>
@@ -57,7 +57,7 @@
     <color name="md_theme_dark_inverseOnSurface">#1A1C19</color>
     <color name="md_theme_dark_inverseSurface">#E2E3DD</color>
     <color name="md_theme_dark_inversePrimary">#006E2C</color>
-    <color name="md_theme_dark_shadow">#000000</color>
+    <color name="md_theme_dark_shadow" tools:keep="@color/md_theme_dark_shadow">#000000</color>
     <color name="md_theme_dark_surfaceTint">#3FE26E</color>
-    <color name="md_theme_dark_surfaceTintColor">#3FE26E</color>
+    <color name="md_theme_dark_surfaceTintColor" tools:keep="@color/md_theme_dark_surfaceTintColor">#3FE26E</color>
 </resources>
