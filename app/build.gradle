@@ -41,6 +41,9 @@ dependencies {
     //Splash Screen
     implementation 'androidx.core:core-splashscreen:1.0.0'
 
+    // Module implementation
+    implementation project(path: ':domain')
+
     // Circle Tab Indicator
     implementation "me.relex:circleindicator:$circle_indicator"
 
