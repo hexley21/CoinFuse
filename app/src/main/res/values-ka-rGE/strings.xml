@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btn_next">შემდეგი</string>
+    <string name="btn_get_started">დაწყება</string>
+    <string name="tv_skip">გამოტოვება</string>
+    <string name="cd_img_walkthrough">გზამკლევის სურათი</string>
+
+    <!-- Walkthrough -->
+    <!-- Titles -->
+    <string name="title_welcome">გამარჯობა</string>
+    <string name="title_explore">გამოიკვლიე</string>
+    <string name="title_analyze">გაანალიზე</string>
+    <!-- Descriptions -->
+    <string name="desc_welcome">კეთილი იყოს თქვენი მობრძანება კრიპტო ნუმიზმატისტის აპლიკაციაში. \n ცოცხალი კრიპტოვალუტის საბაზრო კაპიტალი, ფასები და სხვა.</string>
+    <string name="desc_explore">ფასის ისტორია, ბაზრები და ყველა კრიპტოვალუტის უახლესი ცვლილებები.</string>
+    <string name="desc_analye">მოწოდებული მონაცემები მარტივ და კომპაქტურ ინტერფეისში, ასევე გაუზიარეთ მეგობრებს.</string>
+
+</resources>
