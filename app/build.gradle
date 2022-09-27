@@ -43,6 +43,7 @@ dependencies {
 
     // Module implementation
     implementation project(path: ':domain')
+    implementation project(path: ':data')
 
     // Circle Tab Indicator
     implementation "me.relex:circleindicator:$circle_indicator"
