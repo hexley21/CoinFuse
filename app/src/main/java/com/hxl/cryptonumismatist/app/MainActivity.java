@@ -1,10 +1,15 @@
-package com.hxl.cryptonumismatist;
+package com.hxl.cryptonumismatist.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
 
 import android.os.Bundle;
 
+import com.hxl.cryptonumismatist.R;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     @Override
