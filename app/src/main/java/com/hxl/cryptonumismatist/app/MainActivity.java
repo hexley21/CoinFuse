@@ -7,6 +7,9 @@ import android.os.Bundle;
 
 import com.hxl.cryptonumismatist.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     @Override

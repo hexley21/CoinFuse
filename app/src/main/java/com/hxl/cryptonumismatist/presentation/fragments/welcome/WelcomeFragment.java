@@ -8,20 +8,28 @@ import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.databinding.FragmentWelcomeBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class WelcomeFragment extends Fragment {
 
     private FragmentWelcomeBinding binding;
+    private WelcomeFragmentViewModel vm;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentWelcomeBinding.inflate(inflater, container, false);
+        vm = new ViewModelProvider(this).get(WelcomeFragmentViewModel.class);
+        if (!vm.getWelcome.invoke()) {
+            openCoinFragment();
+        }
         return binding.getRoot();
     }
 
@@ -30,7 +38,6 @@ public class WelcomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ViewPager2 walkthroughPager = binding.walkthroughPager;
-
         walkthroughPager.setAdapter(new WalkthroughPagerAdapter(this, WalkthroughEnums.values()));
         walkthroughPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -38,8 +45,7 @@ public class WelcomeFragment extends Fragment {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
                 if (position == 2) {
                     loadLastPage(true);
-                }
-                else if (binding.btnGetStarted.getVisibility() == View.VISIBLE) {
+                } else if (binding.btnGetStarted.getVisibility() == View.VISIBLE) {
                     loadLastPage(false);
                 }
             }
@@ -51,8 +57,13 @@ public class WelcomeFragment extends Fragment {
                 view1 -> walkthroughPager.setCurrentItem(walkthroughPager.getCurrentItem() + 1)
         );
 
-        binding.btnGetStarted.setOnClickListener(view1 -> openCoinFragment());
-        binding.tvSkip.setOnClickListener(view1 -> openCoinFragment());
+        View.OnClickListener exitButtonClick = v -> {
+            vm.saveWelcome.invoke(false);
+            openCoinFragment();
+        };
+
+        binding.btnGetStarted.setOnClickListener(exitButtonClick);
+        binding.tvSkip.setOnClickListener(exitButtonClick);
     }
 
     private void openCoinFragment() {

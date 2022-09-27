@@ -3,7 +3,7 @@ package com.hxl.domain.repository;
 public interface IPreferenceRepository {
 
     default boolean getWelcome() {
-        return getWelcome(false);
+        return getWelcome(true);
     }
 
     boolean getWelcome(Boolean def);
