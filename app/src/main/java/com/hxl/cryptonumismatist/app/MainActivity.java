@@ -1,9 +1,11 @@
-package com.hxl.cryptonumismatist;
+package com.hxl.cryptonumismatist.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
 
 import android.os.Bundle;
+
+import com.hxl.cryptonumismatist.R;
 
 public class MainActivity extends AppCompatActivity {
 
