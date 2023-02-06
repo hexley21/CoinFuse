@@ -9,7 +9,7 @@
         tools:context=".Intro.IntroActivity">
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/walkthrough_pager"
+            android:id="@+id/walk_through_pager"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

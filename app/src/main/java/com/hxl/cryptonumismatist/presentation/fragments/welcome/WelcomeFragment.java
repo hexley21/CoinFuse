@@ -28,7 +28,7 @@ public class WelcomeFragment extends Fragment {
         binding = FragmentWelcomeBinding.inflate(inflater, container, false);
         vm = new ViewModelProvider(this).get(WelcomeFragmentViewModel.class);
         if (!vm.getWelcome.invoke()) {
-            openCoinFragment();
+            openCoinsFragment();
         }
         return binding.getRoot();
     }
@@ -37,9 +37,9 @@ public class WelcomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ViewPager2 walkthroughPager = binding.walkthroughPager;
-        walkthroughPager.setAdapter(new WalkthroughPagerAdapter(this, WalkthroughEnums.values()));
-        walkthroughPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        ViewPager2 walkThroughPager = binding.walkThroughPager;
+        walkThroughPager.setAdapter(new WalkThroughPagerAdapter(this, WalkThroughEnums.values()));
+        walkThroughPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
@@ -51,48 +51,54 @@ public class WelcomeFragment extends Fragment {
             }
         });
 
-        binding.tabIndicator.setViewPager(walkthroughPager);
+        binding.tabIndicator.setViewPager(walkThroughPager);
 
         binding.btnNext.setOnClickListener(
-                view1 -> walkthroughPager.setCurrentItem(walkthroughPager.getCurrentItem() + 1)
+                view1 -> walkThroughPager.setCurrentItem(walkThroughPager.getCurrentItem() + 1)
         );
 
         View.OnClickListener exitButtonClick = v -> {
             vm.saveWelcome.invoke(false);
-            openCoinFragment();
+            openCoinsFragment();
         };
 
         binding.btnGetStarted.setOnClickListener(exitButtonClick);
         binding.tvSkip.setOnClickListener(exitButtonClick);
     }
 
-    private void openCoinFragment() {
+    private void openCoinsFragment() {
         NavHostFragment.findNavController(this).navigate(R.id.action_welcomeFragment_to_coinsFragment);
     }
 
-    private void loadLastPage(Boolean visibility) {
-        int visStart = View.VISIBLE;
-        int visElse = View.INVISIBLE;
-        int animStart = R.anim.welcome_start;
-        int animElse = R.anim.to_invisible;
+    private void loadLastPage(@NonNull Boolean visibility) {
+        int vStart;
+        int vElse;
+        int aStart;
+        int aElse;
 
-        if (!visibility) {
-            visStart = View.INVISIBLE;
-            visElse = View.VISIBLE;
-            animStart = R.anim.welcome_end;
-            animElse = R.anim.to_visible;
+        if (visibility) {
+            vStart = View.VISIBLE;
+            vElse = View.INVISIBLE;
+            aStart = R.anim.welcome_start;
+            aElse = R.anim.to_invisible;
+        }
+        else {
+            vStart = View.INVISIBLE;
+            vElse = View.VISIBLE;
+            aStart = R.anim.welcome_end;
+            aElse = R.anim.to_visible;
         }
 
-        binding.btnGetStarted.setVisibility(visStart);
-        binding.btnGetStarted.setAnimation(AnimationUtils.loadAnimation(requireContext(), animStart));
+        binding.btnGetStarted.setVisibility(vStart);
+        binding.btnGetStarted.setAnimation(AnimationUtils.loadAnimation(requireContext(), aStart));
 
-        binding.btnNext.setVisibility(visElse);
-        binding.btnNext.setAnimation(AnimationUtils.loadAnimation(requireContext(), animElse));
+        binding.btnNext.setVisibility(vElse);
+        binding.btnNext.setAnimation(AnimationUtils.loadAnimation(requireContext(), aElse));
 
-        binding.tvSkip.setVisibility(visElse);
-        binding.tvSkip.setAnimation(AnimationUtils.loadAnimation(requireContext(), animElse));
+        binding.tvSkip.setVisibility(vElse);
+        binding.tvSkip.setAnimation(AnimationUtils.loadAnimation(requireContext(), aElse));
 
-        binding.tabIndicator.setVisibility(visElse);
-        binding.tabIndicator.setAnimation(AnimationUtils.loadAnimation(requireContext(), animElse));
+        binding.tabIndicator.setVisibility(vElse);
+        binding.tabIndicator.setAnimation(AnimationUtils.loadAnimation(requireContext(), aElse));
     }
 }

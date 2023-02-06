@@ -7,7 +7,7 @@
     <string name="btn_next">Next</string>
     <string name="btn_get_started">Get Started</string>
     <string name="tv_skip">Skip</string>
-    <!-- Walkthrough -->
+    <!-- Walk-through -->
     <!-- Titles -->
     <string name="title_welcome">Welcome</string>
     <string name="title_explore">Explore</string>
@@ -15,12 +15,12 @@
     <!-- Descriptions -->
     <string name="desc_welcome">To Crypto Numismatist Application. \n Live cryptocurrency market cap, prices and more</string>
     <string name="desc_explore">Price History, Markets &amp; Latest changes of every Crypto Currency.</string>
-    <string name="desc_analye">Provided data with easy and compact design &amp; share with your friends.</string>
+    <string name="desc_analyze">Provided data with easy and compact design &amp; share with your friends.</string>
     <!-- Images -->
     <drawable name="img_welcome">@drawable/logo</drawable>
     <drawable name="img_explore">@drawable/coin</drawable>
     <drawable name="img_analyze">@drawable/node</drawable>
 
     <!-- Content Description -->
-    <string name="cd_img_walkthrough">Walkthrough Image</string>
+    <string name="cd_img_walk_through">Walk-through Image</string>
 </resources>

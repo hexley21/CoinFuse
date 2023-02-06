@@ -10,14 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.hxl.cryptonumismatist.databinding.ItemWalkthroughBinding;
+import com.hxl.cryptonumismatist.databinding.ItemWalkThroughBinding;
 
-public class WalkthroughItem extends Fragment {
-    private ItemWalkthroughBinding binding;
+public class WalkThroughItem extends Fragment {
+    private ItemWalkThroughBinding binding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = ItemWalkthroughBinding.inflate(inflater, container, false);
+        binding = ItemWalkThroughBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -27,7 +27,7 @@ public class WalkthroughItem extends Fragment {
         if (getArguments() != null) {
             binding.setTitle(getStringResource(getArguments().getInt("title")));
             binding.setDescription(getStringResource(getArguments().getInt("description")));
-            binding.imgWalkthrough.setImageDrawable(getDrawableResource(getArguments().getInt("image")));
+            binding.imgWalkThrough.setImageDrawable(getDrawableResource(getArguments().getInt("image")));
         }
     }
 
