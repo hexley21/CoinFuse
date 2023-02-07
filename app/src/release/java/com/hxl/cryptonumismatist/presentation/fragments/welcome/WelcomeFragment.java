@@ -41,8 +41,8 @@ public class WelcomeFragment extends Fragment {
         walkThroughPager.setAdapter(new WalkThroughPagerAdapter(this, WalkThroughEnums.values()));
         walkThroughPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
                 if (position == 2) {
                     loadLastPage(true);
                 } else if (binding.btnGetStarted.getVisibility() == View.VISIBLE) {
