@@ -12,17 +12,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
-        signingConfig signingConfigs.debug
     }
 
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            minifyEnabled false
-            signingConfig signingConfigs.debug
         }
     }
     compileOptions {
@@ -32,9 +27,13 @@ android {
 }
 
 dependencies {
+    def rxjava_version="3.1.6"
 
     // Module implementation
     implementation project(path: ':domain')
+
+    // RxJava
+    implementation "io.reactivex.rxjava3:rxjava:$rxjava_version"
 
     /* ------------------------------------------ Test ------------------------------------------ */
     testImplementation 'junit:junit:4.13.2'

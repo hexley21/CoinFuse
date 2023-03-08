@@ -1,4 +1,4 @@
-package com.hxl.data.repository;
+package com.hxl.data;
 
 import com.hxl.data.storage.IPreferenceStorage;
 import com.hxl.domain.repository.IPreferenceRepository;

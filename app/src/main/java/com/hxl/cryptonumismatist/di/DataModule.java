@@ -2,7 +2,7 @@ package com.hxl.cryptonumismatist.di;
 
 import android.content.Context;
 
-import com.hxl.data.repository.PreferenceRepositoryImpl;
+import com.hxl.data.PreferenceRepositoryImpl;
 import com.hxl.data.storage.IPreferenceStorage;
 import com.hxl.data.storage.sharedprefs.SharedPreferenceStorage;
 import com.hxl.domain.repository.IPreferenceRepository;
