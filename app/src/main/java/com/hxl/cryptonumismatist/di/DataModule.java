@@ -1,18 +1,19 @@
 package com.hxl.cryptonumismatist.di;
 
-import android.content.Context;
+import android.content.SharedPreferences;
 
-import com.hxl.data.PreferenceRepositoryImpl;
-import com.hxl.data.storage.IPreferenceStorage;
-import com.hxl.data.storage.sharedprefs.SharedPreferenceStorage;
-import com.hxl.domain.repository.IPreferenceRepository;
+import com.hxl.data.PreferencesRepositoryImpl;
+import com.hxl.data.repository.prefs.PreferencesLocal;
+import com.hxl.data.repository.prefs.PreferencesSource;
+import com.hxl.data.source.PreferencesLocalSource;
+import com.hxl.domain.repository.PreferencesRepository;
+import com.hxl.local.PreferencesLocalImpl;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
-import dagger.hilt.android.qualifiers.ApplicationContext;
 import dagger.hilt.components.SingletonComponent;
 
 @Module
@@ -21,14 +22,21 @@ public class DataModule {
 
     @Provides
     @Singleton
-    IPreferenceStorage providePreferenceStorage(@ApplicationContext Context context) {
-        return new SharedPreferenceStorage(context);
+    PreferencesLocal providePreferencesLocal(SharedPreferences sharedPreferences) {
+        return new PreferencesLocalImpl(sharedPreferences);
     }
 
     @Provides
     @Singleton
-    IPreferenceRepository providePreferenceRepository(IPreferenceStorage preferenceStorage) {
-        return new PreferenceRepositoryImpl(preferenceStorage);
+    PreferencesSource providePreferenceSource(PreferencesLocal preferencesLocal) {
+        return new PreferencesLocalSource(preferencesLocal);
+    }
+
+    @Provides
+    @Singleton
+    PreferencesRepository providePreferenceRepository(PreferencesSource preferencesSource) {
+        return new PreferencesRepositoryImpl(preferencesSource);
+
     }
 
 }
