@@ -7,6 +7,8 @@ android {
     namespace 'com.hxl.cryptonumismatist'
     compileSdk 33
 
+    def CONFIG = { k -> "\"${project.properties.get(k)}\"" }
+
     defaultConfig {
         applicationId "com.hxl.cryptonumismatist"
         minSdk 21
@@ -16,6 +18,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         proguardFiles getDefaultProguardFile('proguard-android.txt')
+
+        buildConfigField 'String', 'API_URL', CONFIG("api.url")
     }
 
     buildFeatures {
@@ -23,9 +27,14 @@ android {
     }
 
     buildTypes {
+
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
         }
     }
     compileOptions {
@@ -46,6 +55,7 @@ dependencies {
     // Module implementation
     implementation project(path: ':domain')
     implementation project(path: ':data')
+    implementation project(path: ':local')
 
     /* ---- Android implementations ---- */
     implementation 'androidx.appcompat:appcompat:1.6.1'
