@@ -13,8 +13,8 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Crypto Numismatist"
-include ':app'
-include ':domain'
-include ':data'
-include ':local'
-include ':remote'
+include(":app")
+include(":domain")
+include(":data")
+include(":local")
+include(":remote")
