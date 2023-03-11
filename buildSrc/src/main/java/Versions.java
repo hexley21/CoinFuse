@@ -1,4 +1,7 @@
 public class Versions {
+
+    public static final String androidPluginVersion = "7.4.1";
+
     /* Core */
     public static final String appCompatVersion = "1.6.1";
     public static final String materialVersion = "1.8.0";
