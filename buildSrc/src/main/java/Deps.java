@@ -1,4 +1,4 @@
-public final class Dependencies {
+public final class Deps {
     public static final class Core {
         public static final String appCompat = "androidx.appcompat:appcompat:" + Versions.appCompatVersion;
         public static final String material = "com.google.android.material:material:" + Versions.materialVersion;
@@ -37,22 +37,10 @@ public final class Dependencies {
 
     public static final class Test {
         public static final String junit = "junit:junit:" + Versions.junitVersion;
+        public static final String extJunit = "androidx.test.ext:junit:" + Versions.extJunitVersion;
+        public static final String espresso = "androidx.test.espresso:espresso-core:" + Versions.espressoVersion;
+        public static final String navigation = "androidx.navigation:navigation-testing:" + Versions.navVersion;
+        public static final String hilt = "com.google.dagger:hilt-android-testing:" + Versions.hiltVersion;
+        public static final String hiltCompiler = "com.google.dagger:hilt-compiler:" + Versions.hiltVersion;
     }
-
 }
-
-//    /* ------------------------------------------ Test ------------------------------------------ */
-//
-//    testImplementation("junit:junit:4.13.2")
-//    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-//    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-//
-//    /* ---- Architecture Components ---- */
-//    // Hilt For local unit tests
-//    testImplementation("com.google.dagger:hilt-android-testing:$hiltVersion")
-//    testAnnotationProcessor("com.google.dagger:hilt-compiler:$hiltVersion")
-//    // Hilt For instrumentation tests
-//    androidTestImplementation("com.google.dagger:hilt-android-testing:$hiltVersion")
-//    androidTestAnnotationProcessor("com.google.dagger:hilt-compiler:$hiltVersion")
-//    // Navigation Test
-//    androidTestImplementation("androidx.navigation:navigation-testing:$navVersion")

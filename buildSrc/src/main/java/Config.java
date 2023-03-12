@@ -3,6 +3,8 @@ public final class Config {
         public static final int minSdk = 21;
         public static final int targetSdk = 33;
         public static final int compileSdk = 33;
+
+        public static final String testRunner = "androidx.test.runner.AndroidJUnitRunner";
     }
 
     public static final class Plugins {
