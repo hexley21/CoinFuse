@@ -1,15 +1,15 @@
 @file:Suppress("UnstableApiUsage")
 
 plugins {
-    id("com.android.library")
+    id(Config.Plugins.androidLibrary)
 }
 
 android {
-    namespace = "com.hxl.local"
-    compileSdk = 33
+    namespace = Modules.NameSpaces.local
+    compileSdk = Config.Android.compileSdk
 
     defaultConfig {
-        minSdk = 21
+        minSdk = Config.Android.minSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -32,8 +32,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":data"))
-
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    // Module
+    implementation(project(Modules.data))
+    // Test
+    testImplementation(Deps.Test.junit)
+    androidTestImplementation(Deps.Test.extJunit)
 }
