@@ -9,13 +9,10 @@ java {
 dependencies {
     // Module
     implementation(project(Modules.domain))
-
     // Reactive
     implementation(Deps.Reactive.rxJava)
-
     // Test
     testImplementation(Deps.Test.junit)
-
-    // Ide
+    // IDE
     implementation(Deps.IDE.jetbrainsAnno)
 }
