@@ -1,4 +1,4 @@
-public class Versions {
+public final class Versions {
 
     public static final String androidPluginVersion = "7.4.1";
 
@@ -34,4 +34,6 @@ public class Versions {
     public static final String extJunitVersion = "1.1.5";
     // espresso
     public static final String espressoVersion = "3.5.1";
+    // jetbrains annotations
+    public static final String jetbrainsAnnoVersion = "24.0.0";
 }

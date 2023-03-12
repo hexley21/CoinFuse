@@ -1,5 +1,5 @@
 plugins {
-    id("java-library")
+    id(Config.Plugins.javaLibrary)
 }
 
 java {
@@ -7,16 +7,15 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 dependencies {
-    val rxjavaVersion = "3.1.6"
+    // Module
+    implementation(project(Modules.domain))
 
-    implementation("org.jetbrains:annotations:24.0.0")
-
-    // Module implementation
-    implementation(project(":domain"))
-
-    // RxJava
-    implementation("io.reactivex.rxjava3:rxjava:$rxjavaVersion")
+    // Reactive
+    implementation(Deps.Reactive.rxJava)
 
     // Test
-    testImplementation("junit:junit:4.13.2")
+    testImplementation(Deps.Test.junit)
+
+    // Ide
+    implementation(Deps.IDE.jetbrainsAnno)
 }

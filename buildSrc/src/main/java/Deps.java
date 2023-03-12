@@ -43,4 +43,8 @@ public final class Deps {
         public static final String hilt = "com.google.dagger:hilt-android-testing:" + Versions.hiltVersion;
         public static final String hiltCompiler = "com.google.dagger:hilt-compiler:" + Versions.hiltVersion;
     }
+
+    public static final class IDE {
+        public static final String jetbrainsAnno  = "org.jetbrains:annotations:" + Versions.jetbrainsAnnoVersion;
+    }
 }
