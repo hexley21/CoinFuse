@@ -1,17 +1,14 @@
-package com.hxl.data;
+package com.hxl.data.source;
 
-import com.hxl.data.repository.prefs.PreferencesSource;
-import com.hxl.domain.repository.PreferencesRepository;
+import com.hxl.data.repository.prefs.PreferenceSource;
+import com.hxl.data.repository.prefs.PreferenceLocal;
 
-/**
- * Repository implementation that handles Preference Storage fields.
- */
-public class PreferencesRepositoryImpl implements PreferencesRepository {
+public class PreferenceLocalSource implements PreferenceSource {
 
-    private final PreferencesSource source;
+    private final PreferenceLocal source;
 
-    public PreferencesRepositoryImpl(PreferencesSource source) {
-        this.source = source;
+    public PreferenceLocalSource(PreferenceLocal localSource) {
+        this.source = localSource;
     }
 
     @Override

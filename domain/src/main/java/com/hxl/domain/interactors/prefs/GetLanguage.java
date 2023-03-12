@@ -2,15 +2,15 @@ package com.hxl.domain.interactors.prefs;
 
 import static com.hxl.domain.model.PrefKeys.LANGUAGE;
 
-import com.hxl.domain.repository.PreferencesRepository;
+import com.hxl.domain.repository.PreferenceRepository;
 
 import org.jetbrains.annotations.NotNull;
 
 public class GetLanguage {
 
-    private final PreferencesRepository preferenceRepository;
+    private final PreferenceRepository preferenceRepository;
 
-    public GetLanguage(@NotNull PreferencesRepository preferenceRepository) {
+    public GetLanguage(@NotNull PreferenceRepository preferenceRepository) {
         this.preferenceRepository = preferenceRepository;
     }
 

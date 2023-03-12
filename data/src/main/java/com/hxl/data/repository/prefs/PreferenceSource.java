@@ -1,7 +1,7 @@
 package com.hxl.data.repository.prefs;
 
 
-public interface PreferencesSource {
+public interface PreferenceSource {
     int get(String key, int def);
     boolean get(String key, boolean def);
     String get(String key, String def);

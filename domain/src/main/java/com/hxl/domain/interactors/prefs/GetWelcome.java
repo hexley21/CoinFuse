@@ -2,15 +2,15 @@ package com.hxl.domain.interactors.prefs;
 
 import static com.hxl.domain.model.PrefKeys.WELCOME;
 
-import com.hxl.domain.repository.PreferencesRepository;
+import com.hxl.domain.repository.PreferenceRepository;
 
 import org.jetbrains.annotations.NotNull;
 
 public class GetWelcome {
 
-    private final PreferencesRepository preferenceRepository;
+    private final PreferenceRepository preferenceRepository;
 
-    public GetWelcome(@NotNull PreferencesRepository preferenceRepository) {
+    public GetWelcome(@NotNull PreferenceRepository preferenceRepository) {
         this.preferenceRepository = preferenceRepository;
     }
 

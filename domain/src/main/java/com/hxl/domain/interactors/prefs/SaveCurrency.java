@@ -2,15 +2,15 @@ package com.hxl.domain.interactors.prefs;
 
 import static com.hxl.domain.model.PrefKeys.CURRENCY;
 
-import com.hxl.domain.repository.PreferencesRepository;
+import com.hxl.domain.repository.PreferenceRepository;
 
 import org.jetbrains.annotations.NotNull;
 
 public class SaveCurrency {
 
-    private final PreferencesRepository preferenceRepository;
+    private final PreferenceRepository preferenceRepository;
 
-    public SaveCurrency(PreferencesRepository preferenceRepository) {
+    public SaveCurrency(PreferenceRepository preferenceRepository) {
         this.preferenceRepository = preferenceRepository;
     }
 

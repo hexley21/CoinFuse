@@ -9,7 +9,7 @@ import com.hxl.domain.interactors.prefs.SaveCurrency;
 import com.hxl.domain.interactors.prefs.SaveLanguage;
 import com.hxl.domain.interactors.prefs.SaveTheme;
 import com.hxl.domain.interactors.prefs.SaveWelcome;
-import com.hxl.domain.repository.PreferencesRepository;
+import com.hxl.domain.repository.PreferenceRepository;
 
 import dagger.Module;
 import dagger.Provides;
@@ -22,36 +22,36 @@ public class DomainModule {
 
     // region prefs
     @Provides
-    GetCurrency provideGetCurrency(PreferencesRepository preferenceRepository) {
+    GetCurrency provideGetCurrency(PreferenceRepository preferenceRepository) {
         return new GetCurrency(preferenceRepository);
     }
     @Provides
-    GetLanguage provideGetLanguage(PreferencesRepository preferenceRepository) {
+    GetLanguage provideGetLanguage(PreferenceRepository preferenceRepository) {
         return new GetLanguage(preferenceRepository);
     }
     @Provides
-    GetTheme provideGetTheme(PreferencesRepository preferenceRepository) {
+    GetTheme provideGetTheme(PreferenceRepository preferenceRepository) {
         return new GetTheme(preferenceRepository);
     }
     @Provides
-    GetWelcome provideGetWelcome(PreferencesRepository preferenceRepository) {
+    GetWelcome provideGetWelcome(PreferenceRepository preferenceRepository) {
         return new GetWelcome(preferenceRepository);
     }
 
     @Provides
-    SaveCurrency provideSaveCurrency(PreferencesRepository preferenceRepository) {
+    SaveCurrency provideSaveCurrency(PreferenceRepository preferenceRepository) {
         return new SaveCurrency(preferenceRepository);
     }
     @Provides
-    SaveLanguage provideSaveLanguage(PreferencesRepository preferenceRepository) {
+    SaveLanguage provideSaveLanguage(PreferenceRepository preferenceRepository) {
         return new SaveLanguage(preferenceRepository);
     }
     @Provides
-    SaveTheme provideSaveTheme(PreferencesRepository preferenceRepository) {
+    SaveTheme provideSaveTheme(PreferenceRepository preferenceRepository) {
         return new SaveTheme(preferenceRepository);
     }
     @Provides
-    SaveWelcome provideSaveWelcome(PreferencesRepository preferenceRepository) {
+    SaveWelcome provideSaveWelcome(PreferenceRepository preferenceRepository) {
         return new SaveWelcome(preferenceRepository);
     }
     // endregion

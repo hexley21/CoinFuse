@@ -1,7 +1,7 @@
 package com.hxl.domain.repository;
 
 
-public interface PreferencesRepository {
+public interface PreferenceRepository {
     int get(String key, int def);
     boolean get(String key, boolean def);
     String get(String key, String def);

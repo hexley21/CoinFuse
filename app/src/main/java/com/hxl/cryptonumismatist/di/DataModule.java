@@ -2,12 +2,12 @@ package com.hxl.cryptonumismatist.di;
 
 import android.content.SharedPreferences;
 
-import com.hxl.data.PreferencesRepositoryImpl;
-import com.hxl.data.repository.prefs.PreferencesLocal;
-import com.hxl.data.repository.prefs.PreferencesSource;
-import com.hxl.data.source.PreferencesLocalSource;
-import com.hxl.domain.repository.PreferencesRepository;
-import com.hxl.local.PreferencesLocalImpl;
+import com.hxl.data.PreferenceRepositoryImpl;
+import com.hxl.data.repository.prefs.PreferenceLocal;
+import com.hxl.data.repository.prefs.PreferenceSource;
+import com.hxl.data.source.PreferenceLocalSource;
+import com.hxl.domain.repository.PreferenceRepository;
+import com.hxl.local.PreferenceLocalImpl;
 
 import javax.inject.Singleton;
 
@@ -22,20 +22,20 @@ public class DataModule {
 
     @Provides
     @Singleton
-    PreferencesLocal providePreferencesLocal(SharedPreferences sharedPreferences) {
-        return new PreferencesLocalImpl(sharedPreferences);
+    PreferenceLocal providePreferencesLocal(SharedPreferences sharedPreferences) {
+        return new PreferenceLocalImpl(sharedPreferences);
     }
 
     @Provides
     @Singleton
-    PreferencesSource providePreferenceSource(PreferencesLocal preferencesLocal) {
-        return new PreferencesLocalSource(preferencesLocal);
+    PreferenceSource providePreferenceSource(PreferenceLocal preferenceLocal) {
+        return new PreferenceLocalSource(preferenceLocal);
     }
 
     @Provides
     @Singleton
-    PreferencesRepository providePreferenceRepository(PreferencesSource preferencesSource) {
-        return new PreferencesRepositoryImpl(preferencesSource);
+    PreferenceRepository providePreferenceRepository(PreferenceSource preferenceSource) {
+        return new PreferenceRepositoryImpl(preferenceSource);
 
     }
 
