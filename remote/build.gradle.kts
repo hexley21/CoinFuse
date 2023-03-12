@@ -1,5 +1,5 @@
 plugins {
-    id("java-library")
+    id(Config.Plugins.javaLibrary)
 }
 
 java {
@@ -8,14 +8,10 @@ java {
 }
 
 dependencies {
-    val retrofitVersion = "2.9.0"
-    val rxjavaVersion = "3.1.6"
-
-    /* ----- Third party Libraries ----- */
     // RxJava
-    implementation("io.reactivex.rxjava3:rxjava:$rxjavaVersion")
+    implementation(Deps.Reactive.rxJava)
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    implementation("com.squareup.retrofit2:adapter-rxjava3:$retrofitVersion")
-    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation(Deps.Retrofit.retrofit)
+    implementation(Deps.Retrofit.retrofitRxJavaAdapter)
+    implementation(Deps.Retrofit.retrofitGsonConverter)
 }
