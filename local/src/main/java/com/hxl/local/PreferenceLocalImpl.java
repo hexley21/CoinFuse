@@ -2,9 +2,9 @@ package com.hxl.local;
 
 import android.content.SharedPreferences;
 
-import com.hxl.data.repository.prefs.PreferenceLocal;
+import com.hxl.data.repository.pref.PreferenceSource;
 
-public class PreferenceLocalImpl implements PreferenceLocal {
+public class PreferenceLocalImpl implements PreferenceSource {
 
     SharedPreferences sharedPreferences;
 

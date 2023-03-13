@@ -1,6 +1,6 @@
 package com.hxl.data;
 
-import com.hxl.data.repository.prefs.PreferenceSource;
+import com.hxl.data.repository.pref.PreferenceSource;
 import com.hxl.domain.repository.PreferenceRepository;
 
 /**
