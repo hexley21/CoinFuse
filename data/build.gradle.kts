@@ -14,5 +14,5 @@ dependencies {
     // Test
     testImplementation(Deps.Test.junit)
     // IDE
-    implementation(Deps.IDE.jetbrainsAnno)
+    implementation(Deps.Others.jetbrainsAnno)
 }

@@ -46,7 +46,8 @@ public final class Deps {
         public static final String hiltCompiler = "com.google.dagger:hilt-compiler:" + Versions.hiltVersion;
     }
 
-    public static final class IDE {
+    public static final class Others {
         public static final String jetbrainsAnno  = "org.jetbrains:annotations:" + Versions.jetbrainsAnnoVersion;
+        public static final String desugar = "com.android.tools:desugar_jdk_libs:" + Versions.desugarVersion;
     }
 }

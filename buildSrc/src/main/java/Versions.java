@@ -37,6 +37,7 @@ public final class Versions {
     public static final String mockitoVersion = "5.2.0";
     // espresso
     public static final String espressoVersion = "3.5.1";
-    // jetbrains annotations
+    // others
     public static final String jetbrainsAnnoVersion = "24.0.0";
+    public static final String desugarVersion = "2.0.2";
 }
