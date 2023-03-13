@@ -1,19 +1,19 @@
 package com.hxl.domain.repository;
 
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.Response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
 
-public interface CoinRepository<T> {
+public interface CoinRepository {
 
     // Remote and Local
-    Single<Response<List<Coin>>> getCoins();
-    Single<Response<List<Coin>>> getCoins(int limit, int offset);
-    Single<Response<List<Coin>>> getCoins(String ids);
-    Single<Response<Coin>> getCoin(String id);
+    Single<List<Coin>> getCoins();
+    Single<List<Coin>> getCoins(int limit, int offset);
+    Single<List<Coin>> getCoins(String ids);
+    Single<Coin> getCoin(String id);
 
     // Local
     void saveCoins(List<Coin> coins);
