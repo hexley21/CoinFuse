@@ -1,43 +1,44 @@
 package com.hxl.domain.model;
 
 public class Coin {
-    public final String symbol;
-    public final String volumeUsd24Hr;
-    public final String marketCapUsd;
-    public final String priceUsd;
-    public final String vwap24Hr;
-    public final String changePercent24Hr;
-    public final String name;
-    public final String explorer;
-    public final String rank;
-    public final String id;
-    public final String maxSupply;
-    public final String supply;
+    public String id;
+    public int rank;
+    public String symbol;
+    public String name;
+    public int supply;
+    public int maxSupply;
+    public double marketCapUsd;
+    public double volumeUsd24Hr;
+    public double priceUsd;
+    public float changePercent24Hr;
+    public double vwap24Hr;
+    public String explorer;
 
     public Coin(
-            String symbol,
-            String volumeUsd24Hr,
-            String marketCapUsd,
-            String priceUsd,
-            String vwap24Hr,
-            String changePercent24Hr,
-            String name,
-            String explorer,
-            String rank,
             String id,
-            String maxSupply,
-            String supply){
-        this.symbol = symbol;
-        this.volumeUsd24Hr = volumeUsd24Hr;
-        this.marketCapUsd = marketCapUsd;
-        this.priceUsd = priceUsd;
-        this.vwap24Hr = vwap24Hr;
-        this.changePercent24Hr = changePercent24Hr;
-        this.name = name;
-        this.explorer = explorer;
-        this.rank = rank;
+            int rank,
+            String symbol,
+            String name,
+            int supply,
+            int maxSupply,
+            double marketCapUsd,
+            double volumeUsd24Hr,
+            double priceUsd,
+            float changePercent24Hr,
+            double vwap24Hr,
+            String explorer
+    ){
         this.id = id;
-        this.maxSupply = maxSupply;
+        this.rank = rank;
+        this.symbol = symbol;
+        this.name = name;
         this.supply = supply;
+        this.maxSupply = maxSupply;
+        this.marketCapUsd = marketCapUsd;
+        this.volumeUsd24Hr = volumeUsd24Hr;
+        this.priceUsd = priceUsd;
+        this.changePercent24Hr = changePercent24Hr;
+        this.vwap24Hr = vwap24Hr;
+        this.explorer = explorer;
     }
 }
