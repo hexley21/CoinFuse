@@ -27,7 +27,8 @@ public final class Deps {
     public static final class Retrofit {
         public static final String retrofit = "com.squareup.retrofit2:retrofit:" + Versions.retrofitVersion;
         public static final String retrofitRxJavaAdapter = "com.squareup.retrofit2:adapter-rxjava3:" + Versions.retrofitVersion;
-        public static final String retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:" + Versions.retrofitVersion;
+        public static final String retrofitMoshiConverter = "com.squareup.retrofit2:converter-moshi:" + Versions.retrofitVersion;
+        public static final String okhttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:" + Versions.okHttpVersion;
     }
 
     public static final class Hilt {
@@ -38,6 +39,7 @@ public final class Deps {
     public static final class Test {
         public static final String junit = "junit:junit:" + Versions.junitVersion;
         public static final String extJunit = "androidx.test.ext:junit:" + Versions.extJunitVersion;
+        public static final String mockito = "org.mockito:mockito-core:" + Versions.mockitoVersion;
         public static final String espresso = "androidx.test.espresso:espresso-core:" + Versions.espressoVersion;
         public static final String navigation = "androidx.navigation:navigation-testing:" + Versions.navVersion;
         public static final String hilt = "com.google.dagger:hilt-android-testing:" + Versions.hiltVersion;

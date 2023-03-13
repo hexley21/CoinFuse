@@ -8,10 +8,17 @@ java {
 }
 
 dependencies {
+    // Module
+    implementation(project(Modules.data))
+    implementation(project(Modules.domain))
     // RxJava
     implementation(Deps.Reactive.rxJava)
     // Retrofit
     implementation(Deps.Retrofit.retrofit)
     implementation(Deps.Retrofit.retrofitRxJavaAdapter)
-    implementation(Deps.Retrofit.retrofitGsonConverter)
+    implementation(Deps.Retrofit.retrofitMoshiConverter)
+    implementation(Deps.Retrofit.okhttpLoggingInterceptor)
+    // Test
+    testImplementation(Deps.Test.junit)
+    testImplementation(Deps.Test.mockito)
 }

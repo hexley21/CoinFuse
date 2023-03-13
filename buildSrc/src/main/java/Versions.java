@@ -27,11 +27,14 @@ public final class Versions {
 
     // Retrofit
     public static final String retrofitVersion = "2.9.0";
+    public static final String okHttpVersion = "4.10.0";
 
     /* Test */
     // JUnit
     public static final String junitVersion = "4.13.2";
     public static final String extJunitVersion = "1.1.5";
+    // Mockito
+    public static final String mockitoVersion = "5.2.0";
     // espresso
     public static final String espressoVersion = "3.5.1";
     // jetbrains annotations

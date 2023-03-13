@@ -77,7 +77,7 @@ dependencies {
     // Retrofit
     implementation(Deps.Retrofit.retrofit)
     implementation(Deps.Retrofit.retrofitRxJavaAdapter)
-    implementation(Deps.Retrofit.retrofitGsonConverter)
+    implementation(Deps.Retrofit.retrofitMoshiConverter)
 
     // Test
     testImplementation(Deps.Test.junit)
