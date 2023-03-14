@@ -9,14 +9,21 @@ public class CoinMapper {
                 Integer.parseInt(dto.rank),
                 dto.symbol,
                 dto.name,
-                Integer.parseInt(dto.supply),
-                Integer.parseInt(dto.maxSupply),
+                Double.parseDouble(dto.supply),
+                checkNull(dto.maxSupply),
                 Double.parseDouble(dto.marketCapUsd),
                 Double.parseDouble(dto.volumeUsd24Hr),
                 Double.parseDouble(dto.priceUsd),
                 Float.parseFloat(dto.changePercent24Hr),
-                Double.parseDouble(dto.vwap24Hr),
+                checkNull(dto.vwap24Hr),
                 dto.explorer
         );
+    }
+
+    private static Double checkNull(String resp) {
+        if (resp != null) {
+            return Double.parseDouble(resp);
+        }
+        return null;
     }
 }

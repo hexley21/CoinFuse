@@ -5,13 +5,13 @@ public class Coin {
     public int rank;
     public String symbol;
     public String name;
-    public int supply;
-    public int maxSupply;
+    public double supply;
+    public Double maxSupply; // Nullable
     public double marketCapUsd;
     public double volumeUsd24Hr;
     public double priceUsd;
     public float changePercent24Hr;
-    public double vwap24Hr;
+    public Double vwap24Hr; // Nullable
     public String explorer;
 
     public Coin(
@@ -19,13 +19,13 @@ public class Coin {
             int rank,
             String symbol,
             String name,
-            int supply,
-            int maxSupply,
+            double supply,
+            Double maxSupply,
             double marketCapUsd,
             double volumeUsd24Hr,
             double priceUsd,
             float changePercent24Hr,
-            double vwap24Hr,
+            Double vwap24Hr,
             String explorer
     ){
         this.id = id;
