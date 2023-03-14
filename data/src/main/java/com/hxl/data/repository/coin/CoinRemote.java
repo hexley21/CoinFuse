@@ -4,10 +4,12 @@ import com.hxl.domain.model.Coin;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Single;
+
 public interface CoinRemote {
 
-    List<Coin> getCoins();
-    List<Coin> getCoins(int limit, int offset);
-    List<Coin> getCoins(String ids);
-    Coin getCoin(String id);
+    Single<List<Coin>> getCoins();
+    Single<List<Coin>> getCoins(int limit, int offset);
+    Single<List<Coin>> getCoins(String ids);
+    Single<Coin> getCoin(String id);
 }

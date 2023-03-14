@@ -5,9 +5,12 @@ import com.hxl.domain.model.Coin;
 import com.hxl.remote.api.CoinService;
 import com.hxl.remote.model.CoinDTO;
 import com.hxl.remote.model.CoinMapper;
+import com.hxl.remote.model.Response;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import io.reactivex.rxjava3.core.Single;
 
 public class CoinRemoteImpl implements CoinRemote {
     private final CoinService coinService;
@@ -17,26 +20,26 @@ public class CoinRemoteImpl implements CoinRemote {
     }
 
     @Override
-    public List<Coin> getCoins() {
-        return mapFromDto(coinService.getCoins().data);
+    public Single<List<Coin>> getCoins() {
+        return coinService.getCoins().map(this::mapFromDto);
     }
 
     @Override
-    public List<Coin> getCoins(int limit, int offset) {
-        return mapFromDto(coinService.getCoins().data);
+    public Single<List<Coin>> getCoins(int limit, int offset) {
+        return coinService.getCoins().map(this::mapFromDto);
     }
 
     @Override
-    public List<Coin> getCoins(String ids) {
-        return mapFromDto(coinService.getCoins().data);
+    public Single<List<Coin>> getCoins(String ids) {
+        return coinService.getCoins().map(this::mapFromDto);
     }
 
     @Override
-    public Coin getCoin(String id) {
-        return CoinMapper.mapFromDTO(coinService.getCoin(id).data);
+    public Single<Coin> getCoin(String id) {
+        return coinService.getCoin(id).map(response -> CoinMapper.mapFromDTO(response.data));
     }
 
-    private List<Coin> mapFromDto(List<CoinDTO> dto) {
-        return dto.stream().map(CoinMapper::mapFromDTO).collect(Collectors.toList());
+    private List<Coin> mapFromDto(Response<List<CoinDTO>> response) {
+        return response.data.stream().map(CoinMapper::mapFromDTO).collect(Collectors.toList());
     }
 }
