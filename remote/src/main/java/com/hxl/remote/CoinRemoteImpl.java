@@ -14,9 +14,11 @@ import io.reactivex.rxjava3.core.Single;
 
 public class CoinRemoteImpl implements CoinRemote {
     private final CoinService coinService;
+    private final CoinMapper mapper;
 
-    public CoinRemoteImpl(CoinService coinService) {
+    public CoinRemoteImpl(CoinService coinService, CoinMapper mapper) {
         this.coinService = coinService;
+        this.mapper = mapper;
     }
 
     @Override
@@ -36,10 +38,10 @@ public class CoinRemoteImpl implements CoinRemote {
 
     @Override
     public Single<Coin> getCoin(String id) {
-        return coinService.getCoin(id).map(response -> CoinMapper.mapFromDTO(response.data));
+        return coinService.getCoin(id).map(response -> mapper.mapFromDTO(response.data));
     }
 
     private List<Coin> mapFromDto(Response<List<CoinDTO>> response) {
-        return response.data.stream().map(CoinMapper::mapFromDTO).collect(Collectors.toList());
+        return response.data.stream().map(mapper::mapFromDTO).collect(Collectors.toList());
     }
 }

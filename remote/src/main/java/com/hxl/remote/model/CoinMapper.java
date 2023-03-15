@@ -3,7 +3,12 @@ package com.hxl.remote.model;
 import com.hxl.domain.model.Coin;
 
 public class CoinMapper {
-    public static Coin mapFromDTO(CoinDTO dto) {
+
+    private final String assetLocation;
+    public CoinMapper(String url) {
+        this.assetLocation = url;
+    }
+    public Coin mapFromDTO(CoinDTO dto) {
         return new Coin(
                 dto.id,
                 Integer.parseInt(dto.rank),
@@ -16,7 +21,8 @@ public class CoinMapper {
                 Double.parseDouble(dto.priceUsd),
                 Float.parseFloat(dto.changePercent24Hr),
                 checkNull(dto.vwap24Hr),
-                dto.explorer
+                dto.explorer,
+                String.format(assetLocation, dto.symbol.toLowerCase())
         );
     }
 

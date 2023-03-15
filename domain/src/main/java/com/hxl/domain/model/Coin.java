@@ -13,6 +13,7 @@ public class Coin {
     public float changePercent24Hr;
     public Double vwap24Hr; // Nullable
     public String explorer;
+    public String img;
 
     public Coin(
             String id,
@@ -26,7 +27,8 @@ public class Coin {
             double priceUsd,
             float changePercent24Hr,
             Double vwap24Hr,
-            String explorer
+            String explorer,
+            String img
     ){
         this.id = id;
         this.rank = rank;
@@ -40,5 +42,6 @@ public class Coin {
         this.changePercent24Hr = changePercent24Hr;
         this.vwap24Hr = vwap24Hr;
         this.explorer = explorer;
+        this.img = img;
     }
 }

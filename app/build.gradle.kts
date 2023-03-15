@@ -21,6 +21,7 @@ android {
         proguardFiles(getDefaultProguardFile("proguard-android.txt"))
 
         buildConfigField("String", "API_URL", "\"" + Environments.apiUrl +"\"")
+        buildConfigField("String", "ASSET_URL", "\"" + Environments.assetUrl +"\"")
     }
 
     buildFeatures {

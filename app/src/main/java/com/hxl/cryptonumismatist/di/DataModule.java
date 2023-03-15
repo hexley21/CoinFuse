@@ -11,6 +11,7 @@ import com.hxl.domain.repository.PreferenceRepository;
 import com.hxl.local.PreferenceLocalImpl;
 import com.hxl.remote.CoinRemoteImpl;
 import com.hxl.remote.api.CoinService;
+import com.hxl.remote.model.CoinMapper;
 
 import javax.inject.Singleton;
 
@@ -41,8 +42,8 @@ public class DataModule {
     // region coin
     @Provides
     @Singleton
-    CoinRemote provideCoinRemoteSource(CoinService coinService) {
-        return new CoinRemoteImpl(coinService);
+    CoinRemote provideCoinRemoteSource(CoinService coinService, CoinMapper mapper) {
+        return new CoinRemoteImpl(coinService, mapper);
     }
 
     @Provides
