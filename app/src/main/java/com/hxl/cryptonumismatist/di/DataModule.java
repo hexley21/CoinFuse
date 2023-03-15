@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import com.hxl.data.CoinRepositoryImpl;
 import com.hxl.data.PreferenceRepositoryImpl;
 import com.hxl.data.repository.coin.CoinRemote;
-import com.hxl.data.repository.pref.PreferenceSource;
+import com.hxl.data.repository.pref.PreferenceLocal;
 import com.hxl.domain.repository.CoinRepository;
 import com.hxl.domain.repository.PreferenceRepository;
 import com.hxl.local.PreferenceLocalImpl;
@@ -26,20 +26,19 @@ public class DataModule {
     // region prefs
     @Provides
     @Singleton
-    PreferenceSource providePreferenceSource(SharedPreferences sharedPreferences) {
+    PreferenceLocal providePreferenceLocal(SharedPreferences sharedPreferences) {
         return new PreferenceLocalImpl(sharedPreferences);
     }
 
     @Provides
     @Singleton
-    PreferenceRepository providePreferenceRepository(PreferenceSource preferenceSource) {
-        return new PreferenceRepositoryImpl(preferenceSource);
+    PreferenceRepository providePreferenceRepository(PreferenceLocal preferenceLocal) {
+        return new PreferenceRepositoryImpl(preferenceLocal);
 
     }
     // endregion
 
     // region coin
-
     @Provides
     @Singleton
     CoinRemote provideCoinRemoteSource(CoinService coinService) {

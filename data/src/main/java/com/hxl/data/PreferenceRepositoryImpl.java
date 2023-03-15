@@ -1,6 +1,6 @@
 package com.hxl.data;
 
-import com.hxl.data.repository.pref.PreferenceSource;
+import com.hxl.data.repository.pref.PreferenceLocal;
 import com.hxl.domain.repository.PreferenceRepository;
 
 /**
@@ -8,39 +8,39 @@ import com.hxl.domain.repository.PreferenceRepository;
  */
 public class PreferenceRepositoryImpl implements PreferenceRepository {
 
-    private final PreferenceSource source;
+    private final PreferenceLocal localSource;
 
-    public PreferenceRepositoryImpl(PreferenceSource source) {
-        this.source = source;
+    public PreferenceRepositoryImpl(PreferenceLocal localSource) {
+        this.localSource = localSource;
     }
 
     @Override
     public int get(String key, int def) {
-        return source.get(key, def);
+        return localSource.get(key, def);
     }
 
     @Override
     public boolean get(String key, boolean def) {
-        return source.get(key, def);
+        return localSource.get(key, def);
     }
 
     @Override
     public String get(String key, String def) {
-        return source.get(key, def);
+        return localSource.get(key, def);
     }
 
     @Override
     public void save(String key, Integer pref) {
-        source.save(key, pref);
+        localSource.save(key, pref);
     }
 
     @Override
     public void save(String key, Boolean pref) {
-        source.save(key, pref);
+        localSource.save(key, pref);
     }
 
     @Override
     public void save(String key, String pref) {
-        source.save(key, pref);
+        localSource.save(key, pref);
     }
 }
