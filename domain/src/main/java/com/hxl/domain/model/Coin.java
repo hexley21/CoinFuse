@@ -44,4 +44,12 @@ public class Coin {
         this.explorer = explorer;
         this.img = img;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Coin) {
+            return this.hashCode() == obj.hashCode();
+        }
+        return false;
+    }
 }
