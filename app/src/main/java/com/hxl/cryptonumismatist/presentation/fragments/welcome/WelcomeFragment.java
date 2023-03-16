@@ -7,26 +7,31 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.databinding.FragmentWelcomeBinding;
+import com.hxl.cryptonumismatist.presentation.fragments.BaseFragment;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class WelcomeFragment extends Fragment {
+public class WelcomeFragment extends BaseFragment<FragmentWelcomeBinding, WelcomeFragmentViewModel> {
 
-    private FragmentWelcomeBinding binding;
-    private WelcomeFragmentViewModel vm;
+    @Override
+    protected FragmentWelcomeBinding setViewBinding(LayoutInflater inflater, ViewGroup container) {
+        return FragmentWelcomeBinding.inflate(inflater, container, false);
+    }
+
+    @Override
+    protected WelcomeFragmentViewModel setViewModel() {
+        return new ViewModelProvider(this).get(WelcomeFragmentViewModel.class);
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentWelcomeBinding.inflate(inflater, container, false);
-        vm = new ViewModelProvider(this).get(WelcomeFragmentViewModel.class);
         if (!vm.getWelcome.invoke()) {
             openCoinsFragment();
         }
