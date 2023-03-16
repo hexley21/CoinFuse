@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name" translatable="false">Crypto Numismatist</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
     <!-- Welcome -->
     <string name="btn_next">Next</string>
@@ -13,9 +11,9 @@
     <string name="title_explore">Explore</string>
     <string name="title_analyze">Analyze</string>
     <!-- Descriptions -->
-    <string name="desc_welcome">To Crypto Numismatist Application. \n Live cryptocurrency market cap, prices and more</string>
+    <string name="desc_welcome">Crypto Numismatist\n provides Live cryptocurrency market capitalization, prices and more</string>
     <string name="desc_explore">Price History, Markets &amp; Latest changes of every Crypto Currency.</string>
-    <string name="desc_analyze">Provided data with easy and compact design &amp; share with your friends.</string>
+    <string name="desc_analyze">Data in easy and compact readable way &amp; share latest information with your friends.</string>
     <!-- Images -->
     <drawable name="img_welcome">@drawable/logo</drawable>
     <drawable name="img_explore">@drawable/coin</drawable>
