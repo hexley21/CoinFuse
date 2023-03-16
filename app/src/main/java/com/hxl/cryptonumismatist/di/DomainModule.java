@@ -1,6 +1,12 @@
 package com.hxl.cryptonumismatist.di;
 
 
+import com.hxl.domain.interactors.coins.BookmarkCoin;
+import com.hxl.domain.interactors.coins.GetBookmarkedCoins;
+import com.hxl.domain.interactors.coins.GetCoin;
+import com.hxl.domain.interactors.coins.GetCoins;
+import com.hxl.domain.interactors.coins.SaveCoins;
+import com.hxl.domain.interactors.coins.UnBookmarkCoin;
 import com.hxl.domain.interactors.prefs.GetCurrency;
 import com.hxl.domain.interactors.prefs.GetLanguage;
 import com.hxl.domain.interactors.prefs.GetTheme;
@@ -9,6 +15,7 @@ import com.hxl.domain.interactors.prefs.SaveCurrency;
 import com.hxl.domain.interactors.prefs.SaveLanguage;
 import com.hxl.domain.interactors.prefs.SaveTheme;
 import com.hxl.domain.interactors.prefs.SaveWelcome;
+import com.hxl.domain.repository.CoinRepository;
 import com.hxl.domain.repository.PreferenceRepository;
 
 import dagger.Module;
@@ -19,6 +26,38 @@ import dagger.hilt.components.SingletonComponent;
 @Module
 @InstallIn(SingletonComponent.class)
 public class DomainModule {
+
+    // region coins
+    @Provides
+    GetCoins provideGetCoins(CoinRepository coinRepository) {
+        return new GetCoins(coinRepository);
+    }
+
+    @Provides
+    GetCoin provideGetCoin(CoinRepository coinRepository) {
+        return new GetCoin(coinRepository);
+    }
+
+    @Provides
+    SaveCoins provideSaveCoins(CoinRepository coinRepository) {
+        return new SaveCoins(coinRepository);
+    }
+
+    @Provides
+    BookmarkCoin provideBookmarkCoin(CoinRepository coinRepository) {
+        return new BookmarkCoin(coinRepository);
+    }
+
+    @Provides
+    UnBookmarkCoin provideUnBookmarkCoin(CoinRepository coinRepository) {
+        return new UnBookmarkCoin(coinRepository);
+    }
+
+    @Provides
+    GetBookmarkedCoins provideGetBookmarkedCoins(CoinRepository coinRepository) {
+        return new GetBookmarkedCoins(coinRepository);
+    }
+    // endregion
 
     // region prefs
     @Provides
