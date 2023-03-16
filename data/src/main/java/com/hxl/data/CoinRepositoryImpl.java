@@ -41,17 +41,17 @@ public class CoinRepositoryImpl implements CoinRepository {
     }
 
     @Override
-    public void bookMarkCoin(String id) {
+    public void bookmarkCoin(String id) {
         throw new UnsupportedOperationException("bookMarkCoin is not supported yet");
     }
 
     @Override
-    public void unBookMarkCoin(String id) {
+    public void unBookmarkCoin(String id) {
         throw new UnsupportedOperationException("unBookMarkCoin is not supported yet");
     }
 
     @Override
-    public Single<List<Coin>> getBookMarkedCoins() {
+    public Single<List<Coin>> getBookmarkedCoins() {
         throw new UnsupportedOperationException("getBookMarkedCoins is not supported yet");
     }
 

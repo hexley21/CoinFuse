@@ -17,7 +17,7 @@ public interface CoinRepository {
 
     // Local
     void saveCoins(List<Coin> coins);
-    void bookMarkCoin(String id);
-    void unBookMarkCoin(String id);
-    Single<List<Coin>> getBookMarkedCoins();
+    void bookmarkCoin(String id);
+    void unBookmarkCoin(String id);
+    Single<List<Coin>> getBookmarkedCoins();
 }
