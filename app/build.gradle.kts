@@ -72,6 +72,8 @@ dependencies {
 
     // UI
     implementation(Deps.UI.circleIndicator)
+    implementation(Deps.UI.glide)
+    implementation(Deps.UI.glideCompiler)
 
     // Reactive
     implementation(Deps.Reactive.rxJava)

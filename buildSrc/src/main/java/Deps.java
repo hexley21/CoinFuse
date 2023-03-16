@@ -17,6 +17,8 @@ public final class Deps {
 
     public static final class UI {
         public static final String circleIndicator = "me.relex:circleindicator:" + Versions.circleIndicatorVersion;
+        public static final String glide = "com.github.bumptech.glide:glide:" + Versions.glideVersion;
+        public static final String glideCompiler = "com.github.bumptech.glide:compiler:" + Versions.glideVersion;
     }
 
     public static final class Reactive {

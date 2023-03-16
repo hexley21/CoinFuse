@@ -14,6 +14,7 @@ public final class Versions {
 
     //UI
     public static final String circleIndicatorVersion = "2.1.6";
+    public static final String glideVersion = "4.15.0";
 
     // LifeCycle
     public static final String lifecycleVersion = "2.6.0-alpha04";
