@@ -32,6 +32,8 @@ android {
 
         getByName("release") {
             isMinifyEnabled = true
+            isShrinkResources = true
+            isDebuggable = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
 
@@ -96,4 +98,8 @@ dependencies {
     androidTestAnnotationProcessor(Deps.Test.hiltCompiler)
     // Desugar
     coreLibraryDesugaring(Deps.Others.desugar)
+    // Other
+    implementation(Deps.Others.bouncyCastleBcprov)
+    implementation(Deps.Others.bouncyCastleBcpkix)
+    implementation(Deps.Others.conscrypt)
 }

@@ -41,4 +41,6 @@ public final class Versions {
     // others
     public static final String jetbrainsAnnoVersion = "24.0.0";
     public static final String desugarVersion = "2.0.2";
+    public static final String bouncycastleVersion = "1.72";
+    public static final String conscryptVersion = "2.5.2";
 }
