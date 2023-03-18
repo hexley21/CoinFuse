@@ -43,7 +43,7 @@ jobs:
       - name: 🔨 Build with Gradle
         uses: gradle/gradle-build-action@v2.3.1
         with:
-          arguments: build
+          arguments: clean build
 
       - name: 🚀 Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
