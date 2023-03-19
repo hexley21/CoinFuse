@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class CoinRemoteImpl implements CoinRemote {
     private final CoinService coinService;
@@ -23,7 +24,9 @@ public class CoinRemoteImpl implements CoinRemote {
 
     @Override
     public Single<List<Coin>> getCoins() {
-        return coinService.getCoins().map(this::mapFromDto);
+        return coinService.getCoins()
+                .subscribeOn(Schedulers.io())
+                .map(this::mapFromDto);
     }
 
     @Override

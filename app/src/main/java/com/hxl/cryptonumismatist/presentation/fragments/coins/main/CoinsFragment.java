@@ -20,7 +20,6 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @AndroidEntryPoint
 public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsFragmentViewModel> {
@@ -46,7 +45,6 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsFragm
 
         disposable.add(
                 vm.getCoins()
-                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(coins -> {
                             coinsAdapter.setList(coins);
