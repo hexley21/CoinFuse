@@ -6,9 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hxl.cryptonumismatist.utils.Binder;
+
 import java.util.List;
 
-public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder & Binder<T>> extends RecyclerView.Adapter<VH> {
 
     protected AsyncListDiffer<T> differ;
 
@@ -20,17 +22,17 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
         differ.submitList(list);
     }
 
-    protected abstract RecyclerView.ViewHolder getViewHolder(ViewGroup parent, int viewType);
+    protected abstract VH getViewHolder(ViewGroup parent, int viewType);
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return getViewHolder(parent, viewType);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((Binder<T>) holder).bind(getList().get(position));
+    public void onBindViewHolder(@NonNull VH holder, int position) {
+        holder.bind(getList().get(position));
     }
 
     @Override
@@ -38,7 +40,4 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
         return this.getList().size();
     }
 
-    protected interface Binder<T> {
-        void bind(T item);
-    }
 }

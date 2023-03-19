@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.RequestManager;
 import com.hxl.cryptonumismatist.databinding.CoinItemBinding;
 import com.hxl.cryptonumismatist.presentation.fragments.BaseAdapter;
+import com.hxl.cryptonumismatist.utils.Binder;
 import com.hxl.domain.model.Coin;
 
 import javax.inject.Inject;
 
-public class CoinsAdapter extends BaseAdapter<Coin> {
+public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder> {
     private final RequestManager glide;
 
     @Inject
@@ -37,12 +38,12 @@ public class CoinsAdapter extends BaseAdapter<Coin> {
     }
 
     @Override
-    protected RecyclerView.ViewHolder getViewHolder(ViewGroup parent, int viewType) {
+    protected CoinViewHolder getViewHolder(ViewGroup parent, int viewType) {
         CoinItemBinding binding = CoinItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new CoinViewHolder(binding);
     }
 
-    private class CoinViewHolder extends RecyclerView.ViewHolder implements Binder<Coin> {
+    protected class CoinViewHolder extends RecyclerView.ViewHolder implements Binder<Coin> {
         CoinItemBinding binding;
         public CoinViewHolder(CoinItemBinding binding) {
             super(binding.getRoot());
@@ -58,5 +59,6 @@ public class CoinsAdapter extends BaseAdapter<Coin> {
             binding.setChange(String.format("%.2f%%", item.changePercent24Hr));
             glide.load(item.img).into(binding.imgCoin);
         }
+
     }
 }
