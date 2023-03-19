@@ -19,6 +19,7 @@ android {
 
         testInstrumentationRunner = Config.Android.testRunner
         proguardFiles(getDefaultProguardFile("proguard-android.txt"))
+        signingConfig = signingConfigs.getByName("debug")
 
         buildConfigField("String", "API_URL", "\"" + Environments.apiUrl +"\"")
         buildConfigField("String", "ASSET_URL", "\"" + Environments.assetUrl +"\"")
@@ -39,7 +40,6 @@ android {
 
         getByName("debug") {
             isMinifyEnabled = false
-            isDebuggable = true
         }
     }
     compileOptions {

@@ -1,6 +1,7 @@
 package com.hxl.cryptonumismatist.presentation.fragments.coins.main;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,9 +51,7 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsFragm
                         .subscribe(coins -> {
                             coinsAdapter.setList(coins);
                             coinsRv.setAdapter(coinsAdapter);
-                        })
-        );
-
-
+                        }, error -> Log.e("CoinsFragment", error.getMessage(), error)
+                        ));
     }
 }
