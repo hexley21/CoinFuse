@@ -4,7 +4,8 @@ name: Sync labels
 on:
   push:
     branches:
-      - main
+      - master
+      - develop
     paths:
       - .github/labels.yml
 

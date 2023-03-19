@@ -6,6 +6,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.fragments.coins.main.CoinsFragment">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_coins"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+        </androidx.recyclerview.widget.RecyclerView>
     </RelativeLayout>
 </layout>

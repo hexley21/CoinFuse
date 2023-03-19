@@ -19,10 +19,3 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
-
--adaptresourcefilenames okhttp3/internal/publicsuffix/PublicSuffixDatabase.gz
--keep class com.hxl.remote.* { *;}
--keep class com.squareup.moshi.**
--keep class com.bumptech.glide.**
--keep class org.bouncycastle.** { *; }
--keep interface org.bouncycastle.**
