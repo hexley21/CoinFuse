@@ -5,7 +5,6 @@ import com.hxl.domain.interactors.coins.BookmarkCoin;
 import com.hxl.domain.interactors.coins.GetBookmarkedCoins;
 import com.hxl.domain.interactors.coins.GetCoin;
 import com.hxl.domain.interactors.coins.GetCoins;
-import com.hxl.domain.interactors.coins.SaveCoins;
 import com.hxl.domain.interactors.coins.UnBookmarkCoin;
 import com.hxl.domain.interactors.prefs.GetCurrency;
 import com.hxl.domain.interactors.prefs.GetLanguage;
@@ -36,11 +35,6 @@ public class DomainModule {
     @Provides
     GetCoin provideGetCoin(CoinRepository coinRepository) {
         return new GetCoin(coinRepository);
-    }
-
-    @Provides
-    SaveCoins provideSaveCoins(CoinRepository coinRepository) {
-        return new SaveCoins(coinRepository);
     }
 
     @Provides
