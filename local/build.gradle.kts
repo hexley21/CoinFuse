@@ -35,6 +35,7 @@ android {
 dependencies {
     // Module
     implementation(project(Modules.data))
+    implementation(project(Modules.domain))
     
     // Room
     implementation(Deps.Room.room)
