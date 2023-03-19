@@ -98,8 +98,4 @@ dependencies {
     androidTestAnnotationProcessor(Deps.Test.hiltCompiler)
     // Desugar
     coreLibraryDesugaring(Deps.Others.desugar)
-    // Other
-    implementation(Deps.Others.bouncyCastleBcprov)
-    implementation(Deps.Others.bouncyCastleBcpkix)
-    implementation(Deps.Others.conscrypt)
 }

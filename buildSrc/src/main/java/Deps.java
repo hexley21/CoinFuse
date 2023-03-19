@@ -51,8 +51,5 @@ public final class Deps {
     public static final class Others {
         public static final String jetbrainsAnno  = "org.jetbrains:annotations:" + Versions.jetbrainsAnnoVersion;
         public static final String desugar = "com.android.tools:desugar_jdk_libs:" + Versions.desugarVersion;
-        public static final String conscrypt = "org.conscrypt:conscrypt-android:" + Versions.conscryptVersion;
-        public static final String bouncyCastleBcprov = "org.bouncycastle:bcprov-jdk18on:" + Versions.bouncycastleVersion;
-        public static final String bouncyCastleBcpkix = "org.bouncycastle:bcpkix-jdk18on:" + Versions.bouncycastleVersion;
     }
 }
