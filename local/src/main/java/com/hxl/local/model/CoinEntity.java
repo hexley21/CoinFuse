@@ -11,7 +11,7 @@ public class CoinEntity {
     @PrimaryKey
     @ColumnInfo(name = "id", typeAffinity = ColumnInfo.TEXT)
     public String id;
-    @ColumnInfo(name = "rank", typeAffinity = ColumnInfo.INTEGER)
+    @ColumnInfo(name = "rank", typeAffinity = ColumnInfo.INTEGER, index = true)
     public int rank;
     @ColumnInfo(name = "symbol", typeAffinity = ColumnInfo.TEXT)
     public String symbol;
