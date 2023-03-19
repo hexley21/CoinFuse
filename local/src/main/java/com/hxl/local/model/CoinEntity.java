@@ -9,6 +9,7 @@ import com.hxl.local.database.CoinDatabase;
 @Entity(tableName = CoinDatabase.COIN_TABLE_NAME)
 public class CoinEntity {
     @PrimaryKey
+    @ColumnInfo(name = "id", typeAffinity = ColumnInfo.TEXT)
     public String id;
     @ColumnInfo(name = "rank", typeAffinity = ColumnInfo.INTEGER)
     public int rank;
