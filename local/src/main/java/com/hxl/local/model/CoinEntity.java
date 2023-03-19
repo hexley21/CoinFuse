@@ -1,5 +1,6 @@
 package com.hxl.local.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -8,6 +9,7 @@ import com.hxl.local.database.CoinDatabase;
 
 @Entity(tableName = CoinDatabase.COIN_TABLE_NAME)
 public class CoinEntity {
+    @NonNull
     @PrimaryKey
     @ColumnInfo(name = "id", typeAffinity = ColumnInfo.TEXT)
     public String id;
@@ -36,11 +38,8 @@ public class CoinEntity {
     @ColumnInfo(name = "img", typeAffinity = ColumnInfo.TEXT)
     public String img;
 
-
-    public CoinEntity() {}
-
     public CoinEntity(
-            String id,
+            @NonNull String id,
             int rank,
             String symbol,
             String name,
