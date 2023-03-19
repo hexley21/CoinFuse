@@ -6,6 +6,7 @@ import com.hxl.domain.repository.CoinRepository;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 
 public class CoinRepositoryImpl implements CoinRepository {
@@ -36,17 +37,17 @@ public class CoinRepositoryImpl implements CoinRepository {
     }
 
     @Override
-    public void saveCoins(List<Coin> coins) {
+    public Completable saveCoins(List<Coin> coins) {
         throw new UnsupportedOperationException("saveCoins is not supported yet");
     }
 
     @Override
-    public void bookmarkCoin(String id) {
+    public Completable bookmarkCoin(String id) {
         throw new UnsupportedOperationException("bookMarkCoin is not supported yet");
     }
 
     @Override
-    public void unBookmarkCoin(String id) {
+    public Completable unBookmarkCoin(String id) {
         throw new UnsupportedOperationException("unBookMarkCoin is not supported yet");
     }
 

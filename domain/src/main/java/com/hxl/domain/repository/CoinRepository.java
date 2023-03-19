@@ -2,9 +2,9 @@ package com.hxl.domain.repository;
 
 import com.hxl.domain.model.Coin;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 
 public interface CoinRepository {
@@ -16,8 +16,8 @@ public interface CoinRepository {
     Single<Coin> getCoin(String id);
 
     // Local
-    void saveCoins(List<Coin> coins);
-    void bookmarkCoin(String id);
-    void unBookmarkCoin(String id);
+    Completable saveCoins(List<Coin> coins);
+    Completable bookmarkCoin(String id);
+    Completable unBookmarkCoin(String id);
     Single<List<Coin>> getBookmarkedCoins();
 }
