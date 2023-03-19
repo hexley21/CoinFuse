@@ -84,6 +84,13 @@ dependencies {
     implementation(Deps.Retrofit.retrofit)
     implementation(Deps.Retrofit.retrofitRxJavaAdapter)
     implementation(Deps.Retrofit.retrofitMoshiConverter)
+    // Room
+    implementation(Deps.Room.room)
+    annotationProcessor(Deps.Room.roomCompiler)
+    implementation(Deps.Room.roomRxJava)
+    implementation(Deps.Room.roomPaging)
+    testImplementation(Deps.Room.roomTesting)
+
 
     // Test
     testImplementation(Deps.Test.junit)

@@ -35,6 +35,14 @@ android {
 dependencies {
     // Module
     implementation(project(Modules.data))
+    
+    // Room
+    implementation(Deps.Room.room)
+    annotationProcessor(Deps.Room.roomCompiler)
+    implementation(Deps.Room.roomRxJava)
+    implementation(Deps.Room.roomPaging)
+    testImplementation(Deps.Room.roomTesting)
+
     // Test
     testImplementation(Deps.Test.junit)
     androidTestImplementation(Deps.Test.extJunit)

@@ -26,6 +26,9 @@ public final class Versions {
     public static final String rxJavaVersion = "3.1.6";
     public static final String rxAndroidVersion = "3.0.2";
 
+    // Room
+    public static final String roomVersion = "2.5.0";
+
     // Retrofit
     public static final String retrofitVersion = "2.9.0";
     public static final String okHttpVersion = "5.0.0-alpha.10";

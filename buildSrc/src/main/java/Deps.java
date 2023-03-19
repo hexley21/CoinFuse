@@ -33,6 +33,14 @@ public final class Deps {
         public static final String okhttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:" + Versions.okHttpVersion;
     }
 
+    public static final class Room {
+        public static final String room = "androidx.room:room-runtime:" + Versions.roomVersion;
+        public static final String roomCompiler = "androidx.room:room-compiler:" + Versions.roomVersion;
+        public static final String roomRxJava = "androidx.room:room-rxjava3:" + Versions.roomVersion;
+        public static final String roomPaging = "androidx.room:room-paging:" + Versions.roomVersion;
+        public static final String roomTesting = "androidx.room:room-testing:" + Versions.roomVersion;
+    }
+
     public static final class Hilt {
         public static final String hilt = "com.google.dagger:hilt-android:" + Versions.hiltVersion;
         public static final String hiltCompiler = "com.google.dagger:hilt-compiler:" + Versions.hiltVersion;
