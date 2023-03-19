@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.domain.model.Coin;
+import com.hxl.local.database.CoinDao;
 import com.hxl.local.database.CoinDatabase;
+import com.hxl.local.database.FavouriteDao;
 import com.hxl.local.model.CoinEntity;
 import com.hxl.local.model.CoinEntityMapper;
 import com.hxl.local.model.FavouriteEntity;
@@ -18,53 +20,56 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class CoinLocalImpl implements CoinLocal {
 
-    private final CoinDatabase coinDatabase;
+    private final CoinDao coinDao;
 
-    public CoinLocalImpl(CoinDatabase coinDatabase) {
-        this.coinDatabase = coinDatabase;
+    private final FavouriteDao favouriteDao;
+
+    public CoinLocalImpl(CoinDao coinDao, FavouriteDao favouriteDao) {
+        this.coinDao = coinDao;
+        this.favouriteDao = favouriteDao;
     }
 
     @Override
     public Single<List<Coin>> getCoins() {
-        return coinDatabase.coinDao().getCoins()
+        return coinDao.getCoins()
                 .subscribeOn(Schedulers.io())
                 .map(this::mapFromEntity);
     }
 
     @Override
     public Single<List<Coin>> getCoins(int limit, int offset) {
-        return coinDatabase.coinDao().getCoins(limit, offset)
+        return coinDao.getCoins(limit, offset)
                 .subscribeOn(Schedulers.io())
                 .map(this::mapFromEntity);
     }
 
     @Override
     public Single<List<Coin>> getCoins(String ids) {
-        return coinDatabase.coinDao().getCoins(ids)
+        return coinDao.getCoins(ids)
                 .subscribeOn(Schedulers.io())
                 .map(this::mapFromEntity);
     }
 
     @Override
     public Single<Coin> getCoin(String id) {
-        return coinDatabase.coinDao().getCoin(id)
+        return coinDao.getCoin(id)
                 .subscribeOn(Schedulers.io())
                 .map(CoinEntityMapper::mapFromEntity);
     }
 
     @Override
     public Completable bookmarkCoin(String id) {
-        return coinDatabase.favouriteDao().bookmarkCoin(new FavouriteEntity(id, System.currentTimeMillis()));
+        return favouriteDao.bookmarkCoin(new FavouriteEntity(id, System.currentTimeMillis()));
     }
 
     @Override
     public Completable unBookmarkCoin(String id) {
-        return coinDatabase.favouriteDao().unBookmarkCoin(id);
+        return favouriteDao.unBookmarkCoin(id);
     }
 
     @Override
     public Single<List<Coin>> getBookmarkedCoins() {
-        return coinDatabase.favouriteDao().getBookmarkedCoins()
+        return favouriteDao.getBookmarkedCoins()
                 .subscribeOn(Schedulers.io())
                 .map(this::favouritesToString)
                 .flatMap(this::getCoins);
@@ -72,7 +77,7 @@ public class CoinLocalImpl implements CoinLocal {
 
     @Override
     public Completable saveCoins(List<Coin> coins) {
-        return coinDatabase.coinDao().saveCoins(mapToEntity(coins));
+        return coinDao.saveCoins(mapToEntity(coins));
     }
 
     private List<Coin> mapFromEntity(@NonNull List<CoinEntity> entities) {
