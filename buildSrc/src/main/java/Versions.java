@@ -28,7 +28,7 @@ public final class Versions {
 
     // Retrofit
     public static final String retrofitVersion = "2.9.0";
-    public static final String okHttpVersion = "4.10.0";
+    public static final String okHttpVersion = "5.0.0-alpha.10";
 
     /* Test */
     // JUnit
