@@ -1,5 +1,6 @@
 package com.hxl.data;
 
+import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.repository.CoinRepository;
@@ -8,17 +9,20 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class CoinRepositoryImpl implements CoinRepository {
 
     private final CoinRemote remoteSource;
+    private final CoinLocal localSource;
 
-    public CoinRepositoryImpl(CoinRemote source) {
-        this.remoteSource = source;
+    public CoinRepositoryImpl(CoinRemote remoteSource, CoinLocal localSource) {
+        this.remoteSource = remoteSource;
+        this.localSource = localSource;
     }
     @Override
     public Single<List<Coin>> getCoins() {
-        return remoteSource.getCoins();
+        return remoteSource.getCoins().doOnSuccess(this::saveCoins);
     }
 
     @Override
@@ -38,22 +42,22 @@ public class CoinRepositoryImpl implements CoinRepository {
 
     @Override
     public Completable saveCoins(List<Coin> coins) {
-        throw new UnsupportedOperationException("saveCoins is not supported yet");
+        return localSource.saveCoins(coins);
     }
 
     @Override
     public Completable bookmarkCoin(String id) {
-        throw new UnsupportedOperationException("bookMarkCoin is not supported yet");
+        return localSource.bookmarkCoin(id);
     }
 
     @Override
     public Completable unBookmarkCoin(String id) {
-        throw new UnsupportedOperationException("unBookMarkCoin is not supported yet");
+        return localSource.unBookmarkCoin(id);
     }
 
     @Override
     public Single<List<Coin>> getBookmarkedCoins() {
-        throw new UnsupportedOperationException("getBookMarkedCoins is not supported yet");
+        return localSource.getBookmarkedCoins();
     }
 
 }

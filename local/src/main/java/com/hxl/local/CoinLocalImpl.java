@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.domain.model.Coin;
 import com.hxl.local.database.CoinDao;
-import com.hxl.local.database.CoinDatabase;
 import com.hxl.local.database.FavouriteDao;
 import com.hxl.local.model.CoinEntity;
 import com.hxl.local.model.CoinEntityMapper;
