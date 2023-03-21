@@ -1,7 +1,8 @@
 package com.hxl.data;
 
 import com.hxl.data.repository.coin.CoinLocal;
-import com.hxl.data.repository.coin.CoinRemote;
+import com.hxl.data.repository.coin.CoinSource;
+import com.hxl.data.source.coin.CoinSourceFactory;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.repository.CoinRepository;
 
@@ -12,31 +13,31 @@ import io.reactivex.rxjava3.core.Single;
 
 public class CoinRepositoryImpl implements CoinRepository {
 
-    private final CoinRemote remoteSource;
+    private final CoinSource source;
     private final CoinLocal localSource;
 
-    public CoinRepositoryImpl(CoinRemote remoteSource, CoinLocal localSource) {
-        this.remoteSource = remoteSource;
-        this.localSource = localSource;
+    public CoinRepositoryImpl(CoinSourceFactory sourceFactory) {
+        source = sourceFactory.getCoinSource(true);
+        localSource = sourceFactory.getLocalSource();
     }
     @Override
     public Single<List<Coin>> getCoins() {
-        return remoteSource.getCoins().doOnSuccess(this::saveCoins);
+        return source.getCoins();
     }
 
     @Override
     public Single<List<Coin>> getCoins(int limit, int offset) {
-        return remoteSource.getCoins(limit, offset);
+        return source.getCoins(limit, offset);
     }
 
     @Override
     public Single<List<Coin>> getCoins(String ids) {
-        return remoteSource.getCoins(ids);
+        return source.getCoins(ids);
     }
 
     @Override
     public Single<Coin> getCoin(String id) {
-        return remoteSource.getCoin(id);
+        return source.getCoin(id);
     }
 
     @Override
@@ -57,7 +58,7 @@ public class CoinRepositoryImpl implements CoinRepository {
     @Override
     public Single<List<Coin>> getBookmarkedCoins() {
         return localSource.getBookmarkedCoins()
-                .flatMap(this::getCoins);
+                .flatMap(source::getCoins);
     }
 
 }

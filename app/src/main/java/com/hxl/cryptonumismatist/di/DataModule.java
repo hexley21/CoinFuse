@@ -7,6 +7,8 @@ import com.hxl.data.PreferenceRepositoryImpl;
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
 import com.hxl.data.repository.pref.PreferenceLocal;
+import com.hxl.data.source.coin.CoinLocalSource;
+import com.hxl.data.source.coin.CoinSourceFactory;
 import com.hxl.domain.repository.CoinRepository;
 import com.hxl.domain.repository.PreferenceRepository;
 import com.hxl.local.CoinLocalImpl;
@@ -58,8 +60,14 @@ public class DataModule {
 
     @Provides
     @Singleton
-    CoinRepository provideCoinRepository(CoinRemote remoteSource, CoinLocal localSource) {
-        return new CoinRepositoryImpl(remoteSource, localSource);
+    CoinSourceFactory provideCoinSourceFactory(CoinRemote remote, CoinLocal local) {
+        return new CoinSourceFactory(remote,  local);
+    }
+
+    @Provides
+    @Singleton
+    CoinRepository provideCoinRepository(CoinSourceFactory sourceFactory) {
+        return new CoinRepositoryImpl(sourceFactory);
     }
     // endregion
 }
