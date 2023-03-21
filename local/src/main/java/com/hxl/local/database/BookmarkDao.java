@@ -25,5 +25,5 @@ public interface BookmarkDao {
     Single<List<BookmarkEntity>> getBookmarkedCoins();
 
     @Query("DELETE FROM bookmarks")
-    Completable clearFavourites();
+    Completable clearBookmarks();
 }
