@@ -9,7 +9,7 @@ import androidx.room.Room;
 import com.hxl.cryptonumismatist.BuildConfig;
 import com.hxl.local.database.CoinDao;
 import com.hxl.local.database.CoinDatabase;
-import com.hxl.local.database.FavouriteDao;
+import com.hxl.local.database.BookmarkDao;
 
 import javax.inject.Singleton;
 
@@ -41,8 +41,8 @@ public class LocalModule {
 
     @Provides
     @Singleton
-    FavouriteDao provideFavouriteDao(@NonNull CoinDatabase coinDatabase) {
-        return coinDatabase.favouriteDao();
+    BookmarkDao provideBookmarkDao(@NonNull CoinDatabase coinDatabase) {
+        return coinDatabase.bookmarkDao();
     }
 
     @Provides

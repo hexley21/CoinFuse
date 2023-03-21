@@ -9,7 +9,6 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class CoinRepositoryImpl implements CoinRepository {
 

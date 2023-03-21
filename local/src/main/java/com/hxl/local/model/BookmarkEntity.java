@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 import com.hxl.local.database.CoinDatabase;
 
 @Entity(tableName = CoinDatabase.FAVOURITE_TABLE_NAME)
-public class FavouriteEntity {
+public class BookmarkEntity {
 
     @NonNull
     @PrimaryKey
@@ -18,7 +18,7 @@ public class FavouriteEntity {
     @ColumnInfo(name = "date_added", typeAffinity = ColumnInfo.INTEGER)
     public long timeAdded;
 
-    public FavouriteEntity(@NonNull String id, long timeAdded) {
+    public BookmarkEntity(@NonNull String id, long timeAdded) {
         this.id = id;
         this.timeAdded = timeAdded;
     }

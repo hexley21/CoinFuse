@@ -12,7 +12,7 @@ import com.hxl.domain.repository.PreferenceRepository;
 import com.hxl.local.CoinLocalImpl;
 import com.hxl.local.PreferenceLocalImpl;
 import com.hxl.local.database.CoinDao;
-import com.hxl.local.database.FavouriteDao;
+import com.hxl.local.database.BookmarkDao;
 import com.hxl.remote.CoinRemoteImpl;
 import com.hxl.remote.api.CoinService;
 import com.hxl.remote.model.CoinMapper;
@@ -52,8 +52,8 @@ public class DataModule {
 
     @Provides
     @Singleton
-    CoinLocal provideCoinLocalSource(CoinDao coinDao, FavouriteDao favouriteDao) {
-        return new CoinLocalImpl(coinDao, favouriteDao);
+    CoinLocal provideCoinLocalSource(CoinDao coinDao, BookmarkDao bookmarkDao) {
+        return new CoinLocalImpl(coinDao, bookmarkDao);
     }
 
     @Provides

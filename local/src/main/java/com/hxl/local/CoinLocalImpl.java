@@ -5,10 +5,10 @@ import androidx.annotation.NonNull;
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.domain.model.Coin;
 import com.hxl.local.database.CoinDao;
-import com.hxl.local.database.FavouriteDao;
+import com.hxl.local.database.BookmarkDao;
+import com.hxl.local.model.BookmarkEntity;
 import com.hxl.local.model.CoinEntity;
 import com.hxl.local.model.CoinEntityMapper;
-import com.hxl.local.model.FavouriteEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,11 +21,11 @@ public class CoinLocalImpl implements CoinLocal {
 
     private final CoinDao coinDao;
 
-    private final FavouriteDao favouriteDao;
+    private final BookmarkDao bookmarkDao;
 
-    public CoinLocalImpl(CoinDao coinDao, FavouriteDao favouriteDao) {
+    public CoinLocalImpl(CoinDao coinDao, BookmarkDao bookmarkDao) {
         this.coinDao = coinDao;
-        this.favouriteDao = favouriteDao;
+        this.bookmarkDao = bookmarkDao;
     }
 
     @Override
@@ -58,19 +58,19 @@ public class CoinLocalImpl implements CoinLocal {
 
     @Override
     public Completable bookmarkCoin(String id) {
-        return favouriteDao.bookmarkCoin(new FavouriteEntity(id, System.currentTimeMillis()));
+        return bookmarkDao.bookmarkCoin(new BookmarkEntity(id, System.currentTimeMillis()));
     }
 
     @Override
     public Completable unBookmarkCoin(String id) {
-        return favouriteDao.unBookmarkCoin(id);
+        return bookmarkDao.unBookmarkCoin(id);
     }
 
     @Override
     public Single<List<Coin>> getBookmarkedCoins() {
-        return favouriteDao.getBookmarkedCoins()
+        return bookmarkDao.getBookmarkedCoins()
                 .subscribeOn(Schedulers.io())
-                .map(this::favouritesToString)
+                .map(this::bookmarksToString)
                 .flatMap(this::getCoins);
     }
 
@@ -87,9 +87,9 @@ public class CoinLocalImpl implements CoinLocal {
         return coins.stream().map(CoinEntityMapper::mapToEntity).collect(Collectors.toList());
     }
 
-    private String favouritesToString(List<FavouriteEntity> favourites) {
+    private String bookmarksToString(List<BookmarkEntity> bookmarks) {
         StringBuilder bld = new StringBuilder();
-        for (FavouriteEntity i: favourites) {
+        for (BookmarkEntity i: bookmarks) {
             bld.append(i.id).append(",");
         }
         bld.deleteCharAt(bld.length()-1);
