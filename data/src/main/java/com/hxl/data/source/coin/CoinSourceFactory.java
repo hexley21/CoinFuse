@@ -14,11 +14,11 @@ public class CoinSourceFactory {
         this.localSource = localSource;
     }
 
-    public CoinSource getCoinSource(boolean isOffline) {
-        if (isOffline){
-            return new CoinLocalSource(localSource);
+    public CoinSource getCoinSource(boolean isOnline) {
+        if (isOnline){
+            return new CoinRemoteSource(remoteSource);
         }
-        return new CoinRemoteSource(remoteSource);
+        return new CoinLocalSource(localSource);
     }
 
     public CoinRemote getRemoteSource() {

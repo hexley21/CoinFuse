@@ -28,7 +28,7 @@ public interface CoinDao {
     Single<CoinEntity> getCoin(String id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Completable saveCoins(List<CoinEntity> coins);
+    Completable addCoin(CoinEntity... coin);
 
     @Query("DELETE FROM coins")
     Completable clearCoins();

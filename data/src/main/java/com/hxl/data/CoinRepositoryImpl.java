@@ -13,31 +13,39 @@ import io.reactivex.rxjava3.core.Single;
 
 public class CoinRepositoryImpl implements CoinRepository {
 
-    private final CoinSource source;
+    private final CoinSourceFactory sourceFactory;
     private final CoinLocal localSource;
 
+    private CoinSource getSource() {
+        return sourceFactory.getCoinSource(localSource.isOnline());
+    }
+
     public CoinRepositoryImpl(CoinSourceFactory sourceFactory) {
-        source = sourceFactory.getCoinSource(false);
+        this.sourceFactory = sourceFactory;
         localSource = sourceFactory.getLocalSource();
     }
     @Override
     public Single<List<Coin>> getCoins() {
-        return source.getCoins();
+        Single<List<Coin>> response = getSource().getCoins();
+        if (localSource.isOnline()) {
+            return response.doAfterSuccess(this::saveCoins);
+        }
+        return response;
     }
 
     @Override
     public Single<List<Coin>> getCoins(int limit, int offset) {
-        return source.getCoins(limit, offset);
+        return getSource().getCoins(limit, offset);
     }
 
     @Override
     public Single<List<Coin>> getCoins(String ids) {
-        return source.getCoins(ids);
+        return getSource().getCoins(ids);
     }
 
     @Override
     public Single<Coin> getCoin(String id) {
-        return source.getCoin(id);
+        return getSource().getCoin(id);
     }
 
     @Override
@@ -58,7 +66,7 @@ public class CoinRepositoryImpl implements CoinRepository {
     @Override
     public Single<List<Coin>> getBookmarkedCoins() {
         return localSource.getBookmarkedCoins()
-                .flatMap(source::getCoins);
+                .flatMap(sourceFactory.getCoinSource(localSource.isOnline())::getCoins);
     }
 
 }

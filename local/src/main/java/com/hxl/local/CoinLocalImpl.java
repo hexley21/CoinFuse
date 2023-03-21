@@ -1,5 +1,7 @@
 package com.hxl.local;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.hxl.data.repository.coin.CoinLocal;
@@ -10,6 +12,7 @@ import com.hxl.local.model.BookmarkEntity;
 import com.hxl.local.model.CoinEntity;
 import com.hxl.local.model.CoinEntityMapper;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,8 +22,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class CoinLocalImpl implements CoinLocal {
 
+    private static final String TAG = " CoinLocal";
     private final CoinDao coinDao;
-
     private final BookmarkDao bookmarkDao;
 
     public CoinLocalImpl(CoinDao coinDao, BookmarkDao bookmarkDao) {
@@ -74,8 +77,23 @@ public class CoinLocalImpl implements CoinLocal {
     }
 
     @Override
+    public boolean isOnline() {
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
+            int exitValue = ipProcess.waitFor();
+            return (exitValue == 0);
+        }
+        catch (IOException | InterruptedException e) {
+            Log.e(TAG, "isOnline: ", e);
+        }
+
+        return false;
+    }
+
+    @Override
     public Completable saveCoins(List<Coin> coins) {
-        return coinDao.saveCoins(mapToEntity(coins));
+        return coinDao.addCoin(this.mapToEntity(coins).toArray(new CoinEntity[0]));
     }
 
     private List<Coin> mapFromEntity(@NonNull List<CoinEntity> entities) {

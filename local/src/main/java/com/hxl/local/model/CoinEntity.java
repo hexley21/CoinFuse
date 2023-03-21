@@ -11,31 +11,31 @@ import com.hxl.local.database.CoinDatabase;
 public class CoinEntity {
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "id", typeAffinity = ColumnInfo.TEXT)
+    @ColumnInfo(name = "id")
     public String id;
-    @ColumnInfo(name = "rank", typeAffinity = ColumnInfo.INTEGER, index = true)
+    @ColumnInfo(name = "rank")
     public int rank;
-    @ColumnInfo(name = "symbol", typeAffinity = ColumnInfo.TEXT)
+    @ColumnInfo(name = "symbol")
     public String symbol;
-    @ColumnInfo(name = "name", typeAffinity = ColumnInfo.TEXT)
+    @ColumnInfo(name = "name")
     public String name;
-    @ColumnInfo(name = "supply", typeAffinity = ColumnInfo.REAL)
+    @ColumnInfo(name = "supply")
     public double supply;
-    @ColumnInfo(name = "max_supply", typeAffinity = ColumnInfo.REAL)
+    @ColumnInfo(name = "max_supply")
     public Double maxSupply;
-    @ColumnInfo(name = "market_cap_usd", typeAffinity = ColumnInfo.REAL)
+    @ColumnInfo(name = "market_cap_usd")
     public double marketCapUsd;
-    @ColumnInfo(name = "volume_usd", typeAffinity = ColumnInfo.REAL)
+    @ColumnInfo(name = "volume_usd")
     public double volumeUsd24Hr;
-    @ColumnInfo(name = "price_usd", typeAffinity = ColumnInfo.REAL)
+    @ColumnInfo(name = "price_usd")
     public double priceUsd;
-    @ColumnInfo(name = "change_percent", typeAffinity = ColumnInfo.REAL)
+    @ColumnInfo(name = "change_percent")
     public float changePercent24Hr;
-    @ColumnInfo(name = "vwap", typeAffinity = ColumnInfo.REAL)
+    @ColumnInfo(name = "vwap")
     public Double vwap24Hr;
-    @ColumnInfo(name = "explorer", typeAffinity = ColumnInfo.TEXT)
+    @ColumnInfo(name = "explorer")
     public String explorer;
-    @ColumnInfo(name = "img", typeAffinity = ColumnInfo.TEXT)
+    @ColumnInfo(name = "img")
     public String img;
 
     public CoinEntity(
