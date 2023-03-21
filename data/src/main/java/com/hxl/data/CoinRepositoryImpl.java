@@ -17,7 +17,7 @@ public class CoinRepositoryImpl implements CoinRepository {
     private final CoinLocal localSource;
 
     public CoinRepositoryImpl(CoinSourceFactory sourceFactory) {
-        source = sourceFactory.getCoinSource(true);
+        source = sourceFactory.getCoinSource(false);
         localSource = sourceFactory.getLocalSource();
     }
     @Override
