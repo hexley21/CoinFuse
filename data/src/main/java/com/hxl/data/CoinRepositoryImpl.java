@@ -56,7 +56,8 @@ public class CoinRepositoryImpl implements CoinRepository {
 
     @Override
     public Single<List<Coin>> getBookmarkedCoins() {
-        return localSource.getBookmarkedCoins();
+        return localSource.getBookmarkedCoins()
+                .flatMap(this::getCoins);
     }
 
 }

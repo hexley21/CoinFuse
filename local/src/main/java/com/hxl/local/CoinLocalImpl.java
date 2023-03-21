@@ -67,11 +67,10 @@ public class CoinLocalImpl implements CoinLocal {
     }
 
     @Override
-    public Single<List<Coin>> getBookmarkedCoins() {
+    public Single<String> getBookmarkedCoins() {
         return bookmarkDao.getBookmarkedCoins()
                 .subscribeOn(Schedulers.io())
-                .map(this::bookmarksToString)
-                .flatMap(this::getCoins);
+                .map(this::bookmarksToString);
     }
 
     @Override
