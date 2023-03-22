@@ -17,7 +17,7 @@ public class CoinRepositoryImpl implements CoinRepository {
     private final CoinLocal localSource;
 
     private CoinSource getSource() {
-        return sourceFactory.getCoinSource(localSource.isOnline());
+        return sourceFactory.getCoinSource();
     }
 
     public CoinRepositoryImpl(CoinSourceFactory sourceFactory) {
@@ -27,7 +27,7 @@ public class CoinRepositoryImpl implements CoinRepository {
     @Override
     public Single<List<Coin>> getCoins() {
         Single<List<Coin>> response = getSource().getCoins();
-        if (localSource.isOnline()) {
+        if (sourceFactory.isOnline()) {
             return response.doAfterSuccess(this::saveCoins);
         }
         return response;
@@ -66,7 +66,7 @@ public class CoinRepositoryImpl implements CoinRepository {
     @Override
     public Single<List<Coin>> getBookmarkedCoins() {
         return localSource.getBookmarkedCoins()
-                .flatMap(sourceFactory.getCoinSource(localSource.isOnline())::getCoins);
+                .flatMap(sourceFactory.getCoinSource()::getCoins);
     }
 
 }

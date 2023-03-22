@@ -19,5 +19,4 @@ public interface CoinLocal {
     Completable bookmarkCoin(String id);
     Completable unBookmarkCoin(String id);
     Single<String> getBookmarkedCoins();
-    boolean isOnline();
 }

@@ -77,21 +77,6 @@ public class CoinLocalImpl implements CoinLocal {
     }
 
     @Override
-    public boolean isOnline() {
-        Runtime runtime = Runtime.getRuntime();
-        try {
-            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-            int exitValue = ipProcess.waitFor();
-            return (exitValue == 0);
-        }
-        catch (IOException | InterruptedException e) {
-            Log.e(TAG, "isOnline: ", e);
-        }
-
-        return false;
-    }
-
-    @Override
     public Completable saveCoins(List<Coin> coins) {
         return coinDao.addCoin(this.mapToEntity(coins).toArray(new CoinEntity[0]));
     }

@@ -4,6 +4,8 @@ import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
 import com.hxl.data.repository.coin.CoinSource;
 
+import java.io.IOException;
+
 public class CoinSourceFactory {
 
     private final CoinRemote remoteSource;
@@ -14,8 +16,8 @@ public class CoinSourceFactory {
         this.localSource = localSource;
     }
 
-    public CoinSource getCoinSource(boolean isOnline) {
-        if (isOnline){
+    public CoinSource getCoinSource() {
+        if (isOnline()){
             return new CoinRemoteSource(remoteSource);
         }
         return new CoinLocalSource(localSource);
@@ -27,5 +29,17 @@ public class CoinSourceFactory {
 
     public CoinLocal getLocalSource() {
         return localSource;
+    }
+
+    public boolean isOnline() {
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
+            int exitValue = ipProcess.waitFor();
+            return (exitValue == 0);
+        }
+        catch (IOException | InterruptedException ignored) { }
+
+        return false;
     }
 }
