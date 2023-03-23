@@ -31,7 +31,7 @@ public class CoinRemoteImpl implements CoinRemote {
 
     @Override
     public Single<List<Coin>> getCoins(int limit, int offset) {
-        return coinService.getCoins().map(this::mapFromDto);
+        return coinService.getCoins(limit, offset).map(this::mapFromDto);
     }
 
     @Override
