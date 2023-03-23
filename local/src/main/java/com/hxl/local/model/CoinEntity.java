@@ -20,17 +20,17 @@ public class CoinEntity {
     @ColumnInfo(name = "name")
     public String name;
     @ColumnInfo(name = "supply")
-    public double supply;
+    public Double supply;
     @ColumnInfo(name = "max_supply")
     public Double maxSupply;
     @ColumnInfo(name = "market_cap_usd")
-    public double marketCapUsd;
+    public Double marketCapUsd;
     @ColumnInfo(name = "volume_usd")
-    public double volumeUsd24Hr;
+    public Double volumeUsd24Hr;
     @ColumnInfo(name = "price_usd")
-    public double priceUsd;
+    public Double priceUsd;
     @ColumnInfo(name = "change_percent")
-    public float changePercent24Hr;
+    public Float changePercent24Hr;
     @ColumnInfo(name = "vwap")
     public Double vwap24Hr;
     @ColumnInfo(name = "explorer")
@@ -43,12 +43,12 @@ public class CoinEntity {
             int rank,
             String symbol,
             String name,
-            double supply,
+            Double supply,
             Double maxSupply,
-            double marketCapUsd,
-            double volumeUsd24Hr,
-            double priceUsd,
-            float changePercent24Hr,
+            Double marketCapUsd,
+            Double volumeUsd24Hr,
+            Double priceUsd,
+            Float changePercent24Hr,
             Double vwap24Hr,
             String explorer,
             String img

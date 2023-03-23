@@ -14,21 +14,28 @@ public class CoinMapper {
                 Integer.parseInt(dto.rank),
                 dto.symbol,
                 dto.name,
-                Double.parseDouble(dto.supply),
-                checkNull(dto.maxSupply),
-                Double.parseDouble(dto.marketCapUsd),
-                Double.parseDouble(dto.volumeUsd24Hr),
-                Double.parseDouble(dto.priceUsd),
-                Float.parseFloat(dto.changePercent24Hr),
-                checkNull(dto.vwap24Hr),
+                checkDouble(dto.supply),
+                checkDouble(dto.maxSupply),
+                checkDouble(dto.marketCapUsd),
+                checkDouble(dto.volumeUsd24Hr),
+                checkDouble(dto.priceUsd),
+                checkFloat(dto.changePercent24Hr),
+                checkDouble(dto.vwap24Hr),
                 dto.explorer,
                 String.format(assetLocation, dto.symbol.toLowerCase())
         );
     }
 
-    private static Double checkNull(String resp) {
+    private static Double checkDouble(String resp) {
         if (resp != null) {
             return Double.parseDouble(resp);
+        }
+        return null;
+    }
+
+    private static Float checkFloat(String resp) {
+        if (resp != null) {
+            return Float.parseFloat(resp);
         }
         return null;
     }

@@ -5,27 +5,28 @@ public class Coin {
     public int rank;
     public String symbol;
     public String name;
-    public double supply;
-    public Double maxSupply; // Nullable
-    public double marketCapUsd;
-    public double volumeUsd24Hr;
-    public double priceUsd;
-    public float changePercent24Hr;
-    public Double vwap24Hr; // Nullable
+    public Double supply;
+    public Double maxSupply;
+    public Double marketCapUsd;
+    public Double volumeUsd24Hr;
+
+    public Double priceUsd;
+    public Float changePercent24Hr;
+    public Double vwap24Hr;
     public String explorer;
     public String img;
 
     public Coin(
             String id,
-            int rank,
+            Integer rank,
             String symbol,
             String name,
-            double supply,
+            Double supply,
             Double maxSupply,
-            double marketCapUsd,
-            double volumeUsd24Hr,
-            double priceUsd,
-            float changePercent24Hr,
+            Double marketCapUsd,
+            Double volumeUsd24Hr,
+            Double priceUsd,
+            Float changePercent24Hr,
             Double vwap24Hr,
             String explorer,
             String img

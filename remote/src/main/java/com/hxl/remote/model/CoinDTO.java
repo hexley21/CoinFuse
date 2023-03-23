@@ -28,8 +28,6 @@ public class CoinDTO {
     @Json(name = "explorer")
     public String explorer;
 
-    public CoinDTO() {}
-
     public CoinDTO(
             String id,
             String rank,
