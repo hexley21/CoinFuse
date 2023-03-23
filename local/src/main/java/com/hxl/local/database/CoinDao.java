@@ -15,7 +15,7 @@ import io.reactivex.rxjava3.core.Single;
 @Dao
 public interface CoinDao {
 
-    @Query("SELECT * FROM coins")
+    @Query("SELECT * FROM coins ORDER BY rank ASC")
     Single<List<CoinEntity>> getCoins();
 
     @Query("SELECT * FROM coins WHERE id in (:ids)")

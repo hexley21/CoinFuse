@@ -28,7 +28,7 @@ public class CoinRepositoryImpl implements CoinRepository {
     public Single<List<Coin>> getCoins() {
         Single<List<Coin>> response = getSource().getCoins();
         if (sourceFactory.isOnline()) {
-            return response.doAfterSuccess(this::saveCoins);
+            return response.flatMap(x -> saveCoins(x).toSingleDefault(x));
         }
         return response;
     }
