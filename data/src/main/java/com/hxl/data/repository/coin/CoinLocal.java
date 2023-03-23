@@ -15,7 +15,7 @@ public interface CoinLocal {
     Single<Coin> getCoin(String id);
 
     // Local
-    Completable saveCoins(List<Coin> coins);
+    Completable saveCoins(Coin... coins);
     Completable bookmarkCoin(String id);
     Completable unBookmarkCoin(String id);
     Single<String> getBookmarkedCoins();

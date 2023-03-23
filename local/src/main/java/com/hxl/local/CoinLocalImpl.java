@@ -1,18 +1,16 @@
 package com.hxl.local;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.domain.model.Coin;
-import com.hxl.local.database.CoinDao;
 import com.hxl.local.database.BookmarkDao;
+import com.hxl.local.database.CoinDao;
 import com.hxl.local.model.BookmarkEntity;
 import com.hxl.local.model.CoinEntity;
 import com.hxl.local.model.CoinEntityMapper;
 
-import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,16 +75,16 @@ public class CoinLocalImpl implements CoinLocal {
     }
 
     @Override
-    public Completable saveCoins(List<Coin> coins) {
-        return coinDao.addCoin(this.mapToEntity(coins).toArray(new CoinEntity[0]));
+    public Completable saveCoins(Coin... coins) {
+        return coinDao.addCoin(mapToEntity(coins));
     }
 
     private List<Coin> mapFromEntity(@NonNull List<CoinEntity> entities) {
         return entities.stream().map(CoinEntityMapper::mapFromEntity).collect(Collectors.toList());
     }
 
-    private List<CoinEntity> mapToEntity(@NonNull List<Coin> coins) {
-        return coins.stream().map(CoinEntityMapper::mapToEntity).collect(Collectors.toList());
+    private CoinEntity[] mapToEntity(@NonNull Coin... coins) {
+        return Arrays.stream(coins).map(CoinEntityMapper::mapToEntity).toArray(CoinEntity[]::new);
     }
 
     private String bookmarksToString(List<BookmarkEntity> bookmarks) {

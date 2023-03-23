@@ -17,6 +17,7 @@ public interface CoinRepository {
 
     // Local
     Completable saveCoins(List<Coin> coins);
+    Completable saveCoin(Coin coin);
     Completable bookmarkCoin(String id);
     Completable unBookmarkCoin(String id);
     Single<List<Coin>> getBookmarkedCoins();
