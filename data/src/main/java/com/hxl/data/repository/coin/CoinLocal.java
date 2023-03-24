@@ -11,12 +11,13 @@ public interface CoinLocal {
     // Remote and Local
     Single<List<Coin>> getCoins();
     Single<List<Coin>> getCoins(int limit, int offset);
-    Single<List<Coin>> getCoins(String ids);
+    Single<List<Coin>> getCoins(List<String> ids);
     Single<Coin> getCoin(String id);
 
     // Local
     Completable saveCoins(Coin... coins);
     Completable bookmarkCoin(String id);
     Completable unBookmarkCoin(String id);
-    Single<String> getBookmarkedCoins();
+    Single<List<Coin>> getBookmarkedCoins();
+    Single<List<String>> getBookmarkedCoinIds();
 }

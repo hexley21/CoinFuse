@@ -31,20 +31,27 @@ public class CoinRemoteImpl implements CoinRemote {
 
     @Override
     public Single<List<Coin>> getCoins(int limit, int offset) {
-        return coinService.getCoins(limit, offset).map(this::mapFromDto);
+        return coinService.getCoins(limit, offset)
+                .subscribeOn(Schedulers.io())
+                .map(this::mapFromDto);
     }
 
     @Override
-    public Single<List<Coin>> getCoins(String ids) {
-        return coinService.getCoins(ids).map(this::mapFromDto);
+    public Single<List<Coin>> getCoins(List<String> ids) {
+        return coinService.getCoins(String.join(",", ids))
+                .subscribeOn(Schedulers.io())
+                .map(this::mapFromDto);
     }
 
     @Override
     public Single<Coin> getCoin(String id) {
-        return coinService.getCoin(id).map(response -> mapper.mapFromDTO(response.data));
+        return coinService.getCoin(id)
+                .subscribeOn(Schedulers.io())
+                .map(response -> mapper.mapFromDTO(response.data));
     }
 
     private List<Coin> mapFromDto(Response<List<CoinDTO>> response) {
-        return response.data.stream().map(mapper::mapFromDTO).collect(Collectors.toList());
+        return response.data.stream()
+                .map(mapper::mapFromDTO).collect(Collectors.toList());
     }
 }

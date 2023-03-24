@@ -23,7 +23,8 @@ public class CoinRepositoryImpl implements CoinRepository {
     @Override
     public Single<List<Coin>> getCoins() {
         if (isOnline()) {
-            return remoteSource.getCoins().flatMap(x -> saveCoins(x).toSingleDefault(x));
+            return remoteSource.getCoins()
+                    .flatMap(x -> saveCoins(x).toSingleDefault(x));
         }
         return localSource.getCoins();
     }
@@ -31,15 +32,17 @@ public class CoinRepositoryImpl implements CoinRepository {
     @Override
     public Single<List<Coin>> getCoins(int limit, int offset) {
         if (isOnline()) {
-            return remoteSource.getCoins(limit, offset).flatMap(x -> saveCoins(x).toSingleDefault(x));
+            return remoteSource.getCoins(limit, offset)
+                    .flatMap(x -> saveCoins(x).toSingleDefault(x));
         }
         return localSource.getCoins(limit, offset);
     }
 
     @Override
-    public Single<List<Coin>> getCoins(String ids) {
+    public Single<List<Coin>> getCoins(List<String> ids) {
         if (isOnline()) {
-            return remoteSource.getCoins(ids).flatMap(x -> saveCoins(x).toSingleDefault(x));
+            return remoteSource.getCoins(ids)
+                    .flatMap(x -> saveCoins(x).toSingleDefault(x));
         }
         return localSource.getCoins(ids);
     }
@@ -47,7 +50,8 @@ public class CoinRepositoryImpl implements CoinRepository {
     @Override
     public Single<Coin> getCoin(String id) {
         if (isOnline()) {
-            return remoteSource.getCoin(id).flatMap(x -> saveCoin(x).toSingleDefault(x));
+            return remoteSource.getCoin(id)
+                    .flatMap(x -> saveCoin(x).toSingleDefault(x));
         }
         return localSource.getCoin(id);
     }
@@ -62,7 +66,6 @@ public class CoinRepositoryImpl implements CoinRepository {
         return localSource.saveCoins(coin);
     }
 
-
     @Override
     public Completable bookmarkCoin(String id) {
         return localSource.bookmarkCoin(id);
@@ -75,11 +78,11 @@ public class CoinRepositoryImpl implements CoinRepository {
 
     @Override
     public Single<List<Coin>> getBookmarkedCoins() {
-        Single<String> bookmarks = localSource.getBookmarkedCoins();
         if (isOnline()) {
-            return bookmarks.flatMap(remoteSource::getCoins);
+            return localSource.getBookmarkedCoinIds()
+                    .flatMap(remoteSource::getCoins);
         }
-        return bookmarks.flatMap(localSource::getCoins);
+        return localSource.getBookmarkedCoins();
     }
 
     private boolean isOnline() {

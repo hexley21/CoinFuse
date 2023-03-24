@@ -18,8 +18,8 @@ public interface CoinDao {
     @Query("SELECT * FROM coins ORDER BY rank ASC")
     Single<List<CoinEntity>> getCoins();
 
-    @Query("SELECT * FROM coins WHERE id in (:ids)")
-    Single<List<CoinEntity>> getCoins(String ids);
+    @Query("SELECT * FROM coins WHERE id IN (:ids) ORDER BY rank ASC")
+    Single<List<CoinEntity>> getCoins(List<String> ids);
 
     @Query("SELECT * FROM coins WHERE rank > :offset ORDER BY rank ASC LIMIT :limit")
     Single<List<CoinEntity>> getCoins(int limit, int offset);

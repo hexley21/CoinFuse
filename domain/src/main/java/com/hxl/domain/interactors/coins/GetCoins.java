@@ -18,7 +18,7 @@ public class GetCoins {
         return repository.getCoins();
     }
 
-    public Single<List<Coin>> invoke(String ids) {
+    public Single<List<Coin>> invoke(List<String> ids) {
         return repository.getCoins(ids);
     }
 

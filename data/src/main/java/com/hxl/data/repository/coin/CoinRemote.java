@@ -10,6 +10,6 @@ public interface CoinRemote {
 
     Single<List<Coin>> getCoins();
     Single<List<Coin>> getCoins(int limit, int offset);
-    Single<List<Coin>> getCoins(String ids);
+    Single<List<Coin>> getCoins(List<String> ids);
     Single<Coin> getCoin(String id);
 }

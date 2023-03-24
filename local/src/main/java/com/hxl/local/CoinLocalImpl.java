@@ -20,7 +20,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class CoinLocalImpl implements CoinLocal {
 
-    private static final String TAG = " CoinLocal";
     private final CoinDao coinDao;
     private final BookmarkDao bookmarkDao;
 
@@ -44,7 +43,7 @@ public class CoinLocalImpl implements CoinLocal {
     }
 
     @Override
-    public Single<List<Coin>> getCoins(String ids) {
+    public Single<List<Coin>> getCoins(List<String> ids) {
         return coinDao.getCoins(ids)
                 .subscribeOn(Schedulers.io())
                 .map(this::mapFromEntity);
@@ -68,10 +67,17 @@ public class CoinLocalImpl implements CoinLocal {
     }
 
     @Override
-    public Single<String> getBookmarkedCoins() {
+    public Single<List<Coin>> getBookmarkedCoins() {
         return bookmarkDao.getBookmarkedCoins()
                 .subscribeOn(Schedulers.io())
-                .map(this::bookmarksToString);
+                .map(this::mapFromEntity);
+    }
+
+    @Override
+    public Single<List<String>> getBookmarkedCoinIds() {
+        return bookmarkDao.getBookmarkedCoinIds()
+                .subscribeOn(Schedulers.io())
+                .map(x -> x.stream().map(y -> y.id).collect(Collectors.toList()));
     }
 
     @Override
@@ -87,12 +93,4 @@ public class CoinLocalImpl implements CoinLocal {
         return Arrays.stream(coins).map(CoinEntityMapper::mapToEntity).toArray(CoinEntity[]::new);
     }
 
-    private String bookmarksToString(List<BookmarkEntity> bookmarks) {
-        StringBuilder bld = new StringBuilder();
-        for (BookmarkEntity i: bookmarks) {
-            bld.append(i.id).append(",");
-        }
-        bld.deleteCharAt(bld.length()-1);
-        return bld.toString();
-    }
 }
