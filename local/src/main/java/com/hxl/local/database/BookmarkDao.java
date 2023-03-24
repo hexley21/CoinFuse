@@ -19,13 +19,17 @@ public interface BookmarkDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable bookmarkCoin(BookmarkEntity entity);
 
-    @Query("DELETE FROM bookmarks WHERE id = :id")
+    @Query("DELETE FROM bookmarks " +
+            "WHERE id = :id")
     Completable unBookmarkCoin(String id);
 
-    @Query("SELECT * FROM bookmarks ORDER BY date_added ASC")
+    @Query("SELECT * FROM bookmarks " +
+            "ORDER BY date_added ASC")
     Single<List<BookmarkEntity>> getBookmarkedCoinIds();
 
-    @Query("SELECT coins.* FROM coins INNER JOIN bookmarks on coins.id == bookmarks.id")
+    @Query("SELECT coins.* FROM coins " +
+            "INNER JOIN bookmarks on coins.id == bookmarks.id " +
+            "ORDER BY coins.id ASC")
     Single<List<CoinEntity>> getBookmarkedCoins();
 
     @Query("DELETE FROM bookmarks")
