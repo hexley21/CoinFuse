@@ -1,6 +1,5 @@
 package com.hxl.cryptonumismatist.presentation.fragments.coins.main;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -14,6 +13,8 @@ import com.hxl.cryptonumismatist.databinding.CoinItemBinding;
 import com.hxl.cryptonumismatist.presentation.fragments.BaseAdapter;
 import com.hxl.cryptonumismatist.utils.Binder;
 import com.hxl.domain.model.Coin;
+
+import java.text.DecimalFormat;
 
 import javax.inject.Inject;
 
@@ -50,15 +51,36 @@ public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder>
             this.binding = binding;
         }
 
-        @SuppressLint("DefaultLocale")
         @Override
         public void bind(Coin item) {
             binding.setName(item.name);
             binding.setSymbol(item.symbol);
-            binding.setPrice(String.format("%,.2f$", item.priceUsd));
-            binding.setChange(String.format("%.2f%%", item.changePercent24Hr));
+            binding.setPrice(formatDouble(item.priceUsd, "$"));
+            binding.setChange(formatFloat(item.changePercent24Hr, "%"));
             glide.load(item.img).into(binding.imgCoin);
         }
 
+    }
+
+    private static String formatDouble(Double num, String suffix) {
+        if (num != null) {
+            DecimalFormat df = new DecimalFormat("#");
+            df.setMinimumFractionDigits(2);
+            if (num > 1.0d) {
+                df.setMaximumFractionDigits(2);
+                return df.format(num) + suffix;
+            }
+            df.setMaximumFractionDigits(6);
+            return df.format(num) + suffix;
+        }
+        return "-";
+    }
+
+    private static String formatFloat(Float num, String suffix) {
+        if (num != null) {
+            DecimalFormat df = new DecimalFormat("#.##");
+                return df.format(num) + suffix;
+        }
+        return "-";
     }
 }
