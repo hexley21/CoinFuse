@@ -48,6 +48,11 @@ public class CoinRepositoryImpl implements CoinRepository {
     }
 
     @Override
+    public Single<List<Coin>> searchCoins(String key) {
+        return null;
+    }
+
+    @Override
     public Single<Coin> getCoin(String id) {
         if (isOnline()) {
             return remoteSource.getCoin(id)

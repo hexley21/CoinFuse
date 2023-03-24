@@ -13,6 +13,7 @@ public interface CoinRepository {
     Single<List<Coin>> getCoins();
     Single<List<Coin>> getCoins(int limit, int offset);
     Single<List<Coin>> getCoins(List<String> ids);
+    Single<List<Coin>> searchCoins(String key);
     Single<Coin> getCoin(String id);
 
     // Local
