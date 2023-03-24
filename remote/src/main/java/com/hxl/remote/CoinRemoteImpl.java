@@ -44,6 +44,13 @@ public class CoinRemoteImpl implements CoinRemote {
     }
 
     @Override
+    public Single<List<Coin>> searchCoins(String key) {
+        return coinService.searchCoins(key)
+                .subscribeOn(Schedulers.io())
+                .map(this::mapFromDto);
+    }
+
+    @Override
     public Single<Coin> getCoin(String id) {
         return coinService.getCoin(id)
                 .subscribeOn(Schedulers.io())
