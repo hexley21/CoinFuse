@@ -1,4 +1,7 @@
 public final class Deps {
+    public static final class Java {
+        public static final String javaxInject = "javax.inject:javax.inject:" + Versions.javaxVersion;
+    }
     public static final class Core {
         public static final String appCompat = "androidx.appcompat:appcompat:" + Versions.appCompatVersion;
         public static final String material = "com.google.android.material:material:" + Versions.materialVersion;
