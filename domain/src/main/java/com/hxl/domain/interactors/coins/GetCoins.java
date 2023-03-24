@@ -5,11 +5,14 @@ import com.hxl.domain.repository.CoinRepository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.rxjava3.core.Single;
 
 public class GetCoins {
     private final CoinRepository repository;
 
+    @Inject
     public GetCoins(CoinRepository repository) {
         this.repository = repository;
     }

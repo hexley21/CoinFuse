@@ -6,10 +6,13 @@ import com.hxl.domain.repository.PreferenceRepository;
 
 import org.jetbrains.annotations.NotNull;
 
+import javax.inject.Inject;
+
 public class SaveLanguage {
 
     private final PreferenceRepository preferenceRepository;
 
+    @Inject
     public SaveLanguage(PreferenceRepository preferenceRepository) {
         this.preferenceRepository = preferenceRepository;
     }
