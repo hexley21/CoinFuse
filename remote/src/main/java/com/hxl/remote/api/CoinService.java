@@ -18,6 +18,8 @@ public interface CoinService {
     Single<Response<List<CoinDTO>>> getCoins(@Query("limit") int limit, @Query("offset") int offset);
     @GET("assets/")
     Single<Response<List<CoinDTO>>> getCoins(@Query("ids") String ids);
+    @GET("assets/")
+    Single<Response<List<CoinDTO>>> searchCoins(@Query("search") String search);
     @GET("assets/{id}")
     Single<Response<CoinDTO>> getCoin(@Path("id") String id);
 }
