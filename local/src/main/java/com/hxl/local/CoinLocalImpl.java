@@ -50,6 +50,13 @@ public class CoinLocalImpl implements CoinLocal {
     }
 
     @Override
+    public Single<List<Coin>> searchCoins(String key) {
+        return coinDao.searchCoins(key)
+                .subscribeOn(Schedulers.io())
+                .map(this::mapFromEntity);
+    }
+
+    @Override
     public Single<Coin> getCoin(String id) {
         return coinDao.getCoin(id)
                 .subscribeOn(Schedulers.io())
