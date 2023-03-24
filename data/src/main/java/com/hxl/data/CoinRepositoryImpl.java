@@ -23,7 +23,7 @@ public class CoinRepositoryImpl implements CoinRepository {
     @Override
     public Single<List<Coin>> getCoins() {
         if (isOnline()) {
-            return remoteSource.getCoins()
+            return remoteSource.getCoins(2000, 0)
                     .flatMap(x -> saveCoins(x).toSingleDefault(x));
         }
         return localSource.getCoins();
@@ -49,7 +49,10 @@ public class CoinRepositoryImpl implements CoinRepository {
 
     @Override
     public Single<List<Coin>> searchCoins(String key) {
-        return null;
+        if (isOnline()) {
+            return remoteSource.searchCoins(key);
+        }
+        return localSource.searchCoins(key);
     }
 
     @Override
