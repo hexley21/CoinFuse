@@ -25,7 +25,7 @@ public interface BookmarkDao {
     @Query("SELECT * FROM bookmarks ORDER BY date_added ASC")
     Single<List<BookmarkEntity>> getBookmarkedCoinIds();
 
-    @Query("SELECT * FROM coins INNER JOIN bookmarks on coins.id == bookmarks.id")
+    @Query("SELECT coins.* FROM coins INNER JOIN bookmarks on coins.id == bookmarks.id")
     Single<List<CoinEntity>> getBookmarkedCoins();
 
     @Query("DELETE FROM bookmarks")
