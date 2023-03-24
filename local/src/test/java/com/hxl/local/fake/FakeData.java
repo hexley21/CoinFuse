@@ -24,6 +24,7 @@ public class FakeData {
                 randomFloat(),  // changePercent24Hr
                 randomDouble(), // vwap24Hr
                 randomName(),   // explorer
+                randomLong(),   // timestamp
                 randomName()    // img
         );
     }
@@ -42,6 +43,7 @@ public class FakeData {
                 randomFloat(),  // changePercent24Hr
                 randomDouble(), // vwap24Hr
                 randomName(),   // explorer
+                randomLong(),   // timestamp
                 randomName()    // img
         );
     }
@@ -51,6 +53,9 @@ public class FakeData {
     }
     private int randomInt() {
         return random.nextInt();
+    }
+    private long randomLong() {
+        return random.nextLong();
     }
     private double randomDouble() {
         return random.nextDouble();
