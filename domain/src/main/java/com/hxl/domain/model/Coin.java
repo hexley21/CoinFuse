@@ -14,6 +14,7 @@ public class Coin {
     public Float changePercent24Hr;
     public Double vwap24Hr;
     public String explorer;
+    public Long timestamp;
     public String img;
 
     public Coin(
@@ -29,6 +30,7 @@ public class Coin {
             Float changePercent24Hr,
             Double vwap24Hr,
             String explorer,
+            Long timestamp,
             String img
     ){
         this.id = id;
@@ -43,6 +45,7 @@ public class Coin {
         this.changePercent24Hr = changePercent24Hr;
         this.vwap24Hr = vwap24Hr;
         this.explorer = explorer;
+        this.timestamp = timestamp;
         this.img = img;
     }
 

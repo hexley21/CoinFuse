@@ -12,14 +12,14 @@ public class BookmarkEntity {
 
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "id", typeAffinity = ColumnInfo.TEXT)
+    @ColumnInfo(name = "id")
     public String id;
 
-    @ColumnInfo(name = "date_added", typeAffinity = ColumnInfo.INTEGER)
-    public long timeAdded;
+    @ColumnInfo(name = "timestamp")
+    public long timestamp;
 
-    public BookmarkEntity(@NonNull String id, long timeAdded) {
+    public BookmarkEntity(@NonNull String id, long timestamp) {
         this.id = id;
-        this.timeAdded = timeAdded;
+        this.timestamp = timestamp;
     }
 }

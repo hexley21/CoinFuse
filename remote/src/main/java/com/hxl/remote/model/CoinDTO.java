@@ -27,6 +27,7 @@ public class CoinDTO {
     public String vwap24Hr;
     @Json(name = "explorer")
     public String explorer;
+    public Long timestamp;
 
     public CoinDTO(
             String id,
@@ -40,7 +41,8 @@ public class CoinDTO {
             String priceUsd,
             String changePercent24Hr,
             String vwap24Hr,
-            String explorer
+            String explorer,
+            Long timestamp
     ){
         this.id = id;
         this.rank = rank;
@@ -54,5 +56,6 @@ public class CoinDTO {
         this.changePercent24Hr = changePercent24Hr;
         this.vwap24Hr = vwap24Hr;
         this.explorer = explorer;
+        this.timestamp = timestamp;
     }
 }

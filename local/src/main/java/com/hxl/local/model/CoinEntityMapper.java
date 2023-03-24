@@ -20,6 +20,7 @@ public class CoinEntityMapper {
                 entity.changePercent24Hr,
                 entity.vwap24Hr,
                 entity.explorer,
+                entity.timestamp,
                 entity.img
         );
     }
@@ -38,6 +39,7 @@ public class CoinEntityMapper {
                 coin.changePercent24Hr,
                 coin.vwap24Hr,
                 coin.explorer,
+                coin.timestamp,
                 coin.img
         );
     }

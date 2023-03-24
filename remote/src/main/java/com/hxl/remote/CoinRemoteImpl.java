@@ -47,11 +47,11 @@ public class CoinRemoteImpl implements CoinRemote {
     public Single<Coin> getCoin(String id) {
         return coinService.getCoin(id)
                 .subscribeOn(Schedulers.io())
-                .map(response -> mapper.mapFromDTO(response.data));
+                .map(r -> mapper.mapFromDTO(r.data, r.timestamp));
     }
 
     private List<Coin> mapFromDto(Response<List<CoinDTO>> response) {
         return response.data.stream()
-                .map(mapper::mapFromDTO).collect(Collectors.toList());
+                .map(r -> mapper.mapFromDTO(r, r.timestamp)).collect(Collectors.toList());
     }
 }

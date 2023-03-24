@@ -35,6 +35,8 @@ public class CoinEntity {
     public Double vwap24Hr;
     @ColumnInfo(name = "explorer")
     public String explorer;
+    @ColumnInfo(name = "timestamp")
+    public Long timestamp ;
     @ColumnInfo(name = "img")
     public String img;
 
@@ -51,6 +53,7 @@ public class CoinEntity {
             Float changePercent24Hr,
             Double vwap24Hr,
             String explorer,
+            Long timestamp,
             String img
     ){
         this.id = id;
@@ -65,6 +68,7 @@ public class CoinEntity {
         this.changePercent24Hr = changePercent24Hr;
         this.vwap24Hr = vwap24Hr;
         this.explorer = explorer;
+        this.timestamp = timestamp;
         this.img = img;
     }
 }

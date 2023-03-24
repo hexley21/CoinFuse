@@ -8,7 +8,7 @@ public class CoinMapper {
     public CoinMapper(String url) {
         this.assetLocation = url;
     }
-    public Coin mapFromDTO(CoinDTO dto) {
+    public Coin mapFromDTO(CoinDTO dto, Long timestamp) {
         return new Coin(
                 dto.id,
                 Integer.parseInt(dto.rank),
@@ -22,6 +22,7 @@ public class CoinMapper {
                 checkFloat(dto.changePercent24Hr),
                 checkDouble(dto.vwap24Hr),
                 dto.explorer,
+                timestamp,
                 String.format(assetLocation, dto.symbol.toLowerCase())
         );
     }
