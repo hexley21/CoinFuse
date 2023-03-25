@@ -3,9 +3,10 @@ package com.hxl.remote.fake;
 import java.util.Random;
 import java.util.UUID;
 
-public class TestConstants {
+public class RemoteTestConstants {
     public static final String ASSET_URL = "https://assets/%s.png";
     public static final String ID = "bitcoin";
+    public static final String KEY = "bitcoin,ethereum";
     public static final int SIZE = 5;
     public static final int LIMIT = 3;
     public static final int OFFSET = 12;

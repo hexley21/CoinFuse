@@ -1,11 +1,6 @@
 package com.hxl.remote;
 
-import static com.hxl.remote.fake.TestConstants.ASSET_URL;
-import static com.hxl.remote.fake.TestConstants.ID;
-import static com.hxl.remote.fake.TestConstants.LIMIT;
-import static com.hxl.remote.fake.TestConstants.OFFSET;
-import static com.hxl.remote.fake.TestConstants.SIZE;
-import static com.hxl.remote.fake.TestConstants.TIMESTAMP;
+import static com.hxl.remote.fake.RemoteTestConstants.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.spy;

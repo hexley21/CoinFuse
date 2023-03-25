@@ -6,7 +6,7 @@ import com.hxl.remote.model.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.hxl.remote.fake.TestConstants.*;
+import static com.hxl.remote.fake.RemoteTestConstants.*;
 
 public class FakeRemoteDataFactory {
 

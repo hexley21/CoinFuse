@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static com.hxl.remote.fake.TestConstants.*;
+import static com.hxl.remote.fake.RemoteTestConstants.*;
 import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
