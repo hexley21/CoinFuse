@@ -9,25 +9,24 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static com.hxl.remote.fake.TestConstants.*;
 import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CoinDTOMapperTest {
 
     CoinDTOMapper mapper;
-    Long timestamp;
 
     @Before
     public void setUp() {
         mapper = new CoinDTOMapper("https://assets/%s.png");
-        timestamp = System.currentTimeMillis();
     }
 
     @Test
     public void mapDtoToModelReturnsConvertedObject() {
         // Arrange
         CoinDTO dto = new CoinDTO(
-                "bitcoin",
+                ID,
                 "1",
                 "BTC",
                 "Bitcoin",
@@ -41,7 +40,7 @@ public class CoinDTOMapperTest {
                 "bitcoin.com"
         );
         Coin coin = new Coin(
-                "bitcoin",
+                ID,
                 1,
                 "BTC",
                 "Bitcoin",
@@ -53,11 +52,11 @@ public class CoinDTOMapperTest {
                 6F,
                 7D,
                 "bitcoin.com",
-                timestamp,
-                "https://assets/btc.png"
+                TIMESTAMP,
+                String.format(ASSET_URL, "btc")
         );
         // Act
-        Coin result = mapper.mapFromDTO(dto, timestamp);
+        Coin result = mapper.mapFromDTO(dto, TIMESTAMP);
         // Assert
         assertEquals(result.id, coin.id);
         assertEquals(result.rank, coin.rank);
