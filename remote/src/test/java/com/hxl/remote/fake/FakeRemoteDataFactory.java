@@ -37,22 +37,6 @@ public class FakeRemoteDataFactory {
         }
         return fakeData;
     }
-    private static CoinDTO getCoinDTO() {
-        return new CoinDTO(
-                randomName(),   //  id
-                randomInt(),    //  rank
-                randomName(),   //  symbol
-                randomName(),   //  name
-                randomDouble(), //  supply
-                randomDouble(), //  maxSupply
-                randomDouble(), //  marketCapUsd
-                randomDouble(), //  volumeUsd24Hr
-                randomDouble(), //  priceUsd
-                randomFloat(),  //  changePercent24Hr
-                randomDouble(), //  vwap24Hr
-                randomName()    //  explorer
-        );
-    }
 
     private static CoinDTO getCoinDTO(String id) {
         return new CoinDTO(
@@ -69,6 +53,10 @@ public class FakeRemoteDataFactory {
                 randomDouble(), //  vwap24Hr
                 randomName()    //  explorer
         );
+    }
+
+    private static CoinDTO getCoinDTO() {
+        return getCoinDTO(randomName());
     }
 
 }
