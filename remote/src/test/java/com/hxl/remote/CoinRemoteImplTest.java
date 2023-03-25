@@ -102,7 +102,7 @@ public class CoinRemoteImplTest {
                 .assertNoErrors()
                 .assertValue(r -> r.id.equals(ID));
 
-        verify(coinService).getCoins();
+        verify(coinService).getCoin(ID);
         verify(mapper, times(1)).mapFromDTO(any(), eq(TIMESTAMP));
     }
 }
