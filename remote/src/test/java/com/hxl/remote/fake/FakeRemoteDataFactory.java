@@ -14,13 +14,25 @@ public class FakeRemoteDataFactory {
         return new Response<>(getFakeData(size), TIMESTAMP);
     }
 
+    public static Response<List<CoinDTO>> getResponse(String[] ids) {
+        return new Response<>(getFakeData(ids), TIMESTAMP);
+    }
+
     public static Response<CoinDTO> getResponse(String id) {
         return new Response<>(getCoinDTO(id), TIMESTAMP);
     }
 
+    private static List<CoinDTO> getFakeData(String[] ids) {
+        List<CoinDTO> fakeData = new ArrayList<>();
+        for (String id : ids) {
+            fakeData.add(getCoinDTO(id));
+        }
+        return fakeData;
+    }
+
     private static List<CoinDTO> getFakeData(int size) {
         List<CoinDTO> fakeData = new ArrayList<>();
-        for (int i = 1; i <= size; i++) {
+        for (int i = 0; i < size; i++) {
             fakeData.add(getCoinDTO());
         }
         return fakeData;

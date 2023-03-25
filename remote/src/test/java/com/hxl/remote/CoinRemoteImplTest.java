@@ -49,6 +49,7 @@ public class CoinRemoteImplTest {
                 .assertValue(r -> r.size() == SIZE)
                 .assertValue(r -> r.get(0).timestamp == TIMESTAMP);
 
+        verify(coinService).getCoins();
         verify(mapper, times(SIZE)).mapFromDTO(any(), eq(TIMESTAMP));
     }
 
@@ -64,7 +65,28 @@ public class CoinRemoteImplTest {
                 .awaitCount(1)
                 .assertNoErrors()
                 .assertValue(r -> r.size() == LIMIT);
+
+        verify(coinService).getCoins(LIMIT, OFFSET);
         verify(mapper, times(LIMIT)).mapFromDTO(any(), eq(TIMESTAMP));
+    }
+
+    @Test
+    public void testSearchCoin() {
+        // Arrange
+        String[] keyArray = KEY.split(",");
+        Single<Response<List<CoinDTO>>> response = Single.just(FakeRemoteDataFactory.getResponse(keyArray));
+        when(coinService.searchCoins(KEY)).thenReturn(response);
+        // Act
+        Single<List<Coin>> coin = coinSource.searchCoins(KEY);
+        // Assert
+        coin.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(r -> r.size() == KEY_RESPONSE_SIZE)
+                .assertValue(r -> r.get(0).id.equals(keyArray[0]));
+
+        verify(coinService).searchCoins(KEY);
+        verify(mapper, times(KEY_RESPONSE_SIZE)).mapFromDTO(any(), eq(TIMESTAMP));
     }
 
     @Test
@@ -79,6 +101,8 @@ public class CoinRemoteImplTest {
                 .awaitCount(1)
                 .assertNoErrors()
                 .assertValue(r -> r.id.equals(ID));
+
+        verify(coinService).getCoins();
         verify(mapper, times(1)).mapFromDTO(any(), eq(TIMESTAMP));
     }
 }
