@@ -5,7 +5,6 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.hxl.domain.model.Coin;
 import com.hxl.local.model.CoinEntity;
 
 import java.util.List;

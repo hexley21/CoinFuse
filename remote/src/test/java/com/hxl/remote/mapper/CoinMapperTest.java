@@ -1,7 +1,7 @@
 package com.hxl.remote.mapper;
 
 import com.hxl.domain.model.Coin;
-import com.hxl.remote.fake.FakeData;
+import com.hxl.remote.fake.FakeRemoteData;
 import com.hxl.remote.model.CoinDTO;
 import com.hxl.remote.model.CoinMapper;
 
@@ -23,7 +23,7 @@ public class CoinMapperTest {
     @Test
     public void mapDtoToModelReturnsConvertedObject() {
         // Arrange
-        CoinDTO dto = new FakeData().getFakeCoin();
+        CoinDTO dto = new FakeRemoteData().getFakeCoin();
         // Act
         Coin coin = mapper.mapFromDTO(dto, System.currentTimeMillis());
         // Assert
