@@ -2,10 +2,10 @@ package com.hxl.remote.model;
 
 import com.hxl.domain.model.Coin;
 
-public class CoinMapper {
+public class CoinDTOMapper {
 
     private final String assetLocation;
-    public CoinMapper(String url) {
+    public CoinDTOMapper(String url) {
         this.assetLocation = url;
     }
     public Coin mapFromDTO(CoinDTO dto, Long timestamp) {

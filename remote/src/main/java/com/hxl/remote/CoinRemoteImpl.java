@@ -4,7 +4,7 @@ import com.hxl.data.repository.coin.CoinRemote;
 import com.hxl.domain.model.Coin;
 import com.hxl.remote.api.CoinService;
 import com.hxl.remote.model.CoinDTO;
-import com.hxl.remote.model.CoinMapper;
+import com.hxl.remote.model.CoinDTOMapper;
 import com.hxl.remote.model.Response;
 
 import java.util.List;
@@ -15,9 +15,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class CoinRemoteImpl implements CoinRemote {
     private final CoinService coinService;
-    private final CoinMapper mapper;
+    private final CoinDTOMapper mapper;
 
-    public CoinRemoteImpl(CoinService coinService, CoinMapper mapper) {
+    public CoinRemoteImpl(CoinService coinService, CoinDTOMapper mapper) {
         this.coinService = coinService;
         this.mapper = mapper;
     }
@@ -59,6 +59,6 @@ public class CoinRemoteImpl implements CoinRemote {
 
     private List<Coin> mapFromDto(Response<List<CoinDTO>> response) {
         return response.data.stream()
-                .map(r -> mapper.mapFromDTO(r, r.timestamp)).collect(Collectors.toList());
+                .map(r -> mapper.mapFromDTO(r, response.timestamp)).collect(Collectors.toList());
     }
 }

@@ -3,21 +3,21 @@ package com.hxl.remote.mapper;
 import com.hxl.domain.model.Coin;
 import com.hxl.remote.fake.FakeRemoteData;
 import com.hxl.remote.model.CoinDTO;
-import com.hxl.remote.model.CoinMapper;
+import com.hxl.remote.model.CoinDTOMapper;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class CoinMapperTest {
+public class CoinDTOMapperTest {
 
     String assetUrl = "https://source/%s.img";
-    CoinMapper mapper;
+    CoinDTOMapper mapper;
 
     @Before
     public void setUp() {
-        mapper = new CoinMapper(assetUrl);
+        mapper = new CoinDTOMapper(assetUrl);
     }
 
     @Test
