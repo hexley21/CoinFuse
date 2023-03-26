@@ -12,8 +12,8 @@ public class FakeLocalDataFactory {
 
     public static List<Coin> getFakeCoins(String[] ids) {
         List<Coin> fakeCoins = new ArrayList<>();
-        for (String id : ids) {
-            fakeCoins.add(getCoin(id));
+        for (int i = 0; i < ids.length; i++) {
+            fakeCoins.add(getCoin(ids[i], i));
         }
         return fakeCoins;
     }
@@ -28,8 +28,8 @@ public class FakeLocalDataFactory {
 
     public static List<CoinEntity> getFakeData(String[] ids) {
         List<CoinEntity> fakeData = new ArrayList<>();
-        for (String id : ids) {
-            fakeData.add(getCoinEntity(id));
+        for (int i = 0; i < ids.length; i++) {
+            fakeData.add(getCoinEntity(ids[i], i));
         }
         return fakeData;
     }
@@ -42,10 +42,10 @@ public class FakeLocalDataFactory {
         return fakeData;
     }
 
-    public static CoinEntity getCoinEntity(String id) {
+    public static CoinEntity getCoinEntity(String id, int rank) {
         return new CoinEntity(
                 id,             // id
-                randomInt(),    // rank
+                rank,           // rank
                 randomName(),   // symbol
                 randomName(),   // name
                 randomDouble(), // supply
@@ -61,10 +61,10 @@ public class FakeLocalDataFactory {
         );
     }
 
-    public static Coin getCoin(String id) {
+    public static Coin getCoin(String id, int rank) {
         return new Coin(
                 id,             // id
-                randomInt(),    // rank
+                rank,           // rank
                 randomName(),   // symbol
                 randomName(),   // name
                 randomDouble(), // supply
@@ -81,10 +81,10 @@ public class FakeLocalDataFactory {
     }
 
     public static CoinEntity getCoinEntity() {
-        return getCoinEntity(randomName());
+        return getCoinEntity(randomName(), randomInt());
     }
 
     public static Coin getCoin() {
-        return getCoin(randomName());
+        return getCoin(randomName(), randomInt());
     }
 }
