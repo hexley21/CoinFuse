@@ -61,8 +61,8 @@ public class CoinLocalImplTest {
         Single<List<Coin>> getCoins = coinSource.getCoins();
         // Assert
         saveCoins.test()
-                .assertNoErrors()
-                .assertComplete();
+                .assertComplete()
+                .assertNoErrors();
         getCoins.test()
                 .awaitCount(1)
                 .assertNoErrors()
@@ -85,8 +85,8 @@ public class CoinLocalImplTest {
         Single<List<Coin>> getCoins = coinSource.getCoins(LIMIT, OFFSET);
         // Assert
         saveCoins.test()
-                .assertNoErrors()
-                .assertComplete();
+                .assertComplete()
+                .assertNoErrors();
         getCoins.test()
                 .awaitCount(1)
                 .assertNoErrors()
@@ -109,8 +109,8 @@ public class CoinLocalImplTest {
         Single<List<Coin>> getCoins = coinSource.getCoins(IDS);
         // Assert
         saveCoins.test()
-                .assertNoErrors()
-                .assertComplete();
+                .assertComplete()
+                .assertNoErrors();
         getCoins.test()
                 .awaitCount(1)
                 .assertNoErrors()
@@ -132,8 +132,8 @@ public class CoinLocalImplTest {
         Single<List<Coin>> searchCoins = coinSource.searchCoins(ID);
         // Assert
         saveCoins.test()
-                .assertNoErrors()
-                .assertComplete();
+                .assertComplete()
+                .assertNoErrors();
         searchCoins.test()
                 .awaitCount(1)
                 .assertNoErrors()
@@ -156,8 +156,8 @@ public class CoinLocalImplTest {
         Single<Coin> getCoin = coinSource.getCoin(ID);
         // Assert
         saveCoins.test()
-                .assertNoErrors()
-                .assertComplete();
+                .assertComplete()
+                .assertNoErrors();
         getCoin.test()
                 .awaitCount(1)
                 .assertNoErrors()
@@ -171,8 +171,8 @@ public class CoinLocalImplTest {
         Completable bookmarkCoin = coinSource.bookmarkCoin(ID);
         // Assert
         bookmarkCoin.test()
-                .assertNoErrors()
-                .assertComplete();
+                .assertComplete()
+                .assertNoErrors();
         getBookmarkedCoin.test()
                 .awaitCount(1)
                 .assertNoErrors()
@@ -189,15 +189,15 @@ public class CoinLocalImplTest {
         Completable unBookmarkCoin = coinSource.unBookmarkCoin(ID);
         // Assert
         bookmarkCoin.test()
-                .assertNoErrors()
-                .assertComplete();
+                .assertComplete()
+                .assertNoErrors();
         getBookmarkedCoin.test()
                 .awaitCount(1)
                 .assertNoErrors()
                 .assertValue(d -> d.size() == 1);
         unBookmarkCoin.test()
-                .assertNoErrors()
-                .assertComplete();
+                .assertComplete()
+                .assertNoErrors();
         getBookmarkedCoin.test()
                 .awaitCount(1)
                 .assertNoErrors()
@@ -218,8 +218,8 @@ public class CoinLocalImplTest {
         for (String i: IDS) {
             bookmarkDao.bookmarkCoin(new BookmarkEntity(i, System.currentTimeMillis()))
                     .test()
-                    .assertNoErrors()
-                    .assertComplete();
+                    .assertComplete()
+                    .assertNoErrors();
         }
         getBookmarkedCoins.test()
                 .awaitCount(1)
@@ -242,8 +242,8 @@ public class CoinLocalImplTest {
         for (String i: KEYS) {
             bookmarkDao.bookmarkCoin(new BookmarkEntity(i, System.currentTimeMillis()))
                     .test()
-                    .assertNoErrors()
-                    .assertComplete();
+                    .assertComplete()
+                    .assertNoErrors();
         }
         getBookmarkedIds.test()
                 .awaitCount(1)
