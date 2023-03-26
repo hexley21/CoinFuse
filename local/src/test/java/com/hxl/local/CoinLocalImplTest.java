@@ -67,7 +67,7 @@ public class CoinLocalImplTest {
                 .awaitCount(1)
                 .assertNoErrors()
                 .assertValue(d -> {
-                    for (int i = 0; i < d.size(); i++) {
+                    for (int i = 0; i < KEYS.length; i++) {
                         if (!d.get(i).id.equals(KEYS[i])){
                             return false;
                         }
@@ -225,7 +225,6 @@ public class CoinLocalImplTest {
                 .awaitCount(1)
                 .assertNoErrors()
                 .assertValue(d -> {
-                    System.out.println(d.size());
                     for (int i = 0; i < IDS.size(); i++) {
                         if (!d.get(i).id.equals(IDS.get(IDS.size()-1-i))) {
                             return false;
@@ -259,4 +258,28 @@ public class CoinLocalImplTest {
                 });
     }
 
+    @Test
+    public void save_coins_inserts_coins() {
+        // Arrange
+        Coin[] coins = FakeLocalDataFactory.getFakeCoins(KEYS).toArray(new Coin[0]);
+        // Act
+        Single<List<CoinEntity>> getCoins = coinDao.getCoins();
+        Completable saveCoins = coinSource.saveCoins(coins);
+        // Assert
+        saveCoins.test()
+                .assertComplete()
+                .assertNoErrors();
+        getCoins.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(d -> d.size() == KEYS.length)
+                .assertValue(d -> {
+                    for (int i = 0; i < KEYS.length; i++) {
+                        if (!d.get(i).id.equals(KEYS[i])) {
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+    }
 }
