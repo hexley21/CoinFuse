@@ -52,7 +52,7 @@ public class CoinLocalImplTest {
     }
 
     @Test
-    public void get_coins_returns_data_from_database() {
+    public void get_coins_reads_data() {
         // Arrange
         List<CoinEntity> entities = FakeLocalDataFactory.getFakeData(KEYS);
         // Act
@@ -76,7 +76,7 @@ public class CoinLocalImplTest {
     }
 
     @Test
-    public void get_coins_by_limit_and_offset_returns_data_from_database() {
+    public void get_coins_by_limit_and_offset_reads_data() {
         // Arrange
         List<CoinEntity> entities = FakeLocalDataFactory.getFakeData(KEYS);
         // Act
@@ -100,7 +100,7 @@ public class CoinLocalImplTest {
     }
 
     @Test
-    public void get_coins_by_ids_returns_data_from_database() {
+    public void get_coins_by_ids_reads_data() {
         // Arrange
         List<CoinEntity> entities = FakeLocalDataFactory.getFakeData(KEYS);
         // Act
@@ -123,17 +123,17 @@ public class CoinLocalImplTest {
                 });
     }
     @Test
-    public void search_coins_returns_data_from_database() {
+    public void search_coins_reads_data() {
         // Arrange
         List<CoinEntity> entities = FakeLocalDataFactory.getFakeData(KEYS);
         // Act
         Completable saveCoins = coinDao.addCoin(entities.toArray(new CoinEntity[0]));
-        Single<List<Coin>> getCoins = coinSource.searchCoins(ID);
+        Single<List<Coin>> searchCoins = coinSource.searchCoins(ID);
         // Assert
         saveCoins.test()
                 .assertNoErrors()
                 .assertComplete();
-        getCoins.test()
+        searchCoins.test()
                 .awaitCount(1)
                 .assertNoErrors()
                 .assertValue(d -> {
@@ -147,17 +147,17 @@ public class CoinLocalImplTest {
     }
 
     @Test
-    public void get_coin_by_id_returns_data_from_database() {
+    public void get_coin_by_id_reads_data() {
         // Arrange
         List<CoinEntity> entities = FakeLocalDataFactory.getFakeData(KEYS);
         // Act
         Completable saveCoins = coinDao.addCoin(entities.toArray(new CoinEntity[0]));
-        Single<Coin> getCoins = coinSource.getCoin(ID);
+        Single<Coin> getCoin = coinSource.getCoin(ID);
         // Assert
         saveCoins.test()
                 .assertNoErrors()
                 .assertComplete();
-        getCoins.test()
+        getCoin.test()
                 .awaitCount(1)
                 .assertNoErrors()
                 .assertValue(d -> d.id.equals(ID));
