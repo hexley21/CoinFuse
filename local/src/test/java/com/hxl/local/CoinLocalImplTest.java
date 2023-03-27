@@ -23,7 +23,6 @@ import org.robolectric.annotation.Config;
 import static com.hxl.local.fake.LocalTestConstants.*;
 
 import java.util.List;
-
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 
@@ -103,11 +102,10 @@ public class CoinLocalImplTest {
     @Test
     public void get_coins_by_ids_reads_data() {
         // Arrange
-        List<String> ids = IDS();
         List<CoinEntity> entities = FakeLocalDataFactory.getFakeData(KEYS);
         // Act
         Completable saveCoins = coinDao.addCoin(entities.toArray(new CoinEntity[0]));
-        Single<List<Coin>> getCoins = coinSource.getCoins(ids);
+        Single<List<Coin>> getCoins = coinSource.getCoins(IDS);
         // Assert
         saveCoins.test()
                 .assertComplete()
@@ -116,8 +114,8 @@ public class CoinLocalImplTest {
                 .awaitCount(1)
                 .assertNoErrors()
                 .assertValue(d -> {
-                    for (int i = 0; i < ids.size(); i++) {
-                        if (!d.get(i).id.equals(ids.get(i))){
+                    for (int i = 0; i < IDS_LENGTH; i++) {
+                        if (!d.get(i).id.equals(IDS.get(i))){
                             return false;
                         }
                     }
@@ -208,17 +206,14 @@ public class CoinLocalImplTest {
     @Test
     public void get_bookmarked_coins_reads_coins() {
         // Arrange
-        List<String> ids = IDS();
-        List<CoinEntity> entities = FakeLocalDataFactory.getFakeData(KEYS);
+        List<CoinEntity> coinEntities = FakeLocalDataFactory.getFakeData(KEYS);
         // Act
-        Completable saveCoins = coinDao.addCoin(entities.toArray(new CoinEntity[0]));
+        Completable saveCoins = coinDao.addCoin(coinEntities.toArray(new CoinEntity[0]));
         Single<List<Coin>> getBookmarkedCoins = coinSource.getBookmarkedCoins();
         // Assert
-        saveCoins.test()
-                .assertNoErrors()
-                .assertComplete();
-        for (String i: ids) {
-            bookmarkDao.bookmarkCoin(new BookmarkEntity(i, System.currentTimeMillis()))
+        saveCoins.test().assertNoErrors();
+        for (int i = 0; i < IDS_LENGTH; i++) {
+            bookmarkDao.bookmarkCoin(new BookmarkEntity(IDS.get(i), TIMESTAMP*i))
                     .test()
                     .assertComplete()
                     .assertNoErrors();
@@ -227,8 +222,8 @@ public class CoinLocalImplTest {
                 .awaitCount(1)
                 .assertNoErrors()
                 .assertValue(d -> {
-                    for (int i = 0; i < ids.size(); i++) {
-                        if (!d.get(i).id.equals(ids.get(ids.size()-1-i))) {
+                    for (int i = 0; i < IDS_LENGTH; i++) {
+                        if (!d.get(i).id.equals(IDS.get(IDS_LENGTH-i-1))) {
                             return false;
                         }
                     }
@@ -238,23 +233,25 @@ public class CoinLocalImplTest {
     @Test
     public void get_bookmarked_coin_ids_reads_ids() {
         // Arrange
-        List<String> ids = IDS();
+        List<CoinEntity> coinEntities = FakeLocalDataFactory.getFakeData(KEYS);
         // Act
-        Single<List<String>> getBookmarkedIds = coinSource.getBookmarkedCoinIds();
+        Completable saveCoins = coinDao.addCoin(coinEntities.toArray(new CoinEntity[0]));
+        Single<List<String>> getBookmarkedCoinIds = coinSource.getBookmarkedCoinIds();
         // Assert
-        for (String i: ids) {
-            bookmarkDao.bookmarkCoin(new BookmarkEntity(i, System.currentTimeMillis()))
+        saveCoins.test().assertNoErrors();
+
+        for (int i = 0; i < IDS_LENGTH; i++) {
+            bookmarkDao.bookmarkCoin(new BookmarkEntity(IDS.get(i), TIMESTAMP * i))
                     .test()
                     .assertComplete()
                     .assertNoErrors();
         }
-        getBookmarkedIds.test()
+        getBookmarkedCoinIds.test()
                 .awaitCount(1)
                 .assertNoErrors()
-                .assertValue(d -> d.size() == ids.size())
                 .assertValue(d -> {
-                    for (int i = 0; i < ids.size(); i++) {
-                        if (!d.get(i).equals(ids.get(ids.size()-1-i))) {
+                    for (int i = 0; i < IDS_LENGTH; i++) {
+                        if (!d.get(i).equals(IDS.get(IDS_LENGTH-i-1))) {
                             return false;
                         }
                     }
