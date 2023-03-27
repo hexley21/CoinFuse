@@ -100,4 +100,34 @@ public class PreferenceLocalImplTest {
         // Arrange
         assertEquals(VAL_STR, result);
     }
+
+    @Test
+    public void get_int_returns_default() {
+        // Arrange
+        int result;
+        // Act
+        result = preferenceLocal.get(KEY_INT, DEF_INT);
+        // Assert
+        assertEquals(DEF_INT, result);
+    }
+
+    @Test
+    public void get_bool_returns_default() {
+        // Arrange
+        boolean result;
+        // Act
+        result = preferenceLocal.get(KEY_BOOL, DEF_BOOL);
+        // Assert
+        assertEquals(DEF_BOOL, result);
+    }
+
+    @Test
+    public void get_string_returns_default() {
+        // Arrange
+        String result;
+        // Act
+        result = preferenceLocal.get(KEY_STR, DEF_STR);
+        // Arrange
+        assertEquals(DEF_STR, result);
+    }
 }
