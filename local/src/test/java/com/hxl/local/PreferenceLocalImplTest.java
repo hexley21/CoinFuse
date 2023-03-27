@@ -37,28 +37,67 @@ public class PreferenceLocalImplTest {
 
     @Test
     public void get_int_returns_value() {
+        // Arrange
+        int result;
         // Act
         sharedPreferences.edit().putInt(KEY_INT, VAL_INT).apply();
-        int result = preferenceLocal.get(KEY_INT, DEF_INT);
+        result = preferenceLocal.get(KEY_INT, DEF_INT);
         // Assert
-        assertEquals(result, VAL_INT);
+        assertEquals(VAL_INT, result);
     }
 
     @Test
     public void get_bool_returns_value() {
+        // Arrange
+        boolean result;
         // Act
         sharedPreferences.edit().putBoolean(KEY_BOOL, VAL_BOOL).apply();
-        boolean result = preferenceLocal.get(KEY_BOOL, DEF_BOOL);
+        result = preferenceLocal.get(KEY_BOOL, DEF_BOOL);
         // Assert
-        assertEquals(result, VAL_BOOL);
+        assertEquals(VAL_BOOL, result);
     }
 
     @Test
     public void get_string_returns_value() {
-        // ACT
+        // Arrange
+        String result;
+        // Act
         sharedPreferences.edit().putString(KEY_STR, VAL_STR).apply();
-        String result = preferenceLocal.get(KEY_STR, DEF_STR);
-        // ARRANGE
-        assertEquals(result, VAL_STR);
+        result = preferenceLocal.get(KEY_STR, DEF_STR);
+        // Arrange
+        assertEquals(VAL_STR, result);
+    }
+
+    @Test
+    public void save_int_inserts_value() {
+        // Arrange
+        int result;
+        // Act
+        preferenceLocal.save(KEY_INT, VAL_INT);
+        result = sharedPreferences.getInt(KEY_INT, DEF_INT);
+        // Arrange
+        assertEquals(VAL_INT, result);
+    }
+
+    @Test
+    public void save_bool_inserts_value() {
+        // Arrange
+        boolean result;
+        // Act
+        preferenceLocal.save(KEY_BOOL, VAL_BOOL);
+        result = sharedPreferences.getBoolean(KEY_BOOL, DEF_BOOL);
+        // Arrange
+        assertEquals(VAL_BOOL, result);
+    }
+
+    @Test
+    public void save_string_inserts_value() {
+        // Arrange
+        String result;
+        // Act
+        preferenceLocal.save(KEY_STR, VAL_STR);
+        result = sharedPreferences.getString(KEY_STR, DEF_STR);
+        // Arrange
+        assertEquals(VAL_STR, result);
     }
 }
