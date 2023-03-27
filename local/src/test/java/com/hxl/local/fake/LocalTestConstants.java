@@ -14,7 +14,14 @@ public class LocalTestConstants {
     public static final String ASSET_URL = "https://assets/%s.png";
     public static final String ID = "bitcoin";
     public static final String[] KEYS = new String[] {"bitcoin", "bitcoin-gold", "ethereum", "monero", "cardano", "solana"};
-    public static List<String> IDS = Arrays.stream(Arrays.copyOfRange(KEYS, OFFSET, OFFSET+LIMIT)).collect(Collectors.toList());
+    public static List<String> IDS() {
+        ArrayList<String> ids = new ArrayList<>();
+        ids.add("ethereum");
+        ids.add("monero");
+        ids.add("cardano");
+        ids.add("solana");
+        return ids;
+    }
 
 
     private static final Random random = new Random();
