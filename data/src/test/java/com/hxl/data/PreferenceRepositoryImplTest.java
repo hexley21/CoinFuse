@@ -9,7 +9,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import static com.hxl.data.DataTestConstants.*;
+import static com.hxl.data.fakes.DataTestConstants.*;
 
 import com.hxl.data.repository.pref.PreferenceLocal;
 
