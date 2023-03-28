@@ -1,10 +1,10 @@
 package com.hxl.data;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -21,7 +21,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PreferenceRepositoryImplTest {
-
 
     @Mock
     PreferenceLocal preferenceLocal;
@@ -60,5 +59,35 @@ public class PreferenceRepositoryImplTest {
         // Assert
         assertEquals(VAL_STR, strPref);
         verify(preferenceLocal, times(1)).get(anyString(), anyString());
+    }
+
+    @Test
+    public void save_int_inserts_value() {
+        // Arrange
+        doNothing().when(preferenceLocal).save(anyString(), anyInt());
+        // Act
+        repository.save(KEY_INT, DEF_INT);
+        // Assert
+        verify(preferenceLocal, times(1)).save(anyString(), anyInt());
+    }
+
+    @Test
+    public void save_bool_inserts_value() {
+        // Arrange
+        doNothing().when(preferenceLocal).save(anyString(), anyBoolean());
+        // Act
+        repository.save(KEY_BOOL, DEF_BOOL);
+        // Assert
+        verify(preferenceLocal, times(1)).save(anyString(), anyBoolean());
+    }
+
+    @Test
+    public void save_string_inserts_value() {
+        // Arrange
+        doNothing().when(preferenceLocal).save(anyString(), anyString());
+        // Act
+        repository.save(KEY_STR, DEF_STR);
+        // Assert
+        verify(preferenceLocal, times(1)).save(anyString(), anyString());
     }
 }
