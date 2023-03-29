@@ -1,4 +1,4 @@
-package com.hxl.interactors.fakes;
+package com.hxl.fakes;
 
 import com.hxl.domain.model.Coin;
 

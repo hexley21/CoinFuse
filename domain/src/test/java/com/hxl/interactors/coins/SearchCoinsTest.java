@@ -4,9 +4,9 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import static com.hxl.interactors.fakes.DomainTestConstants.SIZE;
-import static com.hxl.interactors.fakes.DomainTestConstants.ID;
-import static com.hxl.interactors.fakes.FakeDomainFactory.getFakeCoins;
+import static com.hxl.fakes.DomainTestConstants.SIZE;
+import static com.hxl.fakes.DomainTestConstants.ID;
+import static com.hxl.fakes.FakeDomainFactory.getFakeCoins;
 
 import com.hxl.domain.interactors.coins.SearchCoins;
 import com.hxl.domain.model.Coin;

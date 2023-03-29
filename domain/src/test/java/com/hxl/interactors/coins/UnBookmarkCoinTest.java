@@ -1,6 +1,6 @@
 package com.hxl.interactors.coins;
 
-import static com.hxl.interactors.fakes.DomainTestConstants.ID;
+import static com.hxl.fakes.DomainTestConstants.ID;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;

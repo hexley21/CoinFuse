@@ -1,4 +1,4 @@
-package com.hxl.interactors.fakes;
+package com.hxl.fakes;
 
 public class DomainTestConstants {
     public static final String ID = "bitcoin";

@@ -5,8 +5,8 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import static com.hxl.interactors.fakes.FakeDomainFactory.*;
-import static com.hxl.interactors.fakes.DomainTestConstants.*;
+import static com.hxl.fakes.FakeDomainFactory.*;
+import static com.hxl.fakes.DomainTestConstants.*;
 
 import com.hxl.domain.interactors.coins.GetCoins;
 import com.hxl.domain.model.Coin;

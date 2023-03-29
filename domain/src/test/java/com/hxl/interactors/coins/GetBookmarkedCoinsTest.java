@@ -1,7 +1,7 @@
 package com.hxl.interactors.coins;
 
-import static com.hxl.interactors.fakes.DomainTestConstants.SIZE;
-import static com.hxl.interactors.fakes.FakeDomainFactory.getFakeCoins;
+import static com.hxl.fakes.DomainTestConstants.SIZE;
+import static com.hxl.fakes.FakeDomainFactory.getFakeCoins;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
