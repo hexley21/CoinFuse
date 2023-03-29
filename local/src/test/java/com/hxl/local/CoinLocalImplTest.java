@@ -52,7 +52,7 @@ public class CoinLocalImplTest {
     }
 
     @Test
-    public void get_coins_reads_data() {
+    public void getCoinsReadsDataFomDatabase() {
         // Arrange
         List<CoinEntity> entities = FakeLocalDataFactory.getFakeData(KEYS);
         // Act
@@ -76,7 +76,7 @@ public class CoinLocalImplTest {
     }
 
     @Test
-    public void get_coins_by_limit_and_offset_reads_data() {
+    public void getCoinsByLimitAndOffsetReadsDataFromDatabase() {
         // Arrange
         List<CoinEntity> entities = FakeLocalDataFactory.getFakeData(KEYS);
         // Act
@@ -100,7 +100,7 @@ public class CoinLocalImplTest {
     }
 
     @Test
-    public void get_coins_by_ids_reads_data() {
+    public void getCoinsByIdsReadsData() {
         // Arrange
         List<CoinEntity> entities = FakeLocalDataFactory.getFakeData(KEYS);
         // Act
@@ -123,7 +123,7 @@ public class CoinLocalImplTest {
                 });
     }
     @Test
-    public void search_coins_reads_data() {
+    public void searchCoinsReadsDataFromDatabase() {
         // Arrange
         List<CoinEntity> entities = FakeLocalDataFactory.getFakeData(KEYS);
         // Act
@@ -147,7 +147,7 @@ public class CoinLocalImplTest {
     }
 
     @Test
-    public void get_coin_by_id_reads_data() {
+    public void getCoinByIdReadsData() {
         // Arrange
         List<CoinEntity> entities = FakeLocalDataFactory.getFakeData(KEYS);
         // Act
@@ -164,7 +164,7 @@ public class CoinLocalImplTest {
     }
 
     @Test
-    public void bookmark_coin_inserts_id() {
+    public void bookmarkCoinInsertsIdToDatabase() {
         // Act
         Single<List<BookmarkEntity>> getBookmarkedCoin = bookmarkDao.getBookmarkedCoinIds();
         Completable bookmarkCoin = coinSource.bookmarkCoin(ID);
@@ -179,7 +179,7 @@ public class CoinLocalImplTest {
     }
 
     @Test
-    public void un_bookmark_coin_deletes_entry() {
+    public void unBookmarkCoinDeletesEntryFromDatabase() {
         // Arrange
         BookmarkEntity bookmarkEntity = new BookmarkEntity(ID, TIMESTAMP);
         // Act
@@ -204,7 +204,7 @@ public class CoinLocalImplTest {
     }
 
     @Test
-    public void get_bookmarked_coins_reads_coins() {
+    public void getBookmarkedCoinsReadsCoinsFromDatabase() {
         // Arrange
         List<CoinEntity> coinEntities = FakeLocalDataFactory.getFakeData(KEYS);
         // Act
@@ -231,7 +231,7 @@ public class CoinLocalImplTest {
                 });
     }
     @Test
-    public void get_bookmarked_coin_ids_reads_ids() {
+    public void getBookmarkedCoinIdsReadsIdsFromDatabase() {
         // Arrange
         List<CoinEntity> coinEntities = FakeLocalDataFactory.getFakeData(KEYS);
         // Act
@@ -260,7 +260,7 @@ public class CoinLocalImplTest {
     }
 
     @Test
-    public void save_coins_inserts_coins() {
+    public void saveCoinsInsertsCoinsToDatabase() {
         // Arrange
         Coin[] coins = FakeLocalDataFactory.getFakeCoins(KEYS).toArray(new Coin[0]);
         // Act

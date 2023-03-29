@@ -36,7 +36,7 @@ public class CoinRemoteImplTest {
     CoinRemoteImpl coinSource;
 
     @Test
-    public void testGetCoins() {
+    public void getCoinsReturnsResponseFromRemote() {
         // Arrange
         Single<Response<List<CoinDTO>>> response = Single.just(FakeRemoteDataFactory.getResponse(SIZE));
         when(coinService.getCoins()).thenReturn(response);
@@ -54,7 +54,7 @@ public class CoinRemoteImplTest {
     }
 
     @Test
-    public void testGetCoinsByLimitAndOffset() {
+    public void getCoinsByLimitAndOffsetReturnsFilteredResponseFromRemote() {
         // Arrange
         Single<Response<List<CoinDTO>>> response = Single.just(FakeRemoteDataFactory.getResponse(LIMIT));
         when(coinService.getCoins(LIMIT, OFFSET)).thenReturn(response);
@@ -71,7 +71,7 @@ public class CoinRemoteImplTest {
     }
 
     @Test
-    public void testSearchCoin() {
+    public void searchCoinReturnsFilteredResponseFromRemote() {
         // Arrange
         String[] keyArray = KEY.split(",");
         Single<Response<List<CoinDTO>>> response = Single.just(FakeRemoteDataFactory.getResponse(keyArray));
@@ -90,7 +90,7 @@ public class CoinRemoteImplTest {
     }
 
     @Test
-    public void testGetCoinById() {
+    public void getCoinByIdReturnsResponseFromRemote() {
         // Arrange
         Single<Response<CoinDTO>> response = Single.just(FakeRemoteDataFactory.getResponse(ID));
         when(coinService.getCoin(ID)).thenReturn(response);

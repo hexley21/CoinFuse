@@ -36,7 +36,7 @@ public class PreferenceLocalImplTest {
     }
 
     @Test
-    public void get_int_returns_value() {
+    public void getIntReturnsIntPreferenceValue() {
         // Arrange
         int result;
         // Act
@@ -47,7 +47,7 @@ public class PreferenceLocalImplTest {
     }
 
     @Test
-    public void get_bool_returns_value() {
+    public void getBoolReturnsBoolPreferenceValue() {
         // Arrange
         boolean result;
         // Act
@@ -58,7 +58,7 @@ public class PreferenceLocalImplTest {
     }
 
     @Test
-    public void get_string_returns_value() {
+    public void getStringReturnsStringPreferenceValue() {
         // Arrange
         String result;
         // Act
@@ -69,7 +69,7 @@ public class PreferenceLocalImplTest {
     }
 
     @Test
-    public void save_int_inserts_value() {
+    public void saveIntInsertsPreferenceValue() {
         // Arrange
         int result;
         // Act
@@ -80,7 +80,7 @@ public class PreferenceLocalImplTest {
     }
 
     @Test
-    public void save_bool_inserts_value() {
+    public void saveBoolInsertsPreferenceValue() {
         // Arrange
         boolean result;
         // Act
@@ -91,7 +91,7 @@ public class PreferenceLocalImplTest {
     }
 
     @Test
-    public void save_string_inserts_value() {
+    public void saveStringInsertsPreferenceValue() {
         // Arrange
         String result;
         // Act
@@ -102,7 +102,7 @@ public class PreferenceLocalImplTest {
     }
 
     @Test
-    public void get_int_returns_default() {
+    public void getIntReturnsDefaultPreferenceValue() {
         // Arrange
         int result;
         // Act
@@ -112,7 +112,7 @@ public class PreferenceLocalImplTest {
     }
 
     @Test
-    public void get_bool_returns_default() {
+    public void getBoolReturnsDefaultPreferenceValue() {
         // Arrange
         boolean result;
         // Act
@@ -122,7 +122,7 @@ public class PreferenceLocalImplTest {
     }
 
     @Test
-    public void get_string_returns_default() {
+    public void getStringReturnsDefaultPreferenceValue() {
         // Arrange
         String result;
         // Act

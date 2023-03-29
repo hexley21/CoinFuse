@@ -29,7 +29,7 @@ public class PreferenceRepositoryImplTest {
     PreferenceRepositoryImpl repository;
 
     @Test
-    public void get_int_returns_value() {
+    public void getIntReturnsValueFromPreferenceRepository() {
         // Arrange
         when(preferenceLocal.get(anyString(), anyInt())).thenReturn(VAL_INT);
         // Act
@@ -40,7 +40,7 @@ public class PreferenceRepositoryImplTest {
     }
 
     @Test
-    public void get_bool_returns_value() {
+    public void getBoolReturnsValueFromPreferenceRepository() {
         // Arrange
         when(preferenceLocal.get(anyString(), anyBoolean())).thenReturn(VAL_BOOL);
         // Act
@@ -51,7 +51,7 @@ public class PreferenceRepositoryImplTest {
     }
 
     @Test
-    public void get_string_returns_value() {
+    public void getStringReturnsValueFromPreferenceRepository() {
         // Arrange
         when(preferenceLocal.get(anyString(), anyString())).thenReturn(VAL_STR);
         // Act
@@ -62,7 +62,7 @@ public class PreferenceRepositoryImplTest {
     }
 
     @Test
-    public void save_int_inserts_value() {
+    public void saveIntInsertsValueToPreferenceRepository() {
         // Arrange
         doNothing().when(preferenceLocal).save(anyString(), anyInt());
         // Act
@@ -72,7 +72,7 @@ public class PreferenceRepositoryImplTest {
     }
 
     @Test
-    public void save_bool_inserts_value() {
+    public void saveBoolInsertsValueToPreferenceRepository() {
         // Arrange
         doNothing().when(preferenceLocal).save(anyString(), anyBoolean());
         // Act
@@ -82,7 +82,7 @@ public class PreferenceRepositoryImplTest {
     }
 
     @Test
-    public void save_string_inserts_value() {
+    public void saveStringInsertsValueToPreferenceRepository() {
         // Arrange
         doNothing().when(preferenceLocal).save(anyString(), anyString());
         // Act
