@@ -18,26 +18,26 @@ public class FakeDataFactory {
         return fakeCoins;
     }
 
-    private static Coin getCoin(String id) {
+    public static Coin getCoin(String id) {
         return new Coin(
-                id,             //  id
-                randomInt(),    //  rank
-                randomName(),   //  symbol
-                randomName(),   //  name
-                randomDouble(), //  supply
-                randomDouble(), //  maxSupply
-                randomDouble(), //  marketCapUsd
-                randomDouble(), //  volumeUsd24Hr
-                randomDouble(), //  priceUsd
-                randomFloat(),  //  changePercent24Hr
-                randomDouble(), //  vwap24Hr
-                randomName(),    //  explorer
-                8L,
-                randomName()
+                id,             // id
+                randomInt(),    // rank
+                randomName(),   // symbol
+                randomName(),   // name
+                randomDouble(), // supply
+                randomDouble(), // maxSupply
+                randomDouble(), // marketCapUsd
+                randomDouble(), // volumeUsd24Hr
+                randomDouble(), // priceUsd
+                randomFloat(),  // changePercent24Hr
+                randomDouble(), // vwap24Hr
+                randomName(),   // explorer
+                8L,             // timestamp
+                randomName()    // img
         );
     }
 
-    private static Coin getCoin() {
+    public static Coin getCoin() {
         return getCoin(randomName());
     }
 }

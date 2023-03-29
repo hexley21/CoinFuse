@@ -9,6 +9,8 @@ public class DataTestConstants {
     // Coin Repository
     public static final String ID =  "bitcoin";
     public static final String ASSET_URL = "https://assets/%s.png";
+    public static final int LIMIT = 2;
+    public static final int OFFSET = 3;
     public static final int SIZE = 5;
     public static final Long TIMESTAMP =  8L;
     public static final Coin COIN = new Coin(
