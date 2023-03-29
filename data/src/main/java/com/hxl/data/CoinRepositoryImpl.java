@@ -50,7 +50,8 @@ public class CoinRepositoryImpl implements CoinRepository {
     @Override
     public Single<List<Coin>> searchCoins(String key) {
         if (isOnline()) {
-            return remoteSource.searchCoins(key);
+            return remoteSource.searchCoins(key)
+                    .flatMap(x -> saveCoins(x).toSingleDefault(x));
         }
         return localSource.searchCoins(key);
     }
@@ -93,7 +94,7 @@ public class CoinRepositoryImpl implements CoinRepository {
         return localSource.getBookmarkedCoins();
     }
 
-    private boolean isOnline() {
+    public boolean isOnline() {
         Runtime runtime = Runtime.getRuntime();
         try {
             Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
