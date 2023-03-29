@@ -12,6 +12,7 @@ dependencies {
     implementation(Deps.Reactive.rxJava)
     // Test
     testImplementation(Deps.Test.junit)
+    testImplementation(Deps.Test.mockito)
     // IDE
     implementation(Deps.Others.jetbrainsAnno)
 }
