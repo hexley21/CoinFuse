@@ -233,4 +233,72 @@ public class CoinRepositoryImplTest {
         verify(remoteSource, never()).getCoin(anyString());
     }
     // endregion
+
+    // region bookmarkCoin(String id)
+    @Test
+    public void testBookmarkCoinInsertsIdToDatabase() {
+        // Arrange
+        when(localSource.bookmarkCoin(anyString())).thenReturn(Completable.complete());
+        // Act
+        Completable coin = repository.bookmarkCoin(ID);
+        // Assert
+        coin.test()
+                .assertComplete()
+                .assertNoErrors();
+        verify(localSource, times(1)).bookmarkCoin(anyString());
+    }
+    // endregion
+
+    // region unBookmarkCoin(String id)
+    @Test
+    public void testUnBookmarkCoinDeletesIdFromDatabase() {
+        // Arrange
+        when(localSource.unBookmarkCoin(anyString())).thenReturn(Completable.complete());
+        // Act
+        Completable coin = repository.unBookmarkCoin(ID);
+        // Assert
+        coin.test()
+                .assertComplete()
+                .assertNoErrors();
+        verify(localSource, times(1)).unBookmarkCoin(anyString());
+    }
+    // endregion
+
+    // region getBookmarkedCoins()
+    @Test
+    public void testGetBookmarkedCoinsReturnsListFromRemoteSource() {
+        // Arrange
+        when(remoteSource.getCoins(anyList())).thenReturn(Single.just(getFakeCoins(SIZE)));
+        when(repository.saveCoins(anyList())).thenReturn(Completable.complete());
+        when(localSource.getBookmarkedCoinIds()).thenReturn(Single.just(new ArrayList<>()));
+        when(repository.isOnline()).thenReturn(true);
+        // Act
+        Single<List<Coin>> bookmarkedCoins = repository.getBookmarkedCoins();
+        // Assert
+        bookmarkedCoins.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.size() == SIZE);
+        verify(remoteSource, times(1)).getCoins(anyList());
+        verify(localSource, never()).getBookmarkedCoins();
+        verify(repository, times(1)).getBookmarkedCoins();
+    }
+
+    @Test
+    public void testGetBookmarkedCoinsReturnsListFromLocalSource() {
+        // Arrange
+        when(localSource.getBookmarkedCoins()).thenReturn(Single.just(getFakeCoins(SIZE)));
+        when(repository.isOnline()).thenReturn(false);
+        // Act
+        Single<List<Coin>> bookmarkedCoins = repository.getBookmarkedCoins();
+        // Assert
+        bookmarkedCoins.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.size() == SIZE);
+        verify(localSource, times(1)).getBookmarkedCoins();
+        verify(remoteSource, never()).getCoins(anyList());
+        verify(repository, times(1)).getBookmarkedCoins();
+    }
+    // endregion
 }
