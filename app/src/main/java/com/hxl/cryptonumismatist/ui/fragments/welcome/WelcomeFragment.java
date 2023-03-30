@@ -14,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.databinding.FragmentWelcomeBinding;
 import com.hxl.cryptonumismatist.ui.fragments.BaseFragment;
+import com.hxl.cryptonumismatist.ui.fragments.welcome.walkthrough.WalkThroughPagerAdapter;
 import com.hxl.presentation.viewmodels.WelcomeViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;

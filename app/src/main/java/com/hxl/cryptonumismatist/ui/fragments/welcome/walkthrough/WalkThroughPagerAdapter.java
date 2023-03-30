@@ -1,6 +1,6 @@
-package com.hxl.cryptonumismatist.ui.fragments.welcome;
+package com.hxl.cryptonumismatist.ui.fragments.welcome.walkthrough;
 
-import static com.hxl.cryptonumismatist.ui.fragments.welcome.WalkThrough.WALK_THROUGHS;
+import static com.hxl.cryptonumismatist.ui.fragments.welcome.walkthrough.WalkThrough.WALK_THROUGHS;
 
 import android.os.Bundle;
 

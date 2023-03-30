@@ -1,4 +1,4 @@
-package com.hxl.cryptonumismatist.ui.fragments.welcome;
+package com.hxl.cryptonumismatist.ui.fragments.welcome.walkthrough;
 
 import com.hxl.cryptonumismatist.R;
 
