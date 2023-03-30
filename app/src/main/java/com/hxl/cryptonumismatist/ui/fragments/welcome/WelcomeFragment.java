@@ -34,7 +34,7 @@ public class WelcomeFragment extends BaseFragment<FragmentWelcomeBinding, Welcom
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        if (!vm.getWelcome.invoke()) {
+        if (!vm.getWelcome()) {
             openCoinsFragment();
         }
         super.onViewCreated(view, savedInstanceState);
@@ -60,7 +60,7 @@ public class WelcomeFragment extends BaseFragment<FragmentWelcomeBinding, Welcom
         );
 
         View.OnClickListener exitButtonClick = v -> {
-            vm.saveWelcome.invoke(false);
+            vm.saveWelcome(false);
             openCoinsFragment();
         };
 

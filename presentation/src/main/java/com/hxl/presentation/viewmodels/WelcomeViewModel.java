@@ -14,8 +14,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class WelcomeViewModel extends ViewModel {
 
-    @NotNull public GetWelcome getWelcome;
-    @NotNull public SaveWelcome saveWelcome;
+    @NotNull public final GetWelcome getWelcome;
+    @NotNull public final SaveWelcome saveWelcome;
+
+    public boolean getWelcome() {
+        return getWelcome.invoke();
+    }
+
+    public void saveWelcome(boolean value) {
+        saveWelcome.invoke(value);
+    }
 
     @Inject
     public WelcomeViewModel(@NotNull GetWelcome getWelcome, @NotNull SaveWelcome saveWelcome ) {
