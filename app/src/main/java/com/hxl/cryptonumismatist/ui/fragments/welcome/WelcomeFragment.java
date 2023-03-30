@@ -39,7 +39,7 @@ public class WelcomeFragment extends BaseFragment<FragmentWelcomeBinding, Welcom
         super.onViewCreated(view, savedInstanceState);
 
         ViewPager2 walkThroughPager = binding.walkThroughPager;
-        walkThroughPager.setAdapter(new WalkThroughPagerAdapter(this, WalkThroughEnums.values()));
+        walkThroughPager.setAdapter(new WalkThroughPagerAdapter(this));
         walkThroughPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {

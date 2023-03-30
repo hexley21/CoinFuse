@@ -10,22 +10,16 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class WalkThroughPagerAdapter extends FragmentStateAdapter {
 
-    private final WalkThroughEnums[] walkThroughEnums;
-
     public WalkThroughPagerAdapter(
-            Fragment fragment,
-            WalkThroughEnums[] walkThroughEnums
-    ) {
+            Fragment fragment) {
         super(fragment);
-        this.walkThroughEnums = walkThroughEnums;
     }
-
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
         WalkThroughItem item = new WalkThroughItem();
-        WalkThrough info = walkThroughEnums[position].walkthrough;
+        WalkThrough info = WALK_THROUGHS[position];
 
         Bundle bundle = new Bundle();
         bundle.putInt("title", info.title);
@@ -39,6 +33,6 @@ public class WalkThroughPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return walkThroughEnums.length;
+        return WALK_THROUGHS.length;
     }
 }
