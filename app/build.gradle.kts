@@ -89,20 +89,18 @@ dependencies {
     annotationProcessor(Deps.Room.roomCompiler)
     implementation(Deps.Room.roomRxJava)
     implementation(Deps.Room.roomPaging)
-    testImplementation(Deps.Room.roomTesting)
-
 
     // Test
     testImplementation(Deps.Test.junit)
-    androidTestImplementation(Deps.Test.extJunit)
-    androidTestImplementation(Deps.Test.espresso)
-    androidTestImplementation(Deps.Test.navigation)
-    // Hilt Local
+    testImplementation(Deps.Test.extJunit)
+    testImplementation(Deps.Test.roboelectric)
+    testImplementation(Deps.Test.mockito)
     testImplementation(Deps.Test.hilt)
     testAnnotationProcessor(Deps.Test.hiltCompiler)
-    // Hilt Instrumentation
-    androidTestImplementation(Deps.Test.hilt)
-    androidTestAnnotationProcessor(Deps.Test.hiltCompiler)
+    testImplementation(Deps.Room.roomTesting)
+    androidTestImplementation(Deps.Test.espresso)
+    androidTestImplementation(Deps.Test.navigation)
+
     // Desugar
     coreLibraryDesugaring(Deps.Others.desugar)
 }
