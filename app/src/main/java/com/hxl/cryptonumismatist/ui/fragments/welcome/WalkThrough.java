@@ -1,4 +1,6 @@
-package com.hxl.cryptonumismatist.presentation.fragments.welcome;
+package com.hxl.cryptonumismatist.ui.fragments.welcome;
+
+import com.hxl.cryptonumismatist.R;
 
 public class WalkThrough {
     public final int title;

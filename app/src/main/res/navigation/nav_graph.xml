@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.hxl.cryptonumismatist.presentation.fragments.welcome.WelcomeFragment"
+        android:name="com.hxl.cryptonumismatist.ui.fragments.welcome.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome">
         <action
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/coinsFragment"
-        android:name="com.hxl.cryptonumismatist.presentation.fragments.coins.main.CoinsFragment"
+        android:name="com.hxl.cryptonumismatist.ui.fragments.coins.main.CoinsFragment"
         android:label="fragment_coins"
         tools:layout="@layout/fragment_coins">
         <action
@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/coinDetailsFragment"
-        android:name="com.hxl.cryptonumismatist.presentation.fragments.coins.details.CoinDetailsFragment"
+        android:name="com.hxl.cryptonumismatist.ui.fragments.coins.details.CoinDetailsFragment"
         android:label="fragment_coin_details"
         tools:layout="@layout/fragment_coin_details" />
 

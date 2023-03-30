@@ -1,4 +1,4 @@
-package com.hxl.cryptonumismatist.presentation.fragments.coins.details;
+package com.hxl.cryptonumismatist.ui.fragments.coins.details;
 
 import android.os.Bundle;
 

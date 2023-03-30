@@ -1,4 +1,4 @@
-package com.hxl.cryptonumismatist.presentation.fragments.coins.main;
+package com.hxl.cryptonumismatist.ui.fragments.coins.main;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hxl.cryptonumismatist.databinding.FragmentCoinsBinding;
-import com.hxl.cryptonumismatist.presentation.fragments.BaseFragment;
+import com.hxl.cryptonumismatist.ui.fragments.BaseFragment;
 import com.hxl.domain.model.Coin;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
 

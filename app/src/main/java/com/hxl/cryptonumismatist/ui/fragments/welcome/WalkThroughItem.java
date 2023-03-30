@@ -1,4 +1,4 @@
-package com.hxl.cryptonumismatist.presentation.fragments.welcome;
+package com.hxl.cryptonumismatist.ui.fragments.welcome;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.hxl.cryptonumismatist.presentation.fragments.coins.main;
+package com.hxl.cryptonumismatist.ui.fragments.coins.main;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 import com.hxl.cryptonumismatist.databinding.CoinItemBinding;
-import com.hxl.cryptonumismatist.presentation.fragments.BaseAdapter;
+import com.hxl.cryptonumismatist.ui.fragments.BaseAdapter;
 import com.hxl.cryptonumismatist.utils.Binder;
 import com.hxl.domain.model.Coin;
 

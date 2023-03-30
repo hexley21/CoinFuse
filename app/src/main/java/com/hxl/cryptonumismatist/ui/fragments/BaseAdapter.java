@@ -1,4 +1,4 @@
-package com.hxl.cryptonumismatist.presentation.fragments;
+package com.hxl.cryptonumismatist.ui.fragments;
 
 import android.view.ViewGroup;
 

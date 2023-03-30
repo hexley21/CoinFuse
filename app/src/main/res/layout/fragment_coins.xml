@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".presentation.fragments.coins.main.CoinsFragment">
+        tools:context=".ui.fragments.coins.main.CoinsFragment">
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tf_search"
             android:layout_width="match_parent"
