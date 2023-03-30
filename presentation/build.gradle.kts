@@ -39,7 +39,6 @@ dependencies {
 
     // Modules
     implementation(project(Modules.domain))
-    implementation(project(Modules.data))
 
     // Hilt
     implementation(Deps.Hilt.hilt)

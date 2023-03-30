@@ -55,6 +55,7 @@ dependencies {
     implementation(project(Modules.data))
     implementation(project(Modules.local))
     implementation(project(Modules.remote))
+    implementation(project(Modules.presentation))
 
     // Android Core
     implementation(Deps.Core.appCompat)

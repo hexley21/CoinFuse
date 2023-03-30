@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hxl.cryptonumismatist.databinding.FragmentCoinsBinding;
 import com.hxl.cryptonumismatist.presentation.fragments.BaseFragment;
 import com.hxl.domain.model.Coin;
+import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
 
 @AndroidEntryPoint
-public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsFragmentViewModel> {
+public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuViewModel> {
 
 //    private final CompositeDisposable disposable = new CompositeDisposable();
     @Override
@@ -37,8 +38,8 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsFragm
     }
 
     @Override
-    protected CoinsFragmentViewModel setViewModel() {
-        return new ViewModelProvider(this).get(CoinsFragmentViewModel.class);
+    protected CoinsMenuViewModel setViewModel() {
+        return new ViewModelProvider(this).get(CoinsMenuViewModel.class);
     }
 
     @Inject

@@ -14,11 +14,12 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.databinding.FragmentWelcomeBinding;
 import com.hxl.cryptonumismatist.presentation.fragments.BaseFragment;
+import com.hxl.presentation.viewmodels.WelcomeViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class WelcomeFragment extends BaseFragment<FragmentWelcomeBinding, WelcomeFragmentViewModel> {
+public class WelcomeFragment extends BaseFragment<FragmentWelcomeBinding, WelcomeViewModel> {
 
     @Override
     protected FragmentWelcomeBinding setViewBinding(LayoutInflater inflater, ViewGroup container) {
@@ -26,8 +27,8 @@ public class WelcomeFragment extends BaseFragment<FragmentWelcomeBinding, Welcom
     }
 
     @Override
-    protected WelcomeFragmentViewModel setViewModel() {
-        return new ViewModelProvider(this).get(WelcomeFragmentViewModel.class);
+    protected WelcomeViewModel setViewModel() {
+        return new ViewModelProvider(this).get(WelcomeViewModel.class);
     }
 
     @Override
