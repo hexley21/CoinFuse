@@ -6,23 +6,27 @@ plugins {
 }
 
 android {
-    namespace = "com.hxl.presentation"
-    compileSdk = 33
+    namespace = Modules.NameSpaces.app
+    compileSdk = Config.Android.compileSdk
 
     defaultConfig {
-        minSdk = 21
+        minSdk = Config.Android.minSdk
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = Config.Android.testRunner
         consumerProguardFiles("consumer-rules.pro")
+        signingConfig = signingConfigs.getByName("debug")
     }
 
     buildTypes {
-        release {
-            isMinifyEnabled = false
+        getByName("release") {
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        getByName("debug") {
+            isMinifyEnabled = false
         }
     }
     compileOptions {
@@ -33,9 +37,26 @@ android {
 
 dependencies {
 
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.8.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    // Modules
+    implementation(project(Modules.domain))
+    implementation(project(Modules.data))
+
+    // Hilt
+    implementation(Deps.Hilt.hilt)
+    annotationProcessor(Deps.Hilt.hiltCompiler)
+    // LifeCycle
+    implementation(Deps.LifeCycle.viewModel)
+    implementation(Deps.LifeCycle.liveData)
+    // Reactive
+    implementation(Deps.Reactive.rxJava)
+    implementation(Deps.Reactive.rxAndroid)
+    // Test
+    testImplementation(Deps.Test.junit)
+    testImplementation(Deps.Test.extJunit)
+    testImplementation(Deps.Test.roboelectric)
+    testImplementation(Deps.Test.mockito)
+    testImplementation(Deps.Test.hilt)
+    testAnnotationProcessor(Deps.Test.hiltCompiler)
+    testImplementation(Deps.Room.roomTesting)
+    androidTestImplementation(Deps.Test.espresso)
 }
