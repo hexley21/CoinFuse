@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hxl.cryptonumismatist.databinding.FragmentCoinsBinding;
-import com.hxl.cryptonumismatist.ui.fragments.BaseFragment;
+import com.hxl.cryptonumismatist.base.BaseFragment;
 import com.hxl.domain.model.Coin;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
 

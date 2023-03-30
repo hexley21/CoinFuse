@@ -1,12 +1,10 @@
-package com.hxl.cryptonumismatist.ui.fragments;
+package com.hxl.cryptonumismatist.base;
 
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.hxl.cryptonumismatist.utils.Binder;
 
 import java.util.List;
 

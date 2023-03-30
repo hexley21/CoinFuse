@@ -1,4 +1,4 @@
-package com.hxl.cryptonumismatist.ui.fragments;
+package com.hxl.cryptonumismatist.base;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

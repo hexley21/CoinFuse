@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 import com.hxl.cryptonumismatist.databinding.CoinItemBinding;
-import com.hxl.cryptonumismatist.ui.fragments.BaseAdapter;
-import com.hxl.cryptonumismatist.utils.Binder;
+import com.hxl.cryptonumismatist.base.BaseAdapter;
+import com.hxl.cryptonumismatist.base.Binder;
 import com.hxl.domain.model.Coin;
 
 import java.text.DecimalFormat;
