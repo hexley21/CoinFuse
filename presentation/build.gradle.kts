@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = Modules.NameSpaces.app
+    namespace = Modules.NameSpaces.presentation
     compileSdk = Config.Android.compileSdk
 
     defaultConfig {
@@ -20,23 +20,20 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
         getByName("debug") {
             isMinifyEnabled = false
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-
     // Modules
     implementation(project(Modules.domain))
 
@@ -58,4 +55,7 @@ dependencies {
     testAnnotationProcessor(Deps.Test.hiltCompiler)
     testImplementation(Deps.Room.roomTesting)
     androidTestImplementation(Deps.Test.espresso)
+
+    // Desugar
+    coreLibraryDesugaring(Deps.Others.desugar)
 }

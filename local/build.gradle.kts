@@ -11,7 +11,7 @@ android {
     defaultConfig {
         minSdk = Config.Android.minSdk
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = Config.Android.testRunner
         consumerProguardFiles("consumer-rules.pro")
         signingConfig = signingConfigs.getByName("debug")
     }
