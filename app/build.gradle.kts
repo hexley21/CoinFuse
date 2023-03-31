@@ -17,7 +17,7 @@ android {
         versionCode = Environments.versionCode
         versionName = Environments.versionName
 
-        testInstrumentationRunner = Config.Android.testRunner + ".AppTestRunner"
+        testInstrumentationRunner = "com.hxl.cryptonumismatist.AppTestRunner"
 //        testInstrumentationRunnerArguments.clearPackageData = "true"
         proguardFiles(getDefaultProguardFile("proguard-android.txt"))
         signingConfig = signingConfigs.getByName("debug")
@@ -101,7 +101,6 @@ dependencies {
     testAnnotationProcessor(Deps.Test.hiltCompiler)
     testImplementation(Deps.Room.roomTesting)
     androidTestImplementation(Deps.Test.extJunit)
-    androidTestImplementation(Deps.Test.roboelectric)
     androidTestImplementation(Deps.Test.hilt)
     androidTestAnnotationProcessor(Deps.Test.hiltCompiler)
     androidTestImplementation(Deps.Test.espresso)
