@@ -9,7 +9,7 @@ android {
     namespace = Modules.NameSpaces.app
     compileSdk = Config.Android.compileSdk
 
-
+    testOptions.unitTests.isIncludeAndroidResources = true
     defaultConfig {
         applicationId = Environments.appId
         minSdk = Config.Android.minSdk
@@ -17,7 +17,8 @@ android {
         versionCode = Environments.versionCode
         versionName = Environments.versionName
 
-        testInstrumentationRunner = Config.Android.testRunner
+        testInstrumentationRunner = Config.Android.testRunner + ".AppTestRunner"
+//        testInstrumentationRunnerArguments.clearPackageData = "true"
         proguardFiles(getDefaultProguardFile("proguard-android.txt"))
         signingConfig = signingConfigs.getByName("debug")
 
@@ -99,6 +100,10 @@ dependencies {
     testImplementation(Deps.Test.hilt)
     testAnnotationProcessor(Deps.Test.hiltCompiler)
     testImplementation(Deps.Room.roomTesting)
+    androidTestImplementation(Deps.Test.extJunit)
+    androidTestImplementation(Deps.Test.roboelectric)
+    androidTestImplementation(Deps.Test.hilt)
+    androidTestAnnotationProcessor(Deps.Test.hiltCompiler)
     androidTestImplementation(Deps.Test.espresso)
     androidTestImplementation(Deps.Test.navigation)
 
