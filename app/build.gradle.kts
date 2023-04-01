@@ -105,6 +105,7 @@ dependencies {
     androidTestAnnotationProcessor(Deps.Test.hiltCompiler)
     androidTestImplementation(Deps.Test.espresso)
     androidTestImplementation(Deps.Test.navigation)
+    androidTestImplementation(Deps.Test.fragment)
 
     // Desugar
     coreLibraryDesugaring(Deps.Others.desugar)

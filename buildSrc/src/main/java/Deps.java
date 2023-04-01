@@ -57,6 +57,7 @@ public final class Deps {
         public static final String mockito = "org.mockito:mockito-core:" + Versions.mockitoVersion;
         public static final String espresso = "androidx.test.espresso:espresso-core:" + Versions.espressoVersion;
         public static final String navigation = "androidx.navigation:navigation-testing:" + Versions.navVersion;
+        public static final String fragment = "androidx.fragment:fragment-testing:" + Versions.fragmentVersion;
         public static final String roomTesting = "androidx.room:room-testing:" + Versions.roomVersion;
         public static final String hilt = "com.google.dagger:hilt-android-testing:" + Versions.hiltVersion;
         public static final String hiltCompiler = "com.google.dagger:hilt-compiler:" + Versions.hiltVersion;
