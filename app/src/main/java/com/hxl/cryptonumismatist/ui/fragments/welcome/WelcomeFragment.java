@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -21,6 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class WelcomeFragment extends BaseFragment<FragmentWelcomeBinding, WelcomeViewModel> {
+    NavController navController;
 
     @Override
     protected FragmentWelcomeBinding setViewBinding(LayoutInflater inflater, ViewGroup container) {
@@ -34,6 +36,8 @@ public class WelcomeFragment extends BaseFragment<FragmentWelcomeBinding, Welcom
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        navController = NavHostFragment.findNavController(this);
+
         if (!vm.getWelcome()) {
             openCoinsFragment();
         }
@@ -69,7 +73,7 @@ public class WelcomeFragment extends BaseFragment<FragmentWelcomeBinding, Welcom
     }
 
     private void openCoinsFragment() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_welcomeFragment_to_coinsFragment);
+        navController.navigate(R.id.action_welcomeFragment_to_mainFragment);
     }
 
     private void loadLastPage(@NonNull Boolean visibility) {

@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
+    android:id="@+id/nav_launch"
     app:startDestination="@id/welcomeFragment">
 
     <fragment
@@ -11,8 +11,8 @@
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome">
         <action
-            android:id="@+id/action_welcomeFragment_to_coinsFragment"
-            app:destination="@id/coinsFragment"
+            android:id="@+id/action_welcomeFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -22,23 +22,21 @@
     </fragment>
 
     <fragment
-        android:id="@+id/coinsFragment"
-        android:name="com.hxl.cryptonumismatist.ui.fragments.coins.main.CoinsFragment"
-        android:label="fragment_coins"
-        tools:layout="@layout/fragment_coins">
+        android:id="@+id/mainFragment"
+        android:name="com.hxl.cryptonumismatist.ui.fragments.main.MainFragment"
+        android:label="MainFragment" >
         <action
-            android:id="@+id/action_coinsFragment_to_coinDetailsFragment"
+            android:id="@+id/action_mainFragment_to_coinDetailsFragment2"
             app:destination="@id/coinDetailsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/mainFragment"/>
     </fragment>
-
     <fragment
         android:id="@+id/coinDetailsFragment"
         android:name="com.hxl.cryptonumismatist.ui.fragments.coins.details.CoinDetailsFragment"
-        android:label="fragment_coin_details"
-        tools:layout="@layout/fragment_coin_details" />
+        android:label="CoinDetailsFragment" />
 
 </navigation>
