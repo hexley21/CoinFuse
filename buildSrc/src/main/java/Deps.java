@@ -52,7 +52,7 @@ public final class Deps {
     public static final class Test {
         public static final String junit = "junit:junit:" + Versions.junitVersion;
         public static final String extJunit = "androidx.test.ext:junit:" + Versions.extJunitVersion;
-        public static final String androidTestRunner = "androidx.test:runner:" + Versions.testRunnerVersion;
+        public static final String testRunner = "androidx.test:runner:" + Versions.testRunnerVersion;
         public static final String roboelectric = "org.robolectric:robolectric:" + Versions.roboelectricVersion;
         public static final String mockito = "org.mockito:mockito-core:" + Versions.mockitoVersion;
         public static final String espresso = "androidx.test.espresso:espresso-core:" + Versions.espressoVersion;

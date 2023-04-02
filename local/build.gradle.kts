@@ -48,7 +48,7 @@ dependencies {
     testImplementation(Deps.Test.junit)
     testImplementation(Deps.Test.extJunit)
     testImplementation(Deps.Test.roomTesting)
-    testImplementation(Deps.Test.androidTestRunner)
+    testImplementation(Deps.Test.testRunner)
     testImplementation(Deps.Test.roboelectric)
 
     // Desugar

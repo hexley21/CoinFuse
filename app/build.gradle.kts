@@ -94,15 +94,14 @@ dependencies {
 
     // Test
     testImplementation(Deps.Test.junit)
-    testImplementation(Deps.Test.extJunit)
-    testImplementation(Deps.Test.roboelectric)
     testImplementation(Deps.Test.mockito)
-    testImplementation(Deps.Test.hilt)
-    testAnnotationProcessor(Deps.Test.hiltCompiler)
-    testImplementation(Deps.Room.roomTesting)
+    // Android test
     androidTestImplementation(Deps.Test.extJunit)
+    androidTestImplementation(Deps.Test.testRunner)
+    androidTestImplementation(Deps.Test.mockito)
     androidTestImplementation(Deps.Test.hilt)
     androidTestAnnotationProcessor(Deps.Test.hiltCompiler)
+    // UI test
     androidTestImplementation(Deps.Test.espresso)
     androidTestImplementation(Deps.Test.navigation)
     androidTestImplementation(Deps.Test.fragment)
