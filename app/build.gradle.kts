@@ -17,7 +17,7 @@ android {
         versionCode = Environments.versionCode
         versionName = Environments.versionName
 
-        testInstrumentationRunner = "com.hxl.cryptonumismatist.AppTestRunner"
+        testInstrumentationRunner = "com.hxl.cryptonumismatist.conf.AppTestRunner"
 //        testInstrumentationRunnerArguments.clearPackageData = "true"
         proguardFiles(getDefaultProguardFile("proguard-android.txt"))
         signingConfig = signingConfigs.getByName("debug")
