@@ -106,6 +106,9 @@ dependencies {
     androidTestImplementation(Deps.Test.navigation)
     androidTestImplementation(Deps.Test.fragment)
 
+    // Debug
+//    debugImplementation(Deps.Test.fragmentManifest)
+
     // Desugar
     coreLibraryDesugaring(Deps.Others.desugar)
 }
