@@ -9,7 +9,7 @@ public final class Versions {
     public static final String constraintLayoutVersion = "2.1.4";
     public static final String splashScreenVersion = "1.0.0";
     // Fragment
-    public static final String fragmentVersion = "1.6.0-alpha08";
+    public static final String fragmentVersion = "1.6.0-alpha04";
     // Navigation
     public static final String navVersion = "2.5.3";
 
