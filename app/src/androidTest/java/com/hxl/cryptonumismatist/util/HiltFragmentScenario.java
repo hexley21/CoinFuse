@@ -17,17 +17,12 @@ public final class HiltFragmentScenario {
     public static <T extends Fragment> void launchFragmentInHiltContainer(
             Class<T> fragmentClass,
             Bundle args,
-            int themeId,
             Function<Fragment, Void> function
     ) {
         Intent startActivityIntent = Intent.makeMainActivity(
                 new ComponentName(ApplicationProvider.getApplicationContext(), HiltTestActivity.class)
         );
 
-        startActivityIntent.putExtra(
-                "androidx.fragment.app.testing.FragmentScenario.EmptyFragmentActivity.THEME_EXTRAS_BUNDLE_KEY",
-                themeId
-        );
         ActivityScenario.<HiltTestActivity>launch(startActivityIntent)
                 .onActivity(activity -> {
                     Fragment fragment = activity.getSupportFragmentManager().getFragmentFactory().instantiate(

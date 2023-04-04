@@ -55,11 +55,13 @@ public class WelcomeFragmentTest {
             navController.setGraph(R.navigation.nav_root);
             navController.setCurrentDestination(R.id.welcomeFragment);
             Navigation.setViewNavController(fragment.requireView(), navController);
+
             return null;
         };
 
-        launchFragmentInHiltContainer(WelcomeFragment.class, new Bundle(), R.style.Theme_CryptoNumismatist, x);
+        launchFragmentInHiltContainer(WelcomeFragment.class, new Bundle(), x);
         onView(withId(R.id.walk_through_pager)).check(matches(isDisplayed()));
+
     }
 
 }
