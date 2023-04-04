@@ -1,20 +1,25 @@
-package com.hxl.cryptonumismatist;
+package com.hxl.cryptonumismatist.welcome;
 
-
-import static com.hxl.cryptonumismatist.util.HiltFragmentScenario.launchFragmentInHiltContainer;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-
-import android.os.Bundle;
+import static com.hxl.cryptonumismatist.util.HiltFragmentScenario.launchFragmentInHiltContainer;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.testing.TestNavHostController;
 import androidx.test.core.app.ApplicationProvider;
+import androidx.test.espresso.action.ViewActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.SmallTest;
+
+import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.ui.fragments.welcome.WelcomeFragment;
 import com.hxl.domain.interactors.prefs.GetWelcome;
 import com.hxl.domain.interactors.prefs.SaveWelcome;
@@ -32,6 +37,7 @@ import dagger.hilt.android.testing.HiltAndroidRule;
 import dagger.hilt.android.testing.HiltAndroidTest;
 
 @RunWith(AndroidJUnit4.class)
+@SmallTest
 @HiltAndroidTest
 public class WelcomeFragmentTest {
 
@@ -43,15 +49,17 @@ public class WelcomeFragmentTest {
     @Inject
     SaveWelcome saveWelcome;
 
+    TestNavHostController navController;
+
     @Before
     public void setUp() {
         hiltRule.inject();
+        navController = new TestNavHostController(ApplicationProvider.getApplicationContext());
     }
 
     @Test
-    public void isFragmentVisible() {
+    public void fragmentBehavesAsExpected() {
         Function<Fragment, Void> setNavController = fragment -> {
-            TestNavHostController navController = new TestNavHostController(ApplicationProvider.getApplicationContext());
             navController.setGraph(R.navigation.nav_root);
             navController.setCurrentDestination(R.id.welcomeFragment);
             Navigation.setViewNavController(fragment.requireView(), navController);
@@ -62,6 +70,22 @@ public class WelcomeFragmentTest {
         launchFragmentInHiltContainer(WelcomeFragment.class, setNavController);
         onView(withId(R.id.walk_through_pager)).check(matches(isDisplayed()));
 
+        onView(withId(R.id.btn_next)).check(matches(isDisplayed()));
+        onView(withId(R.id.tv_skip)).check(matches(isDisplayed()));
+        onView(withId(R.id.btn_get_started)).check(matches(not(isDisplayed())));
+
+        onView(withId(R.id.btn_next)).perform(ViewActions.click());
+        onView(withId(R.id.walk_through_pager)).perform(ViewActions.slowSwipeLeft());
+
+        onView(withId(R.id.btn_next)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.tv_skip)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.btn_get_started)).check(matches(isDisplayed()));
+        onView(withId(R.id.btn_get_started)).perform(ViewActions.click());
+
+        assertNotNull(navController.getCurrentDestination().getId());
+        assertEquals(navController.getCurrentDestination().getId(), R.id.mainFragment);
+        assertFalse(getWelcome.invoke());
     }
+
 
 }
