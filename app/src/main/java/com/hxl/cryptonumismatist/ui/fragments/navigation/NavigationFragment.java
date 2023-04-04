@@ -1,4 +1,4 @@
-package com.hxl.cryptonumismatist.ui.fragments.main;
+package com.hxl.cryptonumismatist.ui.fragments.navigation;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,14 +8,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.hxl.cryptonumismatist.databinding.FragmentMainBinding;
+import com.hxl.cryptonumismatist.databinding.FragmentNavigationBinding;
 
-public class MainFragment extends Fragment {
-    FragmentMainBinding binding;
+public class NavigationFragment extends Fragment {
+    FragmentNavigationBinding binding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentMainBinding.inflate(inflater, container, false);
+        binding = FragmentNavigationBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 }
