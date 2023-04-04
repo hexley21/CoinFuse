@@ -50,7 +50,7 @@ public class WelcomeFragmentTest {
 
     @Test
     public void isFragmentVisible() {
-        Function<Fragment, Void> x = fragment -> {
+        Function<Fragment, Void> setNavController = fragment -> {
             TestNavHostController navController = new TestNavHostController(ApplicationProvider.getApplicationContext());
             navController.setGraph(R.navigation.nav_root);
             navController.setCurrentDestination(R.id.welcomeFragment);
@@ -59,7 +59,7 @@ public class WelcomeFragmentTest {
             return null;
         };
 
-        launchFragmentInHiltContainer(WelcomeFragment.class, new Bundle(), x);
+        launchFragmentInHiltContainer(WelcomeFragment.class, setNavController);
         onView(withId(R.id.walk_through_pager)).check(matches(isDisplayed()));
 
     }

@@ -40,6 +40,7 @@ public final class Versions {
     public static final String extJunitVersion = "1.1.5";
     public static final String testRunnerVersion = "1.5.2";
     public static final String roboelectricVersion = "4.9";
+    public static final String orchestratorVersion = "1.4.2";
     // Mockito
     public static final String mockitoVersion = "5.2.0";
     // espresso

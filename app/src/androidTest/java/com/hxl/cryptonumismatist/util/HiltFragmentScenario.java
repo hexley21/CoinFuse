@@ -40,4 +40,10 @@ public final class HiltFragmentScenario {
                 });
 
     }
+    public static <T extends Fragment> void launchFragmentInHiltContainer(
+            Class<T> fragmentClass,
+            Function<Fragment, Void> function
+    ) {
+        launchFragmentInHiltContainer(fragmentClass, new Bundle(), function);
+    }
 }

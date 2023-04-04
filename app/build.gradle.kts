@@ -18,13 +18,25 @@ android {
         versionName = Environments.versionName
 
         testInstrumentationRunner = "com.hxl.cryptonumismatist.conf.AppTestRunner"
-//        testInstrumentationRunnerArguments.clearPackageData = "true"
+        testInstrumentationRunnerArguments.putAll(
+            mapOf(
+                "clearPackageData" to "true"
+            )
+        )
         proguardFiles(getDefaultProguardFile("proguard-android.txt"))
         signingConfig = signingConfigs.getByName("debug")
 
         buildConfigField("String", "API_URL", "\"" + Environments.apiUrl +"\"")
         buildConfigField("String", "ASSET_URL", "\"" + Environments.assetUrl +"\"")
     }
+    testOptions {
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
+        animationsDisabled = true
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+
 
     buildFeatures {
         dataBinding = true
@@ -98,6 +110,7 @@ dependencies {
     // Android test
     androidTestImplementation(Deps.Test.extJunit)
     androidTestImplementation(Deps.Test.testRunner)
+    androidTestUtil(Deps.Test.orchestrator)
     androidTestImplementation(Deps.Test.mockito)
     androidTestImplementation(Deps.Test.hilt)
     androidTestAnnotationProcessor(Deps.Test.hiltCompiler)
