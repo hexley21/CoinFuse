@@ -9,7 +9,6 @@ import static com.hxl.cryptonumismatist.util.HiltFragmentScenario.launchFragment
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -82,10 +81,8 @@ public class WelcomeFragmentTest {
         onView(withId(R.id.btn_get_started)).check(matches(isDisplayed()));
         onView(withId(R.id.btn_get_started)).perform(ViewActions.click());
 
-        assertNotNull(navController.getCurrentDestination().getId());
-        assertEquals(navController.getCurrentDestination().getId(), R.id.mainFragment);
+        assertEquals(navController.getCurrentDestination().getId(), R.id.navigationFragment);
         assertFalse(getWelcome.invoke());
     }
-
 
 }
