@@ -24,12 +24,12 @@ public interface BookmarkDao {
     Completable unBookmarkCoin(String id);
 
     @Query("SELECT * FROM bookmarks " +
-            "ORDER BY timestamp ASC")
+            "ORDER BY timestamp DESC")
     Single<List<BookmarkEntity>> getBookmarkedCoinIds();
 
     @Query("SELECT coins.* FROM coins " +
             "INNER JOIN bookmarks on coins.id == bookmarks.id " +
-            "ORDER BY coins.id ASC")
+            "ORDER BY bookmarks.timestamp DESC")
     Single<List<CoinEntity>> getBookmarkedCoins();
 
     @Query("DELETE FROM bookmarks")

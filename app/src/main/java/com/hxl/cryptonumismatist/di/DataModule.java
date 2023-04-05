@@ -15,7 +15,7 @@ import com.hxl.local.database.BookmarkDao;
 import com.hxl.local.database.CoinDao;
 import com.hxl.remote.CoinRemoteImpl;
 import com.hxl.remote.api.CoinService;
-import com.hxl.remote.model.CoinMapper;
+import com.hxl.remote.model.CoinDTOMapper;
 
 import javax.inject.Singleton;
 
@@ -46,7 +46,7 @@ public class DataModule {
     // region coin
     @Provides
     @Singleton
-    CoinRemote provideCoinRemoteSource(CoinService coinService, CoinMapper mapper) {
+    CoinRemote provideCoinRemoteSource(CoinService coinService, CoinDTOMapper mapper) {
         return new CoinRemoteImpl(coinService, mapper);
     }
 

@@ -3,7 +3,7 @@ package com.hxl.cryptonumismatist.di;
 import com.hxl.cryptonumismatist.BuildConfig;
 import com.hxl.remote.api.CoinService;
 import com.hxl.remote.api.ServiceFactory;
-import com.hxl.remote.model.CoinMapper;
+import com.hxl.remote.model.CoinDTOMapper;
 
 import javax.inject.Singleton;
 
@@ -24,7 +24,7 @@ public class RemoteModule {
 
     @Provides
     @Singleton
-    public CoinMapper provideCoinMapper() {
-        return new CoinMapper(BuildConfig.ASSET_URL);
+    public CoinDTOMapper provideCoinMapper() {
+        return new CoinDTOMapper(BuildConfig.ASSET_URL);
     }
 }

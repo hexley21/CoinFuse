@@ -5,7 +5,6 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.hxl.domain.model.Coin;
 import com.hxl.local.model.CoinEntity;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public interface CoinDao {
     @Query("SELECT * FROM coins WHERE id IN (:ids) ORDER BY rank ASC")
     Single<List<CoinEntity>> getCoins(List<String> ids);
 
-    @Query("SELECT * FROM coins WHERE rank > :offset ORDER BY rank ASC LIMIT :limit")
+    @Query("SELECT * FROM coins WHERE rank >= :offset ORDER BY rank ASC LIMIT :limit")
     Single<List<CoinEntity>> getCoins(int limit, int offset);
 
     @Query("SELECT * FROM coins " +

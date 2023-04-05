@@ -9,7 +9,7 @@ android {
     namespace = Modules.NameSpaces.app
     compileSdk = Config.Android.compileSdk
 
-
+    testOptions.unitTests.isIncludeAndroidResources = true
     defaultConfig {
         applicationId = Environments.appId
         minSdk = Config.Android.minSdk
@@ -17,13 +17,26 @@ android {
         versionCode = Environments.versionCode
         versionName = Environments.versionName
 
-        testInstrumentationRunner = Config.Android.testRunner
+        testInstrumentationRunner = "com.hxl.cryptonumismatist.conf.AppTestRunner"
+        testInstrumentationRunnerArguments.putAll(
+            mapOf(
+                "clearPackageData" to "true"
+            )
+        )
         proguardFiles(getDefaultProguardFile("proguard-android.txt"))
         signingConfig = signingConfigs.getByName("debug")
 
         buildConfigField("String", "API_URL", "\"" + Environments.apiUrl +"\"")
         buildConfigField("String", "ASSET_URL", "\"" + Environments.assetUrl +"\"")
     }
+    testOptions {
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
+        animationsDisabled = true
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+
 
     buildFeatures {
         dataBinding = true
@@ -55,6 +68,7 @@ dependencies {
     implementation(project(Modules.data))
     implementation(project(Modules.local))
     implementation(project(Modules.remote))
+    implementation(project(Modules.presentation))
 
     // Android Core
     implementation(Deps.Core.appCompat)
@@ -89,20 +103,27 @@ dependencies {
     annotationProcessor(Deps.Room.roomCompiler)
     implementation(Deps.Room.roomRxJava)
     implementation(Deps.Room.roomPaging)
-    testImplementation(Deps.Room.roomTesting)
-
 
     // Test
     testImplementation(Deps.Test.junit)
+    testImplementation(Deps.Test.mockito)
+    // Android test
     androidTestImplementation(Deps.Test.extJunit)
-    androidTestImplementation(Deps.Test.espresso)
-    androidTestImplementation(Deps.Test.navigation)
-    // Hilt Local
-    testImplementation(Deps.Test.hilt)
-    testAnnotationProcessor(Deps.Test.hiltCompiler)
-    // Hilt Instrumentation
+    androidTestImplementation(Deps.Test.testRunner)
+    androidTestUtil(Deps.Test.orchestrator)
+    androidTestImplementation(Deps.Test.mockito)
     androidTestImplementation(Deps.Test.hilt)
     androidTestAnnotationProcessor(Deps.Test.hiltCompiler)
+    // UI test
+    androidTestImplementation(Deps.Test.espresso)
+    androidTestImplementation(Deps.Test.espressoContrib)
+    implementation(Deps.Test.espressoIdlingResource)
+    androidTestImplementation(Deps.Test.navigation)
+    androidTestImplementation(Deps.Test.fragment)
+
+    // Debug
+    debugImplementation(Deps.Test.fragmentManifest)
+
     // Desugar
     coreLibraryDesugaring(Deps.Others.desugar)
 }

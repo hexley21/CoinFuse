@@ -9,7 +9,7 @@ public final class Versions {
     public static final String constraintLayoutVersion = "2.1.4";
     public static final String splashScreenVersion = "1.0.0";
     // Fragment
-    public static final String fragmentVersion = "1.5.5";
+    public static final String fragmentVersion = "1.6.0-alpha04";
     // Navigation
     public static final String navVersion = "2.5.3";
 
@@ -38,6 +38,9 @@ public final class Versions {
     // JUnit
     public static final String junitVersion = "4.13.2";
     public static final String extJunitVersion = "1.1.5";
+    public static final String testRunnerVersion = "1.5.2";
+    public static final String roboelectricVersion = "4.9";
+    public static final String orchestratorVersion = "1.4.2";
     // Mockito
     public static final String mockitoVersion = "5.2.0";
     // espresso

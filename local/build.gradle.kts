@@ -11,7 +11,7 @@ android {
     defaultConfig {
         minSdk = Config.Android.minSdk
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = Config.Android.testRunner
         consumerProguardFiles("consumer-rules.pro")
         signingConfig = signingConfigs.getByName("debug")
     }
@@ -43,11 +43,14 @@ dependencies {
     annotationProcessor(Deps.Room.roomCompiler)
     implementation(Deps.Room.roomRxJava)
     implementation(Deps.Room.roomPaging)
-    testImplementation(Deps.Room.roomTesting)
 
     // Test
     testImplementation(Deps.Test.junit)
-    androidTestImplementation(Deps.Test.extJunit)
+    testImplementation(Deps.Test.extJunit)
+    testImplementation(Deps.Test.roomTesting)
+    testImplementation(Deps.Test.testRunner)
+    testImplementation(Deps.Test.roboelectric)
+
     // Desugar
     coreLibraryDesugaring(Deps.Others.desugar)
 }

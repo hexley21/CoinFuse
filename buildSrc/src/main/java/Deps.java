@@ -52,9 +52,17 @@ public final class Deps {
     public static final class Test {
         public static final String junit = "junit:junit:" + Versions.junitVersion;
         public static final String extJunit = "androidx.test.ext:junit:" + Versions.extJunitVersion;
+        public static final String testRunner = "androidx.test:runner:" + Versions.testRunnerVersion;
+        public static final String orchestrator = "androidx.test:orchestrator:" + Versions.orchestratorVersion;
+        public static final String roboelectric = "org.robolectric:robolectric:" + Versions.roboelectricVersion;
         public static final String mockito = "org.mockito:mockito-core:" + Versions.mockitoVersion;
         public static final String espresso = "androidx.test.espresso:espresso-core:" + Versions.espressoVersion;
+        public static final String espressoContrib = "androidx.test.espresso:espresso-contrib:" + Versions.espressoVersion;
+        public static final String espressoIdlingResource = "androidx.test.espresso:espresso-idling-resource:" + Versions.espressoVersion;
         public static final String navigation = "androidx.navigation:navigation-testing:" + Versions.navVersion;
+        public static final String fragment = "androidx.fragment:fragment-testing:" + Versions.fragmentVersion;
+        public static final String fragmentManifest = "androidx.fragment:fragment-testing-manifest:" + Versions.fragmentVersion;
+        public static final String roomTesting = "androidx.room:room-testing:" + Versions.roomVersion;
         public static final String hilt = "com.google.dagger:hilt-android-testing:" + Versions.hiltVersion;
         public static final String hiltCompiler = "com.google.dagger:hilt-compiler:" + Versions.hiltVersion;
     }

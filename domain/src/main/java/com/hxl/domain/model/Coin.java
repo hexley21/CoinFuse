@@ -9,7 +9,6 @@ public class Coin {
     public Double maxSupply;
     public Double marketCapUsd;
     public Double volumeUsd24Hr;
-
     public Double priceUsd;
     public Float changePercent24Hr;
     public Double vwap24Hr;
