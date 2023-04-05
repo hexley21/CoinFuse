@@ -51,7 +51,7 @@ public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder>
         return new CoinViewHolder(binding);
     }
 
-    protected class CoinViewHolder extends RecyclerView.ViewHolder implements Binder<Coin> {
+    public class CoinViewHolder extends RecyclerView.ViewHolder implements Binder<Coin> {
         CoinItemBinding binding;
         public CoinViewHolder(CoinItemBinding binding) {
             super(binding.getRoot());
