@@ -11,15 +11,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.databinding.FragmentCoinsBinding;
 import com.hxl.cryptonumismatist.base.BaseFragment;
 import com.hxl.domain.model.Coin;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
 
 import java.util.List;
+import java.util.function.Function;
 
 import javax.inject.Inject;
 
@@ -44,10 +47,16 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
 
     @Inject
     CoinsAdapter coinsAdapter;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
+        Function<Bundle, Void> navigateToDetails = bundle -> {
+            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main)
+                    .navigate(R.id.navigationFragment_to_coinDetailsFragment, bundle);
+            return null;
+        };
         RecyclerView coinsRv = binding.rvCoins;
+        coinsAdapter.setNavigateToDetails(navigateToDetails);
         coinsRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         coinsRv.setAdapter(coinsAdapter);
         if (binding.tfSearch.getEditText() != null) {

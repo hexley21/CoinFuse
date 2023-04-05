@@ -1,5 +1,6 @@
 package com.hxl.cryptonumismatist.ui.fragments.coins.main;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -9,17 +10,19 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
-import com.hxl.cryptonumismatist.databinding.CoinItemBinding;
 import com.hxl.cryptonumismatist.base.BaseAdapter;
 import com.hxl.cryptonumismatist.base.Binder;
+import com.hxl.cryptonumismatist.databinding.CoinItemBinding;
 import com.hxl.domain.model.Coin;
 
 import java.text.DecimalFormat;
+import java.util.function.Function;
 
 import javax.inject.Inject;
 
 public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder> {
     private final RequestManager glide;
+    protected Function<Bundle, Void> navigateToDetails;
 
     @Inject
     public CoinsAdapter(RequestManager glide) {
@@ -36,6 +39,10 @@ public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder>
             }
         };
         CoinsAdapter.super.differ = new AsyncListDiffer<>(this, diffCallBack);
+    }
+
+    public void setNavigateToDetails(Function<Bundle, Void> navigateToDetails) {
+        this.navigateToDetails = navigateToDetails;
     }
 
     @Override
@@ -62,7 +69,17 @@ public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder>
 
     }
 
-    private static String formatDouble(Double num, String suffix) {
+    @Override
+    public void onBindViewHolder(@NonNull CoinsAdapter.CoinViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("coin", getList().get(position).id);
+
+        holder.itemView.setOnClickListener( v -> navigateToDetails.apply(bundle));
+    }
+
+    private String formatDouble(Double num, String suffix) {
         if (num != null) {
             DecimalFormat df = new DecimalFormat("#");
             df.setMinimumFractionDigits(2);
@@ -76,7 +93,7 @@ public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder>
         return "-";
     }
 
-    private static String formatFloat(Float num, String suffix) {
+    private String formatFloat(Float num, String suffix) {
         if (num != null) {
             DecimalFormat df = new DecimalFormat("#.##");
                 return df.format(num) + suffix;

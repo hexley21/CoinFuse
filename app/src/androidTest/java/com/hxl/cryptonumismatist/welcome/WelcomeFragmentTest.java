@@ -58,6 +58,7 @@ public class WelcomeFragmentTest {
 
     @Test
     public void fragmentBehavesAsExpected() {
+        // Arrange
         Function<Fragment, Void> setNavController = fragment -> {
             navController.setGraph(R.navigation.nav_root);
             navController.setCurrentDestination(R.id.welcomeFragment);
@@ -65,8 +66,9 @@ public class WelcomeFragmentTest {
 
             return null;
         };
-
+        // Act
         launchFragmentInHiltContainer(WelcomeFragment.class, setNavController);
+        // Assert
         onView(withId(R.id.walk_through_pager)).check(matches(isDisplayed()));
 
         onView(withId(R.id.btn_next)).check(matches(isDisplayed()));
