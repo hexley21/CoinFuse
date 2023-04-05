@@ -57,6 +57,8 @@ public final class Deps {
         public static final String roboelectric = "org.robolectric:robolectric:" + Versions.roboelectricVersion;
         public static final String mockito = "org.mockito:mockito-core:" + Versions.mockitoVersion;
         public static final String espresso = "androidx.test.espresso:espresso-core:" + Versions.espressoVersion;
+        public static final String espressoContrib = "androidx.test.espresso:espresso-contrib:" + Versions.espressoVersion;
+        public static final String espressoIdlingResource = "androidx.test.espresso:espresso-idling-resource:" + Versions.espressoVersion;
         public static final String navigation = "androidx.navigation:navigation-testing:" + Versions.navVersion;
         public static final String fragment = "androidx.fragment:fragment-testing:" + Versions.fragmentVersion;
         public static final String fragmentManifest = "androidx.fragment:fragment-testing-manifest:" + Versions.fragmentVersion;

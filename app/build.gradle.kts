@@ -116,6 +116,8 @@ dependencies {
     androidTestAnnotationProcessor(Deps.Test.hiltCompiler)
     // UI test
     androidTestImplementation(Deps.Test.espresso)
+    androidTestImplementation(Deps.Test.espressoContrib)
+    implementation(Deps.Test.espressoIdlingResource)
     androidTestImplementation(Deps.Test.navigation)
     androidTestImplementation(Deps.Test.fragment)
 
