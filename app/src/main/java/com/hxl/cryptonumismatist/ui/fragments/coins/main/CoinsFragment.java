@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.databinding.FragmentCoinsBinding;
 import com.hxl.cryptonumismatist.base.BaseFragment;
+import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.domain.model.Coin;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
 
@@ -62,9 +63,7 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
         if (binding.tfSearch.getEditText() != null) {
             binding.tfSearch.getEditText().addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -74,8 +73,7 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
                             .subscribe(new SingleObserver<List<Coin>>() {
 
                                 @Override
-                                public void onSubscribe(Disposable d) {
-                                }
+                                public void onSubscribe(Disposable d) { }
 
                                 @Override
                                 public void onSuccess(List<Coin> coins) {
@@ -83,14 +81,12 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
                                 }
 
                                 @Override
-                                public void onError(Throwable e) {
-                                }
+                                public void onError(Throwable e) { }
                             });
                 }
 
                 @Override
-                public void afterTextChanged(Editable s) {
-                }
+                public void afterTextChanged(Editable s) { }
             });
         }
     }
@@ -101,9 +97,12 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<Coin>>() {
                     @Override
-                    public void onSubscribe(Disposable d) { }
+                    public void onSubscribe(Disposable d) {
+                        EspressoIdlingResource.increment();
+                    }
                     @Override
                     public void onSuccess(List<Coin> coins) {
+                        EspressoIdlingResource.decrement();
                         coinsAdapter.setList(coins);
                     }
                     @Override
