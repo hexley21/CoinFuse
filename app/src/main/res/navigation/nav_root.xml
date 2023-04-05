@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_launch"
+    android:id="@+id/nav_root"
     app:startDestination="@id/welcomeFragment">
 
     <fragment
@@ -27,7 +27,7 @@
         android:label="fragment_navigation"
         tools:layout="fragment_navigation">
         <action
-            android:id="@+id/mainFragment_to_coinDetailsFragment"
+            android:id="@+id/navigationFragment_to_coinDetailsFragment"
             app:destination="@id/coinDetailsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
@@ -38,6 +38,9 @@
         android:id="@+id/coinDetailsFragment"
         android:name="com.hxl.cryptonumismatist.ui.fragments.coins.details.CoinDetailsFragment"
         android:label="fragment_coin_details"
-        tools:layout="@layout/fragment_coin_details"/>
-
+        tools:layout="@layout/fragment_coin_details" >
+        <argument android:name="coin"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>
