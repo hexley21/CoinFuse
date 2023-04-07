@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,40 +62,37 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
         coinsAdapter.setNavigateToDetails(navigateToDetails);
         coinsRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         coinsRv.setAdapter(coinsAdapter);
-        if (binding.tfSearch.getEditText() != null) {
-            binding.tfSearch.getEditText().addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
+        updateCoins();
 
-                    vm.searchCoins(s.toString())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new SingleObserver<List<Coin>>() {
-
-                                @Override
-                                public void onSubscribe(Disposable d) { }
-
-                                @Override
-                                public void onSuccess(List<Coin> coins) {
-                                    coinsAdapter.setList(coins);
-                                }
-
-                                @Override
-                                public void onError(Throwable e) { }
-                            });
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) { }
-            });
-        }
+        binding.searchView.getEditText().setOnEditorActionListener((v, actionId, event) -> {
+            searchCoins(v.getText().toString());
+            return false;
+        });
     }
-    @Override
-    public void onResume() {
-        super.onResume();
+
+    private void updateCoins() {
         vm.getCoins()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<Coin>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        EspressoIdlingResource.increment();
+                    }
+                    @Override
+                    public void onSuccess(List<Coin> coins) {
+                        EspressoIdlingResource.decrement();
+                        coinsAdapter.setList(coins);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("CoinsFragment", e.getMessage(), e);
+                    }
+                });
+    }
+
+    private void searchCoins(String query) {
+        vm.searchCoins(query)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<Coin>>() {
                     @Override
