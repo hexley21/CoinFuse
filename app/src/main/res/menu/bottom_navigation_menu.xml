@@ -1,29 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/coins"
-        android:enabled="true"
-        android:title="Coin"
-        />
+        android:id="@+id/menu_bookmarks"
+        android:icon="@drawable/bookmark"
+        app:showAsAction="ifRoom"
+        android:title="@string/menu_bookmarks" />
 
     <item
-        android:id="@+id/bookmarks"
+        android:id="@+id/menu_coins"
         android:enabled="true"
-        android:title="Bookmarks"
-        />
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/monitoring"
+        android:title="@string/menu_coins" />
 
     <item
-        android:id="@+id/search"
-        android:enabled="true"
-        android:title="Search"
-        />
-
-    <item
-        android:id="@+id/more"
-        android:enabled="true"
-        android:title="More"
-        />
-
+        android:id="@+id/menu_settings"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/settings"
+        android:title="@string/menu_setting" />
 
 </menu>

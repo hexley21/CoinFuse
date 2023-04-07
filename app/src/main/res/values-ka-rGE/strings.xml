@@ -15,5 +15,8 @@
     <string name="desc_welcome">კეთილი იყოს თქვენი მობრძანება კრიპტო ნუმიზმატისტის აპლიკაციაში. \n ცოცხალი კრიპტოვალუტის საბაზრო კაპიტალი, ფასები და სხვა.</string>
     <string name="desc_explore">ფასის ისტორია, ბაზრები და ყველა კრიპტოვალუტის უახლესი ცვლილებები.</string>
     <string name="desc_analyze">მოწოდებული მონაცემები მარტივ და კომპაქტურ ინტერფეისში, ასევე გაუზიარეთ მეგობრებს.</string>
+    <string name="menu_coins">ქოინები</string>
+    <string name="menu_setting">პარამეტრები</string>
+    <string name="menu_bookmarks">შენახულები</string>
 
 </resources>
