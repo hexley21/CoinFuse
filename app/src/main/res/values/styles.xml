@@ -2,10 +2,7 @@
 <resources>
     <style name="CN_SearchBar" parent="Widget.Material3.SearchBar">
         <item name="shapeAppearanceOverlay">
-            @style/CN_SearchBar.Shape
+            @style/ShapeAppearance.Material3.Corner.None
         </item>
-    </style>
-    <style name="CN_SearchBar.Shape" parent="ShapeAppearanceOverlay.Material3.SearchBar">
-        <item name="cornerSize">0%</item>
     </style>
 </resources>
