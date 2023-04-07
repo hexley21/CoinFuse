@@ -3,7 +3,13 @@ package com.hxl.cryptonumismatist.di;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.annotation.NonNull;
+import androidx.room.Room;
+
 import com.hxl.cryptonumismatist.BuildConfig;
+import com.hxl.local.database.CoinDao;
+import com.hxl.local.database.CoinDatabase;
+import com.hxl.local.database.BookmarkDao;
 
 import javax.inject.Singleton;
 
@@ -16,6 +22,28 @@ import dagger.hilt.components.SingletonComponent;
 @Module
 @InstallIn(SingletonComponent.class)
 public class LocalModule {
+
+    @Provides
+    @Singleton
+    CoinDatabase provideCoinDatabase(@ApplicationContext Context context) {
+        return Room.databaseBuilder(
+                context,
+                CoinDatabase.class,
+                CoinDatabase.DB_NAME
+        ).build();
+    }
+
+    @Provides
+    @Singleton
+    CoinDao provideCoinDao(@NonNull CoinDatabase coinDatabase) {
+        return coinDatabase.coinDao();
+    }
+
+    @Provides
+    @Singleton
+    BookmarkDao provideBookmarkDao(@NonNull CoinDatabase coinDatabase) {
+        return coinDatabase.bookmarkDao();
+    }
 
     @Provides
     @Singleton

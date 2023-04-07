@@ -2,12 +2,20 @@ package com.hxl.cryptonumismatist.di;
 
 import android.content.SharedPreferences;
 
-import com.hxl.data.PreferencesRepositoryImpl;
-import com.hxl.data.repository.prefs.PreferencesLocal;
-import com.hxl.data.repository.prefs.PreferencesSource;
-import com.hxl.data.source.PreferencesLocalSource;
-import com.hxl.domain.repository.PreferencesRepository;
-import com.hxl.local.PreferencesLocalImpl;
+import com.hxl.data.CoinRepositoryImpl;
+import com.hxl.data.PreferenceRepositoryImpl;
+import com.hxl.data.repository.coin.CoinLocal;
+import com.hxl.data.repository.coin.CoinRemote;
+import com.hxl.data.repository.pref.PreferenceLocal;
+import com.hxl.domain.repository.CoinRepository;
+import com.hxl.domain.repository.PreferenceRepository;
+import com.hxl.local.CoinLocalImpl;
+import com.hxl.local.PreferenceLocalImpl;
+import com.hxl.local.database.BookmarkDao;
+import com.hxl.local.database.CoinDao;
+import com.hxl.remote.CoinRemoteImpl;
+import com.hxl.remote.api.CoinService;
+import com.hxl.remote.model.CoinDTOMapper;
 
 import javax.inject.Singleton;
 
@@ -20,23 +28,38 @@ import dagger.hilt.components.SingletonComponent;
 @InstallIn(SingletonComponent.class)
 public class DataModule {
 
+    // region prefs
     @Provides
     @Singleton
-    PreferencesLocal providePreferencesLocal(SharedPreferences sharedPreferences) {
-        return new PreferencesLocalImpl(sharedPreferences);
+    PreferenceLocal providePreferenceLocal(SharedPreferences sharedPreferences) {
+        return new PreferenceLocalImpl(sharedPreferences);
     }
 
     @Provides
     @Singleton
-    PreferencesSource providePreferenceSource(PreferencesLocal preferencesLocal) {
-        return new PreferencesLocalSource(preferencesLocal);
+    PreferenceRepository providePreferenceRepository(PreferenceLocal preferenceLocal) {
+        return new PreferenceRepositoryImpl(preferenceLocal);
+
+    }
+    // endregion
+
+    // region coin
+    @Provides
+    @Singleton
+    CoinRemote provideCoinRemoteSource(CoinService coinService, CoinDTOMapper mapper) {
+        return new CoinRemoteImpl(coinService, mapper);
     }
 
     @Provides
     @Singleton
-    PreferencesRepository providePreferenceRepository(PreferencesSource preferencesSource) {
-        return new PreferencesRepositoryImpl(preferencesSource);
-
+    CoinLocal provideCoinLocalSource(CoinDao coinDao, BookmarkDao bookmarkDao) {
+        return new CoinLocalImpl(coinDao, bookmarkDao);
     }
 
+    @Provides
+    @Singleton
+    CoinRepository provideCoinRepository(CoinRemote coinRemote, CoinLocal coinLocal) {
+        return new CoinRepositoryImpl(coinRemote, coinLocal);
+    }
+    // endregion
 }

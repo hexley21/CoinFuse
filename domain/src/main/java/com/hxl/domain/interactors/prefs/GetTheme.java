@@ -2,15 +2,18 @@ package com.hxl.domain.interactors.prefs;
 
 import static com.hxl.domain.model.PrefKeys.THEME;
 
-import com.hxl.domain.repository.PreferencesRepository;
+import com.hxl.domain.repository.PreferenceRepository;
 
 import org.jetbrains.annotations.NotNull;
 
+import javax.inject.Inject;
+
 public class GetTheme {
 
-    private final PreferencesRepository preferenceRepository;
+    private final PreferenceRepository preferenceRepository;
 
-    public GetTheme(@NotNull PreferencesRepository preferenceRepository) {
+    @Inject
+    public GetTheme(@NotNull PreferenceRepository preferenceRepository) {
         this.preferenceRepository = preferenceRepository;
     }
 

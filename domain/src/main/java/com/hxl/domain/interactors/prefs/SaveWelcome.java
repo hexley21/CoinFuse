@@ -2,13 +2,16 @@ package com.hxl.domain.interactors.prefs;
 
 import static com.hxl.domain.model.PrefKeys.WELCOME;
 
-import com.hxl.domain.repository.PreferencesRepository;
+import com.hxl.domain.repository.PreferenceRepository;
+
+import javax.inject.Inject;
 
 public class SaveWelcome {
 
-    private final PreferencesRepository preferenceRepository;
+    private final PreferenceRepository preferenceRepository;
 
-    public SaveWelcome(PreferencesRepository preferenceRepository) {
+    @Inject
+    public SaveWelcome(PreferenceRepository preferenceRepository) {
         this.preferenceRepository = preferenceRepository;
     }
 

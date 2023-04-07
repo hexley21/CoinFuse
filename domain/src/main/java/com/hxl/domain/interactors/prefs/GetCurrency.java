@@ -2,15 +2,18 @@ package com.hxl.domain.interactors.prefs;
 
 import static com.hxl.domain.model.PrefKeys.CURRENCY;
 
-import com.hxl.domain.repository.PreferencesRepository;
+import com.hxl.domain.repository.PreferenceRepository;
 
 import org.jetbrains.annotations.NotNull;
 
+import javax.inject.Inject;
+
 public class GetCurrency {
 
-    private final PreferencesRepository preferenceRepository;
+    private final PreferenceRepository preferenceRepository;
 
-    public GetCurrency(@NotNull PreferencesRepository preferenceRepository) {
+    @Inject
+    public GetCurrency(@NotNull PreferenceRepository preferenceRepository) {
         this.preferenceRepository = preferenceRepository;
     }
 
