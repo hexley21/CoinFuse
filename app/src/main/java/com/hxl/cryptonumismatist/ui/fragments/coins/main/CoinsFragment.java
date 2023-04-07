@@ -1,14 +1,10 @@
 package com.hxl.cryptonumismatist.ui.fragments.coins.main;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hxl.cryptonumismatist.R;
-import com.hxl.cryptonumismatist.databinding.FragmentCoinsBinding;
 import com.hxl.cryptonumismatist.base.BaseFragment;
+import com.hxl.cryptonumismatist.databinding.FragmentCoinsBinding;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.domain.model.Coin;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
@@ -36,8 +32,6 @@ import io.reactivex.rxjava3.disposables.Disposable;
 
 @AndroidEntryPoint
 public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuViewModel> {
-
-//    private final CompositeDisposable disposable = new CompositeDisposable();
     @Override
     protected FragmentCoinsBinding setViewBinding(LayoutInflater inflater, ViewGroup container) {
         return FragmentCoinsBinding.inflate(inflater, container, false);
