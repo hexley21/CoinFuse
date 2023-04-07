@@ -1,13 +1,11 @@
 package com.hxl.cryptonumismatist.ui.fragments.welcome.walkthrough;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.hxl.cryptonumismatist.databinding.ItemWalkThroughBinding;
@@ -27,16 +25,11 @@ public class WalkThroughItem extends Fragment {
         if (getArguments() != null) {
             binding.setTitle(getStringResource(getArguments().getInt("title")));
             binding.setDescription(getStringResource(getArguments().getInt("description")));
-            binding.imgWalkThrough.setImageDrawable(getDrawableResource(getArguments().getInt("image")));
+            binding.imgWalkThrough.setAnimation(getArguments().getInt("image"));
         }
     }
 
     private String getStringResource(int id) {
         return getResources().getString(id);
     }
-
-    private Drawable getDrawableResource(int id) {
-        return ContextCompat.getDrawable(requireContext(), id);
-    }
-
 }
