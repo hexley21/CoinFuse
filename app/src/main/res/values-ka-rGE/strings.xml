@@ -3,6 +3,7 @@
     <string name="btn_next">შემდეგი</string>
     <string name="btn_get_started">დაწყება</string>
     <string name="tv_skip">გამოტოვება</string>
+    <string name="hint_search">ქოინების ძიება</string>
     <string name="cd_img_walk_through">გზამკლევის სურათი</string>
 
     <!-- Walkthrough -->
