@@ -14,10 +14,6 @@
     <string name="desc_welcome">Crypto Numismatist\n provides Live cryptocurrency market capitalization, prices and more</string>
     <string name="desc_explore">Price History, Markets &amp; Latest changes of every Crypto Currency.</string>
     <string name="desc_analyze">Data in easy and compact readable way &amp; share latest information with your friends.</string>
-    <!-- Images -->
-    <drawable name="img_welcome">@drawable/logo</drawable>
-    <drawable name="img_explore">@drawable/coin</drawable>
-    <drawable name="img_analyze">@drawable/node</drawable>
 
     <!-- Content Description -->
     <string name="cd_img_walk_through">Walk-through Image</string>
