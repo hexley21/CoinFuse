@@ -57,13 +57,17 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
         coinsRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         coinsRv.setAdapter(coinsAdapter);
 
-        updateCoins();
-
         binding.searchView.getEditText().setOnEditorActionListener((v, actionId, event) -> {
             searchCoins(v.getText().toString());
             return false;
         });
     }
+    
+    @Override
+    public void onResume(){
+        super.onResume();
+        updateCoins();
+    }    
 
     private void updateCoins() {
         vm.getCoins()
