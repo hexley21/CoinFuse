@@ -18,5 +18,6 @@
     <string name="menu_coins">ქოინები</string>
     <string name="menu_setting">პარამეტრები</string>
     <string name="menu_bookmarks">შენახულები</string>
+    <string name="menu_exchanges">გაცვლები</string>
 
 </resources>

@@ -16,8 +16,9 @@
     <string name="desc_analyze">Data in easy and compact readable way &amp; share latest information with your friends.</string>
 
     <!-- Navigation Fragment -->
-    <string name="menu_bookmarks">Bookmarks</string>
     <string name="menu_coins">Coins</string>
+    <string name="menu_exchanges">Exchanges</string>
+    <string name="menu_bookmarks">Bookmarks</string>
     <string name="menu_setting">Settings</string>
 
     <!-- Coins menu -->

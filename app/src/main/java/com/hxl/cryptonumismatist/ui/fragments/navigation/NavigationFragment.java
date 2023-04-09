@@ -17,7 +17,6 @@ public class NavigationFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentNavigationBinding.inflate(inflater, container, false);
-        binding.bottomNavigation.setSelectedItemId(R.id.menu_coins);
         return binding.getRoot();
     }
 }
