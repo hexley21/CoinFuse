@@ -11,6 +11,7 @@ public final class Deps {
         public static final String navigationUi = "androidx.navigation:navigation-ui:" + Versions.navVersion;
         public static final String navigationFeatures = "androidx.navigation:navigation-dynamic-features-fragment:" + Versions.navVersion;
         public static final String splash = "androidx.core:core-splashscreen:" + Versions.splashScreenVersion;
+        public static final String swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:" + Versions.swipeRefreshLayoutVersion;
     }
 
     public static final class LifeCycle {
