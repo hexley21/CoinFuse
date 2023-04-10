@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseFragment;
@@ -44,6 +45,7 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
 
     @Inject
     CoinsAdapter coinsAdapter;
+    SwipeRefreshLayout refreshLayout;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -56,18 +58,15 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
         coinsAdapter.setNavigateToDetails(navigateToDetails);
         coinsRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         coinsRv.setAdapter(coinsAdapter);
+        refreshLayout = binding.srlCoins;
+        updateCoins();
 
         binding.searchView.getEditText().setOnEditorActionListener((v, actionId, event) -> {
             searchCoins(v.getText().toString());
             return false;
         });
+        binding.srlCoins.setOnRefreshListener(this::updateCoins);
     }
-    
-    @Override
-    public void onResume(){
-        super.onResume();
-        updateCoins();
-    }    
 
     private void updateCoins() {
         vm.getCoins()
@@ -81,10 +80,12 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
                     public void onSuccess(List<Coin> coins) {
                         EspressoIdlingResource.decrement();
                         coinsAdapter.setList(coins);
+                        refreshLayout.setRefreshing(false);
                     }
                     @Override
                     public void onError(Throwable e) {
                         Log.e("CoinsFragment", e.getMessage(), e);
+                        refreshLayout.setRefreshing(false);
                     }
                 });
     }
