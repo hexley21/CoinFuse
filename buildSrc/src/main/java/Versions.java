@@ -12,6 +12,7 @@ public final class Versions {
     public static final String fragmentVersion = "1.6.0-alpha04";
     // Navigation
     public static final String navVersion = "2.5.3";
+    public static final String swipeRefreshLayoutVersion = "1.2.0-alpha01";
 
     //UI
     public static final String circleIndicatorVersion = "2.1.6";

@@ -7,42 +7,30 @@
         <variable name="rank" type="String" />
         <variable name="name" type="String" />
         <variable name="symbol" type="String" />
-        <variable name="price" type="String" />
-        <variable name="change" type="String" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_view"
         style="@style/Widget.Material3.CardView.Elevated"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/coin_list_item_height"
+        android:layout_height="@dimen/search_coin_list_item_height"
         android:layout_gravity="center"
         app:cardCornerRadius="0dp"
-        app:cardElevation="0dp"
-        app:contentPaddingLeft="@dimen/coins_list_item_padding"
-        app:contentPaddingRight="@dimen/coins_list_item_padding">
+        app:cardElevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/coins_list_item_padding"
+            android:layout_marginRight="@dimen/coins_list_item_padding"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_rank"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minEms="2"
-                android:text="@{rank}"
-                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                tools:text="1234" />
-
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img_coin"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="4dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -63,12 +51,11 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:gravity="center|start"
-                    android:maxEms="10"
                     android:maxLines="1"
                     android:minEms="4"
                     android:scrollHorizontally="false"
                     android:text="@{name}"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                     tools:text="Name" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -78,37 +65,20 @@
                     android:maxEms="10"
                     android:minEms="4"
                     android:text="@{symbol}"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                     tools:text="SMBL" />
 
             </LinearLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_price"
+                android:id="@+id/tv_rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                android:maxEms="8"
                 android:minEms="2"
-                android:text="@{price}"
-                android:textAppearance="?attr/textAppearanceBody2"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tv_change"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="123,456.78$" />
+                android:text="@{rank}"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                tools:text="1234" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_change"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:minEms="4"
-                android:text="@{change}"
-                android:textAppearance="?attr/textAppearanceBody2"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="123.45%" />
         </LinearLayout>
 
         <View

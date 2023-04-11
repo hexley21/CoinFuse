@@ -3,6 +3,7 @@
     <string name="btn_next">შემდეგი</string>
     <string name="btn_get_started">დაწყება</string>
     <string name="tv_skip">გამოტოვება</string>
+    <string name="hint_search">ქოინების ძიება</string>
     <string name="cd_img_walk_through">გზამკლევის სურათი</string>
 
     <!-- Walkthrough -->
@@ -14,5 +15,9 @@
     <string name="desc_welcome">კეთილი იყოს თქვენი მობრძანება კრიპტო ნუმიზმატისტის აპლიკაციაში. \n ცოცხალი კრიპტოვალუტის საბაზრო კაპიტალი, ფასები და სხვა.</string>
     <string name="desc_explore">ფასის ისტორია, ბაზრები და ყველა კრიპტოვალუტის უახლესი ცვლილებები.</string>
     <string name="desc_analyze">მოწოდებული მონაცემები მარტივ და კომპაქტურ ინტერფეისში, ასევე გაუზიარეთ მეგობრებს.</string>
+    <string name="menu_coins">ქოინები</string>
+    <string name="menu_setting">პარამეტრები</string>
+    <string name="menu_bookmarks">შენახულები</string>
+    <string name="menu_exchanges">გაცვლები</string>
 
 </resources>

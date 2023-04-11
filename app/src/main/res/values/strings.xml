@@ -15,6 +15,15 @@
     <string name="desc_explore">Price History, Markets &amp; Latest changes of every Crypto Currency.</string>
     <string name="desc_analyze">Data in easy and compact readable way &amp; share latest information with your friends.</string>
 
+    <!-- Navigation Fragment -->
+    <string name="menu_coins">Coins</string>
+    <string name="menu_exchanges">Exchanges</string>
+    <string name="menu_bookmarks">Bookmarks</string>
+    <string name="menu_setting">Settings</string>
+
+    <!-- Coins menu -->
+    <string name="hint_search">Search for a coin</string>
+
     <!-- Content Description -->
     <string name="cd_img_walk_through">Walk-through Image</string>
 </resources>

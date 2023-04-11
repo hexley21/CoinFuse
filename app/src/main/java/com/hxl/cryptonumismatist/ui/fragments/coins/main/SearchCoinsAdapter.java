@@ -12,20 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.RequestManager;
 import com.hxl.cryptonumismatist.base.BaseAdapter;
 import com.hxl.cryptonumismatist.base.Binder;
-import com.hxl.cryptonumismatist.databinding.CoinItemBinding;
+import com.hxl.cryptonumismatist.databinding.SearchCoinItemBinding;
 import com.hxl.domain.model.Coin;
 
-import java.text.DecimalFormat;
 import java.util.function.Function;
 
 import javax.inject.Inject;
 
-public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder> {
+public class SearchCoinsAdapter extends BaseAdapter<Coin, SearchCoinsAdapter.SearchCoinViewHolder> {
     private final RequestManager glide;
     protected Function<Bundle, Void> navigateToDetails;
 
     @Inject
-    public CoinsAdapter(RequestManager glide) {
+    public SearchCoinsAdapter(RequestManager glide) {
         this.glide = glide;
         DiffUtil.ItemCallback<Coin> diffCallBack = new DiffUtil.ItemCallback<Coin>() {
             @Override
@@ -38,7 +37,7 @@ public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder>
                 return oldItem.equals(newItem);
             }
         };
-        CoinsAdapter.super.differ = new AsyncListDiffer<>(this, diffCallBack);
+        SearchCoinsAdapter.super.differ = new AsyncListDiffer<>(this, diffCallBack);
     }
 
     public void setNavigateToDetails(Function<Bundle, Void> navigateToDetails) {
@@ -46,14 +45,15 @@ public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder>
     }
 
     @Override
-    protected CoinViewHolder getViewHolder(ViewGroup parent, int viewType) {
-        CoinItemBinding binding = CoinItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new CoinViewHolder(binding);
+    protected SearchCoinsAdapter.SearchCoinViewHolder getViewHolder(ViewGroup parent, int viewType) {
+        SearchCoinItemBinding binding = SearchCoinItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new SearchCoinsAdapter.SearchCoinViewHolder(binding);
     }
 
-    public class CoinViewHolder extends RecyclerView.ViewHolder implements Binder<Coin> {
-        CoinItemBinding binding;
-        public CoinViewHolder(CoinItemBinding binding) {
+    public class SearchCoinViewHolder extends RecyclerView.ViewHolder implements Binder<Coin> {
+        SearchCoinItemBinding binding;
+
+        public SearchCoinViewHolder(SearchCoinItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
@@ -62,43 +62,19 @@ public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder>
         public void bind(Coin item) {
             binding.setName(item.name);
             binding.setSymbol(item.symbol);
-            binding.setPrice(formatDouble(item.priceUsd, "$"));
-            binding.setChange(formatFloat(item.changePercent24Hr, "%"));
-            binding.setRank(String.valueOf(item.rank));
+            binding.setRank("#" + item.rank);
             glide.load(item.img).into(binding.imgCoin);
         }
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CoinsAdapter.CoinViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SearchCoinsAdapter.SearchCoinViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
 
         Bundle bundle = new Bundle();
         bundle.putString("coin", getList().get(position).id);
 
-        holder.itemView.setOnClickListener( v -> navigateToDetails.apply(bundle));
-    }
-
-    private String formatDouble(Double num, String suffix) {
-        if (num != null) {
-            DecimalFormat df = new DecimalFormat("#");
-            df.setMinimumFractionDigits(2);
-            if (num > 1.0d) {
-                df.setMaximumFractionDigits(2);
-                return df.format(num) + suffix;
-            }
-            df.setMaximumFractionDigits(6);
-            return df.format(num) + suffix;
-        }
-        return "-";
-    }
-
-    private String formatFloat(Float num, String suffix) {
-        if (num != null) {
-            DecimalFormat df = new DecimalFormat("#.##");
-                return df.format(num) + suffix;
-        }
-        return "-";
+        holder.itemView.setOnClickListener(v -> navigateToDetails.apply(bundle));
     }
 }
