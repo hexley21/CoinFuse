@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,6 +47,15 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
     @Inject
     CoinsAdapter coinsAdapter;
     SwipeRefreshLayout refreshLayout;
+    ProgressBar progressBar;
+    private int pbVisibility = View.VISIBLE;
+
+    @Override
+    protected void onCreateView(Bundle savedInstanceState) {
+        refreshLayout = binding.srlCoins;
+        progressBar = binding.pbCoins;
+        progressBar.setVisibility(pbVisibility);
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -58,9 +68,8 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
         coinsAdapter.setNavigateToDetails(navigateToDetails);
         coinsRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         coinsRv.setAdapter(coinsAdapter);
-        refreshLayout = binding.srlCoins;
         updateCoins();
-
+        pbVisibility = View.GONE;
         binding.searchView.getEditText().setOnEditorActionListener((v, actionId, event) -> {
             searchCoins(v.getText().toString());
             return false;
@@ -80,11 +89,13 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
                     public void onSuccess(List<Coin> coins) {
                         EspressoIdlingResource.decrement();
                         coinsAdapter.setList(coins);
+                        progressBar.setVisibility(View.GONE);
                         refreshLayout.setRefreshing(false);
                     }
                     @Override
                     public void onError(Throwable e) {
                         Log.e("CoinsFragment", e.getMessage(), e);
+                        progressBar.setVisibility(View.GONE);
                         refreshLayout.setRefreshing(false);
                     }
                 });

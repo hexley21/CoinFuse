@@ -6,20 +6,30 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/srl_coins"
-            android:layout_marginTop="56dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
             app:layout_behavior="@string/searchbar_scrolling_view_behavior"
-            tools:ignore="PrivateResource" >
+            tools:ignore="PrivateResource">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_coins"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/coin_item"
-                tools:itemCount="20" />
+                tools:itemCount="20"
+                tools:listitem="@layout/coin_item" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <ProgressBar
+            android:id="@+id/pb_coins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
