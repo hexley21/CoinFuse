@@ -45,6 +45,7 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
         return new ViewModelProvider(this).get(CoinsMenuViewModel.class);
     }
 
+    private static final String TAG = "CoinsFragment";
     @Inject
     CoinsAdapter coinsAdapter;
     @Inject
@@ -105,7 +106,7 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
                     }
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("CoinsFragment", e.getMessage(), e);
+                        Log.e(TAG, e.getMessage(), e);
                         progressBar.setVisibility(View.GONE);
                         refreshLayout.setRefreshing(false);
                     }
@@ -127,7 +128,7 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
                     }
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("CoinsFragment", e.getMessage(), e);
+                        Log.e(TAG, e.getMessage(), e);
                     }
                 });
     }
