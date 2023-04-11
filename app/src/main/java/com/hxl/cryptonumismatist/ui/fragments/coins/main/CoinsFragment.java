@@ -22,6 +22,7 @@ import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.domain.model.Coin;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
 
+
 import java.util.List;
 import java.util.function.Function;
 
@@ -46,6 +47,8 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
 
     @Inject
     CoinsAdapter coinsAdapter;
+    @Inject
+    SearchCoinsAdapter searchCoinsAdapter;
     SwipeRefreshLayout refreshLayout;
     ProgressBar progressBar;
     private int pbVisibility = View.VISIBLE;
@@ -65,11 +68,19 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
             return null;
         };
         RecyclerView coinsRv = binding.rvCoins;
+        RecyclerView searchRv = binding.rvSearch;
+
         coinsAdapter.setNavigateToDetails(navigateToDetails);
+        searchCoinsAdapter.setNavigateToDetails(navigateToDetails);
+
         coinsRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         coinsRv.setAdapter(coinsAdapter);
+        searchRv.setLayoutManager(new LinearLayoutManager(requireContext()));
+        searchRv.setAdapter(searchCoinsAdapter);
+
         updateCoins();
         pbVisibility = View.GONE;
+
         binding.searchView.getEditText().setOnEditorActionListener((v, actionId, event) -> {
             searchCoins(v.getText().toString());
             return false;
@@ -112,7 +123,7 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
                     @Override
                     public void onSuccess(List<Coin> coins) {
                         EspressoIdlingResource.decrement();
-                        coinsAdapter.setList(coins);
+                        searchCoinsAdapter.setList(coins);
                     }
                     @Override
                     public void onError(Throwable e) {
