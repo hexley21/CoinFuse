@@ -99,4 +99,11 @@
     <color name="md_theme_dark_surfaceContainerLowest">#0C0E11</color>
     <color name="md_theme_dark_surfaceDim">#111416</color>
     <color name="md_theme_dark_surfaceBright">#37393C</color>
+
+    <color name="bookmark_light">#FDD835</color>
+    <color name="bookmark_dark">#CDCD00</color>
+    <color name="bookmark_light_ripple">#42FDD835</color>
+    <color name="bookmark_dark_ripple">#42CDCD00</color>
+    <color name="background_light_ripple">#42191C1E</color>
+    <color name="background_dark_ripple">#42E2E2E5</color>
 </resources>

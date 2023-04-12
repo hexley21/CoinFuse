@@ -30,6 +30,10 @@
         <item name="android:statusBarColor">#D6E3EB</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:navigationBarColor">#E1E9F0</item>
+
+        <item name="bookmark">@color/bookmark_light</item>
+        <item name="bookmark_ripple">@color/bookmark_light_ripple</item>
+        <item name="background_ripple">@color/background_light_ripple</item>
     </style>
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">

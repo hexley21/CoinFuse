@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="bookmark" format="color" />
+    <attr name="bookmark_ripple" format="color"/>
+
+    <attr name="background_ripple" format="color"/>
+</resources>
