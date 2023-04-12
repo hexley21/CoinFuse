@@ -91,6 +91,7 @@ dependencies {
     implementation(Deps.UI.circleIndicator)
     implementation(Deps.UI.glide)
     implementation(Deps.UI.lottie)
+    implementation(Deps.UI.chart)
     annotationProcessor(Deps.UI.glideCompiler)
 
     // Reactive
