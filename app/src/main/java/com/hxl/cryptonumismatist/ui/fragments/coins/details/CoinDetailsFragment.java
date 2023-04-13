@@ -18,6 +18,7 @@ import com.bumptech.glide.RequestManager;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseFragment;
 import com.hxl.cryptonumismatist.databinding.FragmentCoinDetailsBinding;
+import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.domain.model.Coin;
 import com.hxl.presentation.viewmodels.CoinDetailsViewModel;
 
@@ -102,7 +103,9 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
         vm.getCoin(coinId).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<Coin>() {
                     @Override
-                    public void onSubscribe(@NonNull Disposable d) {}
+                    public void onSubscribe(@NonNull Disposable d) {
+                        EspressoIdlingResource.increment();
+                    }
 
                     @Override
                     public void onSuccess(@NonNull Coin coin) {
@@ -128,11 +131,13 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                         binding.setSupply(formatDoubleDetailed(coin.supply));
                         binding.setDayHigh(String.valueOf(0));
                         binding.setDayLow(String.valueOf(0));
+                        EspressoIdlingResource.decrement();
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         Log.e(TAG, String.format("getCoin.onError: %s couldn't be fetched", coinId), e);
+                        EspressoIdlingResource.decrement();
                     }
                 });
 
