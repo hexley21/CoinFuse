@@ -170,6 +170,7 @@ public class CoinLocalImplTest {
         Completable bookmarkCoin = coinSource.bookmarkCoin(ID);
         // Assert
         bookmarkCoin.test()
+                .awaitCount(1)
                 .assertComplete()
                 .assertNoErrors();
         getBookmarkedCoin.test()
@@ -188,6 +189,7 @@ public class CoinLocalImplTest {
         Completable unBookmarkCoin = coinSource.unBookmarkCoin(ID);
         // Assert
         bookmarkCoin.test()
+                .awaitCount(1)
                 .assertComplete()
                 .assertNoErrors();
         getBookmarkedCoin.test()
