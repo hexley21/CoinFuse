@@ -1,14 +1,17 @@
 package com.hxl.cryptonumismatist.ui.fragments.coins.details;
 
+import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatDoubleDetailed;
+import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatFloat;
+
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
-import static com.hxl.cryptonumismatist.util.NumberFormatUtil.*;
-
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.RequestManager;
@@ -22,10 +25,10 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.CompletableObserver;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.annotations.NonNull;
 
 @AndroidEntryPoint
 public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding, CoinDetailsViewModel> {
@@ -41,7 +44,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
     }
     private static final String TAG = "CoinDetailsFragment";
     private static final String coinArg = "coin";
-    Single<Coin> coin;
+    String coinId;
 
     @Inject
     RequestManager glide;
@@ -49,14 +52,54 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         if (getArguments() != null) {
-            coin = vm.getCoin(getArguments().getString(coinArg));
+            coinId = getArguments().getString(coinArg);
             bind();
         }
     }
 
+    @Override
+    public void onViewCreated(@androidx.annotation.NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.cbBookmark.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                vm.bookmarkCoin(coinId)
+                        .subscribe(new CompletableObserver() {
+                            @Override
+                            public void onSubscribe(@NonNull Disposable d) { }
+
+                            @Override
+                            public void onComplete() {
+                                Log.d(TAG, String.format("bookmarkCoin.onComplete: %s was bookmarked", coinId));
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+                                Log.e(TAG, String.format("bookmarkCoin.onComplete: %s couldn't be bookmarked", coinId), e);
+                            }
+                        });
+            }
+            else {
+                vm.unBookmarkCoin(coinId)
+                        .subscribe(new CompletableObserver() {
+                            @Override
+                            public void onSubscribe(@NonNull Disposable d) { }
+
+                            @Override
+                            public void onComplete() {
+                                Log.d(TAG, String.format("unBookmarkCoin.onComplete: %s was un-bookmarked", coinId));
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+                                Log.e(TAG, String.format("unBookmarkCoin.onComplete: %s couldn't be un-bookmarked", coinId), e);
+                            }
+                        });
+            }
+        });
+    }
 
     private void bind() {
-        coin.observeOn(AndroidSchedulers.mainThread())
+        vm.getCoin(coinId).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<Coin>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {}
@@ -89,7 +132,23 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Log.e(TAG, "onError: ", e);
+                        Log.e(TAG, String.format("getCoin.onError: %s couldn't be fetched", coinId), e);
+                    }
+                });
+
+        vm.isCoinBookmarked(coinId).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<Boolean>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {}
+
+                    @Override
+                    public void onSuccess(@NonNull Boolean aBoolean) {
+                        binding.cbBookmark.setChecked(aBoolean);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.e(TAG, String.format("isCoinBookmarked.onError: %s couldn't be checked", coinId), e);
                     }
                 });
     }
