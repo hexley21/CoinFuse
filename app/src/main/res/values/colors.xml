@@ -106,4 +106,7 @@
     <color name="bookmark_dark_ripple">#42CDCD00</color>
     <color name="background_light_ripple">#42191C1E</color>
     <color name="background_dark_ripple">#42E2E2E5</color>
+
+    <color name="growth_light">#43A047</color>
+    <color name="growth_dark">#81C784</color>
 </resources>

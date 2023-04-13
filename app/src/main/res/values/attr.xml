@@ -3,5 +3,7 @@
     <attr name="bookmark" format="color" />
     <attr name="bookmark_ripple" format="color"/>
 
+    <attr name="growth" format="color"/>
+
     <attr name="background_ripple" format="color"/>
 </resources>
