@@ -105,9 +105,9 @@
     <color name="status_bar_dark">#202B33</color>
     <color name="navigation_bar_dark">#1A2329</color>
 
-    <color name="bookmark_light">#FDD835</color>
+    <color name="bookmark_light">#FBC02D</color>
     <color name="bookmark_dark">#FFF176</color>
-    <color name="bookmark_light_ripple">#42FDD835</color>
+    <color name="bookmark_light_ripple">#42FBC02D</color>
     <color name="bookmark_dark_ripple">#42FFF176</color>
     <color name="background_light_ripple">#42191C1E</color>
     <color name="background_dark_ripple">#42E2E2E5</color>
