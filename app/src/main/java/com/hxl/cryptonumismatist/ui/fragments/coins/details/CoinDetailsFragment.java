@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.*;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.RequestManager;
@@ -49,11 +51,19 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         if (getArguments() != null) {
-            coin = vm.getCoin(getArguments().getString(coinArg));
+            String coinId = getArguments().getString(coinArg);
+            coin = vm.getCoin(coinId);
             bind();
         }
     }
 
+    @Override
+    public void onViewCreated(@androidx.annotation.NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.cbBookmark.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            
+        });
+    }
 
     private void bind() {
         coin.observeOn(AndroidSchedulers.mainThread())
@@ -85,6 +95,20 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                         binding.setSupply(formatDoubleDetailed(coin.supply));
                         binding.setDayHigh(String.valueOf(0));
                         binding.setDayLow(String.valueOf(0));
+
+                        vm.isCoinBookmarked(coin.id).observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new SingleObserver<Boolean>() {
+                                    @Override
+                                    public void onSubscribe(@NonNull Disposable d) {}
+
+                                    @Override
+                                    public void onSuccess(@NonNull Boolean aBoolean) {
+                                        binding.cbBookmark.setChecked(aBoolean);
+                                    }
+
+                                    @Override
+                                    public void onError(@NonNull Throwable e) {}
+                                });
                     }
 
                     @Override
