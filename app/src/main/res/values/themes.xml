@@ -34,6 +34,10 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:navigationBarColor">?attr/navigationBarColor</item>
 
+        <item name="bookmark">@color/bookmark_light</item>
+        <item name="bookmark_ripple">@color/bookmark_light_ripple</item>
+        <item name="background_ripple">@color/background_light_ripple</item>
+
         <item name="growth">@color/growth_light</item>
     </style>
 
