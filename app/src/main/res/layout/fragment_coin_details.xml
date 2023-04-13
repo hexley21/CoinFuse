@@ -230,6 +230,7 @@
                     android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_market_cap_val"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -260,6 +261,7 @@
                     android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_volume_24_val"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -290,6 +292,7 @@
                     android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_supply_val"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -320,6 +323,7 @@
                     android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_day_high_val"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -350,6 +354,7 @@
                     android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_day_low_val"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

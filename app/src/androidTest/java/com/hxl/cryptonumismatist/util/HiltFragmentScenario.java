@@ -11,19 +11,18 @@ import androidx.test.core.app.ApplicationProvider;
 import com.hxl.cryptonumismatist.HiltTestActivity;
 
 import java.util.Objects;
-import java.util.function.Function;
 
 public final class HiltFragmentScenario {
-    public static <T extends Fragment> void launchFragmentInHiltContainer(
+
+    public static <T extends Fragment> ActivityScenario<HiltTestActivity> launchFragmentInHiltContainer(
             Class<T> fragmentClass,
-            Bundle args,
-            Function<Fragment, Void> function
+            Bundle args
     ) {
         Intent startActivityIntent = Intent.makeMainActivity(
                 new ComponentName(ApplicationProvider.getApplicationContext(), HiltTestActivity.class)
         );
 
-        ActivityScenario.<HiltTestActivity>launch(startActivityIntent)
+        return ActivityScenario.<HiltTestActivity>launch(startActivityIntent)
                 .onActivity(activity -> {
                     Fragment fragment = activity.getSupportFragmentManager().getFragmentFactory().instantiate(
                             Objects.requireNonNull(fragmentClass.getClassLoader()),
@@ -35,15 +34,14 @@ public final class HiltFragmentScenario {
                             .beginTransaction()
                             .add(android.R.id.content, fragment, "")
                             .commitNow();
-
-                    function.apply(fragment);
                 });
 
     }
-    public static <T extends Fragment> void launchFragmentInHiltContainer(
-            Class<T> fragmentClass,
-            Function<Fragment, Void> function
+
+    public static <T extends Fragment> ActivityScenario<HiltTestActivity> launchFragmentInHiltContainer(
+            Class<T> fragmentClass
     ) {
-        launchFragmentInHiltContainer(fragmentClass, new Bundle(), function);
+        return launchFragmentInHiltContainer(fragmentClass, new Bundle());
     }
+
 }

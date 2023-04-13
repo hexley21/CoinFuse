@@ -106,6 +106,7 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
                     }
                     @Override
                     public void onError(Throwable e) {
+                        EspressoIdlingResource.decrement();
                         Log.e(TAG, e.getMessage(), e);
                         progressBar.setVisibility(View.GONE);
                         refreshLayout.setRefreshing(false);
@@ -128,6 +129,7 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
                     }
                     @Override
                     public void onError(Throwable e) {
+                        EspressoIdlingResource.decrement();
                         Log.e(TAG, e.getMessage(), e);
                     }
                 });
