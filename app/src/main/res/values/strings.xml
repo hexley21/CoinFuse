@@ -24,6 +24,26 @@
     <!-- Coins menu -->
     <string name="hint_search">Search for a coin</string>
 
+    <!-- Coin Details -->
+        <!-- Chips -->
+    <string name="chip_1h" translatable="false">1H</string>
+    <string name="chip_24h" translatable="false">24H</string>
+    <string name="chip_7d" translatable="false">7D</string>
+    <string name="chip_1m" translatable="false">1M</string>
+    <string name="chip_3m" translatable="false">3M</string>
+    <string name="chip_1y" translatable="false">1Y</string>
+        <!-- Details -->
+    <string name="tv_market_cap">Market Cap</string>
+    <string name="tv_volume_24h">Volume (24H)</string>
+    <string name="tv_supply">Supply</string>
+    <string name="tv_24h_high">24H High</string>
+    <string name="tv_24h_low">24H Low</string>
+
+
+    <!-- General -->
+    <string name="arrow_up" translatable="false">▴</string>
+    <string name="arrow_down" translatable="false">▾</string>
+
     <!-- Content Description -->
     <string name="cd_img_walk_through">Walk-through Image</string>
 </resources>

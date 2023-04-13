@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Defaults -->
+    <dimen name="default_padding">16dp</dimen>
+    <dimen name="default_text_padding">8dp</dimen>
+
+    <!-- Coins Menu -->
     <dimen name="coin_list_item_height">64dp</dimen>
     <dimen name="search_coin_list_item_height">48dp</dimen>
     <dimen name="coins_list_item_padding">16dp</dimen>
+
+    <!-- Coin Details -->
+    <dimen name="details_header_img_size">52dp</dimen>
+    <dimen name="details_header_container_size">84dp</dimen>
+    <dimen name="details_graph_size">250dp</dimen>
 </resources>
