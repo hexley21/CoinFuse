@@ -4,6 +4,7 @@
     <string name="btn_get_started">დაწყება</string>
     <string name="tv_skip">გამოტოვება</string>
     <string name="hint_search">ქოინების ძიება</string>
+    <string name="tv_market_cap">საბაზრო კაპიტალი</string>
     <string name="cd_img_walk_through">გზამკლევის სურათი</string>
 
     <!-- Walkthrough -->
@@ -19,5 +20,9 @@
     <string name="menu_setting">პარამეტრები</string>
     <string name="menu_bookmarks">შენახულები</string>
     <string name="menu_exchanges">გაცვლები</string>
+    <string name="tv_supply">მარაგი</string>
+    <string name="tv_24h_high">24სთ უმაღლესი</string>
+    <string name="tv_volume_24h">მოცულობა (24სთ)</string>
+    <string name="tv_24h_low">24სთ უმდაბლესი</string>
 
 </resources>
