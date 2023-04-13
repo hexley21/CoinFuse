@@ -23,6 +23,9 @@ public interface BookmarkDao {
             "WHERE id = :id")
     Completable unBookmarkCoin(String id);
 
+    @Query("SELECT EXISTS(SELECT 1 FROM bookmarks where id == :id)")
+    Single<Boolean> isCoinBookmarked(String id);
+
     @Query("SELECT * FROM bookmarks " +
             "ORDER BY timestamp DESC")
     Single<List<BookmarkEntity>> getBookmarkedCoinIds();
