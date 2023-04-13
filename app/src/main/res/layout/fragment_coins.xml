@@ -39,6 +39,7 @@
                 style="@style/CN_SearchBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="?attr/statusBarColor"
                 android:hint="@string/hint_search"
                 app:defaultMarginsEnabled="false" />
         </com.google.android.material.appbar.AppBarLayout>
