@@ -10,14 +10,15 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.testing.TestNavHostController;
+import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 
+import com.hxl.cryptonumismatist.HiltTestActivity;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.ui.fragments.welcome.WelcomeFragment;
 import com.hxl.domain.interactors.prefs.GetWelcome;
@@ -27,8 +28,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.function.Function;
 
 import javax.inject.Inject;
 
@@ -58,16 +57,13 @@ public class WelcomeFragmentTest {
 
     @Test
     public void fragmentBehavesAsExpected() {
-        // Arrange
-        Function<Fragment, Void> setNavController = fragment -> {
+        // Act
+        ActivityScenario<HiltTestActivity> scenario = launchFragmentInHiltContainer(WelcomeFragment.class);
+        scenario.onActivity(activity -> {
             navController.setGraph(R.navigation.nav_root);
             navController.setCurrentDestination(R.id.welcomeFragment);
-            Navigation.setViewNavController(fragment.requireView(), navController);
-
-            return null;
-        };
-        // Act
-        launchFragmentInHiltContainer(WelcomeFragment.class, setNavController);
+            Navigation.setViewNavController(activity.requireViewById(android.R.id.content), navController);
+        });
         // Assert
         onView(withId(R.id.walk_through_pager)).check(matches(isDisplayed()));
 
