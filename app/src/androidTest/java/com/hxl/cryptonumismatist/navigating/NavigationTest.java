@@ -103,6 +103,12 @@ public class NavigationTest {
         assertEquals(rootNavController.getCurrentDestination().getId(), R.id.navigationFragment);
         assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsFragment);
 
+        // coins menu fragment closes searchView on back navigation
+        onView(withId(R.id.search_view)).check(matches(isDisplayed()));
+        pressBack();
+        assertEquals(rootNavController.getCurrentDestination().getId(), R.id.navigationFragment);
+        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsFragment);
+
         // navigation fragment closes app on back press and invokes activity recreation
         pressBackUnconditionally();
         assertEquals(Lifecycle.State.CREATED, scenarioRule.getScenario().getState());

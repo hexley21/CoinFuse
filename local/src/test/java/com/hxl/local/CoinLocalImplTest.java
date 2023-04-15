@@ -269,6 +269,39 @@ public class CoinLocalImplTest {
     }
 
     @Test
+    public void isCoinBookmarkedReturnsFalseFromDatabase() {
+        // Act
+        Single<Boolean> isCoinBookmarked = coinSource.isCoinBookmarked(ID);
+        // Assert
+        isCoinBookmarked.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors()
+                .assertValue(x -> !x);
+
+    }
+
+    @Test
+    public void isCoinBookmarkedReturnsTrueFromDatabase() {
+        // Arrange
+        BookmarkEntity entity = new BookmarkEntity(ID, TIMESTAMP);
+        // Act
+        Completable bookmarkCoin = bookmarkDao.bookmarkCoin(entity);
+        Single<Boolean> isCoinBookmarked = coinSource.isCoinBookmarked(ID);
+        // Assert
+        bookmarkCoin.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        isCoinBookmarked.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors()
+                .assertValue(x -> x);
+
+    }
+
+    @Test
     public void saveCoinsInsertsCoinsToDatabase() {
         // Arrange
         Coin[] coins = FakeLocalDataFactory.getFakeCoins(KEYS).toArray(new Coin[0]);

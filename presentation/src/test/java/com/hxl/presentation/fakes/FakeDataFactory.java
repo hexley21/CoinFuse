@@ -3,12 +3,13 @@ package com.hxl.presentation.fakes;
 import static com.hxl.presentation.fakes.AppTestConstants.*;
 
 import com.hxl.domain.model.Coin;
+import com.hxl.domain.model.History;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class FakeCoinFactory {
+public class FakeDataFactory {
 
     public static List<Coin> getFakeCoins(int size) {
         List<Coin> fakeCoins = new ArrayList<>();
@@ -16,6 +17,19 @@ public class FakeCoinFactory {
             fakeCoins.add(getCoin());
         }
         return fakeCoins;
+    }
+
+    public static List<History> getFakeHistory(int size) {
+        List<History> fakeHistory = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            fakeHistory.add(
+                    new History(
+                            randomDouble(),
+                            randomDouble().longValue()
+                    )
+            );
+        }
+        return fakeHistory;
     }
 
     public static Coin getCoin(String id) {
