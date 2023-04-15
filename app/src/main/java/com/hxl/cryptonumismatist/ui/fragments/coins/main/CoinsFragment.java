@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
@@ -52,6 +53,7 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
     SearchCoinsAdapter searchCoinsAdapter;
     SwipeRefreshLayout refreshLayout;
     ProgressBar progressBar;
+    OnBackPressedCallback callback;
     private int pbVisibility = View.VISIBLE;
 
     @Override
@@ -59,6 +61,12 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
         refreshLayout = binding.srlCoins;
         progressBar = binding.pbCoins;
         progressBar.setVisibility(pbVisibility);
+        callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                binding.searchView.hide();
+            }
+        };
     }
 
     @Override
@@ -87,6 +95,19 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
             return false;
         });
         binding.srlCoins.setOnRefreshListener(this::updateCoins);
+
+        binding.searchView.addTransitionListener((searchView, previousState, newState) -> {
+            switch (newState) {
+                case SHOWING: {
+                    requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+                    Log.d(TAG, "searchView.transitionListener: back callback - added");
+                }
+                case HIDING: {
+                    callback.remove();
+                    Log.d(TAG, "searchView.addTransitionListener: back callback - removed");
+                }
+            }
+        });
     }
 
     private void updateCoins() {
