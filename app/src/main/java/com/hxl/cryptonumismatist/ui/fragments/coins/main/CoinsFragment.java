@@ -98,7 +98,6 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
         binding.srlCoins.setOnRefreshListener(this::updateCoins);
 
         binding.searchView.addTransitionListener((searchView, previousState, newState) -> {
-            Log.d(TAG, "transitionListener: " + newState);
             if (newState == SearchView.TransitionState.SHOWING) {
                 requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
                 Log.d(TAG, "searchView.transitionListener: back callback - added");
