@@ -21,5 +21,6 @@ public interface CoinRepository {
     Completable saveCoin(Coin coin);
     Completable bookmarkCoin(String id);
     Completable unBookmarkCoin(String id);
+    Single<Boolean> isCoinBookmarked(String id);
     Single<List<Coin>> getBookmarkedCoins();
 }

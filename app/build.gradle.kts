@@ -79,6 +79,7 @@ dependencies {
     implementation(Deps.Core.navigation)
     implementation(Deps.Core.navigationUi)
     implementation(Deps.Core.navigationFeatures)
+    implementation(Deps.Core.swipeRefreshLayout)
     // Hilt
     implementation(Deps.Hilt.hilt)
     annotationProcessor(Deps.Hilt.hiltCompiler)
@@ -89,6 +90,8 @@ dependencies {
     // UI
     implementation(Deps.UI.circleIndicator)
     implementation(Deps.UI.glide)
+    implementation(Deps.UI.lottie)
+    implementation(Deps.UI.chart)
     annotationProcessor(Deps.UI.glideCompiler)
 
     // Reactive

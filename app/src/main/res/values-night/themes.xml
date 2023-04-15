@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Theme.CryptoNumismatist" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/md_theme_dark_primary</item>
         <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
@@ -27,6 +27,18 @@
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
         <item name="elevationOverlayColor">@color/md_theme_dark_surfaceTint</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
+        <item name="statusBarColor">@color/status_bar_dark</item>
+        <item name="navigationBarColor">@color/navigation_bar_dark</item>
+
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:navigationBarColor">?attr/navigationBarColor</item>
+
+        <item name="bookmark">@color/bookmark_dark</item>
+        <item name="bookmark_ripple">@color/bookmark_dark_ripple</item>
+        <item name="background_ripple">@color/background_dark_ripple</item>
+
+        <item name="growth">@color/growth_dark</item>
     </style>
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">

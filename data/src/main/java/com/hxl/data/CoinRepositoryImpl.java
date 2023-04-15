@@ -86,6 +86,11 @@ public class CoinRepositoryImpl implements CoinRepository {
     }
 
     @Override
+    public Single<Boolean> isCoinBookmarked(String id) {
+        return localSource.isCoinBookmarked(id);
+    }
+
+    @Override
     public Single<List<Coin>> getBookmarkedCoins() {
         if (isOnline()) {
             return localSource.getBookmarkedCoinIds()

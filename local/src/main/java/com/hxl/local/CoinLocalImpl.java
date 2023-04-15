@@ -65,12 +65,20 @@ public class CoinLocalImpl implements CoinLocal {
 
     @Override
     public Completable bookmarkCoin(String id) {
-        return bookmarkDao.bookmarkCoin(new BookmarkEntity(id, System.currentTimeMillis()));
+        return bookmarkDao.bookmarkCoin(new BookmarkEntity(id, System.currentTimeMillis()))
+                .subscribeOn(Schedulers.io());
     }
 
     @Override
     public Completable unBookmarkCoin(String id) {
-        return bookmarkDao.unBookmarkCoin(id);
+        return bookmarkDao.unBookmarkCoin(id)
+                .subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Single<Boolean> isCoinBookmarked(String id) {
+        return bookmarkDao.isCoinBookmarked(id)
+                .subscribeOn(Schedulers.io());
     }
 
     @Override

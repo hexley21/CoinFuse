@@ -25,7 +25,7 @@ public class AppModule {
     RequestManager provideGlide(@ApplicationContext Context context) {
         return Glide.with(context).setDefaultRequestOptions(
                 new RequestOptions()
-                        .placeholder(R.drawable.coin)
+                        .placeholder(R.drawable.logo)
                         .error(R.drawable.logo)
                         .diskCacheStrategy(DiskCacheStrategy.DATA)
         );

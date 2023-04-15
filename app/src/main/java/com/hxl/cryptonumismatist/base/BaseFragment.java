@@ -22,6 +22,10 @@ public abstract class BaseFragment<VB extends ViewBinding, VM extends ViewModel>
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = setViewBinding(inflater, container);
         vm = setViewModel();
+        onCreateView(savedInstanceState);
         return binding.getRoot();
     }
+
+
+    protected void onCreateView(Bundle savedInstanceState){}
 }

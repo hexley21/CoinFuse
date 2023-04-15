@@ -64,6 +64,7 @@ public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder>
             binding.setSymbol(item.symbol);
             binding.setPrice(formatDouble(item.priceUsd, "$"));
             binding.setChange(formatFloat(item.changePercent24Hr, "%"));
+            binding.setRank(String.valueOf(item.rank));
             glide.load(item.img).into(binding.imgCoin);
         }
 

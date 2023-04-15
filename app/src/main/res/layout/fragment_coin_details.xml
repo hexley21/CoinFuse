@@ -1,9 +1,375 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="name" type="String" />
+        <variable name="symbol" type="String" />
+        <variable name="price" type="String" />
+        <variable name="change" type="String" />
+        <variable name="chSmbl" type="String" />
+        <variable name="currency" type="String" />
 
-    <FrameLayout
+        <variable name="marketCap" type="String" />
+        <variable name="volume24Hr" type="String" />
+        <variable name="supply" type="String" />
+        <variable name="dayLow" type="String" />
+        <variable name="dayHigh" type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.coins.details.CoinDetailsFragment" />
+        android:background="?attr/colorSurface"
+        tools:context=".ui.fragments.coins.details.CoinDetailsFragment">
+
+        <LinearLayout
+            android:id="@+id/top_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/details_header_container_size"
+            android:background="?attr/statusBarColor"
+            android:gravity="center|fill_horizontal"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/default_padding"
+            android:paddingRight="@dimen/default_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <HorizontalScrollView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fadeScrollbars="true"
+                android:fadingEdgeLength="4dp"
+                android:requiresFadingEdge="horizontal"
+                android:scrollbarSize="0dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/img_detail_coin"
+                        android:layout_width="@dimen/details_header_img_size"
+                        android:layout_height="match_parent"
+                        tools:src="@drawable/logo" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|start"
+                        android:maxEms="14"
+                        android:maxLines="1"
+                        android:padding="8dp"
+                        android:text="@{name}"
+                        android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        app:autoSizeTextType="uniform"
+                        tools:text="Name" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_symbol"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center|start"
+                        android:maxLines="1"
+                        android:paddingTop="4dp"
+                        android:text='@{"(" + symbol + ")"}'
+                        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        app:autoSizeMaxTextSize="24sp"
+                        app:autoSizeTextType="uniform"
+                        tools:text="(SMBL)" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <CheckBox
+                android:id="@+id/cb_bookmark"
+                style="@style/CN_Bookmark"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:button="@drawable/sl_bookmark" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/price_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/statusBarColor"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/default_padding"
+            android:paddingRight="@dimen/default_padding"
+            android:paddingBottom="@dimen/default_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_container">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:maxLines="1"
+                android:text='@{price + currency}'
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                tools:text="123,456,789.12$" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_change"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="top"
+                android:maxLines="1"
+                android:paddingLeft="8dp"
+                android:text='@{ chSmbl + change + "%"}'
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                android:textColor="?attr/colorError"
+                tools:text="▾123.45%" />
+
+        </LinearLayout>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/details_graph_size"
+            android:padding="@dimen/default_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/price_container" />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:scrollbarSize="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lineChart">
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/default_padding"
+                android:paddingRight="@dimen/default_padding"
+                app:checkedChip="@id/chip_1h"
+                app:singleLine="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_1h"
+                    style="@style/CN_Chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_1h" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_24h"
+                    style="@style/CN_Chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_24h" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_7d"
+                    style="@style/CN_Chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_7d" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_1m"
+                    style="@style/CN_Chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_1m" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_3m"
+                    style="@style/CN_Chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_3m" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_1y"
+                    style="@style/CN_Chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_1y" />
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/details_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/default_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/default_text_padding"
+                android:paddingBottom="@dimen/default_text_padding">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_market_cap"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_market_cap_val"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text='@{marketCap + currency}'
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                    tools:text="123,456,789.12$" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/default_text_padding"
+                android:paddingBottom="@dimen/default_text_padding">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_volume_24h"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_volume_24_val"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text='@{volume24Hr + currency}'
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                    tools:text="123,456,789.12$" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/default_text_padding"
+                android:paddingBottom="@dimen/default_text_padding">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_supply"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_supply_val"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text='@{supply + " (" + symbol + ")"}'
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                    tools:text="123,456,789.12 (SMBL)" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/default_text_padding"
+                android:paddingBottom="@dimen/default_text_padding">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_24h_high"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_day_high_val"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text='@{dayHigh + currency}'
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                    tools:text="123,456,789.12$" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/default_text_padding"
+                android:paddingBottom="@dimen/default_text_padding">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_24h_low"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_day_low_val"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text='@{dayLow + currency}'
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                    tools:text="123,456,789.12$" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="?android:attr/listDivider" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

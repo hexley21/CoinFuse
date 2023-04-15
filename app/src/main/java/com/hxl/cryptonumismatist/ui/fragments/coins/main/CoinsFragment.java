@@ -1,26 +1,29 @@
 package com.hxl.cryptonumismatist.ui.fragments.coins.main;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.search.SearchView;
 import com.hxl.cryptonumismatist.R;
-import com.hxl.cryptonumismatist.databinding.FragmentCoinsBinding;
 import com.hxl.cryptonumismatist.base.BaseFragment;
+import com.hxl.cryptonumismatist.databinding.FragmentCoinsBinding;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.domain.model.Coin;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
+
 
 import java.util.List;
 import java.util.function.Function;
@@ -34,8 +37,6 @@ import io.reactivex.rxjava3.disposables.Disposable;
 
 @AndroidEntryPoint
 public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuViewModel> {
-
-//    private final CompositeDisposable disposable = new CompositeDisposable();
     @Override
     protected FragmentCoinsBinding setViewBinding(LayoutInflater inflater, ViewGroup container) {
         return FragmentCoinsBinding.inflate(inflater, container, false);
@@ -46,8 +47,28 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
         return new ViewModelProvider(this).get(CoinsMenuViewModel.class);
     }
 
+    private static final String TAG = "CoinsFragment";
     @Inject
     CoinsAdapter coinsAdapter;
+    @Inject
+    SearchCoinsAdapter searchCoinsAdapter;
+    SwipeRefreshLayout refreshLayout;
+    ProgressBar progressBar;
+    OnBackPressedCallback callback;
+    private int pbVisibility = View.VISIBLE;
+
+    @Override
+    protected void onCreateView(Bundle savedInstanceState) {
+        refreshLayout = binding.srlCoins;
+        progressBar = binding.pbCoins;
+        progressBar.setVisibility(pbVisibility);
+        callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                binding.searchView.hide();
+            }
+        };
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -57,42 +78,47 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
             return null;
         };
         RecyclerView coinsRv = binding.rvCoins;
+        RecyclerView searchRv = binding.rvSearch;
+
         coinsAdapter.setNavigateToDetails(navigateToDetails);
+        searchCoinsAdapter.setNavigateToDetails(navigateToDetails);
+
         coinsRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         coinsRv.setAdapter(coinsAdapter);
-        if (binding.tfSearch.getEditText() != null) {
-            binding.tfSearch.getEditText().addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+        searchRv.setLayoutManager(new LinearLayoutManager(requireContext()));
+        searchRv.setAdapter(searchCoinsAdapter);
 
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
+        updateCoins();
+        pbVisibility = View.GONE;
 
-                    vm.searchCoins(s.toString())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new SingleObserver<List<Coin>>() {
+        binding.searchView.getEditText().setOnEditorActionListener((v, actionId, event) -> {
+            searchCoins(v.getText().toString());
+            return false;
+        });
+        binding.srlCoins.setOnRefreshListener(this::updateCoins);
 
-                                @Override
-                                public void onSubscribe(Disposable d) { }
-
-                                @Override
-                                public void onSuccess(List<Coin> coins) {
-                                    coinsAdapter.setList(coins);
-                                }
-
-                                @Override
-                                public void onError(Throwable e) { }
-                            });
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) { }
-            });
-        }
+        binding.searchView.addTransitionListener((searchView, previousState, newState) -> {
+            if (newState == SearchView.TransitionState.SHOWING) {
+                requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+                Log.d(TAG, "searchView.transitionListener: back callback - added");
+            }
+            else if (newState == SearchView.TransitionState.HIDING) {
+                callback.remove();
+                Log.d(TAG, "searchView.addTransitionListener: back callback - removed");
+            }
+        });
     }
+
     @Override
     public void onResume() {
         super.onResume();
+        if (binding.searchView.isShowing()) {
+            requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+            Log.d(TAG, "onResume: back callback - added");
+        }
+    }
+
+    private void updateCoins() {
         vm.getCoins()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<Coin>>() {
@@ -104,10 +130,36 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
                     public void onSuccess(List<Coin> coins) {
                         EspressoIdlingResource.decrement();
                         coinsAdapter.setList(coins);
+                        progressBar.setVisibility(View.GONE);
+                        refreshLayout.setRefreshing(false);
                     }
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("CoinsFragment", e.getMessage(), e);
+                        EspressoIdlingResource.decrement();
+                        Log.e(TAG, e.getMessage(), e);
+                        progressBar.setVisibility(View.GONE);
+                        refreshLayout.setRefreshing(false);
+                    }
+                });
+    }
+
+    private void searchCoins(String query) {
+        vm.searchCoins(query)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<Coin>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        EspressoIdlingResource.increment();
+                    }
+                    @Override
+                    public void onSuccess(List<Coin> coins) {
+                        EspressoIdlingResource.decrement();
+                        searchCoinsAdapter.setList(coins);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        EspressoIdlingResource.decrement();
+                        Log.e(TAG, e.getMessage(), e);
                     }
                 });
     }

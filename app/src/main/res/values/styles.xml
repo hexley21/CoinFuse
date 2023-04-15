@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CN_SearchBar" parent="Widget.Material3.SearchBar">
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearance.Material3.Corner.None
+        </item>
+    </style>
+
+    <style name="CN_Bookmark" parent="Widget.Material3.CompoundButton.CheckBox">
+        <item name="buttonTint">@color/bookmark_colors</item>
+        <item name="android:background">@drawable/bookmark_background</item>
+    </style>
+
+    <style name="CN_Chip" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/chip_colors</item>
+    </style>
+</resources>
