@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.search.SearchView;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseFragment;
 import com.hxl.cryptonumismatist.databinding.FragmentCoinsBinding;
@@ -97,17 +98,25 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
         binding.srlCoins.setOnRefreshListener(this::updateCoins);
 
         binding.searchView.addTransitionListener((searchView, previousState, newState) -> {
-            switch (newState) {
-                case SHOWING: {
-                    requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
-                    Log.d(TAG, "searchView.transitionListener: back callback - added");
-                }
-                case HIDING: {
-                    callback.remove();
-                    Log.d(TAG, "searchView.addTransitionListener: back callback - removed");
-                }
+            Log.d(TAG, "transitionListener: " + newState);
+            if (newState == SearchView.TransitionState.SHOWING) {
+                requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+                Log.d(TAG, "searchView.transitionListener: back callback - added");
+            }
+            else if (newState == SearchView.TransitionState.HIDING) {
+                callback.remove();
+                Log.d(TAG, "searchView.addTransitionListener: back callback - removed");
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (binding.searchView.isShowing()) {
+            requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+            Log.d(TAG, "onResume: back callback - added");
+        }
     }
 
     private void updateCoins() {
