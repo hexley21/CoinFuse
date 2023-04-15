@@ -1,6 +1,7 @@
 package com.hxl.remote.api;
 
 import com.hxl.remote.model.CoinDTO;
+import com.hxl.remote.model.HistoryDTO;
 import com.hxl.remote.model.Response;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface CoinService {
     Single<Response<List<CoinDTO>>> searchCoins(@Query("search") String search);
     @GET("assets/{id}")
     Single<Response<CoinDTO>> getCoin(@Path("id") String id);
+    @GET("assets/{id}/history")
+    Single<Response<List<HistoryDTO>>> getCoinHistory(@Path("id") String id, @Query("interval") String interval);
 }
