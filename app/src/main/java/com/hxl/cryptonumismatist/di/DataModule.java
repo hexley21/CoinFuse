@@ -15,7 +15,7 @@ import com.hxl.local.database.BookmarkDao;
 import com.hxl.local.database.CoinDao;
 import com.hxl.remote.CoinRemoteImpl;
 import com.hxl.remote.api.CoinService;
-import com.hxl.remote.model.CoinDTOMapper;
+import com.hxl.remote.mapper.CoinDTOMapper;
 
 import javax.inject.Singleton;
 

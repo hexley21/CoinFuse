@@ -2,7 +2,6 @@ package com.hxl.remote.mapper;
 
 import com.hxl.domain.model.Coin;
 import com.hxl.remote.model.CoinDTO;
-import com.hxl.remote.model.CoinDTOMapper;
 
 import org.junit.Before;
 import org.junit.Test;

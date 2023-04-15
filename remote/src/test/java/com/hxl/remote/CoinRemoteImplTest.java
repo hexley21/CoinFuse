@@ -12,7 +12,7 @@ import com.hxl.domain.model.Coin;
 import com.hxl.remote.api.CoinService;
 import com.hxl.remote.fake.FakeRemoteDataFactory;
 import com.hxl.remote.model.CoinDTO;
-import com.hxl.remote.model.CoinDTOMapper;
+import com.hxl.remote.mapper.CoinDTOMapper;
 import com.hxl.remote.model.Response;
 
 import org.junit.Test;
