@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FakeCoinFactory {
+public class FakeDataFactory {
 
     public static List<Coin> getFakeCoins(int size) {
         List<Coin> fakeCoins = new ArrayList<>();

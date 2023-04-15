@@ -1,7 +1,7 @@
 package com.hxl.presentation.viewmodels;
 
 import static com.hxl.presentation.fakes.AppTestConstants.*;
-import static com.hxl.presentation.fakes.FakeCoinFactory.*;
+import static com.hxl.presentation.fakes.FakeDataFactory.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

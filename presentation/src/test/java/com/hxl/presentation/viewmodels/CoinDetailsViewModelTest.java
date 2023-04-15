@@ -2,7 +2,7 @@ package com.hxl.presentation.viewmodels;
 
 import static com.hxl.presentation.fakes.AppTestConstants.ID;
 import static com.hxl.presentation.fakes.AppTestConstants.SIZE;
-import static com.hxl.presentation.fakes.FakeCoinFactory.getFakeHistory;
+import static com.hxl.presentation.fakes.FakeDataFactory.getFakeHistory;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
@@ -15,7 +15,7 @@ import com.hxl.domain.interactors.coins.IsCoinBookmarked;
 import com.hxl.domain.interactors.coins.UnBookmarkCoin;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.History;
-import com.hxl.presentation.fakes.FakeCoinFactory;
+import com.hxl.presentation.fakes.FakeDataFactory;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,7 +48,7 @@ public class CoinDetailsViewModelTest {
     @Test
     public void getCoinReturnsCoinFromInteractor() {
         // Arrange
-        Coin fakeCoin = FakeCoinFactory.getCoin();
+        Coin fakeCoin = FakeDataFactory.getCoin();
         when(getCoin.invoke(anyString())).thenReturn(Single.just(fakeCoin));
         // Act
         Single<Coin> coin = viewModel.getCoin(ID);
