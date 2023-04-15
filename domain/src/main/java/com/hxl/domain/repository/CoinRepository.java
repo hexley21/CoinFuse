@@ -1,6 +1,7 @@
 package com.hxl.domain.repository;
 
 import com.hxl.domain.model.Coin;
+import com.hxl.domain.model.History;
 
 import java.util.List;
 
@@ -23,4 +24,7 @@ public interface CoinRepository {
     Completable unBookmarkCoin(String id);
     Single<Boolean> isCoinBookmarked(String id);
     Single<List<Coin>> getBookmarkedCoins();
+
+    // Remote
+    Single<List<History>> getCoinHistory(String id, History.Interval interval);
 }
