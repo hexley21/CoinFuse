@@ -15,4 +15,12 @@ public class History {
     }
     public Double priceUsd;
     public Long time;
+
+    public History(
+            Double priceUsd,
+            Long time
+    ) {
+        this.priceUsd = priceUsd;
+        this.time = time;
+    }
 }
