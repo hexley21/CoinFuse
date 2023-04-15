@@ -1,6 +1,7 @@
 package com.hxl.remote.fake;
 
 import com.hxl.remote.model.CoinDTO;
+import com.hxl.remote.model.HistoryDTO;
 import com.hxl.remote.model.Response;
 
 import java.util.ArrayList;
@@ -20,6 +21,20 @@ public class FakeRemoteDataFactory {
 
     public static Response<CoinDTO> getResponse(String id) {
         return new Response<>(getCoinDTO(id), TIMESTAMP);
+    }
+
+    public static Response<List<HistoryDTO>> getHistoryResponse(int size) {
+        List<HistoryDTO> fakeHistory = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            fakeHistory.add(
+                    new HistoryDTO(
+                            randomDouble(),
+                            TIMESTAMP,
+                            randomName()
+                    )
+            );
+        }
+        return new Response<>(fakeHistory, TIMESTAMP);
     }
 
     private static List<CoinDTO> getFakeData(String[] ids) {

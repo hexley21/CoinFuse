@@ -1,7 +1,9 @@
 package com.hxl.remote;
 
+import static com.hxl.remote.fake.FakeRemoteDataFactory.getHistoryResponse;
 import static com.hxl.remote.fake.RemoteTestConstants.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -9,10 +11,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.hxl.domain.model.Coin;
+import com.hxl.domain.model.History;
 import com.hxl.remote.api.CoinService;
 import com.hxl.remote.fake.FakeRemoteDataFactory;
 import com.hxl.remote.model.CoinDTO;
 import com.hxl.remote.mapper.CoinDTOMapper;
+import com.hxl.remote.model.HistoryDTO;
 import com.hxl.remote.model.Response;
 
 import org.junit.Test;
@@ -104,5 +108,21 @@ public class CoinRemoteImplTest {
 
         verify(coinService).getCoin(ID);
         verify(mapper, times(1)).mapFromDTO(any(), eq(TIMESTAMP));
+    }
+
+    @Test
+    public void getCoinHistoryReturnsResponseFromRemote() {
+        // Arrange
+        Single<Response<List<HistoryDTO>>> response = Single.just(getHistoryResponse(SIZE));
+        when(coinService.getCoinHistory(anyString(), anyString())).thenReturn(response);
+        // Act
+        Single<List<History>> history = coinSource.getCoinHistory(ID, History.Interval.D1);
+        // Assert
+        history.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(r -> r.size() == SIZE);
+
+        verify(coinService).getCoinHistory(ID, "d1");
     }
 }
