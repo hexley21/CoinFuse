@@ -158,17 +158,9 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/default_padding"
                 android:paddingRight="@dimen/default_padding"
-                app:checkedChip="@id/chip_1h"
+                app:checkedChip="@id/chip_24h"
                 app:singleLine="true"
                 app:singleSelection="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_1h"
-                    style="@style/CN_Chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/chip_1h" />
-
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_24h"
                     style="@style/CN_Chip"
@@ -184,19 +176,34 @@
                     android:text="@string/chip_7d" />
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_14d"
+                    style="@style/CN_Chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_14d" />
+
+                <com.google.android.material.chip.Chip
                     android:id="@+id/chip_1m"
                     style="@style/CN_Chip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chip_1m" />
 
+
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_3m"
+                    android:id="@+id/chip_2m"
                     style="@style/CN_Chip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/chip_3m" />
+                    android:text="@string/chip_2m" />
 
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_6m"
+                    style="@style/CN_Chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_6m" />
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_1y"
                     style="@style/CN_Chip"
