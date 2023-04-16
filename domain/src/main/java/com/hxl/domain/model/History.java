@@ -3,15 +3,20 @@ package com.hxl.domain.model;
 public class History {
 
     public enum Interval {
-        M1,
-        M5,
-        M15,
-        M30,
-        H1,
-        H2,
-        H6,
-        H12,
-        D1
+        D1("m1"),
+        D5("m5"),
+        D7("m15"),
+        D14("m30"),
+        M1("h1"),
+        M2("h2"),
+        M6("h6"),
+        YD1("h12"),
+        Y1("d1");
+
+        public final String param;
+        Interval (String param) {
+            this.param = param;
+        }
     }
     public Double priceUsd;
     public Long time;

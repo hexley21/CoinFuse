@@ -62,7 +62,7 @@ public class CoinRemoteImpl implements CoinRemote {
 
     @Override
     public Single<List<History>> getCoinHistory(String id, History.Interval interval) {
-        return coinService.getCoinHistory(id, interval.name().toLowerCase())
+        return coinService.getCoinHistory(id, interval.param)
                 .subscribeOn(Schedulers.io())
                 .map(this::mapHistoryFromDto);
     }
