@@ -3,6 +3,7 @@ package com.hxl.cryptonumismatist.ui.fragments.coins.details;
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatDoubleDetailed;
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatFloat;
 
+import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.RequestManager;
 import com.github.mikephil.charting.data.Entry;
+import com.google.android.material.chip.ChipGroup;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseFragment;
 import com.hxl.cryptonumismatist.databinding.FragmentCoinDetailsBinding;
@@ -24,6 +27,7 @@ import com.hxl.domain.model.History;
 import com.hxl.presentation.viewmodels.CoinDetailsViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -61,9 +65,36 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onViewCreated(@androidx.annotation.NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        binding.intervalGroup.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            switch (group.getCheckedChipId()) {
+                case R.id.chip_24h:
+                    setPriceChart(History.Interval.D1);
+                    break;
+                case R.id.chip_7d:
+                    setPriceChart(History.Interval.D7);
+                    break;
+                case R.id.chip_14d:
+                    setPriceChart(History.Interval.D14);
+                    break;
+                case R.id.chip_1m:
+                    setPriceChart(History.Interval.M1);
+                    break;
+                case R.id.chip_2m:
+                    setPriceChart(History.Interval.M2);
+                    break;
+                case R.id.chip_6m:
+                    setPriceChart(History.Interval.M6);
+                    break;
+                case R.id.chip_1y:
+                    setPriceChart(History.Interval.Y1);
+                    break;
+            }
+        });
     }
 
     private void bind() {

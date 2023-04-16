@@ -154,12 +154,14 @@
             app:layout_constraintTop_toBottomOf="@+id/lineChart">
 
             <com.google.android.material.chip.ChipGroup
+                android:id="@+id/interval_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/default_padding"
                 android:paddingRight="@dimen/default_padding"
                 app:checkedChip="@id/chip_24h"
                 app:singleLine="true"
+                app:selectionRequired="true"
                 app:singleSelection="true">
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_24h"
