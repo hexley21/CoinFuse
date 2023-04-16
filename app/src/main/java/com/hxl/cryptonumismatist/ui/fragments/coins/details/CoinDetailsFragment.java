@@ -20,21 +20,16 @@ import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseFragment;
 import com.hxl.cryptonumismatist.databinding.FragmentCoinDetailsBinding;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
-import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.History;
 import com.hxl.presentation.viewmodels.CoinDetailsViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.CompletableObserver;
-import io.reactivex.rxjava3.core.SingleObserver;
-import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 @AndroidEntryPoint
 public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding, CoinDetailsViewModel> {
@@ -54,7 +49,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
 
     @Inject
     RequestManager glide;
-
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
     LineChartUtil chartUtil;
 
     @Override
@@ -69,140 +64,120 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
     @Override
     public void onViewCreated(@androidx.annotation.NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.cbBookmark.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                vm.bookmarkCoin(coinId)
-                        .subscribe(new CompletableObserver() {
-                            @Override
-                            public void onSubscribe(@NonNull Disposable d) { }
-
-                            @Override
-                            public void onComplete() {
-                                Log.d(TAG, String.format("bookmarkCoin.onComplete: %s was bookmarked", coinId));
-                            }
-
-                            @Override
-                            public void onError(@NonNull Throwable e) {
-                                Log.e(TAG, String.format("bookmarkCoin.onComplete: %s couldn't be bookmarked", coinId), e);
-                            }
-                        });
-            }
-            else {
-                vm.unBookmarkCoin(coinId)
-                        .subscribe(new CompletableObserver() {
-                            @Override
-                            public void onSubscribe(@NonNull Disposable d) { }
-
-                            @Override
-                            public void onComplete() {
-                                Log.d(TAG, String.format("unBookmarkCoin.onComplete: %s was un-bookmarked", coinId));
-                            }
-
-                            @Override
-                            public void onError(@NonNull Throwable e) {
-                                Log.e(TAG, String.format("unBookmarkCoin.onComplete: %s couldn't be un-bookmarked", coinId), e);
-                            }
-                        });
-            }
-        });
     }
 
     private void bind() {
-        vm.getCoin(coinId).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<Coin>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        EspressoIdlingResource.increment();
-                    }
+        EspressoIdlingResource.increment();
 
-                    @Override
-                    public void onSuccess(@NonNull Coin coin) {
-                        glide.load(coin.img).into(binding.imgDetailCoin);
-                        binding.setName(coin.name);
-                        binding.setSymbol(coin.symbol);
-                        binding.setPrice(formatDoubleDetailed(coin.priceUsd));
-                        binding.setChange(formatFloat(Math.abs(coin.changePercent24Hr)));
-                        binding.setCurrency("$");
-                        if (coin.changePercent24Hr >= 0 ) {
-                            binding.setChSmbl(getResources().getString(R.string.arrow_up));
-                            TypedValue typedValue = new TypedValue();
-                            Resources.Theme theme = requireContext().getTheme();
-                            theme.resolveAttribute(R.attr.growth, typedValue, true);
-                            binding.tvChange.setTextColor(typedValue.data);
-                        }
-                        else {
-                            binding.setChSmbl(getResources().getString(R.string.arrow_down));
-                        }
+        compositeDisposable.add(
+                vm.getCoin(coinId)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                coin -> {
+                                    glide.load(coin.img).into(binding.imgDetailCoin);
+                                    binding.setName(coin.name);
+                                    binding.setSymbol(coin.symbol);
+                                    binding.setPrice(formatDoubleDetailed(coin.priceUsd));
+                                    binding.setChange(formatFloat(Math.abs(coin.changePercent24Hr)));
+                                    binding.setCurrency("$");
+                                    if (coin.changePercent24Hr >= 0 ) {
+                                        binding.setChSmbl(getResources().getString(R.string.arrow_up));
+                                        TypedValue typedValue = new TypedValue();
+                                        Resources.Theme theme = requireContext().getTheme();
+                                        theme.resolveAttribute(R.attr.growth, typedValue, true);
+                                        binding.tvChange.setTextColor(typedValue.data);
+                                    }
+                                    else {
+                                        binding.setChSmbl(getResources().getString(R.string.arrow_down));
+                                    }
 
-                        binding.setMarketCap(formatDoubleDetailed(coin.marketCapUsd));
-                        binding.setVolume24Hr(formatDoubleDetailed(coin.volumeUsd24Hr));
-                        binding.setSupply(formatDoubleDetailed(coin.supply));
-                        binding.setDayHigh(String.valueOf(0));
-                        binding.setDayLow(String.valueOf(0));
-                        EspressoIdlingResource.decrement();
-                    }
+                                    binding.setMarketCap(formatDoubleDetailed(coin.marketCapUsd));
+                                    binding.setVolume24Hr(formatDoubleDetailed(coin.volumeUsd24Hr));
+                                    binding.setSupply(formatDoubleDetailed(coin.supply));
+                                    binding.setDayHigh(String.valueOf(0));
+                                    binding.setDayLow(String.valueOf(0));
+                                    EspressoIdlingResource.decrement();
+                                },
+                                e -> {
+                                    Log.e(TAG, String.format("getCoin.onError: %s couldn't be fetched", coinId), e);
+                                    EspressoIdlingResource.decrement();
+                                }
+                        )
+        );
 
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Log.e(TAG, String.format("getCoin.onError: %s couldn't be fetched", coinId), e);
-                        EspressoIdlingResource.decrement();
-                    }
-                });
+        EspressoIdlingResource.increment();
+        compositeDisposable.add(
+                vm.isCoinBookmarked(coinId)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                aBoolean -> {
+                                    binding.cbBookmark.setChecked(aBoolean);
+                                    setBookmarkListener();
+                                    Log.d(TAG, "isCoinBookmarked.onSuccess: bookmark state was checked successfully");
+                                    EspressoIdlingResource.decrement();
+                                },
+                                e -> {
+                                    setBookmarkListener();
+                                    Log.e(TAG, String.format("isCoinBookmarked.onError: %s couldn't be checked", coinId), e);
+                                    EspressoIdlingResource.decrement();
+                                }
+                        )
+        );
 
-        vm.isCoinBookmarked(coinId).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<Boolean>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {}
-
-                    @Override
-                    public void onSuccess(@NonNull Boolean aBoolean) {
-                        binding.cbBookmark.setChecked(aBoolean);
-                        Log.d(TAG, "isCoinBookmarked.onSuccess: bookmark state was checked successfully");
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Log.e(TAG, String.format("isCoinBookmarked.onError: %s couldn't be checked", coinId), e);
-                    }
-                });
         chartUtil.drawLineGraph();
 
         setPriceChart(History.Interval.D1);
     }
 
+    public void setBookmarkListener() {
+        binding.cbBookmark.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                compositeDisposable.add(
+                        vm.bookmarkCoin(coinId).subscribe(
+                                () -> Log.d(TAG, String.format("bookmarkCoin.onComplete: %s was bookmarked", coinId)),
+                                e -> Log.e(TAG, String.format("bookmarkCoin.onComplete: %s couldn't be bookmarked", coinId), e)
+                        )
+                );
+            }
+            else {
+                compositeDisposable.add(
+                        vm.unBookmarkCoin(coinId).subscribe(
+                                () -> Log.d(TAG, String.format("unBookmarkCoin.onComplete: %s was un-bookmarked", coinId)),
+                                e -> Log.e(TAG, String.format("unBookmarkCoin.onComplete: %s couldn't be un-bookmarked", coinId), e)
+                        )
+                );
+            }
+        });
+    }
+
     public void setPriceChart(History.Interval interval) {
-        vm.getCoinHistory(coinId, interval)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<History>>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) { }
 
-                    @Override
-                    public void onSuccess(@NonNull List<History> histories) {
-                        ArrayList<Entry> entries = new ArrayList<>();
-                        for (int i = 0; i < histories.size(); i++) {
-                            entries.add(new Entry(histories.get(i).time, histories.get(i).priceUsd.floatValue()));
-                        }
+        EspressoIdlingResource.increment();
+        compositeDisposable.add(
+                vm.getCoinHistory(coinId, interval)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                histories -> {
+                                    ArrayList<Entry> entries = new ArrayList<>();
+                                    for (int i = 0; i < histories.size(); i++) {
+                                        entries.add(new Entry(histories.get(i).time, histories.get(i).priceUsd.floatValue()));
+                                    }
 
-                        chartUtil.setData(entries);
+                                    chartUtil.setData(entries);
 
-                        if (interval == History.Interval.D1) {
-                            binding.setDayLow(formatFloat(binding.lineChart.getYChartMin()));
-                            binding.setDayHigh(formatFloat(binding.lineChart.getYChartMax()));
-                        }
-                        Log.d(TAG, "setPriceChart.onSuccess: coin price history was gathered successfully");
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Log.e(
-                                TAG,
-                                String.format("setPriceChart.onError: couldn't get price history of %s, with interval %s", coinId, interval.param),
-                                e
-                        );
-                    }
-                });
-
+                                    if (interval == History.Interval.D1) {
+                                        binding.setDayLow(formatFloat(binding.lineChart.getYChartMin()));
+                                        binding.setDayHigh(formatFloat(binding.lineChart.getYChartMax()));
+                                    }
+                                    Log.d(TAG, "setPriceChart.onSuccess: coin price history was gathered successfully");
+                                    EspressoIdlingResource.decrement();
+                                },
+                                e -> {
+                                    Log.e(TAG, String.format("setPriceChart.onError: couldn't get price history of %s, with interval %s", coinId, interval.param), e);
+                                    EspressoIdlingResource.decrement();
+                                }
+                        )
+        );
     }
 
     private void initChartUtil() {
