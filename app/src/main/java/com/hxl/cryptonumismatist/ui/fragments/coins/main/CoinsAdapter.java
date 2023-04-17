@@ -1,5 +1,8 @@
 package com.hxl.cryptonumismatist.ui.fragments.coins.main;
 
+import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatDouble;
+import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatFloat;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -15,7 +18,6 @@ import com.hxl.cryptonumismatist.base.Binder;
 import com.hxl.cryptonumismatist.databinding.CoinItemBinding;
 import com.hxl.domain.model.Coin;
 
-import java.text.DecimalFormat;
 import java.util.function.Function;
 
 import javax.inject.Inject;
@@ -62,8 +64,8 @@ public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder>
         public void bind(Coin item) {
             binding.setName(item.name);
             binding.setSymbol(item.symbol);
-            binding.setPrice(formatDouble(item.priceUsd, "$"));
-            binding.setChange(formatFloat(item.changePercent24Hr, "%"));
+            binding.setPrice(formatDouble(item.priceUsd));
+            binding.setChange(formatFloat(item.changePercent24Hr));
             binding.setRank(String.valueOf(item.rank));
             glide.load(item.img).into(binding.imgCoin);
         }
@@ -80,25 +82,4 @@ public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder>
         holder.itemView.setOnClickListener( v -> navigateToDetails.apply(bundle));
     }
 
-    private String formatDouble(Double num, String suffix) {
-        if (num != null) {
-            DecimalFormat df = new DecimalFormat("#");
-            df.setMinimumFractionDigits(2);
-            if (num > 1.0d) {
-                df.setMaximumFractionDigits(2);
-                return df.format(num) + suffix;
-            }
-            df.setMaximumFractionDigits(6);
-            return df.format(num) + suffix;
-        }
-        return "-";
-    }
-
-    private String formatFloat(Float num, String suffix) {
-        if (num != null) {
-            DecimalFormat df = new DecimalFormat("#.##");
-                return df.format(num) + suffix;
-        }
-        return "-";
-    }
 }
