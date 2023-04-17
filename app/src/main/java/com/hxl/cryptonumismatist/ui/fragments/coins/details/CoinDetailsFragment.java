@@ -26,7 +26,12 @@ import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.domain.model.History;
 import com.hxl.presentation.viewmodels.CoinDetailsViewModel;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -147,6 +152,11 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                             else {
                                 binding.setChSmbl(getResources().getString(R.string.arrow_down));
                             }
+
+                            Instant instant = Instant.ofEpochMilli(coin.timestamp);
+                            LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm, dd MMM yyyy", Locale.getDefault());
+                            binding.setTimestamp(localDateTime.format(formatter));
 
                             binding.setMarketCap(formatDoubleDetailed(coin.marketCapUsd));
                             binding.setVolume24Hr(formatDoubleDetailed(coin.volumeUsd24Hr));

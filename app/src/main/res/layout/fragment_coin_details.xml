@@ -9,6 +9,7 @@
         <variable name="change" type="String" />
         <variable name="chSmbl" type="String" />
         <variable name="currency" type="String" />
+        <variable name="timestamp" type="String" />
 
         <variable name="marketCap" type="String" />
         <variable name="volume24Hr" type="String" />
@@ -105,7 +106,6 @@
             android:orientation="horizontal"
             android:paddingLeft="@dimen/default_padding"
             android:paddingRight="@dimen/default_padding"
-            android:paddingBottom="@dimen/default_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/top_container">
@@ -135,6 +135,33 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/time_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/statusBarColor"
+            android:gravity="center|start"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/default_padding"
+            android:paddingTop="@dimen/default_text_padding"
+            android:paddingRight="@dimen/default_padding"
+            android:paddingBottom="@dimen/default_text_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/price_container">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_timestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:maxLines="1"
+                android:text='@{timestamp}'
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                tools:text="23:45, 1 Jan 1971" />
+
+        </LinearLayout>
+
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/lineChart"
             android:layout_width="match_parent"
@@ -142,7 +169,7 @@
             android:padding="@dimen/default_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/price_container" />
+            app:layout_constraintTop_toBottomOf="@+id/time_container" />
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView"
