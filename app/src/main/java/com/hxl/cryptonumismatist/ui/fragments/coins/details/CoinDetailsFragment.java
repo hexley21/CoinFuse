@@ -100,7 +100,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
         compositeDisposable.add(isCoinBookmarked());
 
         chartUtil.drawLineGraph();
-        // the last and the longest call, where dispose() is called
+        // the last and the longest call, where clear() is called
         compositeDisposable.add(setPriceChart(History.Interval.D1));
     }
 
@@ -190,12 +190,12 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                             }
                             Log.d(TAG, "setPriceChart.onSuccess: coin price history was gathered successfully");
                             EspressoIdlingResource.decrement();
-                            compositeDisposable.dispose();
+                            compositeDisposable.clear();
                             },
                         e -> {
                             Log.e(TAG, String.format("setPriceChart.onError: couldn't get price history of %s, with interval %s", coinId, interval.param), e);
                             EspressoIdlingResource.decrement();
-                            compositeDisposable.dispose();
+                            compositeDisposable.clear();
                         });
     }
 
@@ -205,12 +205,12 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                 () -> {
                     Log.d(TAG, String.format("bookmarkCoin.onComplete: %s was bookmarked", coinId));
                     EspressoIdlingResource.decrement();
-                    compositeDisposable.dispose();
+                    compositeDisposable.clear();
                 },
                 e -> {
                     Log.e(TAG, String.format("bookmarkCoin.onComplete: %s couldn't be bookmarked", coinId), e);
                     EspressoIdlingResource.decrement();
-                    compositeDisposable.dispose();
+                    compositeDisposable.clear();
                 }
         );
     }
@@ -221,12 +221,12 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                 () -> {
                     Log.d(TAG, String.format("unBookmarkCoin.onComplete: %s was un-bookmarked", coinId));
                     EspressoIdlingResource.decrement();
-                    compositeDisposable.dispose();
+                    compositeDisposable.clear();
                 },
                 e -> {
                     Log.e(TAG, String.format("unBookmarkCoin.onComplete: %s couldn't be un-bookmarked", coinId), e);
                     EspressoIdlingResource.decrement();
-                    compositeDisposable.dispose();
+                    compositeDisposable.clear();
                 }
         );
     }
