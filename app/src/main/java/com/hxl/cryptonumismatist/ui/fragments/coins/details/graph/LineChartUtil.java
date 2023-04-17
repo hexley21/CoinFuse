@@ -1,4 +1,4 @@
-package com.hxl.cryptonumismatist.ui.fragments.coins.details;
+package com.hxl.cryptonumismatist.ui.fragments.coins.details.graph;
 
 import androidx.annotation.ColorInt;
 
@@ -8,6 +8,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
@@ -82,5 +83,9 @@ public class LineChartUtil {
 
         lineChart.setData(data);
         lineChart.invalidate();
+    }
+
+    public void setValueFormatter(ValueFormatter valueFormatter) {
+        lineChart.getXAxis().setValueFormatter(valueFormatter);
     }
 }

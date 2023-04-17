@@ -20,6 +20,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseFragment;
 import com.hxl.cryptonumismatist.databinding.FragmentCoinDetailsBinding;
+import com.hxl.cryptonumismatist.ui.fragments.coins.details.graph.DateAxisFormatter;
+import com.hxl.cryptonumismatist.ui.fragments.coins.details.graph.LineChartUtil;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.domain.model.History;
 import com.hxl.presentation.viewmodels.CoinDetailsViewModel;
@@ -71,24 +73,31 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
         binding.intervalGroup.setOnCheckedStateChangeListener((group, checkedIds) -> {
             switch (group.getCheckedChipId()) {
                 case R.id.chip_24h:
+                    chartUtil.setValueFormatter(DateAxisFormatter.shortTime);
                     setPriceChart(History.Interval.D1);
                     break;
                 case R.id.chip_7d:
+                    chartUtil.setValueFormatter(DateAxisFormatter.longTime);
                     setPriceChart(History.Interval.D7);
                     break;
                 case R.id.chip_14d:
+                    chartUtil.setValueFormatter(DateAxisFormatter.longTime);
                     setPriceChart(History.Interval.D14);
                     break;
                 case R.id.chip_1m:
+                    chartUtil.setValueFormatter(DateAxisFormatter.longTime);
                     setPriceChart(History.Interval.M1);
                     break;
                 case R.id.chip_2m:
+                    chartUtil.setValueFormatter(DateAxisFormatter.longTime);
                     setPriceChart(History.Interval.M2);
                     break;
                 case R.id.chip_6m:
+                    chartUtil.setValueFormatter(DateAxisFormatter.longTime);
                     setPriceChart(History.Interval.M6);
                     break;
                 case R.id.chip_1y:
+                    chartUtil.setValueFormatter(DateAxisFormatter.longTime);
                     setPriceChart(History.Interval.Y1);
                     break;
             }
@@ -101,6 +110,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
 
         chartUtil.drawLineGraph();
         // the last and the longest call, where clear() is called
+        chartUtil.setValueFormatter(DateAxisFormatter.shortTime);
         compositeDisposable.add(setPriceChart(History.Interval.D1));
     }
 
