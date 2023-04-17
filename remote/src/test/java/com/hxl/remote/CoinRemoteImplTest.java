@@ -123,6 +123,6 @@ public class CoinRemoteImplTest {
                 .assertNoErrors()
                 .assertValue(r -> r.size() == SIZE);
 
-        verify(coinService).getCoinHistory(ID, "d1");
+        verify(coinService).getCoinHistory(ID, History.Interval.D1.param);
     }
 }
