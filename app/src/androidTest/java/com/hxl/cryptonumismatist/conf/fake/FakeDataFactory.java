@@ -67,6 +67,23 @@ public class FakeDataFactory {
             String.format("https://assets/%s.png", "btc")
     );
 
+    public static final Coin NULL_COIN = new Coin(
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+    );
+
     public static Coin getCoin() {
         return getCoin(randomName());
     }
