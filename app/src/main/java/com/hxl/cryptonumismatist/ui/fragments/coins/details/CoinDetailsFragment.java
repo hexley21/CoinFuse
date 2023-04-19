@@ -144,10 +144,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                             binding.setCurrency("$");
                             if (coin.changePercent24Hr >= 0 ) {
                                 binding.setChSmbl(getResources().getString(R.string.arrow_up));
-                                TypedValue typedValue = new TypedValue();
-                                Resources.Theme theme = requireContext().getTheme();
-                                theme.resolveAttribute(R.attr.growth, typedValue, true);
-                                binding.tvChange.setTextColor(typedValue.data);
+                                binding.tvChange.setTextColor(getColor(R.attr.growth));
                             }
                             else {
                                 binding.setChSmbl(getResources().getString(R.string.arrow_down));
@@ -251,12 +248,17 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
         );
     }
     private void initChartUtil() {
-        TypedValue chartColor = new TypedValue();
-        TypedValue textColor = new TypedValue();
-        Resources.Theme theme = requireContext().getTheme();
-        theme.resolveAttribute(com.google.android.material.R.attr.colorPrimary, chartColor, true);
-        theme.resolveAttribute(com.google.android.material.R.attr.colorOnSurface, textColor, true);
+        chartUtil = new LineChartUtil(
+                binding.lineChart,
+                getColor(com.google.android.material.R.attr.colorPrimary),
+                getColor(com.google.android.material.R.attr.colorOnSurface)
+        );
+    }
 
-        chartUtil = new LineChartUtil(binding.lineChart, chartColor.data, textColor.data);
+    private int getColor(int id) {
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = requireContext().getTheme();
+        theme.resolveAttribute(id, typedValue, true);
+        return typedValue.data;
     }
 }
