@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 import com.hxl.cryptonumismatist.base.BaseAdapter;
-import com.hxl.cryptonumismatist.base.Binder;
 import com.hxl.cryptonumismatist.databinding.CoinItemBinding;
 import com.hxl.domain.model.Coin;
 
@@ -53,7 +52,7 @@ public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder>
         return new CoinViewHolder(binding);
     }
 
-    public class CoinViewHolder extends RecyclerView.ViewHolder implements Binder<Coin> {
+    public class CoinViewHolder extends RecyclerView.ViewHolder implements Function<Coin, Void> {
         CoinItemBinding binding;
         public CoinViewHolder(CoinItemBinding binding) {
             super(binding.getRoot());
@@ -61,15 +60,15 @@ public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder>
         }
 
         @Override
-        public void bind(Coin item) {
-            binding.setName(item.name);
-            binding.setSymbol(item.symbol);
-            binding.setPrice(formatDouble(item.priceUsd));
-            binding.setChange(formatFloat(item.changePercent24Hr));
-            binding.setRank(String.valueOf(item.rank));
-            glide.load(item.img).into(binding.imgCoin);
+        public Void apply(Coin coin) {
+            binding.setName(coin.name);
+            binding.setSymbol(coin.symbol);
+            binding.setPrice(formatDouble(coin.priceUsd));
+            binding.setChange(formatFloat(coin.changePercent24Hr));
+            binding.setRank(String.valueOf(coin.rank));
+            glide.load(coin.img).into(binding.imgCoin);
+            return null;
         }
-
     }
 
     @Override

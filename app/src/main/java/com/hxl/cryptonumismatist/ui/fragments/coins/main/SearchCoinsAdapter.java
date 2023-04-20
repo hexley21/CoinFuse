@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 import com.hxl.cryptonumismatist.base.BaseAdapter;
-import com.hxl.cryptonumismatist.base.Binder;
 import com.hxl.cryptonumismatist.databinding.SearchCoinItemBinding;
 import com.hxl.domain.model.Coin;
 
@@ -50,7 +49,7 @@ public class SearchCoinsAdapter extends BaseAdapter<Coin, SearchCoinsAdapter.Sea
         return new SearchCoinsAdapter.SearchCoinViewHolder(binding);
     }
 
-    public class SearchCoinViewHolder extends RecyclerView.ViewHolder implements Binder<Coin> {
+    public class SearchCoinViewHolder extends RecyclerView.ViewHolder implements Function<Coin, Void> {
         SearchCoinItemBinding binding;
 
         public SearchCoinViewHolder(SearchCoinItemBinding binding) {
@@ -59,13 +58,13 @@ public class SearchCoinsAdapter extends BaseAdapter<Coin, SearchCoinsAdapter.Sea
         }
 
         @Override
-        public void bind(Coin item) {
-            binding.setName(item.name);
-            binding.setSymbol(item.symbol);
-            binding.setRank("#" + item.rank);
-            glide.load(item.img).into(binding.imgCoin);
+        public Void apply(Coin coin) {
+            binding.setName(coin.name);
+            binding.setSymbol(coin.symbol);
+            binding.setRank("#" + coin.rank);
+            glide.load(coin.img).into(binding.imgCoin);
+            return null;
         }
-
     }
 
     @Override
