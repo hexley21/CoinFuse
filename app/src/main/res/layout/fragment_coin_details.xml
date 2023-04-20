@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="name" type="String" />
+        <variable name="name" type="String"/>
         <variable name="symbol" type="String" />
         <variable name="price" type="String" />
         <variable name="change" type="String" />
@@ -130,7 +130,7 @@
                 android:paddingLeft="8dp"
                 android:text='@{ chSmbl + change + "%"}'
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-                android:textColor="?attr/colorError"
+                android:textColor="?attr/colorOnSecondaryContainer"
                 tools:text="▾123.45%" />
 
         </LinearLayout>
@@ -162,85 +162,90 @@
 
         </LinearLayout>
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/lineChart"
+        <LinearLayout
+            android:id="@+id/graph_container"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/details_graph_size"
-            android:padding="@dimen/default_padding"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/time_container" />
-
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView"
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:scrollbarSize="0dp"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lineChart">
+            app:layout_constraintTop_toBottomOf="@+id/time_container">
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChart"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/details_graph_size"
+                android:padding="@dimen/default_padding" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/interval_group"
-                android:layout_width="wrap_content"
+            <HorizontalScrollView
+                android:id="@+id/horizontalScrollView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/default_padding"
-                android:paddingRight="@dimen/default_padding"
-                app:checkedChip="@id/chip_24h"
-                app:singleLine="true"
-                app:selectionRequired="true"
-                app:singleSelection="true">
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_24h"
-                    style="@style/CN_Chip"
+                android:scrollbarSize="0dp">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/interval_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/chip_24h" />
+                    android:paddingLeft="@dimen/default_padding"
+                    android:paddingRight="@dimen/default_padding"
+                    app:checkedChip="@id/chip_24h"
+                    app:singleLine="true"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_24h"
+                        style="@style/CN_Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chip_24h" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_7d"
-                    style="@style/CN_Chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/chip_7d" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_7d"
+                        style="@style/CN_Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chip_7d" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_14d"
-                    style="@style/CN_Chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/chip_14d" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_14d"
+                        style="@style/CN_Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chip_14d" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_1m"
-                    style="@style/CN_Chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/chip_1m" />
-
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_2m"
-                    style="@style/CN_Chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/chip_2m" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_1m"
+                        style="@style/CN_Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chip_1m" />
 
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_6m"
-                    style="@style/CN_Chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/chip_6m" />
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_1y"
-                    style="@style/CN_Chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/chip_1y" />
-            </com.google.android.material.chip.ChipGroup>
-        </HorizontalScrollView>
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_2m"
+                        style="@style/CN_Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chip_2m" />
+
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_6m"
+                        style="@style/CN_Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chip_6m" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_1y"
+                        style="@style/CN_Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chip_1y" />
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
+        </LinearLayout>
+
+
 
         <LinearLayout
             android:id="@+id/details_container"
@@ -250,7 +255,7 @@
             android:padding="@dimen/default_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
+            app:layout_constraintTop_toBottomOf="@+id/graph_container">
 
             <LinearLayout
                 android:layout_width="match_parent"

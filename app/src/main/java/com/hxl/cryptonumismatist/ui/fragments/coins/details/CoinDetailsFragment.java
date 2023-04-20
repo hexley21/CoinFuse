@@ -137,17 +137,26 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                 .subscribe(
                         coin -> {
                             glide.load(coin.img).into(binding.imgDetailCoin);
+
                             binding.setName(coin.name);
                             binding.setSymbol(coin.symbol);
+
                             binding.setPrice(formatDoubleDetailed(coin.priceUsd));
-                            binding.setChange(formatFloat(Math.abs(coin.changePercent24Hr)));
+
                             binding.setCurrency("$");
-                            if (coin.changePercent24Hr >= 0 ) {
+
+                            if (coin.changePercent24Hr == null) {
+                                binding.tvChange.setText("");
+                            }
+                            else if (coin.changePercent24Hr >= 0 ) {
+                                binding.setChange(formatFloat(coin.changePercent24Hr));
                                 binding.setChSmbl(getResources().getString(R.string.arrow_up));
                                 binding.tvChange.setTextColor(getColor(R.attr.growth));
                             }
                             else {
+                                binding.setChange(formatFloat(Math.abs(coin.changePercent24Hr)));
                                 binding.setChSmbl(getResources().getString(R.string.arrow_down));
+                                binding.tvChange.setTextColor(getColor(com.google.android.material.R.attr.colorError));
                             }
 
                             Instant instant = Instant.ofEpochMilli(coin.timestamp);
@@ -158,8 +167,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                             binding.setMarketCap(formatDoubleDetailed(coin.marketCapUsd));
                             binding.setVolume24Hr(formatDoubleDetailed(coin.volumeUsd24Hr));
                             binding.setSupply(formatDoubleDetailed(coin.supply));
-                            binding.setDayHigh(String.valueOf(0));
-                            binding.setDayLow(String.valueOf(0));
+
                             EspressoIdlingResource.decrement();
                         },
                         e -> {
@@ -196,16 +204,24 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         histories -> {
-                            ArrayList<Entry> entries = new ArrayList<>();
-                            for (int i = 0; i < histories.size(); i++) {
-                                entries.add(new Entry(histories.get(i).time, histories.get(i).priceUsd.floatValue()));
+                            if (histories.size() > 0) {
+                                ArrayList<Entry> entries = new ArrayList<>();
+
+                                for (int i = 0; i < histories.size(); i++) {
+                                    entries.add(new Entry(histories.get(i).time, histories.get(i).priceUsd.floatValue()));
+                                }
+                                chartUtil.setData(entries);
+                                if (interval == History.Interval.D1) {
+                                    binding.setDayLow(formatFloat(binding.lineChart.getYChartMin()));
+                                    binding.setDayHigh(formatFloat(binding.lineChart.getYChartMax()));
+                                }
+                                Log.d(TAG, "setPriceChart.onSuccess: coin price history was gathered successfully");
                             }
-                            chartUtil.setData(entries);
-                            if (interval == History.Interval.D1) {
-                                binding.setDayLow(formatFloat(binding.lineChart.getYChartMin()));
-                                binding.setDayHigh(formatFloat(binding.lineChart.getYChartMax()));
+                            else {
+                                binding.graphContainer.setVisibility(View.GONE);
+                                binding.tvDayHighVal.setText("-");
+                                binding.tvDayLowVal.setText("-");
                             }
-                            Log.d(TAG, "setPriceChart.onSuccess: coin price history was gathered successfully");
                             EspressoIdlingResource.decrement();
                             compositeDisposable.clear();
                             },

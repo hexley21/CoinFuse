@@ -68,15 +68,15 @@ public class FakeDataFactory {
     );
 
     public static final Coin NULL_COIN = new Coin(
+            "bitcoin",
+            1,
+            "btc",
+            "Bitcoin",
             null,
             null,
             null,
             null,
-            null,
-            null,
-            null,
-            null,
-            null,
+            123.45,
             null,
             null,
             null,
