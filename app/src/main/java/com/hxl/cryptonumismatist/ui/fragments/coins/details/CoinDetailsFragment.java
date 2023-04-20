@@ -116,7 +116,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
         compositeDisposable.add(isCoinBookmarked());
 
         chartUtil.drawLineGraph();
-        // the last and the longest call, where clear() is called
+
         chartUtil.setValueFormatter(DateAxisFormatter.shortTime);
         compositeDisposable.add(setPriceChart(History.Interval.D1));
     }
@@ -133,50 +133,46 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
     }
 
     private Disposable getCoinData() {
-        EspressoIdlingResource.increment();
         return vm.getCoin(coinId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coin -> {
+                            // Load logo
                             glide.load(coin.img).into(binding.imgDetailCoin);
-
+                            // Set Name and Symbol
                             binding.setName(coin.name);
                             binding.setSymbol(coin.symbol);
-
+                            // Set Price and Currency
                             binding.setPrice(formatDoubleDetailed(coin.priceUsd));
-
                             binding.setCurrency("$");
-
-                            if (coin.changePercent24Hr == null) {
-                                binding.tvChange.setText("");
-                            }
-                            else if (coin.changePercent24Hr >= 0 ) {
-                                binding.setChange(formatFloat(coin.changePercent24Hr));
-                                binding.setChSmbl(getResources().getString(R.string.arrow_up));
-                                binding.tvChange.setTextColor(getColor(R.attr.growth));
+                            // Set change in %, color and check for null
+                            if (coin.changePercent24Hr != null) {
+                                if (coin.changePercent24Hr >= 0 ) {
+                                    binding.setChSmbl(getResources().getString(R.string.arrow_up));
+                                    binding.tvChange.setTextColor(getColor(R.attr.growth));
+                                }
+                                else {
+                                    binding.setChSmbl(getResources().getString(R.string.arrow_down));
+                                    binding.tvChange.setTextColor(getColor(com.google.android.material.R.attr.colorError));
+                                }
+                                binding.setChange(formatFloat(Math.abs(coin.changePercent24Hr)));
                             }
                             else {
-                                binding.setChange(formatFloat(Math.abs(coin.changePercent24Hr)));
-                                binding.setChSmbl(getResources().getString(R.string.arrow_down));
-                                binding.tvChange.setTextColor(getColor(com.google.android.material.R.attr.colorError));
+                                binding.tvChange.setText("");
                             }
-
+                            // Set fetch timestamp
                             Instant instant = Instant.ofEpochMilli(coin.timestamp);
                             LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm, dd MMM yyyy", Locale.getDefault());
                             binding.setTimestamp(localDateTime.format(formatter));
-
+                            // Set market-cap, volume & supply
                             binding.setMarketCap(formatDoubleDetailed(coin.marketCapUsd));
                             binding.setVolume24Hr(formatDoubleDetailed(coin.volumeUsd24Hr));
                             binding.setSupply(formatDoubleDetailed(coin.supply));
 
                             Log.d(TAG, String.format("getCoin.onSuccess: %s was fetched successfully", coinId));
-                            EspressoIdlingResource.decrement();
                         },
-                        e -> {
-                            Log.e(TAG, String.format("getCoin.onError: %s couldn't be fetched", coinId), e);
-                            EspressoIdlingResource.decrement();
-                        }
+                        e -> Log.e(TAG, String.format("getCoin.onError: %s couldn't be fetched", coinId), e)
                 );
     }
 
@@ -201,10 +197,11 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
     }
 
     public Disposable setPriceChart(History.Interval interval) {
+        EspressoIdlingResource.increment();
+
+        // Set graph progress-bar visible & line chart visibility invisible
         binding.pbGraph.setVisibility(View.VISIBLE);
         binding.lineChart.setVisibility(View.INVISIBLE);
-
-        EspressoIdlingResource.increment();
 
         return vm.getCoinHistory(coinId, interval)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -221,28 +218,33 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                                     binding.setDayLow(formatFloat(binding.lineChart.getYChartMin()));
                                     binding.setDayHigh(formatFloat(binding.lineChart.getYChartMax()));
                                 }
+                                // Set graph progress-bar Gone & line chart visibility visible
+                                binding.graphContainer.setVisibility(View.VISIBLE);
+                                binding.pbGraph.setVisibility(View.GONE);
+                                binding.lineChart.setVisibility(View.VISIBLE);
+
                                 Log.d(TAG, "setPriceChart.onSuccess: coin price history was gathered successfully");
                             }
                             else {
+                                // Set graph progress-bar and graph container visibility gone
                                 binding.graphContainer.setVisibility(View.GONE);
+                                binding.pbGraph.setVisibility(View.GONE);
+
                                 binding.tvDayHighVal.setText("-");
                                 binding.tvDayLowVal.setText("-");
                             }
-                            binding.pbGraph.setVisibility(View.INVISIBLE);
-                            binding.lineChart.setVisibility(View.VISIBLE);
-
-                            binding.loadingLayout.setVisibility(View.GONE);
-                            binding.coinDetailsContainer.setVisibility(View.VISIBLE);
 
                             if (binding.coinDetailsRefresh.isRefreshing()) {
                                 binding.coinDetailsRefresh.setRefreshing(false);
                             }
 
+                            binding.loadingLayout.setVisibility(View.GONE);
+                            binding.coinDetailsContainer.setVisibility(View.VISIBLE);
                             EspressoIdlingResource.decrement();
-                            compositeDisposable.clear();
                             },
                         e -> {
                             Log.e(TAG, String.format("setPriceChart.onError: couldn't get price history of %s, with interval %s", coinId, interval.param), e);
+
                             binding.lineChart.setVisibility(View.VISIBLE);
                             binding.graphContainer.setVisibility(View.GONE);
                             binding.pbGraph.setVisibility(View.INVISIBLE);
@@ -253,8 +255,9 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                             if (binding.coinDetailsRefresh.isRefreshing()) {
                                 binding.coinDetailsRefresh.setRefreshing(false);
                             }
+                            binding.loadingLayout.setVisibility(View.GONE);
+                            binding.coinDetailsContainer.setVisibility(View.VISIBLE);
                             EspressoIdlingResource.decrement();
-                            compositeDisposable.clear();
                         });
     }
 
