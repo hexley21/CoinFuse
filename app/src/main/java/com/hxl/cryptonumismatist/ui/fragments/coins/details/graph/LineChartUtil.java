@@ -3,6 +3,7 @@ package com.hxl.cryptonumismatist.ui.fragments.coins.details.graph;
 import androidx.annotation.ColorInt;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -28,6 +29,9 @@ public class LineChartUtil {
     }
 
     public void drawLineGraph() {
+        Description chartDescription = new Description();
+        chartDescription.setText("");
+        lineChart.setDescription(chartDescription);
         lineChart.setFitsSystemWindows(true);
         lineChart.setDrawGridBackground(false);
         lineChart.setMaxHighlightDistance(300);
