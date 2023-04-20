@@ -107,6 +107,8 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                     break;
             }
         });
+
+        binding.coinDetailsRefresh.setOnRefreshListener(this::bind);
     }
 
     private void bind() {
@@ -168,6 +170,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                             binding.setVolume24Hr(formatDoubleDetailed(coin.volumeUsd24Hr));
                             binding.setSupply(formatDoubleDetailed(coin.supply));
 
+                            Log.d(TAG, String.format("getCoin.onSuccess: %s was fetched successfully", coinId));
                             EspressoIdlingResource.decrement();
                         },
                         e -> {
@@ -230,6 +233,11 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
 
                             binding.loadingLayout.setVisibility(View.GONE);
                             binding.coinDetailsContainer.setVisibility(View.VISIBLE);
+
+                            if (binding.coinDetailsRefresh.isRefreshing()) {
+                                binding.coinDetailsRefresh.setRefreshing(false);
+                            }
+
                             EspressoIdlingResource.decrement();
                             compositeDisposable.clear();
                             },
@@ -241,6 +249,10 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
 
                             binding.loadingLayout.setVisibility(View.GONE);
                             binding.coinDetailsContainer.setVisibility(View.VISIBLE);
+
+                            if (binding.coinDetailsRefresh.isRefreshing()) {
+                                binding.coinDetailsRefresh.setRefreshing(false);
+                            }
                             EspressoIdlingResource.decrement();
                             compositeDisposable.clear();
                         });
