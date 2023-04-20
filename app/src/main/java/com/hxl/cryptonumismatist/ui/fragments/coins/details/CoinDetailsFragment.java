@@ -227,6 +227,9 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                             }
                             binding.pbGraph.setVisibility(View.INVISIBLE);
                             binding.lineChart.setVisibility(View.VISIBLE);
+
+                            binding.loadingLayout.setVisibility(View.GONE);
+                            binding.coinDetailsContainer.setVisibility(View.VISIBLE);
                             EspressoIdlingResource.decrement();
                             compositeDisposable.clear();
                             },
@@ -235,6 +238,9 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                             binding.lineChart.setVisibility(View.VISIBLE);
                             binding.graphContainer.setVisibility(View.GONE);
                             binding.pbGraph.setVisibility(View.INVISIBLE);
+
+                            binding.loadingLayout.setVisibility(View.GONE);
+                            binding.coinDetailsContainer.setVisibility(View.VISIBLE);
                             EspressoIdlingResource.decrement();
                             compositeDisposable.clear();
                         });

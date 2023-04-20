@@ -93,6 +93,7 @@ dependencies {
     implementation(Deps.UI.lottie)
     implementation(Deps.UI.chart)
     annotationProcessor(Deps.UI.glideCompiler)
+    implementation(Deps.UI.shimmer)
 
     // Reactive
     implementation(Deps.Reactive.rxJava)

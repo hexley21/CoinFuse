@@ -25,6 +25,7 @@ public final class Deps {
         public static final String glideCompiler = "com.github.bumptech.glide:compiler:" + Versions.glideVersion;
         public static final String lottie = "com.airbnb.android:lottie:" + Versions.lottieVersion;
         public static final String chart = "com.github.PhilJay:MPAndroidChart:" + Versions.chartVersion;
+        public static final String shimmer = "com.facebook.shimmer:shimmer:" + Versions.shimmerVersion;
     }
 
     public static final class Reactive {
