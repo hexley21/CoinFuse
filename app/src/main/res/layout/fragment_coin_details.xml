@@ -162,7 +162,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/graph_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -170,80 +170,97 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/time_container">
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/lineChart"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/details_graph_size"
-                android:padding="@dimen/default_padding" />
 
-            <HorizontalScrollView
-                android:id="@+id/horizontalScrollView"
+            <ProgressBar
+                android:id="@+id/pb_graph"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/details_graph_size"
+                android:layout_centerHorizontal="true" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbarSize="0dp">
+                android:orientation="vertical">
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/interval_group"
-                    android:layout_width="wrap_content"
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/details_graph_size"
+                    android:padding="@dimen/default_padding"
+                    android:visibility="invisible" />
+
+                <HorizontalScrollView
+                    android:id="@+id/horizontalScrollView"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/default_padding"
-                    android:paddingRight="@dimen/default_padding"
-                    app:checkedChip="@id/chip_24h"
-                    app:singleLine="true"
-                    app:selectionRequired="true"
-                    app:singleSelection="true">
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_24h"
-                        style="@style/CN_Chip"
+                    android:scrollbarSize="0dp">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/interval_group"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/chip_24h" />
+                        android:paddingLeft="@dimen/default_padding"
+                        android:paddingRight="@dimen/default_padding"
+                        app:checkedChip="@id/chip_24h"
+                        app:selectionRequired="true"
+                        app:singleLine="true"
+                        app:singleSelection="true">
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_7d"
-                        style="@style/CN_Chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/chip_7d" />
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_24h"
+                            style="@style/CN_Chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/chip_24h" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_14d"
-                        style="@style/CN_Chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/chip_14d" />
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_7d"
+                            style="@style/CN_Chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/chip_7d" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_1m"
-                        style="@style/CN_Chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/chip_1m" />
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_14d"
+                            style="@style/CN_Chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/chip_14d" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_1m"
+                            style="@style/CN_Chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/chip_1m" />
 
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_2m"
-                        style="@style/CN_Chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/chip_2m" />
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_2m"
+                            style="@style/CN_Chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/chip_2m" />
 
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_6m"
-                        style="@style/CN_Chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/chip_6m" />
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_1y"
-                        style="@style/CN_Chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/chip_1y" />
-                </com.google.android.material.chip.ChipGroup>
-            </HorizontalScrollView>
-        </LinearLayout>
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_6m"
+                            style="@style/CN_Chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/chip_6m" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_1y"
+                            style="@style/CN_Chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/chip_1y" />
+                    </com.google.android.material.chip.ChipGroup>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+        </RelativeLayout>
 
 
 

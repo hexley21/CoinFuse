@@ -198,6 +198,9 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
     }
 
     public Disposable setPriceChart(History.Interval interval) {
+        binding.pbGraph.setVisibility(View.VISIBLE);
+        binding.lineChart.setVisibility(View.INVISIBLE);
+
         EspressoIdlingResource.increment();
 
         return vm.getCoinHistory(coinId, interval)
@@ -222,11 +225,16 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                                 binding.tvDayHighVal.setText("-");
                                 binding.tvDayLowVal.setText("-");
                             }
+                            binding.pbGraph.setVisibility(View.INVISIBLE);
+                            binding.lineChart.setVisibility(View.VISIBLE);
                             EspressoIdlingResource.decrement();
                             compositeDisposable.clear();
                             },
                         e -> {
                             Log.e(TAG, String.format("setPriceChart.onError: couldn't get price history of %s, with interval %s", coinId, interval.param), e);
+                            binding.lineChart.setVisibility(View.VISIBLE);
+                            binding.graphContainer.setVisibility(View.GONE);
+                            binding.pbGraph.setVisibility(View.INVISIBLE);
                             EspressoIdlingResource.decrement();
                             compositeDisposable.clear();
                         });
