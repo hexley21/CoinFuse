@@ -38,7 +38,6 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 @AndroidEntryPoint
 public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding, CoinDetailsViewModel> {
@@ -59,7 +58,6 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
 
     @Inject
     RequestManager glide;
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
     LineChartUtil chartUtil;
 
     @Override
@@ -112,18 +110,6 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
         });
 
         binding.coinDetailsRefresh.setOnRefreshListener(this::bind);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        compositeDisposable.clear();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        compositeDisposable.dispose();
     }
 
     private void bind() {
