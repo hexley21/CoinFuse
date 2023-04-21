@@ -3,7 +3,6 @@ package com.hxl.cryptonumismatist.ui.fragments.coins.details;
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatDoubleDetailed;
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatFloat;
 
-import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -69,39 +68,38 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
         }
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onViewCreated(@androidx.annotation.NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         binding.intervalGroup.setOnCheckedStateChangeListener((group, checkedIds) -> {
             switch (group.getCheckedChipId()) {
-                case R.id.chip_24h:
+                case (R.id.chip_24h):
                     chartUtil.setValueFormatter(DateAxisFormatter.shortTime);
                     chosenInterval = History.Interval.D1;
                     break;
-                case R.id.chip_7d:
+                case (R.id.chip_7d):
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
                     chosenInterval = History.Interval.D7;
                     break;
-                case R.id.chip_14d:
+                case (R.id.chip_14d):
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
                     chosenInterval = History.Interval.D14;
                     break;
-                case R.id.chip_1m:
+                case (R.id.chip_1m):
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
                     chosenInterval = History.Interval.M1;
                     break;
-                case R.id.chip_2m:
+                case (R.id.chip_2m):
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
                     chosenInterval = History.Interval.M2;
                     break;
-                case R.id.chip_6m:
+                case (R.id.chip_6m):
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
                     setPriceChart();
                     chosenInterval = History.Interval.M6;
                     break;
-                case R.id.chip_1y:
+                case (R.id.chip_1y):
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
                     chosenInterval = History.Interval.Y1;
                     break;
