@@ -39,7 +39,6 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.disposables.Disposable;
 
 @AndroidEntryPoint
 public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding, CoinDetailsViewModel> {
@@ -109,7 +108,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                     chosenInterval = History.Interval.Y1;
                     break;
             }
-            compositeDisposable.add(setPriceChart());
+            setPriceChart();
         });
 
         binding.coinDetailsRefresh.setOnRefreshListener(this::bind);
@@ -128,28 +127,28 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
     }
 
     private void bind() {
-        compositeDisposable.add(getCoinData());
-        compositeDisposable.add(isCoinBookmarked());
+        getCoinData();
+        isCoinBookmarked();
 
         chartUtil.drawLineGraph();
 
         chartUtil.setValueFormatter(DateAxisFormatter.shortTime);
-        compositeDisposable.add(setPriceChart());
+        setPriceChart();
     }
 
     public void setBookmarkListener() {
         binding.cbBookmark.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                compositeDisposable.add(bookmarkCoin());
+                bookmarkCoin();
             }
             else {
-                compositeDisposable.add(unBookmarkCoin());
+                unBookmarkCoin();
             }
         });
     }
 
-    private Disposable getCoinData() {
-        return vm.getCoin(coinId)
+    private void getCoinData() {
+        vm.getCoin(coinId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coin -> {
@@ -188,14 +187,15 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
 
                             Log.d(TAG, String.format("getCoin.onSuccess: %s was fetched successfully", coinId));
                         },
-                        e -> Log.e(TAG, String.format("getCoin.onError: %s couldn't be fetched", coinId), e)
+                        e -> Log.e(TAG, String.format("getCoin.onError: %s couldn't be fetched", coinId), e),
+                        compositeDisposable
                 );
     }
 
-    private Disposable isCoinBookmarked() {
+    private void isCoinBookmarked() {
         EspressoIdlingResource.increment();
 
-        return vm.isCoinBookmarked(coinId)
+        vm.isCoinBookmarked(coinId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         aBoolean -> {
@@ -208,15 +208,16 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                             setBookmarkListener();
                             Log.e(TAG, String.format("isCoinBookmarked.onError: %s couldn't be checked", coinId), e);
                             EspressoIdlingResource.decrement();
-                        }
+                        },
+                        compositeDisposable
                 );
     }
 
-    public Disposable setPriceChart() {
+    public void setPriceChart() {
         EspressoIdlingResource.increment();
         visibilityHideGraph();
 
-        return vm.getCoinHistory(coinId, chosenInterval)
+        vm.getCoinHistory(coinId, chosenInterval)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         histories -> {
@@ -254,38 +255,38 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                             visibilityGraphError(e instanceof UnknownHostException, e.getMessage());
 
                             EspressoIdlingResource.decrement();
-                        });
+                        },
+                        compositeDisposable
+                        );
     }
 
-    private Disposable bookmarkCoin() {
+    private void bookmarkCoin() {
         EspressoIdlingResource.increment();
-        return vm.bookmarkCoin(coinId).subscribe(
+        vm.bookmarkCoin(coinId).subscribe(
                 () -> {
                     Log.d(TAG, String.format("bookmarkCoin.onComplete: %s was bookmarked", coinId));
                     EspressoIdlingResource.decrement();
-                    compositeDisposable.clear();
                 },
                 e -> {
                     Log.e(TAG, String.format("bookmarkCoin.onComplete: %s couldn't be bookmarked", coinId), e);
                     EspressoIdlingResource.decrement();
-                    compositeDisposable.clear();
-                }
+                },
+                compositeDisposable
         );
     }
-    private Disposable unBookmarkCoin() {
+    private void unBookmarkCoin() {
         EspressoIdlingResource.increment();
 
-        return vm.unBookmarkCoin(coinId).subscribe(
+        vm.unBookmarkCoin(coinId).subscribe(
                 () -> {
                     Log.d(TAG, String.format("unBookmarkCoin.onComplete: %s was un-bookmarked", coinId));
                     EspressoIdlingResource.decrement();
-                    compositeDisposable.clear();
                 },
                 e -> {
                     Log.e(TAG, String.format("unBookmarkCoin.onComplete: %s couldn't be un-bookmarked", coinId), e);
                     EspressoIdlingResource.decrement();
-                    compositeDisposable.clear();
-                }
+                },
+                compositeDisposable
         );
     }
     private void visibilityHideGraph() {
