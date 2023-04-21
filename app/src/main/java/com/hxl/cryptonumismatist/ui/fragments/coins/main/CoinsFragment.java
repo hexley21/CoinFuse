@@ -21,19 +21,14 @@ import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseFragment;
 import com.hxl.cryptonumismatist.databinding.FragmentCoinsBinding;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
-import com.hxl.domain.model.Coin;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
 
-
-import java.util.List;
 import java.util.function.Function;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.SingleObserver;
-import io.reactivex.rxjava3.disposables.Disposable;
 
 @AndroidEntryPoint
 public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuViewModel> {
@@ -119,48 +114,44 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
     }
 
     private void updateCoins() {
+        EspressoIdlingResource.increment();
         vm.getCoins()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<Coin>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        EspressoIdlingResource.increment();
-                    }
-                    @Override
-                    public void onSuccess(List<Coin> coins) {
-                        EspressoIdlingResource.decrement();
-                        coinsAdapter.setList(coins);
-                        progressBar.setVisibility(View.GONE);
-                        refreshLayout.setRefreshing(false);
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                        EspressoIdlingResource.decrement();
-                        Log.e(TAG, e.getMessage(), e);
-                        progressBar.setVisibility(View.GONE);
-                        refreshLayout.setRefreshing(false);
-                    }
-                });
+                .subscribe(
+                        coins -> {
+                            coinsAdapter.setList(coins);
+                            progressBar.setVisibility(View.GONE);
+                            refreshLayout.setRefreshing(false);
+
+                            EspressoIdlingResource.decrement();
+                        },
+                        e -> {
+                            Log.e(TAG, e.getMessage(), e);
+                            progressBar.setVisibility(View.GONE);
+                            refreshLayout.setRefreshing(false);
+
+                            EspressoIdlingResource.decrement();
+                        },
+                        compositeDisposable
+                );
     }
 
     private void searchCoins(String query) {
+        EspressoIdlingResource.increment();
         vm.searchCoins(query)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<Coin>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        EspressoIdlingResource.increment();
-                    }
-                    @Override
-                    public void onSuccess(List<Coin> coins) {
-                        EspressoIdlingResource.decrement();
-                        searchCoinsAdapter.setList(coins);
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                        EspressoIdlingResource.decrement();
-                        Log.e(TAG, e.getMessage(), e);
-                    }
-                });
+                .subscribe(
+                        coins -> {
+                            searchCoinsAdapter.setList(coins);
+
+                            EspressoIdlingResource.decrement();
+                        },
+                        e -> {
+                            Log.e(TAG, e.getMessage(), e);
+
+                            EspressoIdlingResource.decrement();
+                        },
+                        compositeDisposable
+                );
     }
 }
