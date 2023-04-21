@@ -56,6 +56,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
     private static final String TAG = "CoinDetailsFragment";
     private static final String coinArg = "coin";
     String coinId;
+    History.Interval chosenInterval = History.Interval.D1;
 
     @Inject
     RequestManager glide;
@@ -80,36 +81,50 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
             switch (group.getCheckedChipId()) {
                 case R.id.chip_24h:
                     chartUtil.setValueFormatter(DateAxisFormatter.shortTime);
-                    setPriceChart(History.Interval.D1);
+                    chosenInterval = History.Interval.D1;
                     break;
                 case R.id.chip_7d:
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
-                    setPriceChart(History.Interval.D7);
+                    chosenInterval = History.Interval.D7;
                     break;
                 case R.id.chip_14d:
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
-                    setPriceChart(History.Interval.D14);
+                    chosenInterval = History.Interval.D14;
                     break;
                 case R.id.chip_1m:
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
-                    setPriceChart(History.Interval.M1);
+                    chosenInterval = History.Interval.M1;
                     break;
                 case R.id.chip_2m:
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
-                    setPriceChart(History.Interval.M2);
+                    chosenInterval = History.Interval.M2;
                     break;
                 case R.id.chip_6m:
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
-                    setPriceChart(History.Interval.M6);
+                    setPriceChart();
+                    chosenInterval = History.Interval.M6;
                     break;
                 case R.id.chip_1y:
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
-                    setPriceChart(History.Interval.Y1);
+                    chosenInterval = History.Interval.Y1;
                     break;
             }
+            compositeDisposable.add(setPriceChart());
         });
 
         binding.coinDetailsRefresh.setOnRefreshListener(this::bind);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        compositeDisposable.clear();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        compositeDisposable.dispose();
     }
 
     private void bind() {
@@ -119,7 +134,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
         chartUtil.drawLineGraph();
 
         chartUtil.setValueFormatter(DateAxisFormatter.shortTime);
-        compositeDisposable.add(setPriceChart(History.Interval.D1));
+        compositeDisposable.add(setPriceChart());
     }
 
     public void setBookmarkListener() {
@@ -197,11 +212,11 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                 );
     }
 
-    public Disposable setPriceChart(History.Interval interval) {
+    public Disposable setPriceChart() {
         EspressoIdlingResource.increment();
         visibilityHideGraph();
 
-        return vm.getCoinHistory(coinId, interval)
+        return vm.getCoinHistory(coinId, chosenInterval)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         histories -> {
@@ -214,7 +229,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                                 }
                                 chartUtil.setData(entries);
 
-                                if (interval == History.Interval.D1) {
+                                if (chosenInterval == History.Interval.D1) {
                                     binding.setDayLow(formatFloat(binding.priceGraph.getYChartMin()));
                                     binding.setDayHigh(formatFloat(binding.priceGraph.getYChartMax()));
                                 }
@@ -233,7 +248,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                             },
 
                         e -> {
-                            Log.e(TAG, String.format("setPriceChart.onError: couldn't get price history of %s, with interval %s", coinId, interval.param), e);
+                            Log.e(TAG, String.format("setPriceChart.onError: couldn't get price history of %s, with interval %s", coinId, chosenInterval.param), e);
 
                             visibilityShowGraph();
                             visibilityGraphError(e instanceof UnknownHostException, e.getMessage());
