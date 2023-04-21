@@ -16,6 +16,8 @@
         <variable name="supply" type="String" />
         <variable name="dayLow" type="String" />
         <variable name="dayHigh" type="String" />
+
+        <variable name="graph_error" type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -188,6 +190,83 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/price_graph"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/details_graph_size"
+                            android:padding="@dimen/default_padding" />
+
+                        <HorizontalScrollView
+                            android:id="@+id/chip_scroll_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/price_graph"
+                            android:layout_marginTop="@dimen/details_graph_size"
+                            android:scrollbarSize="0dp">
+
+                            <com.google.android.material.chip.ChipGroup
+                                android:id="@+id/interval_group"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/default_padding"
+                                android:paddingRight="@dimen/default_padding"
+                                app:checkedChip="@id/chip_24h"
+                                app:selectionRequired="true"
+                                app:singleLine="true"
+                                app:singleSelection="true">
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chip_24h"
+                                    style="@style/CN_Chip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/chip_24h" />
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chip_7d"
+                                    style="@style/CN_Chip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/chip_7d" />
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chip_14d"
+                                    style="@style/CN_Chip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/chip_14d" />
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chip_1m"
+                                    style="@style/CN_Chip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/chip_1m" />
+
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chip_2m"
+                                    style="@style/CN_Chip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/chip_2m" />
+
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chip_6m"
+                                    style="@style/CN_Chip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/chip_6m" />
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chip_1y"
+                                    style="@style/CN_Chip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/chip_1y" />
+                            </com.google.android.material.chip.ChipGroup>
+                        </HorizontalScrollView>
                         <ProgressBar
                             android:id="@+id/pb_graph"
                             android:layout_width="wrap_content"
@@ -195,88 +274,34 @@
                             android:layout_centerHorizontal="true"
                             android:visibility="gone" />
 
-                        <LinearLayout
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/icon_graph_wifi_off"
+                            android:layout_width="@dimen/graph_icon_size"
+                            android:layout_height="@dimen/details_graph_size"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/wifi_off"
+                            android:visibility="gone" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/icon_graph_error"
+                            android:layout_width="@dimen/graph_icon_size"
+                            android:layout_height="@dimen/details_graph_size"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/error"
+                            android:visibility="gone" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/graph_error_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <com.github.mikephil.charting.charts.LineChart
-                                android:id="@+id/lineChart"
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/details_graph_size"
-                                android:padding="@dimen/default_padding" />
-
-                            <HorizontalScrollView
-                                android:id="@+id/horizontalScrollView"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:scrollbarSize="0dp">
-
-                                <com.google.android.material.chip.ChipGroup
-                                    android:id="@+id/interval_group"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:paddingLeft="@dimen/default_padding"
-                                    android:paddingRight="@dimen/default_padding"
-                                    app:checkedChip="@id/chip_24h"
-                                    app:selectionRequired="true"
-                                    app:singleLine="true"
-                                    app:singleSelection="true">
-
-                                    <com.google.android.material.chip.Chip
-                                        android:id="@+id/chip_24h"
-                                        style="@style/CN_Chip"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/chip_24h" />
-
-                                    <com.google.android.material.chip.Chip
-                                        android:id="@+id/chip_7d"
-                                        style="@style/CN_Chip"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/chip_7d" />
-
-                                    <com.google.android.material.chip.Chip
-                                        android:id="@+id/chip_14d"
-                                        style="@style/CN_Chip"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/chip_14d" />
-
-                                    <com.google.android.material.chip.Chip
-                                        android:id="@+id/chip_1m"
-                                        style="@style/CN_Chip"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/chip_1m" />
-
-
-                                    <com.google.android.material.chip.Chip
-                                        android:id="@+id/chip_2m"
-                                        style="@style/CN_Chip"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/chip_2m" />
-
-
-                                    <com.google.android.material.chip.Chip
-                                        android:id="@+id/chip_6m"
-                                        style="@style/CN_Chip"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/chip_6m" />
-
-                                    <com.google.android.material.chip.Chip
-                                        android:id="@+id/chip_1y"
-                                        style="@style/CN_Chip"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/chip_1y" />
-                                </com.google.android.material.chip.ChipGroup>
-                            </HorizontalScrollView>
-                        </LinearLayout>
-
+                            android:layout_alignBottom="@id/price_graph"
+                            android:layout_marginBottom="24dp"
+                            android:gravity="center"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                            android:text="@{graph_error}"
+                            tools:text="Error was caused because of.."
+                            android:visibility="gone" />
                     </RelativeLayout>
 
 

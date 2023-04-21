@@ -26,6 +26,7 @@ import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.domain.model.History;
 import com.hxl.presentation.viewmodels.CoinDetailsViewModel;
 
+import java.net.UnknownHostException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -198,15 +199,13 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
 
     public Disposable setPriceChart(History.Interval interval) {
         EspressoIdlingResource.increment();
-
-        // Set graph progress-bar visible & line chart visibility invisible
-        binding.pbGraph.setVisibility(View.VISIBLE);
-        binding.lineChart.setVisibility(View.INVISIBLE);
+        visibilityHideGraph();
 
         return vm.getCoinHistory(coinId, interval)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         histories -> {
+
                             if (histories.size() > 0) {
                                 ArrayList<Entry> entries = new ArrayList<>();
 
@@ -214,49 +213,31 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                                     entries.add(new Entry(histories.get(i).time, histories.get(i).priceUsd.floatValue()));
                                 }
                                 chartUtil.setData(entries);
-                                if (interval == History.Interval.D1) {
-                                    binding.setDayLow(formatFloat(binding.lineChart.getYChartMin()));
-                                    binding.setDayHigh(formatFloat(binding.lineChart.getYChartMax()));
-                                }
-                                // Set graph progress-bar Gone & line chart visibility visible
-                                binding.graphContainer.setVisibility(View.VISIBLE);
-                                binding.pbGraph.setVisibility(View.GONE);
-                                binding.lineChart.setVisibility(View.VISIBLE);
 
+                                if (interval == History.Interval.D1) {
+                                    binding.setDayLow(formatFloat(binding.priceGraph.getYChartMin()));
+                                    binding.setDayHigh(formatFloat(binding.priceGraph.getYChartMax()));
+                                }
+
+                                visibilityShowGraph();
                                 Log.d(TAG, "setPriceChart.onSuccess: coin price history was gathered successfully");
                             }
                             else {
-                                // Set graph progress-bar and graph container visibility gone
-                                binding.graphContainer.setVisibility(View.GONE);
-                                binding.pbGraph.setVisibility(View.GONE);
-
+                                visibilityShowGraph();
+                                visibilityGraphError(false, "No data available");
+                                Log.d(TAG, "setPriceChart.onSuccess: EMPTY coin price history was gathered successfully");
                                 binding.tvDayHighVal.setText("-");
                                 binding.tvDayLowVal.setText("-");
                             }
-
-                            if (binding.coinDetailsRefresh.isRefreshing()) {
-                                binding.coinDetailsRefresh.setRefreshing(false);
-                            }
-
-                            binding.loadingLayout.setVisibility(View.GONE);
-                            binding.coinDetailsContainer.setVisibility(View.VISIBLE);
                             EspressoIdlingResource.decrement();
                             },
+
                         e -> {
                             Log.e(TAG, String.format("setPriceChart.onError: couldn't get price history of %s, with interval %s", coinId, interval.param), e);
 
-                            binding.lineChart.setVisibility(View.VISIBLE);
-                            binding.graphContainer.setVisibility(View.GONE);
-                            binding.pbGraph.setVisibility(View.INVISIBLE);
+                            visibilityShowGraph();
+                            visibilityGraphError(e instanceof UnknownHostException, e.getMessage());
 
-                            binding.loadingLayout.setVisibility(View.GONE);
-                            binding.coinDetailsContainer.setVisibility(View.VISIBLE);
-
-                            if (binding.coinDetailsRefresh.isRefreshing()) {
-                                binding.coinDetailsRefresh.setRefreshing(false);
-                            }
-                            binding.loadingLayout.setVisibility(View.GONE);
-                            binding.coinDetailsContainer.setVisibility(View.VISIBLE);
                             EspressoIdlingResource.decrement();
                         });
     }
@@ -292,9 +273,66 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                 }
         );
     }
+    private void visibilityHideGraph() {
+        /*
+        graph wifi-off icon - Gone
+        graph error icon - Gone
+        graph error text - Gone
+        price graph - Invisible
+        progress bar - Visible
+         */
+        binding.iconGraphWifiOff.setVisibility(View.GONE);
+        binding.iconGraphError.setVisibility(View.GONE);
+        binding.graphErrorText.setVisibility(View.GONE);
+
+        binding.priceGraph.setVisibility(View.INVISIBLE);
+
+        binding.pbGraph.setVisibility(View.VISIBLE);
+    }
+
+    private void visibilityShowGraph() {
+        /*
+        progress bar - Gone
+        price graph - Visible
+        loading layout - Gone
+        coin details container - Visible
+         */
+        binding.pbGraph.setVisibility(View.GONE);
+        binding.priceGraph.setVisibility(View.VISIBLE);
+
+        if (binding.coinDetailsRefresh.isRefreshing()) {
+            binding.coinDetailsRefresh.setRefreshing(false);
+        }
+
+        binding.loadingLayout.setVisibility(View.GONE);
+        binding.coinDetailsContainer.setVisibility(View.VISIBLE);
+    }
+
+    private void visibilityGraphError(boolean wifiOff, String error) {
+        /*
+        progress bar - Gone
+        error text - Visible
+        price graph - Invisible
+
+        icon graph wifi - Visible ||
+        icon graph erorr - Visible
+         */
+        binding.pbGraph.setVisibility(View.GONE);
+        binding.graphErrorText.setVisibility(View.VISIBLE);
+        binding.priceGraph.setVisibility(View.INVISIBLE);
+        binding.setGraphError(error);
+        if (wifiOff) {
+            binding.iconGraphWifiOff.setVisibility(View.VISIBLE);
+            binding.setGraphError(getResources().getString(R.string.error_no_internet));
+        }
+        else {
+            binding.iconGraphError.setVisibility(View.VISIBLE);
+
+        }
+    }
     private void initChartUtil() {
         chartUtil = new LineChartUtil(
-                binding.lineChart,
+                binding.priceGraph,
                 getColor(com.google.android.material.R.attr.colorPrimary),
                 getColor(com.google.android.material.R.attr.colorOnSurface)
         );

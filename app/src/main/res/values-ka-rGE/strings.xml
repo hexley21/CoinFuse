@@ -5,6 +5,7 @@
     <string name="tv_skip">გამოტოვება</string>
     <string name="hint_search">ქოინების ძიება</string>
     <string name="tv_market_cap">საბაზრო კაპიტალი</string>
+    <string name="error_no_internet">ინტერნეტი არ არის</string>
     <string name="cd_img_walk_through">გზამკლევის სურათი</string>
 
     <!-- Walkthrough -->
@@ -24,5 +25,6 @@
     <string name="tv_24h_high">24სთ უმაღლესი</string>
     <string name="tv_volume_24h">მოცულობა (24სთ)</string>
     <string name="tv_24h_low">24სთ უმდაბლესი</string>
+    <string name="error_no_data">მონაცემები არ არის</string>
 
 </resources>

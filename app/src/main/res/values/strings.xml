@@ -39,6 +39,8 @@
     <string name="tv_supply">Supply</string>
     <string name="tv_24h_high">24H High</string>
     <string name="tv_24h_low">24H Low</string>
+    <string name="error_no_internet">No internet connection</string>
+    <string name="error_no_data">No data available</string>
 
 
     <!-- General -->

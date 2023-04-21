@@ -13,4 +13,5 @@
     <dimen name="details_header_img_size">52dp</dimen>
     <dimen name="details_header_container_size">84dp</dimen>
     <dimen name="details_graph_size">200dp</dimen>
+    <dimen name="graph_icon_size">82dp</dimen>
 </resources>
