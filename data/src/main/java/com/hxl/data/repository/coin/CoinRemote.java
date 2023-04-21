@@ -1,6 +1,7 @@
 package com.hxl.data.repository.coin;
 
 import com.hxl.domain.model.Coin;
+import com.hxl.domain.model.History;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface CoinRemote {
     Single<List<Coin>> getCoins(List<String> ids);
     Single<List<Coin>> searchCoins(String key);
     Single<Coin> getCoin(String id);
+
+    Single<List<History>> getCoinHistory(String id, History.Interval interval);
 }

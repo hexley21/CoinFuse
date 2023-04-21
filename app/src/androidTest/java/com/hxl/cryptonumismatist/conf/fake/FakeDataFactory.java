@@ -1,6 +1,7 @@
 package com.hxl.cryptonumismatist.conf.fake;
 
 import com.hxl.domain.model.Coin;
+import com.hxl.domain.model.History;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,19 @@ public class FakeDataFactory {
             fakeCoins.add(getCoin());
         }
         return fakeCoins;
+    }
+
+    public static List<History> getFakeHistory(int size) {
+        List<History> fakeHistory = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            fakeHistory.add(
+                    new History(
+                            randomDouble(),
+                            randomDouble().longValue()
+                    )
+            );
+        }
+        return fakeHistory;
     }
 
     public static Coin getCoin(String id) {
@@ -51,6 +65,23 @@ public class FakeDataFactory {
             "bitcoin.com",
             8L,
             String.format("https://assets/%s.png", "btc")
+    );
+
+    public static final Coin NULL_COIN = new Coin(
+            "bitcoin",
+            1,
+            "btc",
+            "Bitcoin",
+            null,
+            null,
+            null,
+            null,
+            123.45,
+            null,
+            null,
+            null,
+            null,
+            null
     );
 
     public static Coin getCoin() {

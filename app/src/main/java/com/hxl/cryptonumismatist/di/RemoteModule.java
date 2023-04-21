@@ -3,7 +3,7 @@ package com.hxl.cryptonumismatist.di;
 import com.hxl.cryptonumismatist.BuildConfig;
 import com.hxl.remote.api.CoinService;
 import com.hxl.remote.api.ServiceFactory;
-import com.hxl.remote.model.CoinDTOMapper;
+import com.hxl.remote.mapper.CoinDTOMapper;
 
 import javax.inject.Singleton;
 

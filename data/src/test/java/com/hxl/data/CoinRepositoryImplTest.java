@@ -16,6 +16,7 @@ import static com.hxl.data.fakes.FakeDataFactory.*;
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
 import com.hxl.domain.model.Coin;
+import com.hxl.domain.model.History;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -234,6 +235,24 @@ public class CoinRepositoryImplTest {
     }
     // endregion
 
+    // region getCoinHistory(String id, Interval interval)
+
+    @Test
+    public void getCoinHistoryReturnsListFromRemoteSource() {
+        // Arrange
+        when(remoteSource.getCoinHistory(anyString(), any(History.Interval.class))).thenReturn(Single.just(getFakeHistory(SIZE)));
+        // Act
+        Single<List<History>> history = repository.getCoinHistory(ID, History.Interval.D1);
+        // Assert
+        history.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.size() == SIZE);
+        verify(remoteSource, times(1)).getCoinHistory(ID, History.Interval.D1);
+        verify(repository, times(1)).getCoinHistory(ID, History.Interval.D1);
+    }
+
+    // endregion
     // region bookmarkCoin(String id)
     @Test
     public void testBookmarkCoinInsertsIdToDatabase() {
@@ -299,6 +318,23 @@ public class CoinRepositoryImplTest {
         verify(localSource, times(1)).getBookmarkedCoins();
         verify(remoteSource, never()).getCoins(anyList());
         verify(repository, times(1)).getBookmarkedCoins();
+    }
+    // endregion
+
+    // region isCoinBookmarked()
+    @Test
+    public void isCoinBookmarkedReturnsBooleanFromLocalSource() {
+        // Arrange
+        when(localSource.isCoinBookmarked(anyString())).thenReturn(Single.just(Boolean.TRUE));
+        // Act
+        Single<Boolean> isCoinBookmarked = repository.isCoinBookmarked(ID);
+        // Assert
+        isCoinBookmarked.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x);
+        verify(localSource, times(1)).isCoinBookmarked(ID);
+        verify(repository, times(1)).isCoinBookmarked(ID);
     }
     // endregion
 }

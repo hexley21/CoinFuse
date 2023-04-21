@@ -19,6 +19,7 @@ public final class Versions {
     public static final String glideVersion = "4.15.0";
     public static final String lottieVersion = "6.0.0";
     public static final String chartVersion = "v3.1.0";
+    public static final String shimmerVersion = "0.5.0";
 
     // LifeCycle
     public static final String lifecycleVersion = "2.6.0-alpha04";

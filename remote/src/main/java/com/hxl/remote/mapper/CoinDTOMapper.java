@@ -1,6 +1,7 @@
-package com.hxl.remote.model;
+package com.hxl.remote.mapper;
 
 import com.hxl.domain.model.Coin;
+import com.hxl.remote.model.CoinDTO;
 
 public class CoinDTOMapper {
 

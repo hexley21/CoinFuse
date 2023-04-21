@@ -26,11 +26,12 @@
 
     <!-- Coin Details -->
         <!-- Chips -->
-    <string name="chip_1h" translatable="false">1H</string>
     <string name="chip_24h" translatable="false">24H</string>
     <string name="chip_7d" translatable="false">7D</string>
+    <string name="chip_14d" translatable="false">14D</string>
     <string name="chip_1m" translatable="false">1M</string>
-    <string name="chip_3m" translatable="false">3M</string>
+    <string name="chip_2m" translatable="false">2M</string>
+    <string name="chip_6m" translatable="false">6M</string>
     <string name="chip_1y" translatable="false">1Y</string>
         <!-- Details -->
     <string name="tv_market_cap">Market Cap</string>
@@ -38,6 +39,8 @@
     <string name="tv_supply">Supply</string>
     <string name="tv_24h_high">24H High</string>
     <string name="tv_24h_low">24H Low</string>
+    <string name="error_no_internet">No internet connection</string>
+    <string name="error_no_data">No data available</string>
 
 
     <!-- General -->
