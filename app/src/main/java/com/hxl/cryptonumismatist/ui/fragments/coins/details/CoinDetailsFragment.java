@@ -32,6 +32,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -220,14 +221,13 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                                 }
 
                                 visibilityShowGraph();
+
                                 Log.d(TAG, "setPriceChart.onSuccess: coin price history was gathered successfully");
                             }
                             else {
-                                visibilityShowGraph();
-                                visibilityGraphError(false, "No data available");
+                                visibilityGraphError(false, getResources().getString(R.string.error_no_data));
+
                                 Log.d(TAG, "setPriceChart.onSuccess: EMPTY coin price history was gathered successfully");
-                                binding.tvDayHighVal.setText("-");
-                                binding.tvDayLowVal.setText("-");
                             }
                             EspressoIdlingResource.decrement();
                             },
@@ -235,13 +235,12 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                         e -> {
                             Log.e(TAG, String.format("setPriceChart.onError: couldn't get price history of %s, with interval %s", coinId, chosenInterval.param), e);
 
-                            visibilityShowGraph();
                             visibilityGraphError(e instanceof UnknownHostException, e.getMessage());
 
                             EspressoIdlingResource.decrement();
                         },
                         compositeDisposable
-                        );
+                );
     }
 
     private void bookmarkCoin() {
@@ -297,26 +296,31 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
         loading layout - Gone
         coin details container - Visible
          */
-        binding.pbGraph.setVisibility(View.GONE);
         binding.priceGraph.setVisibility(View.VISIBLE);
+        binding.pbGraph.setVisibility(View.GONE);
 
         if (binding.coinDetailsRefresh.isRefreshing()) {
             binding.coinDetailsRefresh.setRefreshing(false);
         }
 
-        binding.loadingLayout.setVisibility(View.GONE);
         binding.coinDetailsContainer.setVisibility(View.VISIBLE);
+        binding.loadingLayout.setVisibility(View.GONE);
     }
 
     private void visibilityGraphError(boolean wifiOff, String error) {
         /*
+        visibilityShowGraph()
+
         progress bar - Gone
         error text - Visible
         price graph - Invisible
 
         icon graph wifi - Visible ||
-        icon graph erorr - Visible
+        icon graph error - Visible
          */
+
+        visibilityShowGraph();
+
         binding.pbGraph.setVisibility(View.GONE);
         binding.graphErrorText.setVisibility(View.VISIBLE);
         binding.priceGraph.setVisibility(View.INVISIBLE);
@@ -327,7 +331,10 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
         }
         else {
             binding.iconGraphError.setVisibility(View.VISIBLE);
-
+        }
+        if (Objects.equals(binding.getDayHigh(), "null") || Objects.equals(binding.getDayLow(), "null")) {
+            binding.tvDayHighVal.setText("-");
+            binding.tvDayLowVal.setText("-");
         }
     }
     private void initChartUtil() {
@@ -344,4 +351,5 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
         theme.resolveAttribute(id, typedValue, true);
         return typedValue.data;
     }
+
 }

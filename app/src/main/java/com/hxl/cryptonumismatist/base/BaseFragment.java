@@ -45,4 +45,5 @@ public abstract class BaseFragment<VB extends ViewBinding, VM extends ViewModel>
     }
 
     protected void onCreateView(Bundle savedInstanceState){}
+
 }
