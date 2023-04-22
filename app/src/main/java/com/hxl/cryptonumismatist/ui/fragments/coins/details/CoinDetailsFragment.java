@@ -32,7 +32,6 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -97,7 +96,6 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                     break;
                 case (R.id.chip_6m):
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
-                    setPriceChart();
                     chosenInterval = History.Interval.M6;
                     break;
                 case (R.id.chip_1y):
@@ -332,7 +330,8 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
         else {
             binding.iconGraphError.setVisibility(View.VISIBLE);
         }
-        if (Objects.equals(binding.getDayHigh(), "null") || Objects.equals(binding.getDayLow(), "null")) {
+
+        if (binding.getDayHigh() == null || binding.getDayLow() == null) {
             binding.tvDayHighVal.setText("-");
             binding.tvDayLowVal.setText("-");
         }
