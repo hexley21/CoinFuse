@@ -8,7 +8,6 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.scrollToLastPosition;
 import static androidx.test.espresso.contrib.RecyclerViewActions.scrollToPosition;
-import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -16,16 +15,13 @@ import static com.hxl.cryptonumismatist.util.HiltFragmentScenario.launchFragment
 import static org.hamcrest.CoreMatchers.not;
 
 import android.view.KeyEvent;
-import android.widget.EditText;
 
 import androidx.test.espresso.IdlingRegistry;
-import androidx.test.espresso.action.ViewActions;
-import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 
 import com.hxl.cryptonumismatist.R;
-import com.hxl.cryptonumismatist.ui.fragments.coins.main.CoinsFragment;
+import com.hxl.cryptonumismatist.ui.fragments.coins.main.CoinsMenuFragment;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.domain.interactors.coins.GetCoins;
 import com.hxl.domain.interactors.coins.SearchCoins;
@@ -69,7 +65,7 @@ public class CoinsMenuFragmentTest {
 
     @Test
     public void fragmentBehavesAsExpected() {
-        launchFragmentInHiltContainer(CoinsFragment.class);
+        launchFragmentInHiltContainer(CoinsMenuFragment.class);
 
         // Check Coins Fragment basic properties
         onView(withId(R.id.pb_coins)).check(matches(not(isDisplayed())));

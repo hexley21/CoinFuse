@@ -19,7 +19,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.search.SearchView;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseFragment;
-import com.hxl.cryptonumismatist.databinding.FragmentCoinsBinding;
+import com.hxl.cryptonumismatist.databinding.FragmentCoinsMenuBinding;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
 
@@ -31,10 +31,10 @@ import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 @AndroidEntryPoint
-public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuViewModel> {
+public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, CoinsMenuViewModel> {
     @Override
-    protected FragmentCoinsBinding setViewBinding(LayoutInflater inflater, ViewGroup container) {
-        return FragmentCoinsBinding.inflate(inflater, container, false);
+    protected FragmentCoinsMenuBinding setViewBinding(LayoutInflater inflater, ViewGroup container) {
+        return FragmentCoinsMenuBinding.inflate(inflater, container, false);
     }
 
     @Override
@@ -42,9 +42,9 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
         return new ViewModelProvider(this).get(CoinsMenuViewModel.class);
     }
 
-    private static final String TAG = "CoinsFragment";
+    private static final String TAG = "CoinsMenuFragment";
     @Inject
-    CoinsAdapter coinsAdapter;
+    CoinsMenuAdapter coinsMenuAdapter;
     @Inject
     SearchCoinsAdapter searchCoinsAdapter;
     SwipeRefreshLayout refreshLayout;
@@ -75,11 +75,11 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
         RecyclerView coinsRv = binding.rvCoins;
         RecyclerView searchRv = binding.rvSearch;
 
-        coinsAdapter.setNavigateToDetails(navigateToDetails);
+        coinsMenuAdapter.setNavigateToDetails(navigateToDetails);
         searchCoinsAdapter.setNavigateToDetails(navigateToDetails);
 
         coinsRv.setLayoutManager(new LinearLayoutManager(requireContext()));
-        coinsRv.setAdapter(coinsAdapter);
+        coinsRv.setAdapter(coinsMenuAdapter);
         searchRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         searchRv.setAdapter(searchCoinsAdapter);
 
@@ -119,7 +119,7 @@ public class CoinsFragment extends BaseFragment<FragmentCoinsBinding, CoinsMenuV
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coins -> {
-                            coinsAdapter.setList(coins);
+                            coinsMenuAdapter.setList(coins);
                             progressBar.setVisibility(View.GONE);
                             refreshLayout.setRefreshing(false);
 

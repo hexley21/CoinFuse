@@ -21,12 +21,12 @@ import java.util.function.Function;
 
 import javax.inject.Inject;
 
-public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder> {
+public class CoinsMenuAdapter extends BaseAdapter<Coin, CoinsMenuAdapter.CoinViewHolder> {
     private final RequestManager glide;
     protected Function<Bundle, Void> navigateToDetails;
 
     @Inject
-    public CoinsAdapter(RequestManager glide) {
+    public CoinsMenuAdapter(RequestManager glide) {
         this.glide = glide;
         DiffUtil.ItemCallback<Coin> diffCallBack = new DiffUtil.ItemCallback<Coin>() {
             @Override
@@ -39,7 +39,7 @@ public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder>
                 return oldItem.equals(newItem);
             }
         };
-        CoinsAdapter.super.differ = new AsyncListDiffer<>(this, diffCallBack);
+        CoinsMenuAdapter.super.differ = new AsyncListDiffer<>(this, diffCallBack);
     }
 
     public void setNavigateToDetails(Function<Bundle, Void> navigateToDetails) {
@@ -72,7 +72,7 @@ public class CoinsAdapter extends BaseAdapter<Coin, CoinsAdapter.CoinViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CoinsAdapter.CoinViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CoinsMenuAdapter.CoinViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
 
         Bundle bundle = new Bundle();
