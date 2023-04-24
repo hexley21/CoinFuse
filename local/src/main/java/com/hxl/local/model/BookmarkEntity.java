@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 
 import com.hxl.local.database.CoinDatabase;
 
-@Entity(tableName = CoinDatabase.FAVOURITE_TABLE_NAME)
+@Entity(tableName = CoinDatabase.BOOKMARKS_TABLE_NAME)
 public class BookmarkEntity {
 
     @NonNull
