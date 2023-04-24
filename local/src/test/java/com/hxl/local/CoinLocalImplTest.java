@@ -9,7 +9,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.hxl.domain.model.Coin;
 import com.hxl.local.database.BookmarkDao;
 import com.hxl.local.database.CoinDao;
-import com.hxl.local.database.CoinDatabase;
+import com.hxl.local.database.AppDatabase;
 import com.hxl.local.fake.FakeLocalDataFactory;
 import com.hxl.local.model.BookmarkEntity;
 import com.hxl.local.model.CoinEntity;
@@ -29,7 +29,7 @@ import io.reactivex.rxjava3.core.Single;
 @Config(manifest = Config.NONE)
 @RunWith(AndroidJUnit4.class)
 public class CoinLocalImplTest {
-    private CoinDatabase database;
+    private AppDatabase database;
     private CoinDao coinDao;
     private BookmarkDao bookmarkDao;
     private CoinLocalImpl coinSource;
@@ -37,7 +37,7 @@ public class CoinLocalImplTest {
     @Before
     public void setup() {
         Context context = ApplicationProvider.getApplicationContext();
-        database = Room.inMemoryDatabaseBuilder(context, CoinDatabase.class)
+        database = Room.inMemoryDatabaseBuilder(context, AppDatabase.class)
                 .allowMainThreadQueries()
                 .build();
         coinDao = database.coinDao();

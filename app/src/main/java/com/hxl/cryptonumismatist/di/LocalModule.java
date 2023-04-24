@@ -7,8 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.room.Room;
 
 import com.hxl.cryptonumismatist.BuildConfig;
+import com.hxl.local.database.AppDatabase;
 import com.hxl.local.database.CoinDao;
-import com.hxl.local.database.CoinDatabase;
 import com.hxl.local.database.BookmarkDao;
 
 import javax.inject.Singleton;
@@ -25,24 +25,24 @@ public class LocalModule {
 
     @Provides
     @Singleton
-    CoinDatabase provideCoinDatabase(@ApplicationContext Context context) {
+    AppDatabase provideCoinDatabase(@ApplicationContext Context context) {
         return Room.databaseBuilder(
                 context,
-                CoinDatabase.class,
-                CoinDatabase.DB_NAME
+                AppDatabase.class,
+                AppDatabase.DB_NAME
         ).build();
     }
 
     @Provides
     @Singleton
-    CoinDao provideCoinDao(@NonNull CoinDatabase coinDatabase) {
-        return coinDatabase.coinDao();
+    CoinDao provideCoinDao(@NonNull AppDatabase appDatabase) {
+        return appDatabase.coinDao();
     }
 
     @Provides
     @Singleton
-    BookmarkDao provideBookmarkDao(@NonNull CoinDatabase coinDatabase) {
-        return coinDatabase.bookmarkDao();
+    BookmarkDao provideBookmarkDao(@NonNull AppDatabase appDatabase) {
+        return appDatabase.bookmarkDao();
     }
 
     @Provides

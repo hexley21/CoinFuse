@@ -5,9 +5,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.hxl.local.database.CoinDatabase;
+import com.hxl.local.database.AppDatabase;
 
-@Entity(tableName = CoinDatabase.COIN_TABLE_NAME)
+@Entity(tableName = AppDatabase.COIN_TABLE_NAME)
 public class CoinEntity {
     @NonNull
     @PrimaryKey

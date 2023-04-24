@@ -11,7 +11,7 @@ import com.hxl.local.model.CoinEntity;
         version = 1,
         exportSchema = false
 )
-public abstract class CoinDatabase extends RoomDatabase {
+public abstract class AppDatabase extends RoomDatabase {
     public static final String DB_NAME = "crypto_numismatist.db";
     public static final String COIN_TABLE_NAME = "coins";
     public static final String BOOKMARKS_TABLE_NAME = "bookmarks";
