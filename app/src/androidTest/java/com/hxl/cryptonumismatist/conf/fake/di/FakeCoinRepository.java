@@ -5,7 +5,7 @@ import static com.hxl.cryptonumismatist.conf.fake.FakeDataFactory.COIN;
 import static com.hxl.cryptonumismatist.conf.fake.FakeDataFactory.getFakeHistory;
 
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.History;
+import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.domain.repository.CoinRepository;
 
 import java.util.List;
@@ -71,7 +71,7 @@ public class FakeCoinRepository implements CoinRepository {
     }
 
     @Override
-    public Single<List<History>> getCoinHistory(String id, History.Interval interval) {
+    public Single<List<CoinPriceHistory>> getCoinHistory(String id, CoinPriceHistory.Interval interval) {
         return Single.just(getFakeHistory(SIZE));
     }
 }

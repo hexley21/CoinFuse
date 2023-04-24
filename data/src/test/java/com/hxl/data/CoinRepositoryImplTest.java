@@ -16,7 +16,7 @@ import static com.hxl.data.fakes.FakeDataFactory.*;
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.History;
+import com.hxl.domain.model.CoinPriceHistory;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -240,16 +240,16 @@ public class CoinRepositoryImplTest {
     @Test
     public void getCoinHistoryReturnsListFromRemoteSource() {
         // Arrange
-        when(remoteSource.getCoinHistory(anyString(), any(History.Interval.class))).thenReturn(Single.just(getFakeHistory(SIZE)));
+        when(remoteSource.getCoinHistory(anyString(), any(CoinPriceHistory.Interval.class))).thenReturn(Single.just(getFakeHistory(SIZE)));
         // Act
-        Single<List<History>> history = repository.getCoinHistory(ID, History.Interval.D1);
+        Single<List<CoinPriceHistory>> history = repository.getCoinHistory(ID, CoinPriceHistory.Interval.D1);
         // Assert
         history.test()
                 .awaitCount(1)
                 .assertNoErrors()
                 .assertValue(x -> x.size() == SIZE);
-        verify(remoteSource, times(1)).getCoinHistory(ID, History.Interval.D1);
-        verify(repository, times(1)).getCoinHistory(ID, History.Interval.D1);
+        verify(remoteSource, times(1)).getCoinHistory(ID, CoinPriceHistory.Interval.D1);
+        verify(repository, times(1)).getCoinHistory(ID, CoinPriceHistory.Interval.D1);
     }
 
     // endregion

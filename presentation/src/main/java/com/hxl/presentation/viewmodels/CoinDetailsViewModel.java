@@ -8,7 +8,7 @@ import com.hxl.domain.interactors.coins.GetCoinHistory;
 import com.hxl.domain.interactors.coins.IsCoinBookmarked;
 import com.hxl.domain.interactors.coins.UnBookmarkCoin;
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.History;
+import com.hxl.domain.model.CoinPriceHistory;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class CoinDetailsViewModel extends ViewModel {
         return getCoin.invoke(id);
     }
 
-    public Single<List<History>> getCoinHistory(String id, History.Interval interval) {
+    public Single<List<CoinPriceHistory>> getCoinHistory(String id, CoinPriceHistory.Interval interval) {
         return getCoinHistory.invoke(id, interval);
     }
 

@@ -1,6 +1,6 @@
 package com.hxl.domain.model;
 
-public class History {
+public class CoinPriceHistory {
 
     public enum Interval {
         D1("m1"),
@@ -21,7 +21,7 @@ public class History {
     public Double priceUsd;
     public Long time;
 
-    public History(
+    public CoinPriceHistory(
             Double priceUsd,
             Long time
     ) {

@@ -3,7 +3,7 @@ package com.hxl.data;
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.History;
+import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.domain.repository.CoinRepository;
 
 import java.io.IOException;
@@ -102,7 +102,7 @@ public class CoinRepositoryImpl implements CoinRepository {
     }
 
     @Override
-    public Single<List<History>> getCoinHistory(String id, History.Interval interval) {
+    public Single<List<CoinPriceHistory>> getCoinHistory(String id, CoinPriceHistory.Interval interval) {
         return remoteSource.getCoinHistory(id, interval);
     }
 

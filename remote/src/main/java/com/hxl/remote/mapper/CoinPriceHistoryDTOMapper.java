@@ -1,14 +1,12 @@
 package com.hxl.remote.mapper;
 
-import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.History;
-import com.hxl.remote.model.CoinDTO;
+import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.remote.model.HistoryDTO;
 
-public class HistoryDTOMapper {
+public class CoinPriceHistoryDTOMapper {
 
-    public static History mapFromDTO(HistoryDTO dto) {
-        return new History(
+    public static CoinPriceHistory mapFromDTO(HistoryDTO dto) {
+        return new CoinPriceHistory(
                 checkDouble(dto.priceUsd),
                 dto.time
         );

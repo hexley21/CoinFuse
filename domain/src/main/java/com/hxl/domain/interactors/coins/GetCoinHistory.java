@@ -1,6 +1,6 @@
 package com.hxl.domain.interactors.coins;
 
-import com.hxl.domain.model.History;
+import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.domain.repository.CoinRepository;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class GetCoinHistory {
         this.coinRepository = coinRepository;
     }
 
-    public Single<List<History>> invoke(String id, History.Interval interval) {
+    public Single<List<CoinPriceHistory>> invoke(String id, CoinPriceHistory.Interval interval) {
         return coinRepository.getCoinHistory(id, interval);
     }
 }
