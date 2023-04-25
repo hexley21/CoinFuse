@@ -2,6 +2,7 @@ package com.hxl.domain.repository;
 
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
+import com.hxl.domain.model.SearchQuery;
 
 import java.util.List;
 
@@ -24,6 +25,10 @@ public interface CoinRepository {
     Completable unBookmarkCoin(String id);
     Single<Boolean> isCoinBookmarked(String id);
     Single<List<Coin>> getBookmarkedCoins();
+    Single<List<SearchQuery>> getCoinSearchHistory();
+    Completable addCoinSearchQuery(String query);
+    Completable deleteCoinSearchQuery(String query);
+    Completable deleteCoinSearchHistory();
 
     // Remote
     Single<List<CoinPriceHistory>> getCoinHistory(String id, CoinPriceHistory.Interval interval);
