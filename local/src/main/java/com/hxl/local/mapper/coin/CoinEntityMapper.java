@@ -1,4 +1,4 @@
-package com.hxl.local.mapper;
+package com.hxl.local.mapper.coin;
 
 import androidx.annotation.NonNull;
 

@@ -4,11 +4,12 @@ import androidx.annotation.NonNull;
 
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.domain.model.Coin;
+import com.hxl.domain.model.SearchQuery;
 import com.hxl.local.database.coin.BookmarkDao;
 import com.hxl.local.database.coin.CoinDao;
 import com.hxl.local.model.coin.BookmarkEntity;
 import com.hxl.local.model.coin.CoinEntity;
-import com.hxl.local.mapper.CoinEntityMapper;
+import com.hxl.local.mapper.coin.CoinEntityMapper;
 
 import java.util.Arrays;
 import java.util.List;
@@ -93,6 +94,26 @@ public class CoinLocalImpl implements CoinLocal {
         return bookmarkDao.getBookmarkedCoinIds()
                 .subscribeOn(Schedulers.io())
                 .map(x -> x.stream().map(y -> y.id).collect(Collectors.toList()));
+    }
+
+    @Override
+    public Single<List<SearchQuery>> getCoinSearchHistory() {
+        return null;
+    }
+
+    @Override
+    public Completable addCoinSearchQuery(String query) {
+        return null;
+    }
+
+    @Override
+    public Completable deleteCoinSearchQuery(String query) {
+        return null;
+    }
+
+    @Override
+    public Completable deleteCoinSearchHistory() {
+        return null;
     }
 
     @Override

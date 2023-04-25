@@ -7,7 +7,7 @@ public abstract class SearchQueryTable {
 
     @NonNull
     @ColumnInfo(name = "query")
-    String query;
+    public String query;
 
     @ColumnInfo(name = "timestamp")
     public long timestamp;
