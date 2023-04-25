@@ -10,6 +10,7 @@ import com.hxl.domain.model.Coin;
 import com.hxl.local.database.coin.BookmarkDao;
 import com.hxl.local.database.coin.CoinDao;
 import com.hxl.local.database.AppDatabase;
+import com.hxl.local.database.coin.CoinSearchDao;
 import com.hxl.local.fake.FakeLocalDataFactory;
 import com.hxl.local.model.coin.BookmarkEntity;
 import com.hxl.local.model.coin.CoinEntity;
@@ -32,6 +33,7 @@ public class CoinLocalImplTest {
     private AppDatabase database;
     private CoinDao coinDao;
     private BookmarkDao bookmarkDao;
+    private CoinSearchDao coinSearchDao;
     private CoinLocalImpl coinSource;
 
     @Before
@@ -42,7 +44,8 @@ public class CoinLocalImplTest {
                 .build();
         coinDao = database.coinDao();
         bookmarkDao = database.bookmarkDao();
-        coinSource = new CoinLocalImpl(coinDao, bookmarkDao);
+        coinSearchDao = database.coinSearchDao();
+        coinSource = new CoinLocalImpl(coinDao, bookmarkDao, coinSearchDao);
     }
 
     @After
