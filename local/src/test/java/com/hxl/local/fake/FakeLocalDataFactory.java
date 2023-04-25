@@ -3,7 +3,9 @@ package com.hxl.local.fake;
 import static com.hxl.local.fake.LocalTestConstants.*;
 
 import com.hxl.domain.model.Coin;
+import com.hxl.domain.model.SearchQuery;
 import com.hxl.local.model.coin.CoinEntity;
+import com.hxl.local.model.coin.CoinSearchEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,26 +20,18 @@ public class FakeLocalDataFactory {
         return fakeCoins;
     }
 
-    public static List<Coin> getFakeCoins(int size) {
-        List<Coin> fakeCoins = new ArrayList<>();
+    public static List<CoinSearchEntity> getFakeCoinSearchEntity(int size) {
+        List<CoinSearchEntity> fakeSearchEntities = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            fakeCoins.add(getCoin());
+            fakeSearchEntities.add(getCoinSearchEntity());
         }
-        return fakeCoins;
+        return fakeSearchEntities;
     }
 
     public static List<CoinEntity> getFakeData(String[] ids) {
         List<CoinEntity> fakeData = new ArrayList<>();
         for (int i = 0; i < ids.length; i++) {
             fakeData.add(getCoinEntity(ids[i], i));
-        }
-        return fakeData;
-    }
-
-    public static List<CoinEntity> getFakeData(int size) {
-        List<CoinEntity> fakeData = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            fakeData.add(getCoinEntity());
         }
         return fakeData;
     }
@@ -80,11 +74,17 @@ public class FakeLocalDataFactory {
         );
     }
 
-    public static CoinEntity getCoinEntity() {
-        return getCoinEntity(randomName(), randomInt());
+    public static CoinSearchEntity getCoinSearchEntity() {
+        return new CoinSearchEntity(
+                randomName(),
+                TIMESTAMP
+        );
     }
 
-    public static Coin getCoin() {
-        return getCoin(randomName(), randomInt());
+    public static SearchQuery getSearchQuery() {
+        return new SearchQuery(
+                randomName(),
+                TIMESTAMP
+        );
     }
 }
