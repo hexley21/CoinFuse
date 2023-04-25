@@ -3,7 +3,7 @@ package com.hxl.local.fake;
 import static com.hxl.local.fake.LocalTestConstants.*;
 
 import com.hxl.domain.model.Coin;
-import com.hxl.local.model.CoinEntity;
+import com.hxl.local.model.coin.CoinEntity;
 
 import java.util.ArrayList;
 import java.util.List;

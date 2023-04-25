@@ -1,11 +1,11 @@
-package com.hxl.local.database;
+package com.hxl.local.database.coin;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.hxl.local.model.CoinEntity;
+import com.hxl.local.model.coin.CoinEntity;
 
 import java.util.List;
 

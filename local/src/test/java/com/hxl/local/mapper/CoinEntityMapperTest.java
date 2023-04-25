@@ -4,8 +4,7 @@ import static com.hxl.local.fake.LocalTestConstants.*;
 import static org.junit.Assert.assertEquals;
 
 import com.hxl.domain.model.Coin;
-import com.hxl.local.model.CoinEntity;
-import com.hxl.local.model.CoinEntityMapper;
+import com.hxl.local.model.coin.CoinEntity;
 
 import org.junit.Test;
 

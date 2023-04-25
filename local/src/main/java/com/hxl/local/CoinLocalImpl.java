@@ -4,11 +4,11 @@ import androidx.annotation.NonNull;
 
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.domain.model.Coin;
-import com.hxl.local.database.BookmarkDao;
-import com.hxl.local.database.CoinDao;
-import com.hxl.local.model.BookmarkEntity;
-import com.hxl.local.model.CoinEntity;
-import com.hxl.local.model.CoinEntityMapper;
+import com.hxl.local.database.coin.BookmarkDao;
+import com.hxl.local.database.coin.CoinDao;
+import com.hxl.local.model.coin.BookmarkEntity;
+import com.hxl.local.model.coin.CoinEntity;
+import com.hxl.local.mapper.CoinEntityMapper;
 
 import java.util.Arrays;
 import java.util.List;

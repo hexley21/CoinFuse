@@ -3,8 +3,10 @@ package com.hxl.local.database;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
-import com.hxl.local.model.BookmarkEntity;
-import com.hxl.local.model.CoinEntity;
+import com.hxl.local.database.coin.BookmarkDao;
+import com.hxl.local.database.coin.CoinDao;
+import com.hxl.local.model.coin.BookmarkEntity;
+import com.hxl.local.model.coin.CoinEntity;
 
 @Database(
         entities = {CoinEntity.class, BookmarkEntity.class},

@@ -1,4 +1,4 @@
-package com.hxl.local.model;
+package com.hxl.local.model.coin;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

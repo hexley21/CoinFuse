@@ -7,12 +7,12 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.hxl.domain.model.Coin;
-import com.hxl.local.database.BookmarkDao;
-import com.hxl.local.database.CoinDao;
+import com.hxl.local.database.coin.BookmarkDao;
+import com.hxl.local.database.coin.CoinDao;
 import com.hxl.local.database.AppDatabase;
 import com.hxl.local.fake.FakeLocalDataFactory;
-import com.hxl.local.model.BookmarkEntity;
-import com.hxl.local.model.CoinEntity;
+import com.hxl.local.model.coin.BookmarkEntity;
+import com.hxl.local.model.coin.CoinEntity;
 
 import org.junit.After;
 import org.junit.Before;

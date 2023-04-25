@@ -8,8 +8,8 @@ import androidx.room.Room;
 
 import com.hxl.cryptonumismatist.BuildConfig;
 import com.hxl.local.database.AppDatabase;
-import com.hxl.local.database.CoinDao;
-import com.hxl.local.database.BookmarkDao;
+import com.hxl.local.database.coin.CoinDao;
+import com.hxl.local.database.coin.BookmarkDao;
 
 import javax.inject.Singleton;
 

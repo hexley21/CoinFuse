@@ -1,8 +1,9 @@
-package com.hxl.local.model;
+package com.hxl.local.mapper;
 
 import androidx.annotation.NonNull;
 
 import com.hxl.domain.model.Coin;
+import com.hxl.local.model.coin.CoinEntity;
 
 public class CoinEntityMapper {
 
