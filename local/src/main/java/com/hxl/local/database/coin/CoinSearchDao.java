@@ -5,7 +5,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.hxl.local.model.coin.CoinSearchHistoryEntity;
+import com.hxl.local.model.coin.CoinSearchEntity;
 
 import java.util.List;
 
@@ -13,10 +13,10 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 
 @Dao
-public interface CoinSearchHistoryDao {
+public interface CoinSearchDao {
 
     @Query("SELECT * FROM coin_search_history ORDER BY timestamp DESC")
-    Single<List<CoinSearchHistoryEntity>> getCoinSearchHistory();
+    Single<List<CoinSearchEntity>> getCoinSearchHistory();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable addCoinSearchQuery(String query);

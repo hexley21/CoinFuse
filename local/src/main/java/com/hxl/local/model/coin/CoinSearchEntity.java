@@ -7,9 +7,9 @@ import static com.hxl.local.database.AppDatabase.COIN_SEARCH_HISTORY_TABLE_NAME;
 import com.hxl.local.model.SearchQueryTable;
 
 @Entity(tableName = COIN_SEARCH_HISTORY_TABLE_NAME)
-public class CoinSearchHistoryEntity extends SearchQueryTable {
+public class CoinSearchEntity extends SearchQueryTable {
 
-    public CoinSearchHistoryEntity(@NonNull String query, long timestamp) {
+    public CoinSearchEntity(@NonNull String query, long timestamp) {
         super(query, timestamp);
     }
 
