@@ -4,6 +4,7 @@ import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
+import com.hxl.domain.model.SearchQuery;
 import com.hxl.domain.repository.CoinRepository;
 
 import java.io.IOException;
@@ -99,6 +100,26 @@ public class CoinRepositoryImpl implements CoinRepository {
                     .flatMap(x -> saveCoins(x).toSingleDefault(x));
         }
         return localSource.getBookmarkedCoins();
+    }
+
+    @Override
+    public Single<List<SearchQuery>> getCoinSearchHistory() {
+        return localSource.getCoinSearchHistory();
+    }
+
+    @Override
+    public Completable addCoinSearchQuery(String query) {
+        return localSource.addCoinSearchQuery(query);
+    }
+
+    @Override
+    public Completable deleteCoinSearchQuery(String query) {
+        return localSource.deleteCoinSearchQuery(query);
+    }
+
+    @Override
+    public Completable deleteCoinSearchHistory() {
+        return localSource.deleteCoinSearchHistory();
     }
 
     @Override
