@@ -1,6 +1,7 @@
 package com.hxl.data.repository.coin;
 
 import com.hxl.domain.model.Coin;
+import com.hxl.domain.model.SearchQuery;
 
 import java.util.List;
 
@@ -22,4 +23,8 @@ public interface CoinLocal {
     Single<Boolean> isCoinBookmarked(String id);
     Single<List<Coin>> getBookmarkedCoins();
     Single<List<String>> getBookmarkedCoinIds();
+    Single<List<SearchQuery>> getCoinSearchHistory();
+    Completable addCoinSearchQuery(String query);
+    Completable deleteCoinSearchQuery(String query);
+    Completable deleteCoinSearchHistory();
 }
