@@ -10,6 +10,7 @@ import com.hxl.cryptonumismatist.BuildConfig;
 import com.hxl.local.database.AppDatabase;
 import com.hxl.local.database.coin.CoinDao;
 import com.hxl.local.database.coin.BookmarkDao;
+import com.hxl.local.database.coin.CoinSearchDao;
 
 import javax.inject.Singleton;
 
@@ -43,6 +44,12 @@ public class LocalModule {
     @Singleton
     BookmarkDao provideBookmarkDao(@NonNull AppDatabase appDatabase) {
         return appDatabase.bookmarkDao();
+    }
+
+    @Provides
+    @Singleton
+    CoinSearchDao provideCoinSearchDao(@NonNull AppDatabase appDatabase) {
+        return appDatabase.coinSearchDao();
     }
 
     @Provides
