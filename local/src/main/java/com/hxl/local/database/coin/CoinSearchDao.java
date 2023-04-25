@@ -21,6 +21,9 @@ public interface CoinSearchDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertCoinSearchQuery(CoinSearchEntity coinSearchEntity);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable insertCoinSearchQuery(CoinSearchEntity... coinSearchEntity);
+
     @Query("DELETE FROM coin_search_history WHERE `query` = :query")
     Completable deleteCoinSearchQuery(String query);
 
