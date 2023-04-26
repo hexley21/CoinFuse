@@ -20,10 +20,10 @@ public class FakeLocalDataFactory {
         return fakeCoins;
     }
 
-    public static List<CoinSearchEntity> getFakeCoinSearchEntity(int size) {
+    public static List<CoinSearchEntity> getFakeCoinSearchEntity(String[] ids) {
         List<CoinSearchEntity> fakeSearchEntities = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            fakeSearchEntities.add(getCoinSearchEntity());
+        for (String i: ids) {
+            fakeSearchEntities.add(getCoinSearchEntity(i));
         }
         return fakeSearchEntities;
     }
@@ -74,9 +74,9 @@ public class FakeLocalDataFactory {
         );
     }
 
-    public static CoinSearchEntity getCoinSearchEntity() {
+    public static CoinSearchEntity getCoinSearchEntity(String query) {
         return new CoinSearchEntity(
-                randomName(),
+                query,
                 TIMESTAMP
         );
     }
