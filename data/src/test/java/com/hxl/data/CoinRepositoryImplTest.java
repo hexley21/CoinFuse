@@ -6,7 +6,8 @@ import static com.hxl.data.fakes.DataTestConstants.OFFSET;
 import static com.hxl.data.fakes.DataTestConstants.SIZE;
 import static com.hxl.data.fakes.FakeDataFactory.getCoin;
 import static com.hxl.data.fakes.FakeDataFactory.getFakeCoins;
-import static com.hxl.data.fakes.FakeDataFactory.getFakeHistory;
+import static com.hxl.data.fakes.FakeDataFactory.getFakePriceHistory;
+import static com.hxl.data.fakes.FakeDataFactory.getFakeSearchQueries;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
@@ -21,6 +22,7 @@ import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
+import com.hxl.domain.model.SearchQuery;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -277,7 +279,7 @@ public class CoinRepositoryImplTest {
     @Test
     public void getCoinHistoryReturnsListFromRemoteSource() {
         // Arrange
-        when(remoteSource.getCoinPriceHistory(anyString(), any(CoinPriceHistory.Interval.class))).thenReturn(Single.just(getFakeHistory(SIZE)));
+        when(remoteSource.getCoinPriceHistory(anyString(), any(CoinPriceHistory.Interval.class))).thenReturn(Single.just(getFakePriceHistory(SIZE)));
         // Act
         Single<List<CoinPriceHistory>> history = repository.getCoinPriceHistory(ID, CoinPriceHistory.Interval.D1);
         // Assert
@@ -288,7 +290,6 @@ public class CoinRepositoryImplTest {
         verify(remoteSource, times(1)).getCoinPriceHistory(ID, CoinPriceHistory.Interval.D1);
         verify(repository, times(1)).getCoinPriceHistory(ID, CoinPriceHistory.Interval.D1);
     }
-
     // endregion
 
     // region bookmarkCoin(String id)
@@ -375,4 +376,97 @@ public class CoinRepositoryImplTest {
         verify(repository, times(1)).isCoinBookmarked(ID);
     }
     // endregion
+
+    // region getCoinSearchHistory()
+    @Test
+    public void getCoinSearchHistoryReturnsSearchQueriesFromLocalSource() {
+        // Arrange
+        when(localSource.getCoinSearchHistory()).thenReturn(Single.just(getFakeSearchQueries(SIZE)));
+        // Act
+        Single<List<SearchQuery>> searchQueries = repository.getCoinSearchHistory();
+        // Assert
+        searchQueries.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.size() == SIZE);
+        verify(localSource, times(1)).getCoinSearchHistory();
+        verify(repository, times(1)).getCoinSearchHistory();
+    }
+    // endregion
+
+    // region insertCoinSearchQuery(String query)
+    @Test
+    public void insertCoinSearchQueryInsertsQueryToLocalSource() {
+        // Arrange
+        when(localSource.insertCoinSearchQuery(anyString())).thenReturn(Completable.complete());
+        // Act
+        Completable insertSearchQuery = repository.insertCoinSearchQuery(ID);
+        // Assert
+        insertSearchQuery.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+
+        verify(localSource, times(1)).insertCoinSearchQuery(ID);
+        verify(repository, times(1)).insertCoinSearchQuery(ID);
+    }
+    // endregion
+
+    // region insertCoinSearchQuery(List<String> query)
+    @Test
+    public void insertCoinSearchQueryInsertsQueriesToLocalSource() {
+        // Arrange
+        List<String> queries = new ArrayList<>();
+        queries.add(ID);
+        queries.add(ID);
+        queries.add(ID);
+        when(localSource.insertCoinSearchQuery(any(String[].class))).thenReturn(Completable.complete());
+        // Act
+        Completable insertQueries = repository.insertCoinSearchQuery(queries);
+        // Assert
+        insertQueries.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        verify(localSource, times(1)).insertCoinSearchQuery(queries.toArray(new String[0]));
+        verify(repository, times(1)).insertCoinSearchQuery(queries);
+    }
+    // endregion
+
+    // region deleteCoinSearchQuery(String query)
+    @Test
+    public void deleteCoinSearchQueryDeletesQueryFromLocalSource() {
+        // Arrange
+        when(localSource.deleteCoinSearchQuery(anyString())).thenReturn(Completable.complete());
+        // Act
+        Completable deleteSearchQuery = repository.deleteCoinSearchQuery(ID);
+        // Assert
+        deleteSearchQuery.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+
+        verify(localSource, times(1)).deleteCoinSearchQuery(ID);
+        verify(repository, times(1)).deleteCoinSearchQuery(ID);
+    }
+    // endregion
+
+    // region deleteCoinSearchHistory()
+    @Test
+    public void deleteCoinSearchHistoryDeletesQueryDataFromLocalSource() {
+        // Arrange
+        when(localSource.deleteCoinSearchHistory()).thenReturn(Completable.complete());
+        // Act
+        Completable deleteSearchQuery = repository.deleteCoinSearchHistory();
+        // Assert
+        deleteSearchQuery.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+
+        verify(localSource, times(1)).deleteCoinSearchHistory();
+        verify(repository, times(1)).deleteCoinSearchHistory();
+    }
+    // endregion
+
 }
