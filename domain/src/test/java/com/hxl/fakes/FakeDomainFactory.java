@@ -2,6 +2,7 @@ package com.hxl.fakes;
 
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
+import com.hxl.domain.model.SearchQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,20 @@ public class FakeDomainFactory {
             );
         }
         return fakeCoinPriceHistory;
+    }
+
+    public static List<SearchQuery> getFakeSearchQueries(int size) {
+        List<SearchQuery> fakeSearchQueries = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            fakeSearchQueries.add(
+                    new SearchQuery(
+                            randomName(),
+                            randomLong()
+                    )
+            );
+        }
+
+        return fakeSearchQueries;
     }
 
     public static Coin getCoin(String id) {

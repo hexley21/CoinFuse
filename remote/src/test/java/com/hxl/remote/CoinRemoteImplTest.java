@@ -116,7 +116,7 @@ public class CoinRemoteImplTest {
         Single<Response<List<HistoryDTO>>> response = Single.just(getHistoryResponse(SIZE));
         when(coinService.getCoinHistory(anyString(), anyString())).thenReturn(response);
         // Act
-        Single<List<CoinPriceHistory>> history = coinSource.getCoinHistory(ID, CoinPriceHistory.Interval.D1);
+        Single<List<CoinPriceHistory>> history = coinSource.getCoinPriceHistory(ID, CoinPriceHistory.Interval.D1);
         // Assert
         history.test()
                 .awaitCount(1)

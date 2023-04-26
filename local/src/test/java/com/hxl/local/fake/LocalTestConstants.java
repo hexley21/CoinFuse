@@ -1,6 +1,5 @@
 package com.hxl.local.fake;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -11,6 +10,7 @@ public class LocalTestConstants {
     // Coin Local
     public static final int LIMIT = 3;
     public static final int OFFSET = 2;
+    public static final int SIZE = 5;
     public static final long TIMESTAMP = 8L;
     public static final String ASSET_URL = "https://assets/%s.png";
     public static final String ID = "bitcoin";

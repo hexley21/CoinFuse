@@ -9,16 +9,16 @@ import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Single;
 
-public class GetCoinHistory {
+public class GetCoinPriceHistory {
 
     public CoinRepository coinRepository;
 
     @Inject
-    public GetCoinHistory(CoinRepository coinRepository) {
+    public GetCoinPriceHistory(CoinRepository coinRepository) {
         this.coinRepository = coinRepository;
     }
 
     public Single<List<CoinPriceHistory>> invoke(String id, CoinPriceHistory.Interval interval) {
-        return coinRepository.getCoinHistory(id, interval);
+        return coinRepository.getCoinPriceHistory(id, interval);
     }
 }

@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 
 import com.hxl.domain.interactors.coins.BookmarkCoin;
 import com.hxl.domain.interactors.coins.GetCoin;
-import com.hxl.domain.interactors.coins.GetCoinHistory;
+import com.hxl.domain.interactors.coins.GetCoinPriceHistory;
 import com.hxl.domain.interactors.coins.IsCoinBookmarked;
 import com.hxl.domain.interactors.coins.UnBookmarkCoin;
 import com.hxl.domain.model.Coin;
@@ -34,7 +34,7 @@ public class CoinDetailsViewModelTest {
     @Mock
     GetCoin getCoin;
     @Mock
-    GetCoinHistory getCoinHistory;
+    GetCoinPriceHistory getCoinPriceHistory;
     @Mock
     IsCoinBookmarked isCoinBookmarked;
     @Mock
@@ -63,7 +63,7 @@ public class CoinDetailsViewModelTest {
     public void getCoinHistoryReturnsHistoryFromInteractor() {
         // Arrange
         List<CoinPriceHistory> fakeCoinPriceHistory = getFakeHistory(SIZE);
-        when(getCoinHistory.invoke(anyString(), any(CoinPriceHistory.Interval.class))).thenReturn(Single.just(fakeCoinPriceHistory));
+        when(getCoinPriceHistory.invoke(anyString(), any(CoinPriceHistory.Interval.class))).thenReturn(Single.just(fakeCoinPriceHistory));
         // Act
         Single<List<CoinPriceHistory>> history = viewModel.getCoinHistory(ID, CoinPriceHistory.Interval.D1);
         // Assert
@@ -71,7 +71,7 @@ public class CoinDetailsViewModelTest {
                 .awaitCount(1)
                 .assertNoErrors()
                 .assertValue(x -> x.size() == SIZE);
-        verify(getCoinHistory).invoke(ID, CoinPriceHistory.Interval.D1);
+        verify(getCoinPriceHistory).invoke(ID, CoinPriceHistory.Interval.D1);
     }
 
     @Test

@@ -26,10 +26,11 @@ public interface CoinRepository {
     Single<Boolean> isCoinBookmarked(String id);
     Single<List<Coin>> getBookmarkedCoins();
     Single<List<SearchQuery>> getCoinSearchHistory();
-    Completable addCoinSearchQuery(String query);
+    Completable insertCoinSearchQuery(String query);
+    Completable insertCoinSearchQuery(List<String> query);
     Completable deleteCoinSearchQuery(String query);
     Completable deleteCoinSearchHistory();
 
     // Remote
-    Single<List<CoinPriceHistory>> getCoinHistory(String id, CoinPriceHistory.Interval interval);
+    Single<List<CoinPriceHistory>> getCoinPriceHistory(String id, CoinPriceHistory.Interval interval);
 }

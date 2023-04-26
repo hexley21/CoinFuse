@@ -108,8 +108,13 @@ public class CoinRepositoryImpl implements CoinRepository {
     }
 
     @Override
-    public Completable addCoinSearchQuery(String query) {
-        return localSource.addCoinSearchQuery(query);
+    public Completable insertCoinSearchQuery(String query) {
+        return localSource.insertCoinSearchQuery(query);
+    }
+
+    @Override
+    public Completable insertCoinSearchQuery(List<String> query) {
+        return localSource.insertCoinSearchQuery(query.toArray(new String[0]));
     }
 
     @Override
@@ -123,8 +128,8 @@ public class CoinRepositoryImpl implements CoinRepository {
     }
 
     @Override
-    public Single<List<CoinPriceHistory>> getCoinHistory(String id, CoinPriceHistory.Interval interval) {
-        return remoteSource.getCoinHistory(id, interval);
+    public Single<List<CoinPriceHistory>> getCoinPriceHistory(String id, CoinPriceHistory.Interval interval) {
+        return remoteSource.getCoinPriceHistory(id, interval);
     }
 
     public boolean isOnline() {

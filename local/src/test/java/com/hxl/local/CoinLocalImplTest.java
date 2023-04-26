@@ -7,12 +7,14 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.hxl.domain.model.Coin;
+import com.hxl.domain.model.SearchQuery;
 import com.hxl.local.database.coin.BookmarkDao;
 import com.hxl.local.database.coin.CoinDao;
 import com.hxl.local.database.AppDatabase;
-import com.hxl.local.fake.FakeLocalDataFactory;
+import com.hxl.local.database.coin.CoinSearchDao;
 import com.hxl.local.model.coin.BookmarkEntity;
 import com.hxl.local.model.coin.CoinEntity;
+import com.hxl.local.model.coin.CoinSearchEntity;
 
 import org.junit.After;
 import org.junit.Before;
@@ -21,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
 import static com.hxl.local.fake.LocalTestConstants.*;
+import static com.hxl.local.fake.FakeLocalDataFactory.*;
 
 import java.util.List;
 import io.reactivex.rxjava3.core.Completable;
@@ -32,6 +35,7 @@ public class CoinLocalImplTest {
     private AppDatabase database;
     private CoinDao coinDao;
     private BookmarkDao bookmarkDao;
+    private CoinSearchDao coinSearchDao;
     private CoinLocalImpl coinSource;
 
     @Before
@@ -42,7 +46,8 @@ public class CoinLocalImplTest {
                 .build();
         coinDao = database.coinDao();
         bookmarkDao = database.bookmarkDao();
-        coinSource = new CoinLocalImpl(coinDao, bookmarkDao);
+        coinSearchDao = database.coinSearchDao();
+        coinSource = new CoinLocalImpl(coinDao, bookmarkDao, coinSearchDao);
     }
 
     @After
@@ -51,10 +56,11 @@ public class CoinLocalImplTest {
         database.close();
     }
 
+    // region coins
     @Test
     public void getCoinsReadsDataFomDatabase() {
         // Arrange
-        List<CoinEntity> entities = FakeLocalDataFactory.getFakeData(KEYS);
+        List<CoinEntity> entities = getFakeData(KEYS);
         // Act
         Completable saveCoins = coinDao.addCoin(entities.toArray(new CoinEntity[0]));
         Single<List<Coin>> getCoins = coinSource.getCoins();
@@ -79,7 +85,7 @@ public class CoinLocalImplTest {
     @Test
     public void getCoinsByLimitAndOffsetReadsDataFromDatabase() {
         // Arrange
-        List<CoinEntity> entities = FakeLocalDataFactory.getFakeData(KEYS);
+        List<CoinEntity> entities = getFakeData(KEYS);
         // Act
         Completable saveCoins = coinDao.addCoin(entities.toArray(new CoinEntity[0]));
         Single<List<Coin>> getCoins = coinSource.getCoins(LIMIT, OFFSET);
@@ -104,7 +110,7 @@ public class CoinLocalImplTest {
     @Test
     public void getCoinsByIdsReadsData() {
         // Arrange
-        List<CoinEntity> entities = FakeLocalDataFactory.getFakeData(KEYS);
+        List<CoinEntity> entities = getFakeData(KEYS);
         // Act
         Completable saveCoins = coinDao.addCoin(entities.toArray(new CoinEntity[0]));
         Single<List<Coin>> getCoins = coinSource.getCoins(IDS);
@@ -128,7 +134,7 @@ public class CoinLocalImplTest {
     @Test
     public void searchCoinsReadsDataFromDatabase() {
         // Arrange
-        List<CoinEntity> entities = FakeLocalDataFactory.getFakeData(KEYS);
+        List<CoinEntity> entities = getFakeData(KEYS);
         // Act
         Completable saveCoins = coinDao.addCoin(entities.toArray(new CoinEntity[0]));
         Single<List<Coin>> searchCoins = coinSource.searchCoins(ID);
@@ -153,7 +159,7 @@ public class CoinLocalImplTest {
     @Test
     public void getCoinByIdReadsData() {
         // Arrange
-        List<CoinEntity> entities = FakeLocalDataFactory.getFakeData(KEYS);
+        List<CoinEntity> entities = getFakeData(KEYS);
         // Act
         Completable saveCoins = coinDao.addCoin(entities.toArray(new CoinEntity[0]));
         Single<Coin> getCoin = coinSource.getCoin(ID);
@@ -168,6 +174,34 @@ public class CoinLocalImplTest {
                 .assertValue(d -> d.id.equals(ID));
     }
 
+    @Test
+    public void saveCoinsInsertsCoinsToDatabase() {
+        // Arrange
+        Coin[] coins = getFakeCoins(KEYS).toArray(new Coin[0]);
+        // Act
+        Single<List<CoinEntity>> getCoins = coinDao.getCoins();
+        Completable saveCoins = coinSource.saveCoins(coins);
+        // Assert
+        saveCoins.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        getCoins.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(d -> d.size() == KEYS.length)
+                .assertValue(d -> {
+                    for (int i = 0; i < KEYS.length; i++) {
+                        if (!d.get(i).id.equals(KEYS[i])) {
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+    }
+    // endregion
+
+    // region bookmarks
     @Test
     public void bookmarkCoinInsertsIdToDatabase() {
         // Act
@@ -214,7 +248,7 @@ public class CoinLocalImplTest {
     @Test
     public void getBookmarkedCoinsReadsCoinsFromDatabase() {
         // Arrange
-        List<CoinEntity> coinEntities = FakeLocalDataFactory.getFakeData(KEYS);
+        List<CoinEntity> coinEntities = getFakeData(KEYS);
         // Act
         Completable saveCoins = coinDao.addCoin(coinEntities.toArray(new CoinEntity[0]));
         Single<List<Coin>> getBookmarkedCoins = coinSource.getBookmarkedCoins();
@@ -241,7 +275,7 @@ public class CoinLocalImplTest {
     @Test
     public void getBookmarkedCoinIdsReadsIdsFromDatabase() {
         // Arrange
-        List<CoinEntity> coinEntities = FakeLocalDataFactory.getFakeData(KEYS);
+        List<CoinEntity> coinEntities = getFakeData(KEYS);
         // Act
         Completable saveCoins = coinDao.addCoin(coinEntities.toArray(new CoinEntity[0]));
         Single<List<String>> getBookmarkedCoinIds = coinSource.getBookmarkedCoinIds();
@@ -300,30 +334,146 @@ public class CoinLocalImplTest {
                 .assertValue(x -> x);
 
     }
+    // endregion
 
+    // region search-history
     @Test
-    public void saveCoinsInsertsCoinsToDatabase() {
+    public void getCoinsSearchHistoryReadsHistoryFromDatabase() {
         // Arrange
-        Coin[] coins = FakeLocalDataFactory.getFakeCoins(KEYS).toArray(new Coin[0]);
+        CoinSearchEntity[] searchEntities = getFakeCoinSearchEntity(KEYS).toArray(new CoinSearchEntity[0]);
         // Act
-        Single<List<CoinEntity>> getCoins = coinDao.getCoins();
-        Completable saveCoins = coinSource.saveCoins(coins);
+        Completable insertSearch = coinSearchDao.insertCoinSearchQuery(searchEntities);
+        Single<List<SearchQuery>> searchQuery = coinSource.getCoinSearchHistory();
         // Assert
-        saveCoins.test()
+        insertSearch.test()
                 .awaitCount(1)
                 .assertComplete()
                 .assertNoErrors();
-        getCoins.test()
+        searchQuery.test()
                 .awaitCount(1)
                 .assertNoErrors()
-                .assertValue(d -> d.size() == KEYS.length)
-                .assertValue(d -> {
-                    for (int i = 0; i < KEYS.length; i++) {
-                        if (!d.get(i).id.equals(KEYS[i])) {
+                .assertValue(x -> {
+                    for (int i = 0; i < SIZE; i++) {
+                        if (!x.get(i).query.equals(searchEntities[i].query)){
                             return false;
                         }
                     }
                     return true;
                 });
     }
+
+    @Test
+    public void insertCoinSearchQueryInsertsQueryToDatabase() {
+        // Act
+        Completable insertSearch = coinSource.insertCoinSearchQuery(ID);
+        Single<List<CoinSearchEntity>> searchEntities = coinSearchDao.getCoinSearchHistory();
+        // Assert
+        insertSearch.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        searchEntities.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.get(0).query.equals(ID));
+    }
+
+    @Test
+    public void insertCoinSearchQueriesInsertsQueriesToDatabase() {
+        // Act
+        Completable insertSearch = coinSource.insertCoinSearchQuery(KEYS);
+        Single<List<CoinSearchEntity>> searchEntities = coinSearchDao.getCoinSearchHistory();
+        // Assert
+        insertSearch.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        searchEntities.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> {
+                    for (int i = 0; i < SIZE; i++) {
+                        if (!x.get(i).query.equals(KEYS[i])){
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+    }
+
+    @Test
+    public void deleteCoinSearchQueriesDeletesQueriesFromDatabase() {
+        // Arrange
+        CoinSearchEntity[] fakeSearchEntities = getFakeCoinSearchEntity(KEYS).toArray(new CoinSearchEntity[0]);
+        // Act
+        Completable insertSearch = coinSearchDao.insertCoinSearchQuery(fakeSearchEntities);
+        Single<List<CoinSearchEntity>> searchEntities = coinSearchDao.getCoinSearchHistory();
+        Completable deleteSearch = coinSource.deleteCoinSearchHistory();
+        // Assert
+        insertSearch.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        searchEntities.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> {
+                    for (int i = 0; i < SIZE; i++) {
+                        if (!x.get(i).query.equals(fakeSearchEntities[i].query)){
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+        deleteSearch.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        searchEntities.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.size() == 0);
+    }
+
+    @Test
+    public void deleteCoinSearchQueryDeletesQueryFromDatabase() {
+        // Arrange
+        CoinSearchEntity[] fakeSearchEntities = getFakeCoinSearchEntity(KEYS).toArray(new CoinSearchEntity[0]);
+        // Act
+        Completable insertSearch = coinSearchDao.insertCoinSearchQuery(fakeSearchEntities);
+        Single<List<CoinSearchEntity>> searchEntities = coinSearchDao.getCoinSearchHistory();
+        Completable deleteSearch = coinSource.deleteCoinSearchQuery(ID);
+        // Assert
+        insertSearch.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        searchEntities.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> {
+                    for (int i = 0; i < SIZE; i++) {
+                        if (!x.get(i).query.equals(fakeSearchEntities[i].query)){
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+        deleteSearch.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        searchEntities.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> {
+                    for (int i = 0; i < SIZE; i++) {
+                        if (x.get(i).query.equals(ID)){
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+    }
+    // endregion
 }

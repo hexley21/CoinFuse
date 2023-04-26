@@ -8,7 +8,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.hxl.domain.interactors.coins.GetCoinHistory;
+import com.hxl.domain.interactors.coins.GetCoinPriceHistory;
 import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.domain.repository.CoinRepository;
 
@@ -29,13 +29,13 @@ public class GetCoinCoinPriceHistoryTest {
     CoinRepository repository;
 
     @InjectMocks
-    GetCoinHistory interactor;
+    GetCoinPriceHistory interactor;
 
     @Test
     public void invokeReturnsListFromRepository() {
         // Arrange
         Single<List<CoinPriceHistory>> history = Single.just(getFakeHistory(SIZE));
-        when(repository.getCoinHistory(anyString(), any(CoinPriceHistory.Interval.class))).thenReturn(history);
+        when(repository.getCoinPriceHistory(anyString(), any(CoinPriceHistory.Interval.class))).thenReturn(history);
         // Act
         Single<List<CoinPriceHistory>> coinHistory = interactor.invoke(ID, CoinPriceHistory.Interval.D1);
         // Assert
@@ -43,7 +43,7 @@ public class GetCoinCoinPriceHistoryTest {
                 .awaitCount(1)
                 .assertNoErrors()
                 .assertValue(x -> x.size() == SIZE);
-        verify(repository).getCoinHistory(ID, CoinPriceHistory.Interval.D1);
+        verify(repository).getCoinPriceHistory(ID, CoinPriceHistory.Interval.D1);
     }
 
 }
