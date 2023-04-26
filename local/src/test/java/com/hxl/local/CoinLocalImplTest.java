@@ -356,8 +356,46 @@ public class CoinLocalImplTest {
                     return true;
                 });
     }
+
+    @Test
+    public void insertCoinSearchQueryInsertsQueryToDatabase() {
+        // Act
+        Completable insertSearch = coinSource.insertCoinSearchQuery(ID);
+        Single<List<CoinSearchEntity>> searchEntities = coinSearchDao.getCoinSearchHistory();
+        // Assert
+        insertSearch.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        searchEntities.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.get(0).query.equals(ID));
+    }
+
+    @Test
+    public void insertCoinSearchQueriesInsertsQueriesToDatabase() {
+        // Act
+        Completable insertSearch = coinSource.insertCoinSearchQuery(KEYS);
+        Single<List<CoinSearchEntity>> searchEntities = coinSearchDao.getCoinSearchHistory();
+        // Assert
+        insertSearch.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        searchEntities.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> {
+                    for (int i = 0; i < SIZE; i++) {
+                        if (!x.get(i).query.equals(KEYS[i])){
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+    }
 /* TODO:
-    Completable addCoinSearchQuery(String query);
     Completable deleteCoinSearchQuery(String query);
     Completable deleteCoinSearchHistory();
 */
