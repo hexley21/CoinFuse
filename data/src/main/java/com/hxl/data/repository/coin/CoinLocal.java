@@ -24,7 +24,7 @@ public interface CoinLocal {
     Single<List<Coin>> getBookmarkedCoins();
     Single<List<String>> getBookmarkedCoinIds();
     Single<List<SearchQuery>> getCoinSearchHistory();
-    Completable addCoinSearchQuery(String query);
+    Completable insertCoinSearchQuery(String query);
     Completable deleteCoinSearchQuery(String query);
     Completable deleteCoinSearchHistory();
 }

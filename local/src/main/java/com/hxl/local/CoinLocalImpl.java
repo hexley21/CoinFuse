@@ -109,7 +109,7 @@ public class CoinLocalImpl implements CoinLocal {
     }
 
     @Override
-    public Completable addCoinSearchQuery(String query) {
+    public Completable insertCoinSearchQuery(String query) {
         return searchHistoryDao.insertCoinSearchQuery(new CoinSearchEntity(query, System.currentTimeMillis()))
                 .subscribeOn(Schedulers.io());
     }

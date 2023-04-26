@@ -108,8 +108,8 @@ public class CoinRepositoryImpl implements CoinRepository {
     }
 
     @Override
-    public Completable addCoinSearchQuery(String query) {
-        return localSource.addCoinSearchQuery(query);
+    public Completable insertCoinSearchQuery(String query) {
+        return localSource.insertCoinSearchQuery(query);
     }
 
     @Override
