@@ -61,7 +61,7 @@ public class CoinRemoteImpl implements CoinRemote {
     }
 
     @Override
-    public Single<List<CoinPriceHistory>> getCoinHistory(String id, CoinPriceHistory.Interval interval) {
+    public Single<List<CoinPriceHistory>> getCoinPriceHistory(String id, CoinPriceHistory.Interval interval) {
         return coinService.getCoinHistory(id, interval.param)
                 .subscribeOn(Schedulers.io())
                 .map(this::mapHistoryFromDto);

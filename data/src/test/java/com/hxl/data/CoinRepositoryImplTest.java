@@ -240,19 +240,20 @@ public class CoinRepositoryImplTest {
     @Test
     public void getCoinHistoryReturnsListFromRemoteSource() {
         // Arrange
-        when(remoteSource.getCoinHistory(anyString(), any(CoinPriceHistory.Interval.class))).thenReturn(Single.just(getFakeHistory(SIZE)));
+        when(remoteSource.getCoinPriceHistory(anyString(), any(CoinPriceHistory.Interval.class))).thenReturn(Single.just(getFakeHistory(SIZE)));
         // Act
-        Single<List<CoinPriceHistory>> history = repository.getCoinHistory(ID, CoinPriceHistory.Interval.D1);
+        Single<List<CoinPriceHistory>> history = repository.getCoinPriceHistory(ID, CoinPriceHistory.Interval.D1);
         // Assert
         history.test()
                 .awaitCount(1)
                 .assertNoErrors()
                 .assertValue(x -> x.size() == SIZE);
-        verify(remoteSource, times(1)).getCoinHistory(ID, CoinPriceHistory.Interval.D1);
-        verify(repository, times(1)).getCoinHistory(ID, CoinPriceHistory.Interval.D1);
+        verify(remoteSource, times(1)).getCoinPriceHistory(ID, CoinPriceHistory.Interval.D1);
+        verify(repository, times(1)).getCoinPriceHistory(ID, CoinPriceHistory.Interval.D1);
     }
 
     // endregion
+
     // region bookmarkCoin(String id)
     @Test
     public void testBookmarkCoinInsertsIdToDatabase() {

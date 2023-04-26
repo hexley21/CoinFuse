@@ -128,8 +128,8 @@ public class CoinRepositoryImpl implements CoinRepository {
     }
 
     @Override
-    public Single<List<CoinPriceHistory>> getCoinHistory(String id, CoinPriceHistory.Interval interval) {
-        return remoteSource.getCoinHistory(id, interval);
+    public Single<List<CoinPriceHistory>> getCoinPriceHistory(String id, CoinPriceHistory.Interval interval) {
+        return remoteSource.getCoinPriceHistory(id, interval);
     }
 
     public boolean isOnline() {

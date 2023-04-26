@@ -15,5 +15,5 @@ public interface CoinRemote {
     Single<List<Coin>> searchCoins(String key);
     Single<Coin> getCoin(String id);
 
-    Single<List<CoinPriceHistory>> getCoinHistory(String id, CoinPriceHistory.Interval interval);
+    Single<List<CoinPriceHistory>> getCoinPriceHistory(String id, CoinPriceHistory.Interval interval);
 }

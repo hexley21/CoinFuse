@@ -32,5 +32,5 @@ public interface CoinRepository {
     Completable deleteCoinSearchHistory();
 
     // Remote
-    Single<List<CoinPriceHistory>> getCoinHistory(String id, CoinPriceHistory.Interval interval);
+    Single<List<CoinPriceHistory>> getCoinPriceHistory(String id, CoinPriceHistory.Interval interval);
 }
