@@ -335,9 +335,9 @@ public class CoinLocalImplTest {
     @Test
     public void getCoinsSearchHistoryReadsHistoryFromDatabase() {
         // Arrange
-        CoinSearchEntity[] searchEntity = getFakeCoinSearchEntity(SIZE).toArray(new CoinSearchEntity[0]);
+        CoinSearchEntity[] searchEntities = getFakeCoinSearchEntity(KEYS).toArray(new CoinSearchEntity[0]);
         // Act
-        Completable insertSearch = coinSearchDao.insertCoinSearchQuery(searchEntity);
+        Completable insertSearch = coinSearchDao.insertCoinSearchQuery(searchEntities);
         Single<List<SearchQuery>> searchQuery = coinSource.getCoinSearchHistory();
         // Assert
         insertSearch.test()
@@ -349,7 +349,7 @@ public class CoinLocalImplTest {
                 .assertNoErrors()
                 .assertValue(x -> {
                     for (int i = 0; i < SIZE; i++) {
-                        if (!x.get(i).query.equals(searchEntity[i].query)){
+                        if (!x.get(i).query.equals(searchEntities[i].query)){
                             return false;
                         }
                     }
@@ -395,8 +395,80 @@ public class CoinLocalImplTest {
                     return true;
                 });
     }
-/* TODO:
-    Completable deleteCoinSearchQuery(String query);
-    Completable deleteCoinSearchHistory();
-*/
+
+    @Test
+    public void deleteCoinSearchQueriesDeletesQueriesFromDatabase() {
+        // Arrange
+        CoinSearchEntity[] fakeSearchEntities = getFakeCoinSearchEntity(KEYS).toArray(new CoinSearchEntity[0]);
+        // Act
+        Completable insertSearch = coinSearchDao.insertCoinSearchQuery(fakeSearchEntities);
+        Single<List<CoinSearchEntity>> searchEntities = coinSearchDao.getCoinSearchHistory();
+        Completable deleteSearch = coinSource.deleteCoinSearchHistory();
+        // Assert
+        insertSearch.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        searchEntities.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> {
+                    for (int i = 0; i < SIZE; i++) {
+                        if (!x.get(i).query.equals(fakeSearchEntities[i].query)){
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+        deleteSearch.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        searchEntities.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.size() == 0);
+    }
+
+    @Test
+    public void deleteCoinSearchQueryDeletesQueryFromDatabase() {
+        // Arrange
+        CoinSearchEntity[] fakeSearchEntities = getFakeCoinSearchEntity(KEYS).toArray(new CoinSearchEntity[0]);
+        // Act
+        Completable insertSearch = coinSearchDao.insertCoinSearchQuery(fakeSearchEntities);
+        Single<List<CoinSearchEntity>> searchEntities = coinSearchDao.getCoinSearchHistory();
+        Completable deleteSearch = coinSource.deleteCoinSearchQuery(ID);
+        // Assert
+        insertSearch.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        searchEntities.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> {
+                    for (int i = 0; i < SIZE; i++) {
+                        if (!x.get(i).query.equals(fakeSearchEntities[i].query)){
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+        deleteSearch.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        searchEntities.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> {
+                    for (int i = 0; i < SIZE; i++) {
+                        if (x.get(i).query.equals(ID)){
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+    }
+
 }
