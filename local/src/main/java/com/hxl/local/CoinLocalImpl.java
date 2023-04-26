@@ -115,6 +115,15 @@ public class CoinLocalImpl implements CoinLocal {
     }
 
     @Override
+    public Completable insertCoinSearchQuery(String... query) {
+        return searchHistoryDao.insertCoinSearchQuery(
+                Arrays.stream(query).map(
+                        x -> new CoinSearchEntity(x, System.currentTimeMillis()))
+                        .toArray(CoinSearchEntity[]::new))
+                .subscribeOn(Schedulers.io());
+    }
+
+    @Override
     public Completable deleteCoinSearchQuery(String query) {
         return searchHistoryDao.deleteCoinSearchQuery(query)
                 .subscribeOn(Schedulers.io());
