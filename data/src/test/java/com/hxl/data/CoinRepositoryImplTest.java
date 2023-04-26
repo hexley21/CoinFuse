@@ -1,5 +1,12 @@
 package com.hxl.data;
 
+import static com.hxl.data.fakes.DataTestConstants.ID;
+import static com.hxl.data.fakes.DataTestConstants.LIMIT;
+import static com.hxl.data.fakes.DataTestConstants.OFFSET;
+import static com.hxl.data.fakes.DataTestConstants.SIZE;
+import static com.hxl.data.fakes.FakeDataFactory.getCoin;
+import static com.hxl.data.fakes.FakeDataFactory.getFakeCoins;
+import static com.hxl.data.fakes.FakeDataFactory.getFakeHistory;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
@@ -9,9 +16,6 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import static com.hxl.data.fakes.DataTestConstants.*;
-import static com.hxl.data.fakes.FakeDataFactory.*;
 
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
@@ -235,8 +239,41 @@ public class CoinRepositoryImplTest {
     }
     // endregion
 
-    // region getCoinHistory(String id, Interval interval)
+    // region saveCoins(List<Coin> coins)
+    @Test
+    public void saveCoinsInsertsCoinsToLocalSource() {
+        // Arrange
+        List<Coin> fakeCoins = getFakeCoins(SIZE);
+        when(localSource.saveCoins(any(Coin[].class))).thenReturn(Completable.complete());
+        // Act
+        Completable saveCoins = repository.saveCoins(fakeCoins);
+        // Assert
+        saveCoins.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        verify(localSource, times(1)).saveCoins(fakeCoins.toArray(new Coin[0]));
+    }
+    // endregion
 
+    // region saveCoin(Coin coin)
+    @Test
+    public void saveCoinInsertsCoinToLocalSource() {
+        // Arrange
+        Coin fakeCoin = getCoin(ID);
+        when(localSource.saveCoins(any(Coin.class))).thenReturn(Completable.complete());
+        // Act
+        Completable saveCoins = repository.saveCoin(fakeCoin);
+        // Assert
+        saveCoins.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        verify(localSource, times(1)).saveCoins(fakeCoin);
+    }
+    // endregion
+
+    // region getCoinHistory(String id, Interval interval)
     @Test
     public void getCoinHistoryReturnsListFromRemoteSource() {
         // Arrange
