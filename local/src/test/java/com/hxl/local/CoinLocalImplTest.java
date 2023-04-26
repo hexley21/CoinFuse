@@ -56,6 +56,7 @@ public class CoinLocalImplTest {
         database.close();
     }
 
+    // region coins
     @Test
     public void getCoinsReadsDataFomDatabase() {
         // Arrange
@@ -173,6 +174,34 @@ public class CoinLocalImplTest {
                 .assertValue(d -> d.id.equals(ID));
     }
 
+    @Test
+    public void saveCoinsInsertsCoinsToDatabase() {
+        // Arrange
+        Coin[] coins = getFakeCoins(KEYS).toArray(new Coin[0]);
+        // Act
+        Single<List<CoinEntity>> getCoins = coinDao.getCoins();
+        Completable saveCoins = coinSource.saveCoins(coins);
+        // Assert
+        saveCoins.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        getCoins.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(d -> d.size() == KEYS.length)
+                .assertValue(d -> {
+                    for (int i = 0; i < KEYS.length; i++) {
+                        if (!d.get(i).id.equals(KEYS[i])) {
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+    }
+    // endregion
+
+    // region bookmarks
     @Test
     public void bookmarkCoinInsertsIdToDatabase() {
         // Act
@@ -305,33 +334,9 @@ public class CoinLocalImplTest {
                 .assertValue(x -> x);
 
     }
+    // endregion
 
-    @Test
-    public void saveCoinsInsertsCoinsToDatabase() {
-        // Arrange
-        Coin[] coins = getFakeCoins(KEYS).toArray(new Coin[0]);
-        // Act
-        Single<List<CoinEntity>> getCoins = coinDao.getCoins();
-        Completable saveCoins = coinSource.saveCoins(coins);
-        // Assert
-        saveCoins.test()
-                .awaitCount(1)
-                .assertComplete()
-                .assertNoErrors();
-        getCoins.test()
-                .awaitCount(1)
-                .assertNoErrors()
-                .assertValue(d -> d.size() == KEYS.length)
-                .assertValue(d -> {
-                    for (int i = 0; i < KEYS.length; i++) {
-                        if (!d.get(i).id.equals(KEYS[i])) {
-                            return false;
-                        }
-                    }
-                    return true;
-                });
-    }
-
+    // region search-history
     @Test
     public void getCoinsSearchHistoryReadsHistoryFromDatabase() {
         // Arrange
@@ -470,5 +475,5 @@ public class CoinLocalImplTest {
                     return true;
                 });
     }
-
+    // endregion
 }
