@@ -1,10 +1,9 @@
-package com.hxl.local.mapper;
+package com.hxl.local.mapper.coin;
 
 import static com.hxl.local.fake.LocalTestConstants.*;
 import static org.junit.Assert.assertEquals;
 
 import com.hxl.domain.model.Coin;
-import com.hxl.local.mapper.coin.CoinEntityMapper;
 import com.hxl.local.model.coin.CoinEntity;
 
 import org.junit.Test;

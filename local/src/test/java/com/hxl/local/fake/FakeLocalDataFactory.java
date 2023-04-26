@@ -81,9 +81,9 @@ public class FakeLocalDataFactory {
         );
     }
 
-    public static SearchQuery getSearchQuery() {
+    public static SearchQuery getSearchQuery(String query) {
         return new SearchQuery(
-                randomName(),
+                query,
                 TIMESTAMP
         );
     }
