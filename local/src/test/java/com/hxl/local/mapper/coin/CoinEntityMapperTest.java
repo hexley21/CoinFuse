@@ -3,11 +3,15 @@ package com.hxl.local.mapper.coin;
 import static com.hxl.local.fake.LocalTestConstants.*;
 import static org.junit.Assert.assertEquals;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
 import com.hxl.domain.model.Coin;
 import com.hxl.local.model.coin.CoinEntity;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+@RunWith(AndroidJUnit4.class)
 public class CoinEntityMapperTest {
 
     // Arrange
