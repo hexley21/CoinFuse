@@ -14,6 +14,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
@@ -47,6 +49,7 @@ public class CoinsMenuViewModel extends ViewModel {
         return deleteCoinSearchQuery.invoke(query);
     }
 
+    @Inject
     public CoinsMenuViewModel(@NotNull GetCoins getCoins,
                               @NotNull SearchCoins searchCoins,
                               @NotNull GetCoinSearchHistory getCoinSearchHistory,
