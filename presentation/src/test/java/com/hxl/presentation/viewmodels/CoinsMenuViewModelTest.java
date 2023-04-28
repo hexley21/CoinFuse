@@ -6,9 +6,13 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.hxl.domain.interactors.coins.DeleteCoinSearchQuery;
+import com.hxl.domain.interactors.coins.GetCoinSearchHistory;
 import com.hxl.domain.interactors.coins.GetCoins;
+import com.hxl.domain.interactors.coins.InsertCoinSearchQuery;
 import com.hxl.domain.interactors.coins.SearchCoins;
 import com.hxl.domain.model.Coin;
+import com.hxl.domain.model.SearchQuery;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +22,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 
 
@@ -28,12 +33,18 @@ public class CoinsMenuViewModelTest {
     GetCoins getCoins;
     @Mock
     SearchCoins searchCoins;
+    @Mock
+    GetCoinSearchHistory getCoinSearchHistory;
+    @Mock
+    InsertCoinSearchQuery insertCoinSearchQuery;
+    @Mock
+    DeleteCoinSearchQuery deleteCoinSearchQuery;
     @InjectMocks
     CoinsMenuViewModel viewModel;
 
 
     @Test
-    public void getCoinsReturnsListFromInteractor() {
+    public void getCoinsReturnsListFromRepository() {
         // Arrange
         List<Coin> coins = getFakeCoins(SIZE);
         when(getCoins.invoke()).thenReturn(Single.just(coins));
@@ -48,7 +59,7 @@ public class CoinsMenuViewModelTest {
     }
 
     @Test
-    public void searchCoinsReturnsFilteredListFromInteractor() {
+    public void searchCoinsReturnsFilteredListFromRepository() {
         // Arrange
         List<Coin> coins = getFakeCoins(SIZE);
         when(searchCoins.invoke(anyString())).thenReturn(Single.just(coins));
@@ -60,5 +71,47 @@ public class CoinsMenuViewModelTest {
                 .assertNoErrors()
                 .assertValue(x -> x.size() == SIZE);
         verify(searchCoins).invoke(ID);
+    }
+    @Test
+    public void getCoinSearchHistoryReturnsSearchQueryFromRepository() {
+        // Arrange
+        List<SearchQuery> searchQueries = getFakeSearchQueries(SIZE);
+        when(getCoinSearchHistory.invoke()).thenReturn(Single.just(searchQueries));
+        // Act
+        Single<List<SearchQuery>> viewModelCoins = viewModel.getCoinSearchHistory();
+        // Assert
+        viewModelCoins.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.size() == SIZE);
+        verify(getCoinSearchHistory).invoke();
+    }
+
+    @Test
+    public void insertCoinSearchQueryInsertsSearchQueryToRepository() {
+        // Arrange
+        when(insertCoinSearchQuery.invoke(anyString())).thenReturn(Completable.complete());
+        // Act
+        Completable viewModelCoins = viewModel.insertCoinSearchQuery(ID);
+        // Assert
+        viewModelCoins.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        verify(insertCoinSearchQuery).invoke(ID);
+    }
+
+    @Test
+    public void deleteCoinSearchQueryDeletesSearchQueryFromRepository() {
+        // Arrange
+        when(deleteCoinSearchQuery.invoke(anyString())).thenReturn(Completable.complete());
+        // Act
+        Completable viewModelCoins = viewModel.deleteCoinSearchQuery(ID);
+        // Assert
+        viewModelCoins.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        verify(deleteCoinSearchQuery).invoke(ID);
     }
 }
