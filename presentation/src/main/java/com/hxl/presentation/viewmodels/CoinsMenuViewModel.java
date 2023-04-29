@@ -33,6 +33,10 @@ public class CoinsMenuViewModel extends ViewModel {
         return getCoins.invoke();
     }
 
+    public Single<List<Coin>> getCoins(List<String> coins) {
+        return getCoins.invoke(coins);
+    }
+
     public Single<List<Coin>> searchCoins(String key) {
         return searchCoins.invoke(key);
     }
