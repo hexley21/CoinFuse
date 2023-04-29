@@ -131,11 +131,13 @@ public class CoinRepositoryImplTest {
     @Test
     public void testGetCoinsByIdsReturnsListFromRemoteSource() {
         // Arrange
+        List<String> ids = new ArrayList<>();
+        ids.add(ID);
         when(remoteSource.getCoins(anyList())).thenReturn(Single.just(getFakeCoins(SIZE)));
         when(repository.saveCoins(anyList())).thenReturn(Completable.complete());
         when(repository.isOnline()).thenReturn(true);
         // Act
-        Single<List<Coin>> coins = repository.getCoins(new ArrayList<>());
+        Single<List<Coin>> coins = repository.getCoins(ids);
         // Assert
         coins.test()
                 .awaitCount(1)
@@ -150,10 +152,12 @@ public class CoinRepositoryImplTest {
     @Test
     public void testGetCoinsByIdsReturnsListFromLocalSource() {
         // Arrange
+        List<String> ids = new ArrayList<>();
+        ids.add(ID);
         when(localSource.getCoins(anyList())).thenReturn(Single.just(getFakeCoins(SIZE)));
         when(repository.isOnline()).thenReturn(false);
         // Act
-        Single<List<Coin>> coins = repository.getCoins(new ArrayList<>());
+        Single<List<Coin>> coins = repository.getCoins(ids);
         // Assert
         coins.test()
                 .awaitCount(1)
@@ -162,6 +166,25 @@ public class CoinRepositoryImplTest {
         verify(localSource, times(1)).getCoins(anyList());
         verify(repository, times(1)).isOnline();
         verify(remoteSource, never()).getCoins(anyList());
+    }
+
+    @Test
+    public void testGetCoinsByIdsReturnsEmptyArrayOnEmptyIds() {
+        // Arrange
+        when(remoteSource.getCoins(anyList())).thenReturn(Single.just(getFakeCoins(SIZE)));
+        when(repository.saveCoins(anyList())).thenReturn(Completable.complete());
+        when(repository.isOnline()).thenReturn(true);
+        // Act
+        Single<List<Coin>> coins = repository.getCoins(new ArrayList<>());
+        // Assert
+        coins.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.size() == 0);
+        verify(remoteSource, never()).getCoins(anyList());
+        verify(repository, never()).saveCoins(anyList());
+        verify(repository, never()).isOnline();
+        verify(localSource, never()).getCoins(anyList());
     }
     // endregion
 
