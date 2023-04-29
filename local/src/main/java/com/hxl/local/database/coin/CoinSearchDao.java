@@ -15,7 +15,7 @@ import io.reactivex.rxjava3.core.Single;
 @Dao
 public interface CoinSearchDao {
 
-    @Query("SELECT * FROM coin_search_history ORDER BY timestamp DESC")
+    @Query("SELECT * FROM coin_search_history ORDER BY timestamp ASC LIMIT 20")
     Single<List<CoinSearchEntity>> getCoinSearchHistory();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
