@@ -170,10 +170,6 @@ public class CoinRepositoryImplTest {
 
     @Test
     public void testGetCoinsByIdsReturnsEmptyArrayOnEmptyIds() {
-        // Arrange
-        when(remoteSource.getCoins(anyList())).thenReturn(Single.just(getFakeCoins(SIZE)));
-        when(repository.saveCoins(anyList())).thenReturn(Completable.complete());
-        when(repository.isOnline()).thenReturn(true);
         // Act
         Single<List<Coin>> coins = repository.getCoins(new ArrayList<>());
         // Assert
