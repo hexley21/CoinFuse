@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import androidx.activity.OnBackPressedCallback;
@@ -106,6 +107,13 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
         });
         binding.srlCoins.setOnRefreshListener(this::updateCoins);
 
+        ImageButton searchClearBtn = binding.searchView.findViewById(com.google.android.material.R.id.search_view_clear_button);
+        searchClearBtn.setOnClickListener(l -> {
+            binding.searchView.clearText();
+            binding.searchView.clearFocusAndHideKeyboard();
+            clearSearchRvData();
+        });
+
         binding.searchView.addTransitionListener((searchView, previousState, newState) -> {
             if (newState == SearchView.TransitionState.SHOWING) {
                 requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
@@ -113,7 +121,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
             }
             else if (newState == SearchView.TransitionState.HIDING) {
                 callback.remove();
-                deleteDataFromSearchRv();
+                clearSearchRvData();
                 Log.d(TAG, "searchView.addTransitionListener: back callback - removed");
             }
         });
@@ -199,7 +207,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
                 );
     }
 
-    private void deleteDataFromSearchRv() {
+    private void clearSearchRvData() {
         searchCoinsAdapter.setList(new ArrayList<>());
     }
 }
