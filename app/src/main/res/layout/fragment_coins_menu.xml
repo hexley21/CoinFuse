@@ -67,8 +67,7 @@
                         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                         android:text="@string/search_history"
                         android:padding="16dp"
-                        android:gravity="start"
-                        />
+                        android:gravity="start" />
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_coin_history"
                         android:layout_width="match_parent"
