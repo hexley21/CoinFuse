@@ -23,7 +23,9 @@ import com.hxl.cryptonumismatist.databinding.FragmentCoinsMenuBinding;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
 
+import java.util.ArrayList;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -47,6 +49,8 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
     CoinsMenuAdapter coinsMenuAdapter;
     @Inject
     SearchCoinsAdapter searchCoinsAdapter;
+    @Inject
+    SearchCoinsAdapter searchHistoryCoinsAdapter;
     SwipeRefreshLayout refreshLayout;
     ProgressBar progressBar;
     OnBackPressedCallback callback;
@@ -73,7 +77,8 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
             return null;
         };
         RecyclerView coinsRv = binding.rvCoins;
-        RecyclerView searchRv = binding.rvSearch;
+        RecyclerView searchRv = binding.rvCoinSearch;
+        RecyclerView historyRv = binding.rvCoinHistory;
 
         coinsMenuAdapter.setNavigateToDetails(navigateToDetails);
         searchCoinsAdapter.setNavigateToDetails(navigateToDetails);
@@ -82,8 +87,11 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
         coinsRv.setAdapter(coinsMenuAdapter);
         searchRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         searchRv.setAdapter(searchCoinsAdapter);
+        historyRv.setLayoutManager(new LinearLayoutManager(requireContext()));
+        historyRv.setAdapter(searchHistoryCoinsAdapter);
 
         updateCoins();
+        getSearchHistory();
         pbVisibility = View.GONE;
 
         binding.searchView.getEditText().setOnEditorActionListener((v, actionId, event) -> {
@@ -99,6 +107,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
             }
             else if (newState == SearchView.TransitionState.HIDING) {
                 callback.remove();
+                deleteDataFromSearchRv();
                 Log.d(TAG, "searchView.addTransitionListener: back callback - removed");
             }
         });
@@ -153,5 +162,29 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
                         },
                         compositeDisposable
                 );
+    }
+
+    private void getSearchHistory() {
+        EspressoIdlingResource.increment();
+        vm.getCoinSearchHistory()
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(h -> h.stream().map(x -> x.query).collect(Collectors.toList()))
+                .flatMap(h -> vm.getCoins(h))
+                .subscribe(
+                        coins -> {
+                            searchHistoryCoinsAdapter.setList(coins);
+                            EspressoIdlingResource.decrement();
+                        },
+                        e -> {
+                            Log.e(TAG, e.getMessage(), e);
+
+                            EspressoIdlingResource.decrement();
+                        },
+                        compositeDisposable
+                );
+    }
+
+    private void deleteDataFromSearchRv() {
+        searchCoinsAdapter.setList(new ArrayList<>());
     }
 }

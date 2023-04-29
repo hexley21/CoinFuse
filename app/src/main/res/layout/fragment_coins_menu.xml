@@ -50,11 +50,31 @@
             android:layout_height="match_parent"
             android:hint="@string/hint_search"
             app:layout_anchor="@id/search_bar">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_search"
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
+                    android:layout_height="match_parent">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_coin_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:text="@string/search_history"
+                        android:padding="16dp"
+                        android:gravity="start"
+                        />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_coin_history"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
         </com.google.android.material.search.SearchView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
