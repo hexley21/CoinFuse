@@ -81,7 +81,13 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
         RecyclerView historyRv = binding.rvCoinHistory;
 
         coinsMenuAdapter.setNavigateToDetails(navigateToDetails);
-        searchCoinsAdapter.setNavigateToDetails(navigateToDetails);
+        searchHistoryCoinsAdapter.setNavigateToDetails(navigateToDetails);
+        searchCoinsAdapter.setNavigateToDetails(bundle -> {
+            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main)
+                    .navigate(R.id.navigationFragment_to_coinDetailsFragment, bundle);
+            insertSearchQuery(bundle.getString("coin"));
+            return null;
+        });
 
         coinsRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         coinsRv.setAdapter(coinsMenuAdapter);
@@ -180,6 +186,15 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
 
                             EspressoIdlingResource.decrement();
                         },
+                        compositeDisposable
+                );
+    }
+
+    private void insertSearchQuery(String query) {
+        vm.insertCoinSearchQuery(query)
+                .subscribe(
+                        () -> Log.d(TAG, "insertSearchQuery: was successful"),
+                        e -> Log.e(TAG, "insertSearchQuery: failed", e),
                         compositeDisposable
                 );
     }
