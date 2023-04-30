@@ -64,6 +64,7 @@ public class NavigationTest {
     }
 
     @Test
+    @SuppressWarnings("ConstantConditions")
     public void testAppNavigation() {
         // App starts with welcome fragment
         assertEquals(rootNavController.getCurrentDestination().getId(), R.id.welcomeFragment);

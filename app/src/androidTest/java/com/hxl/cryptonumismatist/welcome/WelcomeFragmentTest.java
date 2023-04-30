@@ -53,6 +53,7 @@ public class WelcomeFragmentTest {
     }
 
     @Test
+    @SuppressWarnings("ConstantConditions")
     public void fragmentBehavesAsExpected() {
         // Act
         ActivityScenario<HiltTestActivity> scenario = launchFragmentInHiltContainer(WelcomeFragment.class);
