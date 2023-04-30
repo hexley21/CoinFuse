@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel;
 
 import com.hxl.domain.interactors.coins.BookmarkCoin;
 import com.hxl.domain.interactors.coins.GetCoin;
-import com.hxl.domain.interactors.coins.GetCoinHistory;
+import com.hxl.domain.interactors.coins.GetCoinPriceHistory;
 import com.hxl.domain.interactors.coins.IsCoinBookmarked;
 import com.hxl.domain.interactors.coins.UnBookmarkCoin;
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.History;
+import com.hxl.domain.model.CoinPriceHistory;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import io.reactivex.rxjava3.core.Single;
 public class CoinDetailsViewModel extends ViewModel {
 
     private final GetCoin getCoin;
-    private final GetCoinHistory getCoinHistory;
+    private final GetCoinPriceHistory getCoinPriceHistory;
 
     private final IsCoinBookmarked isCoinBookmarked;
     private final BookmarkCoin bookmarkCoin;
@@ -32,8 +32,8 @@ public class CoinDetailsViewModel extends ViewModel {
         return getCoin.invoke(id);
     }
 
-    public Single<List<History>> getCoinHistory(String id, History.Interval interval) {
-        return getCoinHistory.invoke(id, interval);
+    public Single<List<CoinPriceHistory>> getCoinHistory(String id, CoinPriceHistory.Interval interval) {
+        return getCoinPriceHistory.invoke(id, interval);
     }
 
     public Single<Boolean> isCoinBookmarked(String id) {
@@ -50,13 +50,13 @@ public class CoinDetailsViewModel extends ViewModel {
     @Inject
     public CoinDetailsViewModel(
             GetCoin getCoin,
-            GetCoinHistory getCoinHistory,
+            GetCoinPriceHistory getCoinPriceHistory,
             IsCoinBookmarked isCoinBookmarked,
             BookmarkCoin bookmarkCoin,
             UnBookmarkCoin unBookmarkCoin
     ) {
         this.getCoin = getCoin;
-        this.getCoinHistory = getCoinHistory;
+        this.getCoinPriceHistory = getCoinPriceHistory;
         this.isCoinBookmarked = isCoinBookmarked;
         this.bookmarkCoin = bookmarkCoin;
         this.unBookmarkCoin = unBookmarkCoin;

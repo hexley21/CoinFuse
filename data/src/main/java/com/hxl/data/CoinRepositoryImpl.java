@@ -3,10 +3,12 @@ package com.hxl.data;
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.History;
+import com.hxl.domain.model.CoinPriceHistory;
+import com.hxl.domain.model.SearchQuery;
 import com.hxl.domain.repository.CoinRepository;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
@@ -41,11 +43,14 @@ public class CoinRepositoryImpl implements CoinRepository {
 
     @Override
     public Single<List<Coin>> getCoins(List<String> ids) {
-        if (isOnline()) {
-            return remoteSource.getCoins(ids)
-                    .flatMap(x -> saveCoins(x).toSingleDefault(x));
+        if (!ids.isEmpty()) {
+            if (isOnline()) {
+                return remoteSource.getCoins(ids)
+                        .flatMap(x -> saveCoins(x).toSingleDefault(x));
+            }
+            return localSource.getCoins(ids);
         }
-        return localSource.getCoins(ids);
+        return Single.just(new ArrayList<>());
     }
 
     @Override
@@ -102,8 +107,33 @@ public class CoinRepositoryImpl implements CoinRepository {
     }
 
     @Override
-    public Single<List<History>> getCoinHistory(String id, History.Interval interval) {
-        return remoteSource.getCoinHistory(id, interval);
+    public Single<List<SearchQuery>> getCoinSearchHistory() {
+        return localSource.getCoinSearchHistory();
+    }
+
+    @Override
+    public Completable insertCoinSearchQuery(String query) {
+        return localSource.insertCoinSearchQuery(query);
+    }
+
+    @Override
+    public Completable insertCoinSearchQuery(List<String> query) {
+        return localSource.insertCoinSearchQuery(query.toArray(new String[0]));
+    }
+
+    @Override
+    public Completable deleteCoinSearchQuery(String query) {
+        return localSource.deleteCoinSearchQuery(query);
+    }
+
+    @Override
+    public Completable deleteCoinSearchHistory() {
+        return localSource.deleteCoinSearchHistory();
+    }
+
+    @Override
+    public Single<List<CoinPriceHistory>> getCoinPriceHistory(String id, CoinPriceHistory.Interval interval) {
+        return remoteSource.getCoinPriceHistory(id, interval);
     }
 
     public boolean isOnline() {

@@ -4,11 +4,15 @@ import androidx.annotation.NonNull;
 
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.domain.model.Coin;
-import com.hxl.local.database.BookmarkDao;
-import com.hxl.local.database.CoinDao;
-import com.hxl.local.model.BookmarkEntity;
-import com.hxl.local.model.CoinEntity;
-import com.hxl.local.model.CoinEntityMapper;
+import com.hxl.domain.model.SearchQuery;
+import com.hxl.local.database.coin.BookmarkDao;
+import com.hxl.local.database.coin.CoinDao;
+import com.hxl.local.database.coin.CoinSearchDao;
+import com.hxl.local.mapper.coin.CoinSearchEntityMapper;
+import com.hxl.local.model.coin.BookmarkEntity;
+import com.hxl.local.model.coin.CoinEntity;
+import com.hxl.local.mapper.coin.CoinEntityMapper;
+import com.hxl.local.model.coin.CoinSearchEntity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,10 +26,12 @@ public class CoinLocalImpl implements CoinLocal {
 
     private final CoinDao coinDao;
     private final BookmarkDao bookmarkDao;
+    private final CoinSearchDao searchHistoryDao;
 
-    public CoinLocalImpl(CoinDao coinDao, BookmarkDao bookmarkDao) {
+    public CoinLocalImpl(CoinDao coinDao, BookmarkDao bookmarkDao, CoinSearchDao searchHistoryDao) {
         this.coinDao = coinDao;
         this.bookmarkDao = bookmarkDao;
+        this.searchHistoryDao = searchHistoryDao;
     }
 
     @Override
@@ -93,6 +99,40 @@ public class CoinLocalImpl implements CoinLocal {
         return bookmarkDao.getBookmarkedCoinIds()
                 .subscribeOn(Schedulers.io())
                 .map(x -> x.stream().map(y -> y.id).collect(Collectors.toList()));
+    }
+
+    @Override
+    public Single<List<SearchQuery>> getCoinSearchHistory() {
+        return searchHistoryDao.getCoinSearchHistory()
+                .subscribeOn(Schedulers.io())
+                .map(x -> x.stream().map(CoinSearchEntityMapper::mapFromEntity).collect(Collectors.toList()));
+    }
+
+    @Override
+    public Completable insertCoinSearchQuery(String query) {
+        return searchHistoryDao.insertCoinSearchQuery(new CoinSearchEntity(query, System.currentTimeMillis()))
+                .subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Completable insertCoinSearchQuery(String... query) {
+        return searchHistoryDao.insertCoinSearchQuery(
+                Arrays.stream(query).map(
+                        x -> new CoinSearchEntity(x, System.currentTimeMillis()))
+                        .toArray(CoinSearchEntity[]::new))
+                .subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Completable deleteCoinSearchQuery(String query) {
+        return searchHistoryDao.deleteCoinSearchQuery(query)
+                .subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Completable deleteCoinSearchHistory() {
+        return searchHistoryDao.deleteCoinSearchHistory()
+                .subscribeOn(Schedulers.io());
     }
 
     @Override

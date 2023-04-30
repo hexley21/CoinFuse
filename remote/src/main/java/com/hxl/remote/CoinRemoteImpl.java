@@ -2,9 +2,9 @@ package com.hxl.remote;
 
 import com.hxl.data.repository.coin.CoinRemote;
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.History;
+import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.remote.api.CoinService;
-import com.hxl.remote.mapper.HistoryDTOMapper;
+import com.hxl.remote.mapper.CoinPriceHistoryDTOMapper;
 import com.hxl.remote.model.CoinDTO;
 import com.hxl.remote.mapper.CoinDTOMapper;
 import com.hxl.remote.model.HistoryDTO;
@@ -61,7 +61,7 @@ public class CoinRemoteImpl implements CoinRemote {
     }
 
     @Override
-    public Single<List<History>> getCoinHistory(String id, History.Interval interval) {
+    public Single<List<CoinPriceHistory>> getCoinPriceHistory(String id, CoinPriceHistory.Interval interval) {
         return coinService.getCoinHistory(id, interval.param)
                 .subscribeOn(Schedulers.io())
                 .map(this::mapHistoryFromDto);
@@ -72,8 +72,8 @@ public class CoinRemoteImpl implements CoinRemote {
                 .map(r -> mapper.mapFromDTO(r, response.timestamp)).collect(Collectors.toList());
     }
 
-    private List<History> mapHistoryFromDto(Response<List<HistoryDTO>> response) {
+    private List<CoinPriceHistory> mapHistoryFromDto(Response<List<HistoryDTO>> response) {
         return response.data.stream()
-                .map(HistoryDTOMapper::mapFromDTO).collect(Collectors.toList());
+                .map(CoinPriceHistoryDTOMapper::mapFromDTO).collect(Collectors.toList());
     }
 }

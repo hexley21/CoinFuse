@@ -11,7 +11,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.History;
+import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.remote.api.CoinService;
 import com.hxl.remote.fake.FakeRemoteDataFactory;
 import com.hxl.remote.model.CoinDTO;
@@ -116,13 +116,13 @@ public class CoinRemoteImplTest {
         Single<Response<List<HistoryDTO>>> response = Single.just(getHistoryResponse(SIZE));
         when(coinService.getCoinHistory(anyString(), anyString())).thenReturn(response);
         // Act
-        Single<List<History>> history = coinSource.getCoinHistory(ID, History.Interval.D1);
+        Single<List<CoinPriceHistory>> history = coinSource.getCoinPriceHistory(ID, CoinPriceHistory.Interval.D1);
         // Assert
         history.test()
                 .awaitCount(1)
                 .assertNoErrors()
                 .assertValue(r -> r.size() == SIZE);
 
-        verify(coinService).getCoinHistory(ID, History.Interval.D1.param);
+        verify(coinService).getCoinHistory(ID, CoinPriceHistory.Interval.D1.param);
     }
 }

@@ -23,6 +23,7 @@
 
     <!-- Coins menu -->
     <string name="hint_search">Search for a coin</string>
+    <string name="search_history">Search history</string>
 
     <!-- Coin Details -->
         <!-- Chips -->

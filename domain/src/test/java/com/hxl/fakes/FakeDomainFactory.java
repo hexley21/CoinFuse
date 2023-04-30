@@ -1,7 +1,8 @@
 package com.hxl.fakes;
 
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.History;
+import com.hxl.domain.model.CoinPriceHistory;
+import com.hxl.domain.model.SearchQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,17 +19,31 @@ public class FakeDomainFactory {
         return fakeCoins;
     }
 
-    public static List<History> getFakeHistory(int size) {
-        List<History> fakeHistory = new ArrayList<>();
+    public static List<CoinPriceHistory> getFakeHistory(int size) {
+        List<CoinPriceHistory> fakeCoinPriceHistory = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            fakeHistory.add(
-                    new History(
+            fakeCoinPriceHistory.add(
+                    new CoinPriceHistory(
                             randomDouble(),
                             randomLong()
                     )
             );
         }
-        return fakeHistory;
+        return fakeCoinPriceHistory;
+    }
+
+    public static List<SearchQuery> getFakeSearchQueries(int size) {
+        List<SearchQuery> fakeSearchQueries = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            fakeSearchQueries.add(
+                    new SearchQuery(
+                            randomName(),
+                            randomLong()
+                    )
+            );
+        }
+
+        return fakeSearchQueries;
     }
 
     public static Coin getCoin(String id) {

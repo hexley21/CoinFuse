@@ -1,10 +1,13 @@
 package com.hxl.cryptonumismatist.ui.fragments.coins.main;
 
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import androidx.activity.OnBackPressedCallback;
@@ -23,7 +26,11 @@ import com.hxl.cryptonumismatist.databinding.FragmentCoinsMenuBinding;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -47,6 +54,8 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
     CoinsMenuAdapter coinsMenuAdapter;
     @Inject
     SearchCoinsAdapter searchCoinsAdapter;
+    @Inject
+    SearchCoinsAdapter searchHistoryCoinsAdapter;
     SwipeRefreshLayout refreshLayout;
     ProgressBar progressBar;
     OnBackPressedCallback callback;
@@ -73,17 +82,27 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
             return null;
         };
         RecyclerView coinsRv = binding.rvCoins;
-        RecyclerView searchRv = binding.rvSearch;
+        RecyclerView searchRv = binding.rvCoinSearch;
+        RecyclerView historyRv = binding.rvCoinHistory;
 
         coinsMenuAdapter.setNavigateToDetails(navigateToDetails);
-        searchCoinsAdapter.setNavigateToDetails(navigateToDetails);
+        searchHistoryCoinsAdapter.setNavigateToDetails(navigateToDetails);
+        searchCoinsAdapter.setNavigateToDetails(bundle -> {
+            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main)
+                    .navigate(R.id.navigationFragment_to_coinDetailsFragment, bundle);
+            insertSearchQuery(bundle.getString(coinArgKey));
+            return null;
+        });
 
         coinsRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         coinsRv.setAdapter(coinsMenuAdapter);
         searchRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         searchRv.setAdapter(searchCoinsAdapter);
+        historyRv.setLayoutManager(new LinearLayoutManager(requireContext()));
+        historyRv.setAdapter(searchHistoryCoinsAdapter);
 
         updateCoins();
+        getSearchHistory();
         pbVisibility = View.GONE;
 
         binding.searchView.getEditText().setOnEditorActionListener((v, actionId, event) -> {
@@ -92,6 +111,13 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
         });
         binding.srlCoins.setOnRefreshListener(this::updateCoins);
 
+        ImageButton searchClearBtn = binding.searchView.findViewById(com.google.android.material.R.id.search_view_clear_button);
+        searchClearBtn.setOnClickListener(l -> {
+            binding.searchView.clearText();
+            binding.searchView.clearFocusAndHideKeyboard();
+            clearSearchRvData();
+        });
+
         binding.searchView.addTransitionListener((searchView, previousState, newState) -> {
             if (newState == SearchView.TransitionState.SHOWING) {
                 requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
@@ -99,6 +125,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
             }
             else if (newState == SearchView.TransitionState.HIDING) {
                 callback.remove();
+                clearSearchRvData();
                 Log.d(TAG, "searchView.addTransitionListener: back callback - removed");
             }
         });
@@ -153,5 +180,46 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
                         },
                         compositeDisposable
                 );
+    }
+
+    private void getSearchHistory() {
+        EspressoIdlingResource.increment();
+        vm.getCoinSearchHistory()
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(h -> {
+                    List<String> queries = h.stream().map(x -> x.query).collect(Collectors.toList());
+                    return vm.getCoins(queries).map(c -> {
+                        c.sort(Comparator.comparingLong(coin -> {
+                            int index = queries.indexOf(coin.id);
+                            return index >= 0 ? -h.get(index).timestamp : Long.MIN_VALUE;
+                        }));
+                        return c;
+                    });
+                })
+                .subscribe(
+                        coins -> {
+                            searchHistoryCoinsAdapter.setList(coins);
+                            EspressoIdlingResource.decrement();
+                        },
+                        e -> {
+                            Log.e(TAG, e.getMessage(), e);
+
+                            EspressoIdlingResource.decrement();
+                        },
+                        compositeDisposable
+                );
+    }
+
+    private void insertSearchQuery(String query) {
+        vm.insertCoinSearchQuery(query)
+                .subscribe(
+                        () -> Log.d(TAG, "insertSearchQuery: was successful"),
+                        e -> Log.e(TAG, "insertSearchQuery: failed", e),
+                        compositeDisposable
+                );
+    }
+
+    private void clearSearchRvData() {
+        searchCoinsAdapter.setList(new ArrayList<>());
     }
 }

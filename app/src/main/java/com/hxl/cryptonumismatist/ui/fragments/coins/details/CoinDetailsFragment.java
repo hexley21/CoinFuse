@@ -1,5 +1,6 @@
 package com.hxl.cryptonumismatist.ui.fragments.coins.details;
 
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatDoubleDetailed;
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatFloat;
 
@@ -22,7 +23,7 @@ import com.hxl.cryptonumismatist.databinding.FragmentCoinDetailsBinding;
 import com.hxl.cryptonumismatist.ui.fragments.coins.details.graph.DateAxisFormatter;
 import com.hxl.cryptonumismatist.ui.fragments.coins.details.graph.LineChartUtil;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
-import com.hxl.domain.model.History;
+import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.presentation.viewmodels.CoinDetailsViewModel;
 
 import java.net.UnknownHostException;
@@ -51,9 +52,8 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
         return new ViewModelProvider(this).get(CoinDetailsViewModel.class);
     }
     private static final String TAG = "CoinDetailsFragment";
-    private static final String coinArg = "coin";
     String coinId;
-    History.Interval chosenInterval = History.Interval.D1;
+    CoinPriceHistory.Interval chosenInterval = CoinPriceHistory.Interval.D1;
 
     @Inject
     RequestManager glide;
@@ -62,7 +62,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         if (getArguments() != null) {
-            coinId = getArguments().getString(coinArg);
+            coinId = getArguments().getString(coinArgKey);
             initChartUtil();
             bind();
         }
@@ -76,31 +76,31 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
             switch (group.getCheckedChipId()) {
                 case (R.id.chip_24h):
                     chartUtil.setValueFormatter(DateAxisFormatter.shortTime);
-                    chosenInterval = History.Interval.D1;
+                    chosenInterval = CoinPriceHistory.Interval.D1;
                     break;
                 case (R.id.chip_7d):
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
-                    chosenInterval = History.Interval.D7;
+                    chosenInterval = CoinPriceHistory.Interval.D7;
                     break;
                 case (R.id.chip_14d):
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
-                    chosenInterval = History.Interval.D14;
+                    chosenInterval = CoinPriceHistory.Interval.D14;
                     break;
                 case (R.id.chip_1m):
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
-                    chosenInterval = History.Interval.M1;
+                    chosenInterval = CoinPriceHistory.Interval.M1;
                     break;
                 case (R.id.chip_2m):
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
-                    chosenInterval = History.Interval.M2;
+                    chosenInterval = CoinPriceHistory.Interval.M2;
                     break;
                 case (R.id.chip_6m):
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
-                    chosenInterval = History.Interval.M6;
+                    chosenInterval = CoinPriceHistory.Interval.M6;
                     break;
                 case (R.id.chip_1y):
                     chartUtil.setValueFormatter(DateAxisFormatter.longTime);
-                    chosenInterval = History.Interval.Y1;
+                    chosenInterval = CoinPriceHistory.Interval.Y1;
                     break;
             }
             setPriceChart();
@@ -213,7 +213,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                                 }
                                 chartUtil.setData(entries);
 
-                                if (chosenInterval == History.Interval.D1) {
+                                if (chosenInterval == CoinPriceHistory.Interval.D1) {
                                     binding.setDayLow(formatFloat(binding.priceGraph.getYChartMin()));
                                     binding.setDayHigh(formatFloat(binding.priceGraph.getYChartMax()));
                                 }
