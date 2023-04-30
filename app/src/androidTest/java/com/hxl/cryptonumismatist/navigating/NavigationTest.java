@@ -11,6 +11,7 @@ import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtP
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -80,7 +81,7 @@ public class NavigationTest {
         onView(withId(R.id.rv_coins)).perform(actionOnItemAtPosition(0, ViewActions.click()));
         assertEquals(rootNavController.getCurrentDestination().getId(), R.id.coinDetailsFragment);
         assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsMenuFragment);
-        assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getString("coin"));
+        assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getString(coinArgKey));
 
 
         // Coin-details goes back to coins-menu fragment
