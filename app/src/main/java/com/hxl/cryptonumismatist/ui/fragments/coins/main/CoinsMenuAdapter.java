@@ -1,5 +1,6 @@
 package com.hxl.cryptonumismatist.ui.fragments.coins.main;
 
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatDouble;
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatFloat;
 
@@ -76,7 +77,7 @@ public class CoinsMenuAdapter extends BaseAdapter<Coin, CoinsMenuAdapter.CoinVie
         super.onBindViewHolder(holder, position);
 
         Bundle bundle = new Bundle();
-        bundle.putString("coin", getList().get(position).id);
+        bundle.putString(coinArgKey, getList().get(position).id);
 
         holder.itemView.setOnClickListener(v -> navigateToDetails.apply(bundle));
         holder.itemView.setOnLongClickListener(v -> false);
