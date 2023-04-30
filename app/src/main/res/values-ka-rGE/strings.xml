@@ -26,5 +26,6 @@
     <string name="tv_volume_24h">მოცულობა (24სთ)</string>
     <string name="tv_24h_low">24სთ უმდაბლესი</string>
     <string name="error_no_data">მონაცემები არ არის</string>
+    <string name="search_history">ძიების ისტორია</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.hxl.cryptonumismatist.ui.fragments.coins.details;
 
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatDoubleDetailed;
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatFloat;
 
@@ -51,7 +52,6 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
         return new ViewModelProvider(this).get(CoinDetailsViewModel.class);
     }
     private static final String TAG = "CoinDetailsFragment";
-    private static final String coinArg = "coin";
     String coinId;
     CoinPriceHistory.Interval chosenInterval = CoinPriceHistory.Interval.D1;
 
@@ -62,7 +62,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         if (getArguments() != null) {
-            coinId = getArguments().getString(coinArg);
+            coinId = getArguments().getString(coinArgKey);
             initChartUtil();
             bind();
         }

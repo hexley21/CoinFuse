@@ -40,7 +40,6 @@ public class DataModule {
     @Singleton
     PreferenceRepository providePreferenceRepository(PreferenceLocal preferenceLocal) {
         return new PreferenceRepositoryImpl(preferenceLocal);
-
     }
     // endregion
 

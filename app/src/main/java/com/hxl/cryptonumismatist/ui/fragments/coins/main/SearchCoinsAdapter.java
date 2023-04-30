@@ -1,5 +1,7 @@
 package com.hxl.cryptonumismatist.ui.fragments.coins.main;
 
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -72,8 +74,9 @@ public class SearchCoinsAdapter extends BaseAdapter<Coin, SearchCoinsAdapter.Sea
         super.onBindViewHolder(holder, position);
 
         Bundle bundle = new Bundle();
-        bundle.putString("coin", getList().get(position).id);
+        bundle.putString(coinArgKey, getList().get(position).id);
 
         holder.itemView.setOnClickListener(v -> navigateToDetails.apply(bundle));
+        holder.itemView.setOnLongClickListener(v -> false);
     }
 }

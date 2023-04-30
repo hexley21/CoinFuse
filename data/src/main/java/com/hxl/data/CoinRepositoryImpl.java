@@ -8,6 +8,7 @@ import com.hxl.domain.model.SearchQuery;
 import com.hxl.domain.repository.CoinRepository;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
@@ -42,11 +43,14 @@ public class CoinRepositoryImpl implements CoinRepository {
 
     @Override
     public Single<List<Coin>> getCoins(List<String> ids) {
-        if (isOnline()) {
-            return remoteSource.getCoins(ids)
-                    .flatMap(x -> saveCoins(x).toSingleDefault(x));
+        if (!ids.isEmpty()) {
+            if (isOnline()) {
+                return remoteSource.getCoins(ids)
+                        .flatMap(x -> saveCoins(x).toSingleDefault(x));
+            }
+            return localSource.getCoins(ids);
         }
-        return localSource.getCoins(ids);
+        return Single.just(new ArrayList<>());
     }
 
     @Override

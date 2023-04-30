@@ -11,6 +11,7 @@ import static androidx.test.espresso.contrib.RecyclerViewActions.scrollToPositio
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.hxl.cryptonumismatist.util.HiltFragmentScenario.launchFragmentInHiltContainer;
 import static org.hamcrest.CoreMatchers.not;
 
@@ -23,17 +24,12 @@ import androidx.test.filters.SmallTest;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.ui.fragments.coins.main.CoinsMenuFragment;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
-import com.hxl.domain.interactors.coins.GetCoins;
-import com.hxl.domain.interactors.coins.SearchCoins;
-import com.hxl.domain.interactors.prefs.SaveWelcome;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.inject.Inject;
 
 import dagger.hilt.android.testing.HiltAndroidRule;
 import dagger.hilt.android.testing.HiltAndroidTest;
@@ -45,13 +41,6 @@ public class CoinsMenuFragmentTest {
 
     @Rule
     public HiltAndroidRule hiltRule = new HiltAndroidRule(this);
-    @Inject
-    public GetCoins getCoins;
-    @Inject
-    public SearchCoins searchCoins;
-    @Inject
-    public SaveWelcome saveWelcome;
-
     @Before
     public void setUp() {
         hiltRule.inject();
@@ -84,8 +73,13 @@ public class CoinsMenuFragmentTest {
                 .perform(typeText("bitcoin"), pressKey(KeyEvent.KEYCODE_ENTER));
 
         // Perform actions on search recycler view
-        onView(withId(R.id.rv_search)).check(matches(isDisplayed()));
-        onView(withId(R.id.rv_search)).perform(scrollToLastPosition());
+        onView(withId(R.id.rv_coin_search)).check(matches(isDisplayed()));
+        onView(withId(R.id.rv_coin_search)).perform(scrollToLastPosition());
+
+        // perform click on SearchView's clear button
+        onView(withId(com.google.android.material.R.id.search_view_clear_button)).perform(click());
+        onView(withId(com.google.android.material.R.id.search_view_edit_text)).check(matches(withText("")));
+        onView(withId(R.id.rv_coin_search)).check(matches(not(isDisplayed())));
 
         // perform click on SearchView's back button
         onView(withContentDescription(com.google.android.material.R.string.searchview_navigation_content_description)).perform(click());

@@ -11,8 +11,9 @@ import androidx.fragment.app.Fragment;
 import com.hxl.cryptonumismatist.databinding.FragmentNavigationBinding;
 
 public class NavigationFragment extends Fragment {
-    FragmentNavigationBinding binding;
 
+    public static final String coinArgKey = "coin";
+    FragmentNavigationBinding binding;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentNavigationBinding.inflate(inflater, container, false);

@@ -22,7 +22,6 @@ import com.hxl.cryptonumismatist.HiltTestActivity;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.ui.fragments.welcome.WelcomeFragment;
 import com.hxl.domain.interactors.prefs.GetWelcome;
-import com.hxl.domain.interactors.prefs.SaveWelcome;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -44,8 +43,6 @@ public class WelcomeFragmentTest {
 
     @Inject
     GetWelcome getWelcome;
-    @Inject
-    SaveWelcome saveWelcome;
 
     TestNavHostController navController;
 
@@ -56,6 +53,7 @@ public class WelcomeFragmentTest {
     }
 
     @Test
+    @SuppressWarnings("ConstantConditions")
     public void fragmentBehavesAsExpected() {
         // Act
         ActivityScenario<HiltTestActivity> scenario = launchFragmentInHiltContainer(WelcomeFragment.class);

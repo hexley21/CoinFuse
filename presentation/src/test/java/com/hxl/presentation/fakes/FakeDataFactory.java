@@ -2,8 +2,11 @@ package com.hxl.presentation.fakes;
 
 import static com.hxl.presentation.fakes.AppTestConstants.*;
 
+import static java.sql.Types.TIMESTAMP;
+
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
+import com.hxl.domain.model.SearchQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +33,19 @@ public class FakeDataFactory {
             );
         }
         return fakeCoinPriceHistory;
+    }
+
+    public static List<SearchQuery> getFakeSearchQueries(int size) {
+        List<SearchQuery> fakeSearchQueries = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            fakeSearchQueries.add(
+                    new SearchQuery(
+                            randomName(),
+                            TIMESTAMP
+                    )
+            );
+        }
+        return fakeSearchQueries;
     }
 
     public static Coin getCoin(String id) {
