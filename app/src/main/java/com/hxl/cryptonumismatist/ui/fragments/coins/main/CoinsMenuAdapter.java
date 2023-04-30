@@ -78,7 +78,8 @@ public class CoinsMenuAdapter extends BaseAdapter<Coin, CoinsMenuAdapter.CoinVie
         Bundle bundle = new Bundle();
         bundle.putString("coin", getList().get(position).id);
 
-        holder.itemView.setOnClickListener( v -> navigateToDetails.apply(bundle));
+        holder.itemView.setOnClickListener(v -> navigateToDetails.apply(bundle));
+        holder.itemView.setOnLongClickListener(v -> false);
     }
 
 }

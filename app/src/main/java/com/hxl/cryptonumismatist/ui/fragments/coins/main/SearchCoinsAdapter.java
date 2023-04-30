@@ -75,5 +75,6 @@ public class SearchCoinsAdapter extends BaseAdapter<Coin, SearchCoinsAdapter.Sea
         bundle.putString("coin", getList().get(position).id);
 
         holder.itemView.setOnClickListener(v -> navigateToDetails.apply(bundle));
+        holder.itemView.setOnLongClickListener(v -> false);
     }
 }
