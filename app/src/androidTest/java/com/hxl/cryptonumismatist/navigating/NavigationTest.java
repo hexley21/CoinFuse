@@ -72,19 +72,19 @@ public class NavigationTest {
         onView(withId(R.id.tv_skip)).perform(ViewActions.click());
         scenarioRule.getScenario().onActivity(activity -> mainNavController = Navigation.findNavController(activity.findViewById(R.id.fragment_main_container)));
         assertEquals(rootNavController.getCurrentDestination().getId(), R.id.navigationFragment);
-        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsFragment);
+        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsMenuFragment);
 
         // coins menu fragment navigates to coin details fragment
         onView(withId(R.id.rv_coins)).perform(actionOnItemAtPosition(0, ViewActions.click()));
         assertEquals(rootNavController.getCurrentDestination().getId(), R.id.coinDetailsFragment);
-        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsFragment);
+        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsMenuFragment);
         assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getString("coin"));
 
 
         // coin details fragment navigates to navigation fragment with coins menu fragment open
         pressBack();
         assertEquals(rootNavController.getCurrentDestination().getId(), R.id.navigationFragment);
-        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsFragment);
+        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsMenuFragment);
 
         // coin menu fragment navigates to coin details fragment through search view also
         onView(withId(R.id.search_bar)).perform(click());
@@ -92,22 +92,22 @@ public class NavigationTest {
 
         onView(withId(com.google.android.material.R.id.search_view_edit_text))
                 .perform(typeText("bitcoin"), pressKey(KeyEvent.KEYCODE_ENTER));
-        onView(withId(R.id.rv_search)).perform(actionOnItemAtPosition(0, ViewActions.click()));
+        onView(withId(R.id.rv_coin_search)).perform(actionOnItemAtPosition(0, ViewActions.click()));
 
         assertEquals(rootNavController.getCurrentDestination().getId(), R.id.coinDetailsFragment);
-        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsFragment);
+        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsMenuFragment);
         assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getString("coin"));
 
         // coin details fragment navigates to navigation fragment with coins menu fragment open
         pressBack();
         assertEquals(rootNavController.getCurrentDestination().getId(), R.id.navigationFragment);
-        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsFragment);
+        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsMenuFragment);
 
         // coins menu fragment closes searchView on back navigation
         onView(withId(R.id.search_view)).check(matches(isDisplayed()));
         pressBack();
         assertEquals(rootNavController.getCurrentDestination().getId(), R.id.navigationFragment);
-        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsFragment);
+        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsMenuFragment);
 
         // navigation fragment closes app on back press and invokes activity recreation
         pressBackUnconditionally();

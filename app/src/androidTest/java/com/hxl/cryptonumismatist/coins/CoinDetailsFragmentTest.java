@@ -22,7 +22,6 @@ import com.hxl.cryptonumismatist.ui.fragments.coins.details.CoinDetailsFragment;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.data.PreferenceRepositoryImpl;
 import com.hxl.data.repository.pref.PreferenceLocal;
-import com.hxl.domain.interactors.coins.GetCoin;
 import com.hxl.domain.repository.CoinRepository;
 import com.hxl.domain.repository.PreferenceRepository;
 import com.hxl.local.PreferenceLocalImpl;
@@ -33,7 +32,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -78,10 +76,6 @@ public class CoinDetailsFragmentTest {
 
     @Rule
     public HiltAndroidRule hiltRule = new HiltAndroidRule(this);
-
-    @Inject
-    public GetCoin getCoin;
-
 
     @Before
     public void setUp() {
