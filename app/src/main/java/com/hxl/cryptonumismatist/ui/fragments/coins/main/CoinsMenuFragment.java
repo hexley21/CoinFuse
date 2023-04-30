@@ -1,5 +1,7 @@
 package com.hxl.cryptonumismatist.ui.fragments.coins.main;
 
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -88,7 +90,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
         searchCoinsAdapter.setNavigateToDetails(bundle -> {
             Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main)
                     .navigate(R.id.navigationFragment_to_coinDetailsFragment, bundle);
-            insertSearchQuery(bundle.getString("coin"));
+            insertSearchQuery(bundle.getString(coinArgKey));
             return null;
         });
 
