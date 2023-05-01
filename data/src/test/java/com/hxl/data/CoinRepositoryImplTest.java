@@ -4,6 +4,7 @@ import static com.hxl.data.fakes.DataTestConstants.ID;
 import static com.hxl.data.fakes.DataTestConstants.LIMIT;
 import static com.hxl.data.fakes.DataTestConstants.OFFSET;
 import static com.hxl.data.fakes.DataTestConstants.SIZE;
+import static com.hxl.data.fakes.DataTestConstants.TIMESTAMP;
 import static com.hxl.data.fakes.FakeDataFactory.getCoin;
 import static com.hxl.data.fakes.FakeDataFactory.getFakeCoins;
 import static com.hxl.data.fakes.FakeDataFactory.getFakePriceHistory;
@@ -345,8 +346,8 @@ public class CoinRepositoryImplTest {
     @Test
     public void testGetBookmarkedCoinsReturnsListFromRemoteSource() {
         // Arrange
-        List<String> ids = new ArrayList<>();
-        ids.add(ID);
+        List<ValueAndTimestamp<String>> ids = new ArrayList<>();
+        ids.add(new ValueAndTimestamp<>(ID, TIMESTAMP));
         when(remoteSource.getCoins(anyList())).thenReturn(Single.just(getFakeCoins(SIZE)));
         when(repository.saveCoins(anyList())).thenReturn(Completable.complete());
         when(localSource.getBookmarkedCoinIds()).thenReturn(Single.just(ids));

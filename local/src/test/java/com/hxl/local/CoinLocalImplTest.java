@@ -278,7 +278,7 @@ public class CoinLocalImplTest {
         List<CoinEntity> coinEntities = getFakeData(KEYS);
         // Act
         Completable saveCoins = coinDao.addCoin(coinEntities.toArray(new CoinEntity[0]));
-        Single<List<String>> getBookmarkedCoinIds = coinSource.getBookmarkedCoinIds();
+        Single<List<ValueAndTimestamp<String>>> getBookmarkedCoinIds = coinSource.getBookmarkedCoinIds();
         // Assert
         saveCoins.test().assertNoErrors();
 
@@ -294,7 +294,7 @@ public class CoinLocalImplTest {
                 .assertNoErrors()
                 .assertValue(d -> {
                     for (int i = 0; i < IDS_LENGTH; i++) {
-                        if (!d.get(i).equals(IDS.get(IDS_LENGTH-i-1))) {
+                        if (!d.get(i).value.equals(IDS.get(IDS_LENGTH-i-1))) {
                             return false;
                         }
                     }

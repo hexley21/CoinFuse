@@ -22,7 +22,7 @@ public interface CoinLocal {
     Completable unBookmarkCoin(String id);
     Single<Boolean> isCoinBookmarked(String id);
     Single<List<Coin>> getBookmarkedCoins();
-    Single<List<String>> getBookmarkedCoinIds();
+    Single<List<ValueAndTimestamp<String>>> getBookmarkedCoinIds();
     Single<List<ValueAndTimestamp<String>>> getCoinSearchHistory();
     Completable insertCoinSearchQuery(String query);
     Completable insertCoinSearchQuery(String... query);

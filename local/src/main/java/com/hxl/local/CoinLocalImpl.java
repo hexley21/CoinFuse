@@ -8,6 +8,7 @@ import com.hxl.domain.model.ValueAndTimestamp;
 import com.hxl.local.database.coin.BookmarkDao;
 import com.hxl.local.database.coin.CoinDao;
 import com.hxl.local.database.coin.CoinSearchDao;
+import com.hxl.local.mapper.coin.BookmarkEntityMapper;
 import com.hxl.local.mapper.coin.CoinSearchEntityMapper;
 import com.hxl.local.model.coin.BookmarkEntity;
 import com.hxl.local.model.coin.CoinEntity;
@@ -95,10 +96,10 @@ public class CoinLocalImpl implements CoinLocal {
     }
 
     @Override
-    public Single<List<String>> getBookmarkedCoinIds() {
+    public Single<List<ValueAndTimestamp<String>>> getBookmarkedCoinIds() {
         return bookmarkDao.getBookmarkedCoinIds()
                 .subscribeOn(Schedulers.io())
-                .map(x -> x.stream().map(y -> y.myValue).collect(Collectors.toList()));
+                .map(x -> x.stream().map(BookmarkEntityMapper::mapFromEntity).collect(Collectors.toList()));
     }
 
     @Override

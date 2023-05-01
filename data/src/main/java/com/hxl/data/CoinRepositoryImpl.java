@@ -10,6 +10,7 @@ import com.hxl.domain.repository.CoinRepository;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
@@ -104,7 +105,9 @@ public class CoinRepositoryImpl implements CoinRepository {
                         if (b.isEmpty()) {
                             return Single.just(new ArrayList<Coin>());
                         }
-                        return remoteSource.getCoins(b);
+
+                        List<String> ids = b.stream().map(x -> x.value).collect(Collectors.toList());
+                        return remoteSource.getCoins(ids);
                     })
                     .flatMap(x -> saveCoins(x).toSingleDefault(x));
         }
