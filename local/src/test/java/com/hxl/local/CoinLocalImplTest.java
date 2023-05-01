@@ -7,7 +7,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.SearchQuery;
+import com.hxl.domain.model.ValueAndTimestamp;
 import com.hxl.local.database.coin.BookmarkDao;
 import com.hxl.local.database.coin.CoinDao;
 import com.hxl.local.database.AppDatabase;
@@ -343,7 +343,7 @@ public class CoinLocalImplTest {
         CoinSearchEntity[] searchEntities = getFakeCoinSearchEntity(KEYS).toArray(new CoinSearchEntity[0]);
         // Act
         Completable insertSearch = coinSearchDao.insertCoinSearchQuery(searchEntities);
-        Single<List<SearchQuery>> searchQuery = coinSource.getCoinSearchHistory();
+        Single<List<ValueAndTimestamp<String>>> searchQuery = coinSource.getCoinSearchHistory();
         // Assert
         insertSearch.test()
                 .awaitCount(1)
@@ -354,7 +354,7 @@ public class CoinLocalImplTest {
                 .assertNoErrors()
                 .assertValue(x -> {
                     for (int i = 0; i < SIZE; i++) {
-                        if (!x.get(i).query.equals(searchEntities[i].query)){
+                        if (!x.get(i).value.equals(searchEntities[i].query)){
                             return false;
                         }
                     }

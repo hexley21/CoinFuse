@@ -8,7 +8,7 @@ import static com.hxl.fakes.FakeDomainFactory.getFakeSearchQueries;
 import static com.hxl.fakes.DomainTestConstants.SIZE;
 
 import com.hxl.domain.interactors.coins.GetCoinSearchHistory;
-import com.hxl.domain.model.SearchQuery;
+import com.hxl.domain.model.ValueAndTimestamp;
 import com.hxl.domain.repository.CoinRepository;
 
 import org.junit.Test;
@@ -33,10 +33,10 @@ public class GetCoinSearchHistoryTest {
     @Test
     public void invokeReturnsSearchQueryListFromRepository() {
         // Arrange
-        List<SearchQuery> fakeSearchQueries = getFakeSearchQueries(SIZE);
+        List<ValueAndTimestamp<String>> fakeSearchQueries = getFakeSearchQueries(SIZE);
         when(repository.getCoinSearchHistory()).thenReturn(Single.just(fakeSearchQueries));
         // Act
-        Single<List<SearchQuery>> searchQueries = interactor.invoke();
+        Single<List<ValueAndTimestamp<String>>> searchQueries = interactor.invoke();
         // Assert
         searchQueries.test()
                 .awaitCount(1)

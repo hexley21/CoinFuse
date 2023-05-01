@@ -12,7 +12,7 @@ import com.hxl.domain.interactors.coins.GetCoins;
 import com.hxl.domain.interactors.coins.InsertCoinSearchQuery;
 import com.hxl.domain.interactors.coins.SearchCoins;
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.SearchQuery;
+import com.hxl.domain.model.ValueAndTimestamp;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -75,10 +75,10 @@ public class CoinsMenuViewModelTest {
     @Test
     public void getCoinSearchHistoryReturnsSearchQueryFromRepository() {
         // Arrange
-        List<SearchQuery> searchQueries = getFakeSearchQueries(SIZE);
+        List<ValueAndTimestamp<String>> searchQueries = getFakeSearchQueries(SIZE);
         when(getCoinSearchHistory.invoke()).thenReturn(Single.just(searchQueries));
         // Act
-        Single<List<SearchQuery>> viewModelCoins = viewModel.getCoinSearchHistory();
+        Single<List<ValueAndTimestamp<String>>> viewModelCoins = viewModel.getCoinSearchHistory();
         // Assert
         viewModelCoins.test()
                 .awaitCount(1)

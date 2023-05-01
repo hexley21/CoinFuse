@@ -3,7 +3,7 @@ package com.hxl.local.fake;
 import static com.hxl.local.fake.LocalTestConstants.*;
 
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.SearchQuery;
+import com.hxl.domain.model.ValueAndTimestamp;
 import com.hxl.local.model.coin.CoinEntity;
 import com.hxl.local.model.coin.CoinSearchEntity;
 
@@ -81,8 +81,8 @@ public class FakeLocalDataFactory {
         );
     }
 
-    public static SearchQuery getSearchQuery(String query) {
-        return new SearchQuery(
+    public static ValueAndTimestamp<String> getSearchQuery(String query) {
+        return new ValueAndTimestamp<>(
                 query,
                 TIMESTAMP
         );

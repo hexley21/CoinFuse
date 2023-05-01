@@ -22,7 +22,7 @@ import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
-import com.hxl.domain.model.SearchQuery;
+import com.hxl.domain.model.ValueAndTimestamp;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -402,7 +402,7 @@ public class CoinRepositoryImplTest {
         // Arrange
         when(localSource.getCoinSearchHistory()).thenReturn(Single.just(getFakeSearchQueries(SIZE)));
         // Act
-        Single<List<SearchQuery>> searchQueries = repository.getCoinSearchHistory();
+        Single<List<ValueAndTimestamp<String>>> searchQueries = repository.getCoinSearchHistory();
         // Assert
         searchQueries.test()
                 .awaitCount(1)

@@ -6,7 +6,7 @@ import static com.hxl.cryptonumismatist.conf.fake.FakeDataFactory.getFakeHistory
 
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
-import com.hxl.domain.model.SearchQuery;
+import com.hxl.domain.model.ValueAndTimestamp;
 import com.hxl.domain.repository.CoinRepository;
 
 import java.util.List;
@@ -72,7 +72,7 @@ public class FakeCoinRepository implements CoinRepository {
     }
 
     @Override
-    public Single<List<SearchQuery>> getCoinSearchHistory() {
+    public Single<List<ValueAndTimestamp<String>>> getCoinSearchHistory() {
         return null;
     }
 

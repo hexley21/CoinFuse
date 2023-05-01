@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.SearchQuery;
+import com.hxl.domain.model.ValueAndTimestamp;
 import com.hxl.local.database.coin.BookmarkDao;
 import com.hxl.local.database.coin.CoinDao;
 import com.hxl.local.database.coin.CoinSearchDao;
@@ -102,7 +102,7 @@ public class CoinLocalImpl implements CoinLocal {
     }
 
     @Override
-    public Single<List<SearchQuery>> getCoinSearchHistory() {
+    public Single<List<ValueAndTimestamp<String>>> getCoinSearchHistory() {
         return searchHistoryDao.getCoinSearchHistory()
                 .subscribeOn(Schedulers.io())
                 .map(x -> x.stream().map(CoinSearchEntityMapper::mapFromEntity).collect(Collectors.toList()));
