@@ -44,6 +44,13 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
     @Inject
     CoinsMenuAdapter bookmarkCoinsAdapter;
 
+    private int pbVisibility = View.VISIBLE;
+
+    @Override
+    protected void onCreateView(Bundle savedInstanceState) {
+        binding.pbBookmarkCoins.setVisibility(pbVisibility);
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -58,7 +65,8 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
         });
 
         fetchBookmarkedCoins();
-
+        pbVisibility = View.GONE;
+        binding.srlBookmarkCoins.setOnRefreshListener(this::fetchBookmarkedCoins);
     }
 
     private void fetchBookmarkedCoins() {
@@ -67,12 +75,17 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coins -> {
+                            binding.pbBookmarkCoins.setVisibility(View.GONE);
+                            binding.srlBookmarkCoins.setRefreshing(false);
                             bookmarkCoinsAdapter.setList(coins);
 
                             Log.d(TAG, "fetchBookmarkedCoins: success");
                             EspressoIdlingResource.decrement();
                         },
                         e -> {
+                            binding.pbBookmarkCoins.setVisibility(View.GONE);
+                            binding.srlBookmarkCoins.setRefreshing(false);
+
                             Log.e(TAG, "fetchBookmarkedCoins: failed", e);
                             EspressoIdlingResource.decrement();
                         },
