@@ -6,6 +6,7 @@ import com.hxl.domain.interactors.coins.GetBookmarkedCoins;
 import com.hxl.domain.interactors.coins.UnBookmarkCoin;
 import com.hxl.domain.model.Coin;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,7 +22,11 @@ public class BookmarksViewModel extends ViewModel {
     private final UnBookmarkCoin unBookmarkCoin;
 
     public Single<List<Coin>> bookmarkedCoins() {
-        return getBookmarkedCoins.invoke();
+        return getBookmarkedCoins.invoke()
+                .map(x -> {
+                    x.sort(Comparator.comparingLong(c -> -c.timestamp));
+                    return x;
+                });
     }
 
     public Completable unBookmarkCoin(String id) {

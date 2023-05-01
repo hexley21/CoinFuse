@@ -103,13 +103,19 @@ public class CoinRepositoryImpl implements CoinRepository {
             return localSource.getBookmarkedCoinIds()
                     .flatMap(b -> {
                         if (b.isEmpty()) {
-                            return Single.just(new ArrayList<Coin>());
+                            return Single.just(new ArrayList<>());
                         }
 
                         List<String> ids = b.stream().map(x -> x.value).collect(Collectors.toList());
-                        return remoteSource.getCoins(ids);
-                    })
-                    .flatMap(x -> saveCoins(x).toSingleDefault(x));
+                        return remoteSource.getCoins(ids)
+                                .flatMap(x -> saveCoins(x).toSingleDefault(x))
+                                .map(x -> {
+                                    for (Coin c : x) {
+                                        c.timestamp = b.get(ids.indexOf(c.id)).timestamp;
+                                    }
+                                    return x;
+                                });
+                    });
         }
         return localSource.getBookmarkedCoins();
     }
