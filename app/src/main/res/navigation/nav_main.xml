@@ -9,4 +9,10 @@
         android:name="com.hxl.cryptonumismatist.ui.fragments.coins.main.CoinsMenuFragment"
         android:label="fragment_coins_menu"
         tools:layout="@layout/fragment_coins_menu" />
+
+    <fragment
+        android:id="@+id/bookmarksFragment"
+        android:name="com.hxl.cryptonumismatist.ui.fragments.bookmarks.BookmarksFragment"
+        android:label="fragment_bookmarks"
+        tools:layout="@layout/fragment_bookmarks" />
 </navigation>
