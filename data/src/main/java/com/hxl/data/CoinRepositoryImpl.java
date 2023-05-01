@@ -100,7 +100,12 @@ public class CoinRepositoryImpl implements CoinRepository {
     public Single<List<Coin>> getBookmarkedCoins() {
         if (isOnline()) {
             return localSource.getBookmarkedCoinIds()
-                    .flatMap(remoteSource::getCoins)
+                    .flatMap(b -> {
+                        if (b.isEmpty()) {
+                            return Single.just(new ArrayList<Coin>());
+                        }
+                        return remoteSource.getCoins(b);
+                    })
                     .flatMap(x -> saveCoins(x).toSingleDefault(x));
         }
         return localSource.getBookmarkedCoins();
