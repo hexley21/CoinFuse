@@ -24,17 +24,17 @@ public class SortCoin {
             case PRICE_DESC:
                 return comparingDouble(c -> -c.priceUsd);
             case MARKET_ASC:
-                return comparingDouble(c -> c.marketCapUsd);
+                return comparingDouble(c -> c.marketCapUsd == null ? Double.MIN_VALUE : c.marketCapUsd);
             case MARKET_DESC:
-                return comparingDouble(c -> -c.marketCapUsd);
+                return comparingDouble(c -> c.marketCapUsd == null ? Double.MAX_VALUE : -c.marketCapUsd);
             case VOLUME_ASC:
-                return comparingDouble(c -> c.volumeUsd24Hr);
+                return comparingDouble(c -> c.volumeUsd24Hr == null ? Double.MIN_VALUE : c.volumeUsd24Hr);
             case VOLUME_DESC:
-                return comparingDouble(c -> -c.volumeUsd24Hr);
+                return comparingDouble(c -> c.volumeUsd24Hr == null ? Double.MAX_VALUE : -c.volumeUsd24Hr);
             case CHANGE_ASC:
-                return comparingDouble(c -> c.changePercent24Hr);
+                return comparingDouble(c -> c.changePercent24Hr == null ? Double.MIN_VALUE : c.changePercent24Hr);
             case CHANGE_DESC:
-                return comparingDouble(c -> -c.changePercent24Hr);
+                return comparingDouble(c -> c.changePercent24Hr == null ? Integer.MAX_VALUE : -c.changePercent24Hr);
             case TIMESTAMP_ASC:
                 return comparingLong(c -> c.timestamp);
             case TIMESTAMP_DESC:
