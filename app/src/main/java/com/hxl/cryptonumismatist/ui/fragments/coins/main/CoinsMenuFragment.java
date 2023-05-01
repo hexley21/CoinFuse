@@ -187,7 +187,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
         vm.getCoinSearchHistory()
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(h -> {
-                    List<String> queries = h.stream().map(x -> x.query).collect(Collectors.toList());
+                    List<String> queries = h.stream().map(x -> x.value).collect(Collectors.toList());
                     return vm.getCoins(queries).map(c -> {
                         c.sort(Comparator.comparingLong(coin -> {
                             int index = queries.indexOf(coin.id);

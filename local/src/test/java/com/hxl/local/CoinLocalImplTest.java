@@ -215,7 +215,7 @@ public class CoinLocalImplTest {
         getBookmarkedCoin.test()
                 .awaitCount(1)
                 .assertNoErrors()
-                .assertValue(d -> d.get(0).id.equals(ID));
+                .assertValue(d -> d.get(0).myValue.equals(ID));
     }
 
     @Test
@@ -354,7 +354,7 @@ public class CoinLocalImplTest {
                 .assertNoErrors()
                 .assertValue(x -> {
                     for (int i = 0; i < SIZE; i++) {
-                        if (!x.get(i).value.equals(searchEntities[i].query)){
+                        if (!x.get(i).value.equals(searchEntities[i].myValue)){
                             return false;
                         }
                     }
@@ -375,7 +375,7 @@ public class CoinLocalImplTest {
         searchEntities.test()
                 .awaitCount(1)
                 .assertNoErrors()
-                .assertValue(x -> x.get(0).query.equals(ID));
+                .assertValue(x -> x.get(0).myValue.equals(ID));
     }
 
     @Test
@@ -393,7 +393,7 @@ public class CoinLocalImplTest {
                 .assertNoErrors()
                 .assertValue(x -> {
                     for (int i = 0; i < SIZE; i++) {
-                        if (!x.get(i).query.equals(KEYS[i])){
+                        if (!x.get(i).myValue.equals(KEYS[i])){
                             return false;
                         }
                     }
@@ -419,7 +419,7 @@ public class CoinLocalImplTest {
                 .assertNoErrors()
                 .assertValue(x -> {
                     for (int i = 0; i < SIZE; i++) {
-                        if (!x.get(i).query.equals(fakeSearchEntities[i].query)){
+                        if (!x.get(i).myValue.equals(fakeSearchEntities[i].myValue)){
                             return false;
                         }
                     }
@@ -453,7 +453,7 @@ public class CoinLocalImplTest {
                 .assertNoErrors()
                 .assertValue(x -> {
                     for (int i = 0; i < SIZE; i++) {
-                        if (!x.get(i).query.equals(fakeSearchEntities[i].query)){
+                        if (!x.get(i).myValue.equals(fakeSearchEntities[i].myValue)){
                             return false;
                         }
                     }
@@ -468,7 +468,7 @@ public class CoinLocalImplTest {
                 .assertNoErrors()
                 .assertValue(x -> {
                     for (int i = 0; i < SIZE; i++) {
-                        if (x.get(i).query.equals(ID)){
+                        if (x.get(i).myValue.equals(ID)){
                             return false;
                         }
                     }

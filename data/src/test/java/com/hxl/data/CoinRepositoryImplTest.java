@@ -345,6 +345,27 @@ public class CoinRepositoryImplTest {
     @Test
     public void testGetBookmarkedCoinsReturnsListFromRemoteSource() {
         // Arrange
+        List<String> ids = new ArrayList<>();
+        ids.add(ID);
+        when(remoteSource.getCoins(anyList())).thenReturn(Single.just(getFakeCoins(SIZE)));
+        when(repository.saveCoins(anyList())).thenReturn(Completable.complete());
+        when(localSource.getBookmarkedCoinIds()).thenReturn(Single.just(ids));
+        when(repository.isOnline()).thenReturn(true);
+        // Act
+        Single<List<Coin>> bookmarkedCoins = repository.getBookmarkedCoins();
+        // Assert
+        bookmarkedCoins.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.size() == SIZE);
+        verify(remoteSource, times(1)).getCoins(anyList());
+        verify(localSource, never()).getBookmarkedCoins();
+        verify(repository, times(1)).getBookmarkedCoins();
+    }
+
+    @Test
+    public void testGetBookmarkedCoinsReturnsEmptyListOnEmptyIds() {
+        // Arrange
         when(remoteSource.getCoins(anyList())).thenReturn(Single.just(getFakeCoins(SIZE)));
         when(repository.saveCoins(anyList())).thenReturn(Completable.complete());
         when(localSource.getBookmarkedCoinIds()).thenReturn(Single.just(new ArrayList<>()));
@@ -355,8 +376,8 @@ public class CoinRepositoryImplTest {
         bookmarkedCoins.test()
                 .awaitCount(1)
                 .assertNoErrors()
-                .assertValue(x -> x.size() == SIZE);
-        verify(remoteSource, times(1)).getCoins(anyList());
+                .assertValue(List::isEmpty);
+        verify(remoteSource, never()).getCoins(anyList());
         verify(localSource, never()).getBookmarkedCoins();
         verify(repository, times(1)).getBookmarkedCoins();
     }

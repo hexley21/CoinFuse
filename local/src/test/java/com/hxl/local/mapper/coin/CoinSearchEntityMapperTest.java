@@ -37,7 +37,7 @@ public class CoinSearchEntityMapperTest {
         // Act
         CoinSearchEntity result = CoinSearchEntityMapper.mapToEntity(searchQuery);
         // Assert
-        assertEquals(coinSearchEntity.query, result.query);
+        assertEquals(coinSearchEntity.myValue, result.myValue);
         assertEquals(coinSearchEntity.timestamp, result.timestamp);
     }
 }

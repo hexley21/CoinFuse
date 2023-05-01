@@ -98,7 +98,7 @@ public class CoinLocalImpl implements CoinLocal {
     public Single<List<String>> getBookmarkedCoinIds() {
         return bookmarkDao.getBookmarkedCoinIds()
                 .subscribeOn(Schedulers.io())
-                .map(x -> x.stream().map(y -> y.id).collect(Collectors.toList()));
+                .map(x -> x.stream().map(y -> y.myValue).collect(Collectors.toList()));
     }
 
     @Override

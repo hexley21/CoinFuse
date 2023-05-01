@@ -8,7 +8,7 @@ import com.hxl.local.model.coin.CoinSearchEntity;
 public class CoinSearchEntityMapper {
 
     public static ValueAndTimestamp<String> mapFromEntity(@NonNull CoinSearchEntity coinSearchHistory) {
-        return new ValueAndTimestamp<>(coinSearchHistory.query, coinSearchHistory.timestamp);
+        return new ValueAndTimestamp<>(coinSearchHistory.myValue, coinSearchHistory.timestamp);
     }
 
     public static CoinSearchEntity mapToEntity(@NonNull ValueAndTimestamp<String> searchQuery){
