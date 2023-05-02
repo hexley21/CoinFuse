@@ -94,6 +94,12 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
             return null;
         });
 
+        coinsMenuAdapter.setOnLongClick(bundle -> {
+            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main)
+                    .navigate(R.id.action_navigationFragment_to_dialog_coin, bundle);
+            return null;
+        });
+
         coinsRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         coinsRv.setAdapter(coinsMenuAdapter);
         searchRv.setLayoutManager(new LinearLayoutManager(requireContext()));

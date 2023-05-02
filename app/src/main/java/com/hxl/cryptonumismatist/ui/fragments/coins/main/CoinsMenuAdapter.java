@@ -1,6 +1,7 @@
 package com.hxl.cryptonumismatist.ui.fragments.coins.main;
 
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.explorerArgKey;
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatDouble;
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatFloat;
 
@@ -25,6 +26,7 @@ import javax.inject.Inject;
 public class CoinsMenuAdapter extends BaseAdapter<Coin, CoinsMenuAdapter.CoinViewHolder> {
     private final RequestManager glide;
     protected Function<Bundle, Void> navigateToDetails;
+    protected Function<Bundle, Void> onLongClick;
 
     @Inject
     public CoinsMenuAdapter(RequestManager glide) {
@@ -45,6 +47,10 @@ public class CoinsMenuAdapter extends BaseAdapter<Coin, CoinsMenuAdapter.CoinVie
 
     public void setNavigateToDetails(Function<Bundle, Void> navigateToDetails) {
         this.navigateToDetails = navigateToDetails;
+    }
+
+    public void setOnLongClick(Function<Bundle, Void> onLongClick) {
+        this.onLongClick = onLongClick;
     }
 
     @Override
@@ -80,7 +86,11 @@ public class CoinsMenuAdapter extends BaseAdapter<Coin, CoinsMenuAdapter.CoinVie
         bundle.putString(coinArgKey, getList().get(position).id);
 
         holder.itemView.setOnClickListener(v -> navigateToDetails.apply(bundle));
-        holder.itemView.setOnLongClickListener(v -> false);
+        holder.itemView.setOnLongClickListener(v -> {
+            bundle.putString(explorerArgKey, getList().get(position).explorer);
+            onLongClick.apply(bundle);
+            return true;
+        });
     }
 
 }
