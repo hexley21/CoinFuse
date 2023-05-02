@@ -43,6 +43,10 @@
     <string name="error_no_internet">No internet connection</string>
     <string name="error_no_data">No data available</string>
 
+    <!-- Coin Dialog -->
+    <string name="remove_from_bookmarks">Remove from bookmarks</string>
+    <string name="add_to_bookmarks">Add to bookmarks</string>
+    <string name="visit_explorer">Visit Explorer</string>
 
     <!-- General -->
     <string name="arrow_up" translatable="false">▴</string>
