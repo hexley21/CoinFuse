@@ -45,6 +45,5 @@ public class BookmarksViewModel extends ViewModel {
     public BookmarksViewModel(GetBookmarkedCoins getBookmarkedCoins, UnBookmarkCoin unBookmarkCoin) {
         this.getBookmarkedCoins = getBookmarkedCoins;
         this.unBookmarkCoin = unBookmarkCoin;
-
     }
 }
