@@ -2,11 +2,14 @@ package com.hxl.cryptonumismatist.ui.dialogs.coins;
 
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.hxl.cryptonumismatist.R;
@@ -40,6 +43,10 @@ public class CoinDialog extends BaseDialog<DialogCoinBinding, CoinDialogViewMode
         initBookmark(coinId);
     }
 
+    private void setDrawableCompat(TextView textView, int drawableId) {
+        Drawable drawable = ContextCompat.getDrawable(requireContext(), drawableId);
+        textView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+    }
 
     private void initBookmark(String coinId) {
         EspressoIdlingResource.increment();
@@ -48,6 +55,7 @@ public class CoinDialog extends BaseDialog<DialogCoinBinding, CoinDialogViewMode
                 .subscribe(
                         b -> {
                             if (b) {
+                                setDrawableCompat(binding.dialogCoinBookmark, R.drawable.bookmark_filled);
                                 binding.dialogCoinBookmark.setText(getResources().getString(R.string.remove_from_bookmarks));
                             }
                             else {
@@ -72,10 +80,12 @@ public class CoinDialog extends BaseDialog<DialogCoinBinding, CoinDialogViewMode
                 .subscribe(
                         b -> {
                             if (b) {
+                                setDrawableCompat(binding.dialogCoinBookmark, R.drawable.bookmark_outlined);
                                 binding.dialogCoinBookmark.setText(getResources().getString(R.string.add_to_bookmarks));
                                 vm.unBookmarkCoin(coinId).subscribe();
                             }
                             else {
+                                setDrawableCompat(binding.dialogCoinBookmark, R.drawable.bookmark_filled);
                                 binding.dialogCoinBookmark.setText(getResources().getString(R.string.remove_from_bookmarks));
                                 vm.bookmarkCoin(coinId).subscribe();
                             }
