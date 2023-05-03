@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -58,11 +59,9 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
         RecyclerView rvBookmarkCoins = binding.rvBookmarkCoins;
         rvBookmarkCoins.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvBookmarkCoins.setAdapter(bookmarkCoinsAdapter);
-        bookmarkCoinsAdapter.setNavigateToDetails(bundle -> {
-            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main)
-                    .navigate(R.id.navigationFragment_to_coinDetailsFragment, bundle);
-            return null;
-        });
+        NavController navController =
+                Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
+        bookmarkCoinsAdapter.setNavController(navController);
 
         fetchBookmarkedCoins();
         pbVisibility = View.GONE;
