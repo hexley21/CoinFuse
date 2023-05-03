@@ -348,7 +348,11 @@ public class CoinRepositoryImplTest {
         // Arrange
         List<ValueAndTimestamp<String>> ids = new ArrayList<>();
         ids.add(new ValueAndTimestamp<>(ID, TIMESTAMP));
-        when(remoteSource.getCoins(anyList())).thenReturn(Single.just(getFakeCoins(SIZE)));
+
+        List<Coin> coinList = new ArrayList<>();
+        coinList.add(getCoin(ID));
+
+        when(remoteSource.getCoins(anyList())).thenReturn(Single.just(coinList));
         when(repository.saveCoins(anyList())).thenReturn(Completable.complete());
         when(localSource.getBookmarkedCoinIds()).thenReturn(Single.just(ids));
         when(repository.isOnline()).thenReturn(true);
@@ -358,7 +362,7 @@ public class CoinRepositoryImplTest {
         bookmarkedCoins.test()
                 .awaitCount(1)
                 .assertNoErrors()
-                .assertValue(x -> x.size() == SIZE);
+                .assertValue(x -> x.size() == ids.size());
         verify(remoteSource, times(1)).getCoins(anyList());
         verify(localSource, never()).getBookmarkedCoins();
         verify(repository, times(1)).getBookmarkedCoins();
@@ -367,8 +371,6 @@ public class CoinRepositoryImplTest {
     @Test
     public void testGetBookmarkedCoinsReturnsEmptyListOnEmptyIds() {
         // Arrange
-        when(remoteSource.getCoins(anyList())).thenReturn(Single.just(getFakeCoins(SIZE)));
-        when(repository.saveCoins(anyList())).thenReturn(Completable.complete());
         when(localSource.getBookmarkedCoinIds()).thenReturn(Single.just(new ArrayList<>()));
         when(repository.isOnline()).thenReturn(true);
         // Act
