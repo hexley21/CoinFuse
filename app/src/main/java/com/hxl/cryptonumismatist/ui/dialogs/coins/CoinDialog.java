@@ -1,11 +1,15 @@
 package com.hxl.cryptonumismatist.ui.dialogs.coins;
 
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.explorerArgKey;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -40,12 +44,25 @@ public class CoinDialog extends BaseDialog<DialogCoinBinding, CoinDialogViewMode
     protected void onCreateView(Bundle savedInstanceState) {
         assert getArguments() != null;
         String coinId = getArguments().getString(coinArgKey);
+        String explorerUrl = getArguments().getString(explorerArgKey);
         initBookmark(coinId);
+        initExplorer(explorerUrl);
     }
 
     private void setDrawableCompat(TextView textView, int drawableId) {
         Drawable drawable = ContextCompat.getDrawable(requireContext(), drawableId);
         textView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+    }
+
+    private void initExplorer(String explorerUrl) {
+        if (explorerUrl == null || explorerUrl.isEmpty()) {
+            binding.dialogCoinExplorer.setVisibility(View.GONE);
+        }
+        else {
+            binding.dialogCoinExplorer.setOnClickListener(v ->
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(explorerUrl)))
+            );
+        }
     }
 
     private void initBookmark(String coinId) {

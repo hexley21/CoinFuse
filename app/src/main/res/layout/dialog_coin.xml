@@ -27,7 +27,7 @@
                 tools:text="Add to bookmarks" />
 
             <TextView
-                android:id="@+id/coin_dialog_explorer"
+                android:id="@+id/dialog_coin_explorer"
                 style="@style/CN_DialogItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
