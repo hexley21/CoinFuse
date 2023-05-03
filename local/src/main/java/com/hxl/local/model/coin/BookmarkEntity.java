@@ -1,25 +1,15 @@
 package com.hxl.local.model.coin;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
 import com.hxl.local.database.AppDatabase;
+import com.hxl.local.model.ValueAndTimestampTable;
 
 @Entity(tableName = AppDatabase.BOOKMARKS_TABLE_NAME)
-public class BookmarkEntity {
+public class BookmarkEntity extends ValueAndTimestampTable<String> {
 
-    @NonNull
-    @PrimaryKey
-    @ColumnInfo(name = "id")
-    public String id;
-
-    @ColumnInfo(name = "timestamp")
-    public long timestamp;
-
-    public BookmarkEntity(@NonNull String id, long timestamp) {
-        this.id = id;
-        this.timestamp = timestamp;
+    public BookmarkEntity(@NonNull String myValue, long timestamp) {
+        super(myValue, timestamp);
     }
 }

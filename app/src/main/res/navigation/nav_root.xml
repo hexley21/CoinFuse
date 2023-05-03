@@ -33,6 +33,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_navigationFragment_to_dialog_coin"
+            app:destination="@id/dialog_coin" />
     </fragment>
     <fragment
         android:id="@+id/coinDetailsFragment"
@@ -41,6 +44,19 @@
         tools:layout="@layout/fragment_coin_details" >
         <argument android:name="coin"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="false" />
     </fragment>
+
+    <dialog
+        android:id="@+id/dialog_coin"
+        android:label="CoinDialog"
+        android:name="com.hxl.cryptonumismatist.ui.dialogs.coins.CoinDialog"
+        tools:layout="@layout/dialog_coin">
+        <argument android:name="coin"
+            app:argType="string"
+            app:nullable="false"/>
+        <argument android:name="explorer"
+            app:argType="string"
+            app:nullable="true"/>
+    </dialog>
 </navigation>

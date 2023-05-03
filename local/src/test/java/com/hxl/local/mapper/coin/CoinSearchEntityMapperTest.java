@@ -1,6 +1,6 @@
 package com.hxl.local.mapper.coin;
 
-import com.hxl.domain.model.SearchQuery;
+import com.hxl.domain.model.ValueAndTimestamp;
 import com.hxl.local.model.coin.CoinSearchEntity;
 
 import org.junit.Test;
@@ -21,23 +21,23 @@ public class CoinSearchEntityMapperTest {
     public void mapFromEntityConvertsEntityToValidModel() {
         // Arrange
         CoinSearchEntity coinSearchEntity = getCoinSearchEntity(ID);
-        SearchQuery searchQuery = getSearchQuery(ID);
+        ValueAndTimestamp<String> searchQuery = getSearchQuery(ID);
         // Act
-        SearchQuery result = CoinSearchEntityMapper.mapFromEntity(coinSearchEntity);
+        ValueAndTimestamp<String> result = CoinSearchEntityMapper.mapFromEntity(coinSearchEntity);
         // Assert
-        assertEquals(searchQuery.query, result.query);
+        assertEquals(searchQuery.value, result.value);
         assertEquals(searchQuery.timestamp, result.timestamp);
     }
 
     @Test
     public void mapToEntityConvertsModelToValidEntity() {
         // Arrange
-        SearchQuery searchQuery = getSearchQuery(ID);
+        ValueAndTimestamp<String> searchQuery = getSearchQuery(ID);
         CoinSearchEntity coinSearchEntity = getCoinSearchEntity(ID);
         // Act
         CoinSearchEntity result = CoinSearchEntityMapper.mapToEntity(searchQuery);
         // Assert
-        assertEquals(coinSearchEntity.query, result.query);
+        assertEquals(coinSearchEntity.myValue, result.myValue);
         assertEquals(coinSearchEntity.timestamp, result.timestamp);
     }
 }

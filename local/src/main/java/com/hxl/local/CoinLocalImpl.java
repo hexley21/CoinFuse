@@ -4,10 +4,11 @@ import androidx.annotation.NonNull;
 
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.SearchQuery;
+import com.hxl.domain.model.ValueAndTimestamp;
 import com.hxl.local.database.coin.BookmarkDao;
 import com.hxl.local.database.coin.CoinDao;
 import com.hxl.local.database.coin.CoinSearchDao;
+import com.hxl.local.mapper.coin.BookmarkEntityMapper;
 import com.hxl.local.mapper.coin.CoinSearchEntityMapper;
 import com.hxl.local.model.coin.BookmarkEntity;
 import com.hxl.local.model.coin.CoinEntity;
@@ -95,14 +96,14 @@ public class CoinLocalImpl implements CoinLocal {
     }
 
     @Override
-    public Single<List<String>> getBookmarkedCoinIds() {
+    public Single<List<ValueAndTimestamp<String>>> getBookmarkedCoinIds() {
         return bookmarkDao.getBookmarkedCoinIds()
                 .subscribeOn(Schedulers.io())
-                .map(x -> x.stream().map(y -> y.id).collect(Collectors.toList()));
+                .map(x -> x.stream().map(BookmarkEntityMapper::mapFromEntity).collect(Collectors.toList()));
     }
 
     @Override
-    public Single<List<SearchQuery>> getCoinSearchHistory() {
+    public Single<List<ValueAndTimestamp<String>>> getCoinSearchHistory() {
         return searchHistoryDao.getCoinSearchHistory()
                 .subscribeOn(Schedulers.io())
                 .map(x -> x.stream().map(CoinSearchEntityMapper::mapFromEntity).collect(Collectors.toList()));

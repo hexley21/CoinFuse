@@ -4,18 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.PrimaryKey;
 
-public abstract class SearchQueryTable {
+public abstract class ValueAndTimestampTable<T> {
 
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "s_query")
-    public String query;
+    @ColumnInfo(name = "myValue")
+    public T myValue;
 
     @ColumnInfo(name = "timestamp")
     public long timestamp;
 
-    public SearchQueryTable(@NonNull String query, long timestamp) {
-        this.query = query;
+    public ValueAndTimestampTable(@NonNull T myValue, long timestamp) {
+        this.myValue = myValue;
         this.timestamp = timestamp;
     }
 

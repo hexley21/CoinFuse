@@ -14,6 +14,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,6 +60,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
     SwipeRefreshLayout refreshLayout;
     ProgressBar progressBar;
     OnBackPressedCallback callback;
+    NavController navController;
     private int pbVisibility = View.VISIBLE;
 
     @Override
@@ -66,6 +68,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
         refreshLayout = binding.srlCoins;
         progressBar = binding.pbCoins;
         progressBar.setVisibility(pbVisibility);
+        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
         callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -76,23 +79,22 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Function<Bundle, Void> navigateToDetails = bundle -> {
-            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main)
-                    .navigate(R.id.navigationFragment_to_coinDetailsFragment, bundle);
-            return null;
-        };
         RecyclerView coinsRv = binding.rvCoins;
         RecyclerView searchRv = binding.rvCoinSearch;
         RecyclerView historyRv = binding.rvCoinHistory;
 
-        coinsMenuAdapter.setNavigateToDetails(navigateToDetails);
-        searchHistoryCoinsAdapter.setNavigateToDetails(navigateToDetails);
-        searchCoinsAdapter.setNavigateToDetails(bundle -> {
-            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main)
-                    .navigate(R.id.navigationFragment_to_coinDetailsFragment, bundle);
+        coinsMenuAdapter.setNavController(navController);
+
+        Function<Bundle, Void> onClick = bundle -> {
+            navController.navigate(R.id.navigationFragment_to_coinDetailsFragment, bundle);
             insertSearchQuery(bundle.getString(coinArgKey));
             return null;
-        });
+        };
+
+        searchCoinsAdapter.setOnClick(onClick);
+        searchCoinsAdapter.setNavController(navController);
+        searchHistoryCoinsAdapter.setOnClick(onClick);
+        searchHistoryCoinsAdapter.setNavController(navController);
 
         coinsRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         coinsRv.setAdapter(coinsMenuAdapter);
@@ -187,7 +189,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
         vm.getCoinSearchHistory()
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(h -> {
-                    List<String> queries = h.stream().map(x -> x.query).collect(Collectors.toList());
+                    List<String> queries = h.stream().map(x -> x.value).collect(Collectors.toList());
                     return vm.getCoins(queries).map(c -> {
                         c.sort(Comparator.comparingLong(coin -> {
                             int index = queries.indexOf(coin.id);

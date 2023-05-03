@@ -1,6 +1,6 @@
 package com.hxl.domain.interactors.coins;
 
-import com.hxl.domain.model.SearchQuery;
+import com.hxl.domain.model.ValueAndTimestamp;
 import com.hxl.domain.repository.CoinRepository;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class GetCoinSearchHistory {
         this.repository = repository;
     }
 
-    public Single<List<SearchQuery>> invoke() {
+    public Single<List<ValueAndTimestamp<String>>> invoke() {
         return repository.getCoinSearchHistory();
     }
 }

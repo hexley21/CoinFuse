@@ -20,10 +20,10 @@ public interface BookmarkDao {
     Completable bookmarkCoin(BookmarkEntity entity);
 
     @Query("DELETE FROM bookmarks " +
-            "WHERE id = :id")
+            "WHERE myValue = :id")
     Completable unBookmarkCoin(String id);
 
-    @Query("SELECT EXISTS(SELECT 1 FROM bookmarks where id == :id)")
+    @Query("SELECT EXISTS(SELECT 1 FROM bookmarks where myValue == :id)")
     Single<Boolean> isCoinBookmarked(String id);
 
     @Query("SELECT * FROM bookmarks " +
@@ -31,7 +31,7 @@ public interface BookmarkDao {
     Single<List<BookmarkEntity>> getBookmarkedCoinIds();
 
     @Query("SELECT coins.* FROM coins " +
-            "INNER JOIN bookmarks on coins.id == bookmarks.id " +
+            "INNER JOIN bookmarks on coins.id == bookmarks.myValue " +
             "ORDER BY bookmarks.timestamp DESC")
     Single<List<CoinEntity>> getBookmarkedCoins();
 

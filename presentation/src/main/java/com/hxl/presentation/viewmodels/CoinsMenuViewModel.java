@@ -8,7 +8,7 @@ import com.hxl.domain.interactors.coins.GetCoins;
 import com.hxl.domain.interactors.coins.InsertCoinSearchQuery;
 import com.hxl.domain.interactors.coins.SearchCoins;
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.SearchQuery;
+import com.hxl.domain.model.ValueAndTimestamp;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -41,7 +41,7 @@ public class CoinsMenuViewModel extends ViewModel {
         return searchCoins.invoke(key);
     }
 
-    public Single<List<SearchQuery>> getCoinSearchHistory() {
+    public Single<List<ValueAndTimestamp<String>>> getCoinSearchHistory() {
         return getCoinSearchHistory.invoke();
     }
 

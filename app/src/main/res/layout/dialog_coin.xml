@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+        <RelativeLayout
+            android:id="@+id/standard_bottom_sheet"
+            style="@style/Widget.Material3.BottomSheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+                android:id="@+id/drag_handle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/dialog_coin_bookmark"
+                style="@style/CN_DialogItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/drag_handle"
+                android:layout_marginTop="-16dp"
+                android:text="@string/add_to_bookmarks"
+                app:drawableStartCompat="@drawable/sl_bookmark"
+                tools:text="Add to bookmarks" />
+
+            <TextView
+                android:id="@+id/dialog_coin_explorer"
+                style="@style/CN_DialogItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dialog_coin_bookmark"
+                android:text="@string/visit_explorer"
+                app:drawableStartCompat="@drawable/language"
+                tools:text="Visit Explorer" />
+
+        </RelativeLayout>
+</layout>

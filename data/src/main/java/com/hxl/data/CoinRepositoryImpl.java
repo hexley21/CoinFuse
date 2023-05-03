@@ -4,12 +4,13 @@ import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
-import com.hxl.domain.model.SearchQuery;
+import com.hxl.domain.model.ValueAndTimestamp;
 import com.hxl.domain.repository.CoinRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
@@ -100,14 +101,27 @@ public class CoinRepositoryImpl implements CoinRepository {
     public Single<List<Coin>> getBookmarkedCoins() {
         if (isOnline()) {
             return localSource.getBookmarkedCoinIds()
-                    .flatMap(remoteSource::getCoins)
-                    .flatMap(x -> saveCoins(x).toSingleDefault(x));
+                    .flatMap(b -> {
+                        if (b.isEmpty()) {
+                            return Single.just(new ArrayList<>());
+                        }
+
+                        List<String> ids = b.stream().map(x -> x.value).collect(Collectors.toList());
+                        return remoteSource.getCoins(ids)
+                                .flatMap(x -> saveCoins(x).toSingleDefault(x))
+                                .map(x -> {
+                                    for (Coin c : x) {
+                                        c.timestamp = b.get(ids.indexOf(c.id)).timestamp;
+                                    }
+                                    return x;
+                                });
+                    });
         }
         return localSource.getBookmarkedCoins();
     }
 
     @Override
-    public Single<List<SearchQuery>> getCoinSearchHistory() {
+    public Single<List<ValueAndTimestamp<String>>> getCoinSearchHistory() {
         return localSource.getCoinSearchHistory();
     }
 
