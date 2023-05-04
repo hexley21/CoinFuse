@@ -24,6 +24,7 @@
     <!-- Coins menu -->
     <string name="hint_search">Search for a coin</string>
     <string name="search_history">Search history</string>
+    <string name="error_no_main_data">No data available…\n refresh this page or reconnect to the internet</string>
 
     <!-- Coin Details -->
         <!-- Chips -->
@@ -47,6 +48,9 @@
     <string name="remove_from_bookmarks">Remove from bookmarks</string>
     <string name="add_to_bookmarks">Add to bookmarks</string>
     <string name="visit_explorer">Visit Explorer</string>
+
+    <!-- Bookmarks -->
+    <string name="error_no_bookmarks">There are no bookmarks</string>
 
     <!-- General -->
     <string name="arrow_up" translatable="false">▴</string>

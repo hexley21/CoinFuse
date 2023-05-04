@@ -3,6 +3,7 @@
     <!-- Defaults -->
     <dimen name="default_padding">16dp</dimen>
     <dimen name="default_text_padding">8dp</dimen>
+    <dimen name="default_drawable_padding">24dp</dimen>
 
     <!-- Coins Menu -->
     <dimen name="coin_list_item_height">64dp</dimen>
@@ -12,6 +13,8 @@
     <!-- Coin Details -->
     <dimen name="details_header_img_size">52dp</dimen>
     <dimen name="details_header_container_size">84dp</dimen>
-    <dimen name="details_graph_size">200dp</dimen>
-    <dimen name="graph_icon_size">82dp</dimen>
+
+    <!-- Icons -->
+    <dimen name="error_icon_height">200dp</dimen>
+    <dimen name="error_icon_width">82dp</dimen>
 </resources>

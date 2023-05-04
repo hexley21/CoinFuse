@@ -7,6 +7,7 @@
     <string name="tv_market_cap">საბაზრო კაპიტალი</string>
     <string name="error_no_internet">ინტერნეტი არ არის</string>
     <string name="add_to_bookmarks">შენახულებში დამატება</string>
+    <string name="error_no_bookmarks">შენახულები არ არის</string>
     <string name="cd_img_walk_through">გზამკლევის სურათი</string>
 
     <!-- Walkthrough -->
@@ -30,5 +31,6 @@
     <string name="search_history">ძიების ისტორია</string>
     <string name="visit_explorer">მკვლევართან გადასვლა</string>
     <string name="remove_from_bookmarks">შენახულებიდან ამოშლა</string>
+    <string name="error_no_main_data">მონაცემები არ არის… \n გადატვირთედ გვერდი ან გადაუერთდით ინტერნეტს</string>
 
 </resources>
