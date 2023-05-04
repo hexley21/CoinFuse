@@ -49,7 +49,7 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
-        binding.pbBookmarkCoins.setVisibility(pbVisibility);
+        binding.pbBookmarks.setVisibility(pbVisibility);
     }
 
     @Override
@@ -65,7 +65,10 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
 
         fetchBookmarkedCoins();
         pbVisibility = View.GONE;
-        binding.srlBookmarkCoins.setOnRefreshListener(this::fetchBookmarkedCoins);
+        binding.srlBookmarkCoins.setOnRefreshListener(() ->{
+            setPbVisibilityErrorRefresh();
+            fetchBookmarkedCoins();
+        });
     }
 
     private void fetchBookmarkedCoins() {
@@ -74,21 +77,37 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coins -> {
-                            binding.pbBookmarkCoins.setVisibility(View.GONE);
+                            binding.pbBookmarks.setVisibility(View.GONE);
                             binding.srlBookmarkCoins.setRefreshing(false);
                             bookmarkCoinsAdapter.setList(coins);
+                            if (coins.isEmpty()) {
+                                visibilityBookmarkError(getResources().getString(R.string.error_no_bookmarks));
+                            }
 
                             Log.d(TAG, "fetchBookmarkedCoins: success");
                             EspressoIdlingResource.decrement();
                         },
                         e -> {
-                            binding.pbBookmarkCoins.setVisibility(View.GONE);
+                            binding.pbBookmarks.setVisibility(View.GONE);
                             binding.srlBookmarkCoins.setRefreshing(false);
+                            visibilityBookmarkError(e.getMessage());
 
                             Log.e(TAG, "fetchBookmarkedCoins: failed", e);
                             EspressoIdlingResource.decrement();
                         },
                         compositeDisposable
                 );
+    }
+
+    private void visibilityBookmarkError(String error) {
+        binding.pbBookmarks.setVisibility(View.GONE);
+        binding.textBookmarkError.setVisibility(View.VISIBLE);
+        binding.iconBookmarkError.setVisibility(View.VISIBLE);
+        binding.setBookmarkError(error);
+    }
+
+    private void setPbVisibilityErrorRefresh() {
+        binding.textBookmarkError.setVisibility(View.GONE);
+        binding.iconBookmarkError.setVisibility(View.GONE);
     }
 }

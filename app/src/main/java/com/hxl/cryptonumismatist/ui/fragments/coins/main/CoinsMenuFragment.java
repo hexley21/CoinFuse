@@ -112,7 +112,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
             return false;
         });
         binding.srlCoins.setOnRefreshListener(() -> {
-                setPbVisibilityErrorRefresh();
+                setVisibilityErrorRefresh();
                 updateCoins();
         });
 
@@ -156,7 +156,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
                             refreshLayout.setRefreshing(false);
 
                             if (coins.isEmpty()) {
-                                visibilityGraphError(getString(R.string.error_no_main_data));
+                                visibilityCoinError(getString(R.string.error_no_main_data));
                             }
                             EspressoIdlingResource.decrement();
                         },
@@ -165,7 +165,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
                             progressBar.setVisibility(View.GONE);
                             refreshLayout.setRefreshing(false);
 
-                            visibilityGraphError(e.getMessage());
+                            visibilityCoinError(e.getMessage());
                             EspressoIdlingResource.decrement();
                         },
                         compositeDisposable
@@ -232,14 +232,14 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
         searchCoinsAdapter.setList(new ArrayList<>());
     }
 
-    private void visibilityGraphError(String error) {
+    private void visibilityCoinError(String error) {
         binding.pbCoins.setVisibility(View.GONE);
         binding.textCoinError.setVisibility(View.VISIBLE);
         binding.iconCoinError.setVisibility(View.VISIBLE);
         binding.setCoinError(error);
     }
 
-    private void setPbVisibilityErrorRefresh() {
+    private void setVisibilityErrorRefresh() {
         binding.textCoinError.setVisibility(View.GONE);
         binding.iconCoinError.setVisibility(View.GONE);
     }
