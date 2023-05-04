@@ -2,9 +2,9 @@
 <resources>
 
     <style name="CN_DialogItem">
-        <item name="android:drawablePadding">24dp</item>
+        <item name="android:drawablePadding">@dimen/default_drawable_padding</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:padding">16dp</item>
+        <item name="android:padding">@dimen/default_padding</item>
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
         <item name="android:textAppearance">@style/TextAppearance.Material3.TitleMedium</item>

@@ -111,7 +111,10 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
             searchCoins(v.getText().toString());
             return false;
         });
-        binding.srlCoins.setOnRefreshListener(this::updateCoins);
+        binding.srlCoins.setOnRefreshListener(() -> {
+                setPbVisibilityErrorRefresh();
+                updateCoins();
+        });
 
         ImageButton searchClearBtn = binding.searchView.findViewById(com.google.android.material.R.id.search_view_clear_button);
         searchClearBtn.setOnClickListener(l -> {
@@ -152,6 +155,9 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
                             progressBar.setVisibility(View.GONE);
                             refreshLayout.setRefreshing(false);
 
+                            if (coins.isEmpty()) {
+                                visibilityGraphError(getString(R.string.error_no_main_data));
+                            }
                             EspressoIdlingResource.decrement();
                         },
                         e -> {
@@ -159,6 +165,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
                             progressBar.setVisibility(View.GONE);
                             refreshLayout.setRefreshing(false);
 
+                            visibilityGraphError(e.getMessage());
                             EspressoIdlingResource.decrement();
                         },
                         compositeDisposable
@@ -223,5 +230,17 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
 
     private void clearSearchRvData() {
         searchCoinsAdapter.setList(new ArrayList<>());
+    }
+
+    private void visibilityGraphError(String error) {
+        binding.pbCoins.setVisibility(View.GONE);
+        binding.textCoinError.setVisibility(View.VISIBLE);
+        binding.iconCoinError.setVisibility(View.VISIBLE);
+        binding.setCoinError(error);
+    }
+
+    private void setPbVisibilityErrorRefresh() {
+        binding.textCoinError.setVisibility(View.GONE);
+        binding.iconCoinError.setVisibility(View.GONE);
     }
 }

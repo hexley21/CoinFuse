@@ -24,6 +24,7 @@
     <!-- Coins menu -->
     <string name="hint_search">Search for a coin</string>
     <string name="search_history">Search history</string>
+    <string name="error_no_main_data">No data available…\n refresh this page or reconnect to the internet</string>
 
     <!-- Coin Details -->
         <!-- Chips -->

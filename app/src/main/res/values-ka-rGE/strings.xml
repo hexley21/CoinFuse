@@ -30,5 +30,6 @@
     <string name="search_history">ძიების ისტორია</string>
     <string name="visit_explorer">მკვლევართან გადასვლა</string>
     <string name="remove_from_bookmarks">შენახულებიდან ამოშლა</string>
+    <string name="error_no_main_data">მონაცემები არ არის… \n გადატვირთედ გვერდი ან გადაუერთდით ინტერნეტს</string>
 
 </resources>
