@@ -29,10 +29,10 @@ public class BookmarkAdapter extends BaseAdapter<Coin, BookmarkAdapter.CoinViewH
     private final RequestManager glide;
     private final NavController navController;
 
-    public BookmarkAdapter(Activity activity) {
+    public BookmarkAdapter(Activity activity, int navContainerId) {
         super(new CoinComparator());
         this.glide = GlideStandard.getGlide(activity);
-        navController = Navigation.findNavController(activity, R.id.fragment_main_container);
+        navController = Navigation.findNavController(activity, navContainerId);
     }
 
     @Override

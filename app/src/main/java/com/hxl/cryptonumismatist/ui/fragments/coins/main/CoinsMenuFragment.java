@@ -14,8 +14,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -56,13 +54,12 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
         return null;
     };
 
-    CoinAdapter coinsMenuAdapter = new CoinAdapter(requireActivity(), R.id.fragment_main_container);
-    CoinSearchAdapter coinSearchAdapter = new CoinSearchAdapter(requireActivity(), R.id.fragment_main_container, insertSearchFunction);
-    CoinSearchAdapter searchHistoryCoinsAdapter =  new CoinSearchAdapter(requireActivity(), R.id.fragment_main_container, insertSearchFunction);
-    SwipeRefreshLayout refreshLayout;
-    ProgressBar progressBar;
-    OnBackPressedCallback callback;
-    NavController navController;
+    private CoinAdapter coinsMenuAdapter;
+    private CoinSearchAdapter coinSearchAdapter;
+    private CoinSearchAdapter searchHistoryCoinsAdapter;
+    private SwipeRefreshLayout refreshLayout;
+    private ProgressBar progressBar;
+    private OnBackPressedCallback callback;
     private int pbVisibility = View.VISIBLE;
 
     @Override
@@ -70,13 +67,16 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
         refreshLayout = binding.srlCoins;
         progressBar = binding.pbCoins;
         progressBar.setVisibility(pbVisibility);
-        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
         callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 binding.searchView.hide();
             }
         };
+
+        coinsMenuAdapter = new CoinAdapter(requireActivity(), R.id.nav_host_fragment_main);
+        coinSearchAdapter = new CoinSearchAdapter(requireActivity(), R.id.nav_host_fragment_main, insertSearchFunction);
+        searchHistoryCoinsAdapter =  new CoinSearchAdapter(requireActivity(), R.id.nav_host_fragment_main, insertSearchFunction);
     }
 
     @Override
@@ -92,9 +92,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
         historyRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         historyRv.setAdapter(searchHistoryCoinsAdapter);
 
-        if (!(coinsMenuAdapter.getItemCount() > 0)) {
-            updateCoins();
-        }
+        updateCoins();
         getSearchHistory();
         pbVisibility = View.GONE;
 
@@ -141,19 +139,21 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
         vm.flowable.subscribe(
                 pagingData -> {
                     coinsMenuAdapter.submitData(getLifecycle(), pagingData);
-
-                    progressBar.setVisibility(View.GONE);
-                    refreshLayout.setRefreshing(false);
+                    coinsMenuAdapter.addOnPagesUpdatedListener(() -> {
+                        progressBar.setVisibility(View.GONE);
+                        refreshLayout.setRefreshing(false);
+                        return null;
+                    });
                 },
                 e -> {
                     Log.e(TAG, "updateCoins: failed", e);
 
-                    visibilityCoinError(e.getMessage());
-                },
-                () -> {
                     progressBar.setVisibility(View.GONE);
                     refreshLayout.setRefreshing(false);
+
+                    visibilityCoinError(e.getMessage());
                 },
+                () -> {},
                 compositeDisposable
         );
     }

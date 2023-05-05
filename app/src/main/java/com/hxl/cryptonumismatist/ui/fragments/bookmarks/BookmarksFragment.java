@@ -37,13 +37,14 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
     // endregion
 
     private final String TAG = "BookmarksFragment";
-    BookmarkAdapter bookmarkCoinsAdapter = new BookmarkAdapter(requireActivity());
+    BookmarkAdapter bookmarkCoinsAdapter;
 
     private int pbVisibility = View.VISIBLE;
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         binding.pbBookmarks.setVisibility(pbVisibility);
+        bookmarkCoinsAdapter = new BookmarkAdapter(requireActivity(), R.id.nav_host_fragment_main);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
 
         fetchBookmarkedCoins();
         pbVisibility = View.GONE;
-        binding.srlBookmarkCoins.setOnRefreshListener(() ->{
+        binding.srlBookmarkCoins.setOnRefreshListener(() -> {
             setPbVisibilityErrorRefresh();
             fetchBookmarkedCoins();
         });
