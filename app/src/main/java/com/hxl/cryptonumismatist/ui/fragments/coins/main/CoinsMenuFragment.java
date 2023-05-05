@@ -24,6 +24,7 @@ import com.google.android.material.search.SearchView;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseFragment;
 import com.hxl.cryptonumismatist.databinding.FragmentCoinsMenuBinding;
+import com.hxl.cryptonumismatist.ui.fragments.coins.main.paging.CoinMenuAdapter;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
 
@@ -52,7 +53,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
 
     private static final String TAG = "CoinsMenuFragment";
     @Inject
-    CoinsMenuAdapter coinsMenuAdapter;
+    CoinMenuAdapter coinsMenuAdapter;
     @Inject
     SearchCoinsAdapter searchCoinsAdapter;
     @Inject
@@ -103,7 +104,9 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
         historyRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         historyRv.setAdapter(searchHistoryCoinsAdapter);
 
-        updateCoins();
+        if (!(coinsMenuAdapter.getItemCount() > 0)) {
+            updateCoins();
+        }
         getSearchHistory();
         pbVisibility = View.GONE;
 
@@ -112,8 +115,9 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
             return false;
         });
         binding.srlCoins.setOnRefreshListener(() -> {
-                setVisibilityErrorRefresh();
-                updateCoins();
+            compositeDisposable.clear();
+            setVisibilityErrorRefresh();
+            updateCoins();
         });
 
         ImageButton searchClearBtn = binding.searchView.findViewById(com.google.android.material.R.id.search_view_clear_button);
@@ -146,30 +150,24 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
     }
 
     private void updateCoins() {
-        EspressoIdlingResource.increment();
-        vm.getCoins()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        coins -> {
-                            coinsMenuAdapter.setList(coins);
-                            progressBar.setVisibility(View.GONE);
-                            refreshLayout.setRefreshing(false);
+        vm.flowable.subscribe(
+                pagingData -> {
+                    coinsMenuAdapter.submitData(getLifecycle(), pagingData);
 
-                            if (coins.isEmpty()) {
-                                visibilityCoinError(getString(R.string.error_no_main_data));
-                            }
-                            EspressoIdlingResource.decrement();
-                        },
-                        e -> {
-                            Log.e(TAG, e.getMessage(), e);
-                            progressBar.setVisibility(View.GONE);
-                            refreshLayout.setRefreshing(false);
+                    progressBar.setVisibility(View.GONE);
+                    refreshLayout.setRefreshing(false);
+                },
+                e -> {
+                    Log.e(TAG, "updateCoins: failed", e);
 
-                            visibilityCoinError(e.getMessage());
-                            EspressoIdlingResource.decrement();
-                        },
-                        compositeDisposable
-                );
+                    visibilityCoinError(e.getMessage());
+                },
+                () -> {
+                    progressBar.setVisibility(View.GONE);
+                    refreshLayout.setRefreshing(false);
+                },
+                compositeDisposable
+        );
     }
 
     private void searchCoins(String query) {
