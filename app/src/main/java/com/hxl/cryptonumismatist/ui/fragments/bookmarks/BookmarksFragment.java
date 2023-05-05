@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseFragment;
 import com.hxl.cryptonumismatist.databinding.FragmentBookmarksBinding;
-import com.hxl.cryptonumismatist.ui.fragments.coins.main.CoinsMenuAdapter;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.presentation.viewmodels.BookmarksViewModel;
 
@@ -43,7 +42,7 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
 
     private final String TAG = "BookmarksFragment";
     @Inject
-    CoinsMenuAdapter bookmarkCoinsAdapter;
+    BookmarkAdapter bookmarkCoinsAdapter;
 
     private int pbVisibility = View.VISIBLE;
 
