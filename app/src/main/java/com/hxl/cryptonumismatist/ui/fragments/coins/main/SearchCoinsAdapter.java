@@ -9,14 +9,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
-import androidx.recyclerview.widget.AsyncListDiffer;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseAdapter;
 import com.hxl.cryptonumismatist.databinding.SearchCoinItemBinding;
+import com.hxl.cryptonumismatist.util.CoinComparator;
 import com.hxl.domain.model.Coin;
 
 import java.util.function.Function;
@@ -30,19 +29,8 @@ public class SearchCoinsAdapter extends BaseAdapter<Coin, SearchCoinsAdapter.Sea
 
     @Inject
     public SearchCoinsAdapter(RequestManager glide) {
+        super(new CoinComparator());
         this.glide = glide;
-        DiffUtil.ItemCallback<Coin> diffCallBack = new DiffUtil.ItemCallback<Coin>() {
-            @Override
-            public boolean areItemsTheSame(@NonNull Coin oldItem, @NonNull Coin newItem) {
-                return oldItem.id.equals(newItem.id);
-            }
-
-            @Override
-            public boolean areContentsTheSame(@NonNull Coin oldItem, @NonNull Coin newItem) {
-                return oldItem.equals(newItem);
-            }
-        };
-        SearchCoinsAdapter.super.differ = new AsyncListDiffer<>(this, diffCallBack);
     }
 
     public void setOnClick(Function<Bundle, Void> onClick) {

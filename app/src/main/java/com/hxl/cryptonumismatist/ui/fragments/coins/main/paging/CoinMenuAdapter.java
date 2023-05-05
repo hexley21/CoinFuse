@@ -11,13 +11,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BasePagingAdapter;
 import com.hxl.cryptonumismatist.databinding.CoinItemBinding;
+import com.hxl.cryptonumismatist.util.CoinComparator;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.domain.model.Coin;
 
@@ -84,18 +84,5 @@ public class CoinMenuAdapter extends BasePagingAdapter<Coin , CoinMenuAdapter.Co
             });
         }
         EspressoIdlingResource.decrement();
-    }
-
-    public static class CoinComparator extends DiffUtil.ItemCallback<Coin> {
-
-        @Override
-        public boolean areItemsTheSame(@NonNull Coin oldItem, @NonNull Coin newItem) {
-            return oldItem.id.equals(newItem.id);
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull Coin oldItem, @NonNull Coin newItem) {
-            return oldItem.equals(newItem);
-        }
     }
 }
