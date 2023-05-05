@@ -14,6 +14,9 @@ public final class Versions {
     public static final String navVersion = "2.5.3";
     public static final String swipeRefreshLayoutVersion = "1.2.0-alpha01";
 
+    // Paging Library
+    public static final String pagingVersion = "3.1.1";
+
     //UI
     public static final String circleIndicatorVersion = "2.1.6";
     public static final String glideVersion = "4.15.0";

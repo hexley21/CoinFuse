@@ -19,6 +19,11 @@ public final class Deps {
         public static final String liveData = "androidx.lifecycle:lifecycle-livedata:" + Versions.lifecycleVersion;
     }
 
+    public static final class Paging {
+        public static final String paging = "androidx.paging:paging-runtime:" + Versions.pagingVersion;
+        public static final String pagingRxJava3 = "androidx.paging:paging-rxjava3:" + Versions.pagingVersion;
+    }
+
     public static final class UI {
         public static final String circleIndicator = "me.relex:circleindicator:" + Versions.circleIndicatorVersion;
         public static final String glide = "com.github.bumptech.glide:glide:" + Versions.glideVersion;
@@ -69,6 +74,7 @@ public final class Deps {
         public static final String roomTesting = "androidx.room:room-testing:" + Versions.roomVersion;
         public static final String hilt = "com.google.dagger:hilt-android-testing:" + Versions.hiltVersion;
         public static final String hiltCompiler = "com.google.dagger:hilt-compiler:" + Versions.hiltVersion;
+        public static final String pagingTest =  "androidx.paging:paging-common:" + Versions.pagingVersion;
     }
 
     public static final class Others {

@@ -86,6 +86,9 @@ dependencies {
     // LifeCycle
     implementation(Deps.LifeCycle.viewModel)
     implementation(Deps.LifeCycle.liveData)
+    // Paging
+    implementation(Deps.Paging.paging)
+    implementation(Deps.Paging.pagingRxJava3)
 
     // UI
     implementation(Deps.UI.circleIndicator)
