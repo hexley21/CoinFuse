@@ -1,4 +1,4 @@
-package com.hxl.cryptonumismatist.ui.fragments.coins.main.paging;
+package com.hxl.cryptonumismatist.ui.fragments.coins.main;
 
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.explorerArgKey;
@@ -26,13 +26,13 @@ import java.util.function.Function;
 
 import javax.inject.Inject;
 
-public class CoinMenuAdapter extends BasePagingAdapter<Coin , CoinMenuAdapter.CoinViewHolder> {
+public class CoinAdapter extends BasePagingAdapter<Coin , CoinAdapter.CoinViewHolder> {
 
     private final RequestManager glide;
     private NavController navController;
 
     @Inject
-    public CoinMenuAdapter(RequestManager glide) {
+    public CoinAdapter(RequestManager glide) {
         super(new CoinComparator());
         this.glide = glide;
     }

@@ -22,13 +22,13 @@ import java.util.function.Function;
 
 import javax.inject.Inject;
 
-public class SearchCoinsAdapter extends BaseAdapter<Coin, SearchCoinsAdapter.SearchCoinViewHolder> {
+public class CoinsSearchAdapter extends BaseAdapter<Coin, CoinsSearchAdapter.SearchCoinViewHolder> {
     private final RequestManager glide;
     private Function<Bundle, Void> onClick;
     private NavController navController;
 
     @Inject
-    public SearchCoinsAdapter(RequestManager glide) {
+    public CoinsSearchAdapter(RequestManager glide) {
         super(new CoinComparator());
         this.glide = glide;
     }
@@ -42,9 +42,9 @@ public class SearchCoinsAdapter extends BaseAdapter<Coin, SearchCoinsAdapter.Sea
     }
 
     @Override
-    protected SearchCoinsAdapter.SearchCoinViewHolder getViewHolder(ViewGroup parent, int viewType) {
+    protected CoinsSearchAdapter.SearchCoinViewHolder getViewHolder(ViewGroup parent, int viewType) {
         SearchCoinItemBinding binding = SearchCoinItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new SearchCoinsAdapter.SearchCoinViewHolder(binding);
+        return new CoinsSearchAdapter.SearchCoinViewHolder(binding);
     }
 
     public class SearchCoinViewHolder extends RecyclerView.ViewHolder implements Function<Coin, Void> {
@@ -66,7 +66,7 @@ public class SearchCoinsAdapter extends BaseAdapter<Coin, SearchCoinsAdapter.Sea
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchCoinsAdapter.SearchCoinViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CoinsSearchAdapter.SearchCoinViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
 
         Bundle bundle = new Bundle();

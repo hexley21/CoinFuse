@@ -24,7 +24,6 @@ import com.google.android.material.search.SearchView;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseFragment;
 import com.hxl.cryptonumismatist.databinding.FragmentCoinsMenuBinding;
-import com.hxl.cryptonumismatist.ui.fragments.coins.main.paging.CoinMenuAdapter;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
 
@@ -53,11 +52,11 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
 
     private static final String TAG = "CoinsMenuFragment";
     @Inject
-    CoinMenuAdapter coinsMenuAdapter;
+    CoinAdapter coinsMenuAdapter;
     @Inject
-    SearchCoinsAdapter searchCoinsAdapter;
+    CoinsSearchAdapter coinsSearchAdapter;
     @Inject
-    SearchCoinsAdapter searchHistoryCoinsAdapter;
+    CoinsSearchAdapter searchHistoryCoinsAdapter;
     SwipeRefreshLayout refreshLayout;
     ProgressBar progressBar;
     OnBackPressedCallback callback;
@@ -92,15 +91,15 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
             return null;
         };
 
-        searchCoinsAdapter.setOnClick(onClick);
-        searchCoinsAdapter.setNavController(navController);
+        coinsSearchAdapter.setOnClick(onClick);
+        coinsSearchAdapter.setNavController(navController);
         searchHistoryCoinsAdapter.setOnClick(onClick);
         searchHistoryCoinsAdapter.setNavController(navController);
 
         coinsRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         coinsRv.setAdapter(coinsMenuAdapter);
         searchRv.setLayoutManager(new LinearLayoutManager(requireContext()));
-        searchRv.setAdapter(searchCoinsAdapter);
+        searchRv.setAdapter(coinsSearchAdapter);
         historyRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         historyRv.setAdapter(searchHistoryCoinsAdapter);
 
@@ -176,7 +175,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coins -> {
-                            searchCoinsAdapter.setList(coins);
+                            coinsSearchAdapter.setList(coins);
 
                             EspressoIdlingResource.decrement();
                         },
@@ -227,7 +226,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
     }
 
     private void clearSearchRvData() {
-        searchCoinsAdapter.setList(new ArrayList<>());
+        coinsSearchAdapter.setList(new ArrayList<>());
     }
 
     private void visibilityCoinError(String error) {
