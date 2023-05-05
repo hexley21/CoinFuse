@@ -5,12 +5,14 @@ import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragme
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatDouble;
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatFloat;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
@@ -18,24 +20,19 @@ import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseAdapter;
 import com.hxl.cryptonumismatist.databinding.CoinItemBinding;
 import com.hxl.cryptonumismatist.util.CoinComparator;
+import com.hxl.cryptonumismatist.util.GlideStandard;
 import com.hxl.domain.model.Coin;
 
 import java.util.function.Function;
 
-import javax.inject.Inject;
-
 public class BookmarkAdapter extends BaseAdapter<Coin, BookmarkAdapter.CoinViewHolder> {
     private final RequestManager glide;
-    private NavController navController;
+    private final NavController navController;
 
-    @Inject
-    public BookmarkAdapter(RequestManager glide) {
+    public BookmarkAdapter(Activity activity) {
         super(new CoinComparator());
-        this.glide = glide;
-    }
-
-    public void setNavController(NavController navController) {
-        this.navController = navController;
+        this.glide = GlideStandard.getGlide(activity);
+        navController = Navigation.findNavController(activity, R.id.fragment_main_container);
     }
 
     @Override

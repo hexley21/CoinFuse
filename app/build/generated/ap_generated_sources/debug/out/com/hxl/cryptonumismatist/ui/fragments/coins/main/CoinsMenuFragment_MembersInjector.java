@@ -18,13 +18,13 @@ import javax.inject.Provider;
 public final class CoinsMenuFragment_MembersInjector implements MembersInjector<CoinsMenuFragment> {
   private final Provider<CoinAdapter> coinsMenuAdapterProvider;
 
-  private final Provider<CoinsSearchAdapter> searchCoinsAdapterProvider;
+  private final Provider<CoinSearchAdapter> searchCoinsAdapterProvider;
 
-  private final Provider<CoinsSearchAdapter> searchHistoryCoinsAdapterProvider;
+  private final Provider<CoinSearchAdapter> searchHistoryCoinsAdapterProvider;
 
   public CoinsMenuFragment_MembersInjector(Provider<CoinAdapter> coinsMenuAdapterProvider,
-      Provider<CoinsSearchAdapter> searchCoinsAdapterProvider,
-      Provider<CoinsSearchAdapter> searchHistoryCoinsAdapterProvider) {
+      Provider<CoinSearchAdapter> searchCoinsAdapterProvider,
+      Provider<CoinSearchAdapter> searchHistoryCoinsAdapterProvider) {
     this.coinsMenuAdapterProvider = coinsMenuAdapterProvider;
     this.searchCoinsAdapterProvider = searchCoinsAdapterProvider;
     this.searchHistoryCoinsAdapterProvider = searchHistoryCoinsAdapterProvider;
@@ -32,8 +32,8 @@ public final class CoinsMenuFragment_MembersInjector implements MembersInjector<
 
   public static MembersInjector<CoinsMenuFragment> create(
       Provider<CoinAdapter> coinsMenuAdapterProvider,
-      Provider<CoinsSearchAdapter> searchCoinsAdapterProvider,
-      Provider<CoinsSearchAdapter> searchHistoryCoinsAdapterProvider) {
+      Provider<CoinSearchAdapter> searchCoinsAdapterProvider,
+      Provider<CoinSearchAdapter> searchHistoryCoinsAdapterProvider) {
     return new CoinsMenuFragment_MembersInjector(coinsMenuAdapterProvider, searchCoinsAdapterProvider, searchHistoryCoinsAdapterProvider);
   }
 
@@ -52,13 +52,13 @@ public final class CoinsMenuFragment_MembersInjector implements MembersInjector<
 
   @InjectedFieldSignature("com.hxl.cryptonumismatist.ui.fragments.coins.main.CoinsMenuFragment.searchCoinsAdapter")
   public static void injectSearchCoinsAdapter(CoinsMenuFragment instance,
-      CoinsSearchAdapter coinsSearchAdapter) {
-    instance.coinsSearchAdapter = coinsSearchAdapter;
+      CoinSearchAdapter coinSearchAdapter) {
+    instance.coinSearchAdapter = coinSearchAdapter;
   }
 
   @InjectedFieldSignature("com.hxl.cryptonumismatist.ui.fragments.coins.main.CoinsMenuFragment.searchHistoryCoinsAdapter")
   public static void injectSearchHistoryCoinsAdapter(CoinsMenuFragment instance,
-      CoinsSearchAdapter searchHistoryCoinsAdapter) {
+      CoinSearchAdapter searchHistoryCoinsAdapter) {
     instance.searchHistoryCoinsAdapter = searchHistoryCoinsAdapter;
   }
 }
