@@ -9,19 +9,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseFragment;
 import com.hxl.cryptonumismatist.databinding.FragmentBookmarksBinding;
-import com.hxl.cryptonumismatist.ui.fragments.coins.main.CoinsMenuAdapter;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.presentation.viewmodels.BookmarksViewModel;
-
-import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -42,14 +37,14 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
     // endregion
 
     private final String TAG = "BookmarksFragment";
-    @Inject
-    CoinsMenuAdapter bookmarkCoinsAdapter;
+    BookmarkAdapter bookmarkCoinsAdapter;
 
     private int pbVisibility = View.VISIBLE;
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         binding.pbBookmarks.setVisibility(pbVisibility);
+        bookmarkCoinsAdapter = new BookmarkAdapter(requireActivity(), R.id.nav_host_fragment_main);
     }
 
     @Override
@@ -59,13 +54,10 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
         RecyclerView rvBookmarkCoins = binding.rvBookmarkCoins;
         rvBookmarkCoins.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvBookmarkCoins.setAdapter(bookmarkCoinsAdapter);
-        NavController navController =
-                Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
-        bookmarkCoinsAdapter.setNavController(navController);
 
         fetchBookmarkedCoins();
         pbVisibility = View.GONE;
-        binding.srlBookmarkCoins.setOnRefreshListener(() ->{
+        binding.srlBookmarkCoins.setOnRefreshListener(() -> {
             setPbVisibilityErrorRefresh();
             fetchBookmarkedCoins();
         });

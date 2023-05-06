@@ -37,6 +37,9 @@ dependencies {
     // Modules
     implementation(project(Modules.domain))
 
+    // Paging
+    implementation(Deps.Paging.paging)
+    implementation(Deps.Paging.pagingRxJava3)
     // Hilt
     implementation(Deps.Hilt.hilt)
     annotationProcessor(Deps.Hilt.hiltCompiler)

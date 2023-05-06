@@ -1,53 +1,38 @@
-package com.hxl.cryptonumismatist.ui.fragments.coins.main;
+package com.hxl.cryptonumismatist.ui.fragments.bookmarks;
 
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.explorerArgKey;
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatDouble;
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatFloat;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
-import androidx.recyclerview.widget.AsyncListDiffer;
-import androidx.recyclerview.widget.DiffUtil;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseAdapter;
 import com.hxl.cryptonumismatist.databinding.CoinItemBinding;
+import com.hxl.cryptonumismatist.util.CoinComparator;
+import com.hxl.cryptonumismatist.util.GlideStandard;
 import com.hxl.domain.model.Coin;
 
 import java.util.function.Function;
 
-import javax.inject.Inject;
-
-public class CoinsMenuAdapter extends BaseAdapter<Coin, CoinsMenuAdapter.CoinViewHolder> {
+public class BookmarkAdapter extends BaseAdapter<Coin, BookmarkAdapter.CoinViewHolder> {
     private final RequestManager glide;
-    private NavController navController;
+    private final NavController navController;
 
-    @Inject
-    public CoinsMenuAdapter(RequestManager glide) {
-        this.glide = glide;
-        DiffUtil.ItemCallback<Coin> diffCallBack = new DiffUtil.ItemCallback<Coin>() {
-            @Override
-            public boolean areItemsTheSame(@NonNull Coin oldItem, @NonNull Coin newItem) {
-                return oldItem.id.equals(newItem.id);
-            }
-
-            @Override
-            public boolean areContentsTheSame(@NonNull Coin oldItem, @NonNull Coin newItem) {
-                return oldItem.equals(newItem);
-            }
-        };
-        CoinsMenuAdapter.super.differ = new AsyncListDiffer<>(this, diffCallBack);
-    }
-
-    public void setNavController(NavController navController) {
-        this.navController = navController;
+    public BookmarkAdapter(Activity activity, int navContainerId) {
+        super(new CoinComparator());
+        this.glide = GlideStandard.getGlide(activity);
+        navController = Navigation.findNavController(activity, navContainerId);
     }
 
     @Override
@@ -76,7 +61,7 @@ public class CoinsMenuAdapter extends BaseAdapter<Coin, CoinsMenuAdapter.CoinVie
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CoinsMenuAdapter.CoinViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BookmarkAdapter.CoinViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
 
         Bundle bundle = new Bundle();

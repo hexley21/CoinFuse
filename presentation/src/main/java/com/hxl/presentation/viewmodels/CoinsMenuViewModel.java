@@ -1,6 +1,10 @@
 package com.hxl.presentation.viewmodels;
 
 import androidx.lifecycle.ViewModel;
+import androidx.paging.Pager;
+import androidx.paging.PagingConfig;
+import androidx.paging.PagingData;
+import androidx.paging.rxjava3.PagingRx;
 
 import com.hxl.domain.interactors.coins.DeleteCoinSearchQuery;
 import com.hxl.domain.interactors.coins.GetCoinSearchHistory;
@@ -9,6 +13,7 @@ import com.hxl.domain.interactors.coins.InsertCoinSearchQuery;
 import com.hxl.domain.interactors.coins.SearchCoins;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.ValueAndTimestamp;
+import com.hxl.presentation.CoinPagingSource;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -18,6 +23,7 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 
 @HiltViewModel
@@ -32,6 +38,8 @@ public class CoinsMenuViewModel extends ViewModel {
     public Single<List<Coin>> getCoins() {
         return getCoins.invoke();
     }
+
+    public Pager<Integer, Coin> pager;
 
     public Single<List<Coin>> getCoins(List<String> coins) {
         return getCoins.invoke(coins);
@@ -53,6 +61,8 @@ public class CoinsMenuViewModel extends ViewModel {
         return deleteCoinSearchQuery.invoke(query);
     }
 
+    public Flowable<PagingData<Coin>> flowable;
+
     @Inject
     public CoinsMenuViewModel(@NotNull GetCoins getCoins,
                               @NotNull SearchCoins searchCoins,
@@ -64,5 +74,11 @@ public class CoinsMenuViewModel extends ViewModel {
         this.getCoinSearchHistory = getCoinSearchHistory;
         this.insertCoinSearchQuery = insertCoinSearchQuery;
         this.deleteCoinSearchQuery = deleteCoinSearchQuery;
+
+        pager = new Pager<>(
+                new PagingConfig(CoinPagingSource.AMOUNT),
+                () -> new CoinPagingSource(getCoins));
+
+        flowable = PagingRx.getFlowable(pager);
     }
 }

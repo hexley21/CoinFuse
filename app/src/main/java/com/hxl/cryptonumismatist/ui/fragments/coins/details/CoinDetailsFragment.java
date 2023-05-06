@@ -23,6 +23,7 @@ import com.hxl.cryptonumismatist.databinding.FragmentCoinDetailsBinding;
 import com.hxl.cryptonumismatist.ui.fragments.coins.details.graph.DateAxisFormatter;
 import com.hxl.cryptonumismatist.ui.fragments.coins.details.graph.LineChartUtil;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
+import com.hxl.cryptonumismatist.util.GlideStandard;
 import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.presentation.viewmodels.CoinDetailsViewModel;
 
@@ -33,8 +34,6 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
-
-import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -55,7 +54,6 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
     String coinId;
     CoinPriceHistory.Interval chosenInterval = CoinPriceHistory.Interval.D1;
 
-    @Inject
     RequestManager glide;
     LineChartUtil chartUtil;
 
@@ -66,6 +64,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
             initChartUtil();
             bind();
         }
+        glide = GlideStandard.getGlide(requireContext());
     }
 
     @Override
