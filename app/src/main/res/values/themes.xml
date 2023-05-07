@@ -27,7 +27,7 @@
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
         <item name="elevationOverlayColor">@color/md_theme_light_surfaceTint</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
-        <item name="statusBarColor">@color/status_bar_light</item>
+        <item name="statusBarColor">@color/md_theme_light_background</item>
 
         <item name="android:statusBarColor">?attr/statusBarColor</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
