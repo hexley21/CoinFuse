@@ -65,13 +65,14 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
     private SwipeRefreshLayout refreshLayout;
     private ProgressBar progressBar;
     private OnBackPressedCallback callback;
-    private NavController navController;
     private int pbVisibility = View.VISIBLE;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
         coinMenuAdapter = new CoinAdapter(navController);
+        coinSearchAdapter = new CoinSearchAdapter(navController, insertSearchFunction);
+        searchHistoryCoinsAdapter =  new CoinSearchAdapter(navController, insertSearchFunction);
     }
 
     @Override
@@ -85,9 +86,6 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
                 binding.searchView.hide();
             }
         };
-
-        coinSearchAdapter = new CoinSearchAdapter(navController, insertSearchFunction);
-        searchHistoryCoinsAdapter =  new CoinSearchAdapter(navController, insertSearchFunction);
     }
 
     @Override
@@ -97,10 +95,11 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
         RecyclerView historyRv = binding.rvCoinHistory;
 
         coinsRv.setLayoutManager(new LinearLayoutManager(requireContext()));
-        coinsRv.setAdapter(coinMenuAdapter);
         searchRv.setLayoutManager(new LinearLayoutManager(requireContext()));
-        searchRv.setAdapter(coinSearchAdapter);
         historyRv.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        coinsRv.setAdapter(coinMenuAdapter);
+        searchRv.setAdapter(coinSearchAdapter);
         historyRv.setAdapter(searchHistoryCoinsAdapter);
 
         if (coinMenuAdapter.getItemCount() == 0) {
