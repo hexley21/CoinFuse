@@ -6,6 +6,7 @@ import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatDouble;
 import static com.hxl.cryptonumismatist.util.NumberFormatUtil.formatFloat;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
@@ -23,6 +24,8 @@ import com.hxl.domain.model.Coin;
 import java.util.function.Function;
 
 public class CoinViewHolder extends RecyclerView.ViewHolder implements Function<Coin, Void> {
+
+    private static final String TAG = "CoinViewHolder";
 
     RequestManager glide;
     ItemCoinBinding binding;
@@ -77,6 +80,12 @@ public class CoinViewHolder extends RecyclerView.ViewHolder implements Function<
 
     public static void defaultOnBindViewHolder(CoinViewHolder holder, NavController navController, String coinId, String explorerId) {
         EspressoIdlingResource.increment();
+
+        if (navController == null) {
+            Log.e(TAG, "onBindViewHolder: ", new NullPointerException("NavController was null"));
+            EspressoIdlingResource.decrement();
+            return;
+        }
 
         Bundle bundle = new Bundle();
         bundle.putString(coinArgKey, coinId);

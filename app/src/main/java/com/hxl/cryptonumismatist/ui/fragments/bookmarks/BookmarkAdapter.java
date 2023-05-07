@@ -1,12 +1,10 @@
 package com.hxl.cryptonumismatist.ui.fragments.bookmarks;
 
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.hxl.cryptonumismatist.base.BaseAdapter;
 import com.hxl.cryptonumismatist.databinding.ItemCoinBinding;
@@ -17,9 +15,9 @@ import com.hxl.domain.model.Coin;
 public class BookmarkAdapter extends BaseAdapter<Coin, CoinViewHolder> {
     private final NavController navController;
 
-    public BookmarkAdapter(Activity activity, int navContainerId) {
+    public BookmarkAdapter(NavController navController) {
         super(new CoinComparator());
-        navController = Navigation.findNavController(activity, navContainerId);
+        this.navController = navController;
     }
 
     @Override

@@ -15,10 +15,13 @@ import java.util.Objects;
 
 public class CoinAdapter extends BasePagingAdapter<Coin ,CoinViewHolder> {
 
-    private final NavController navController;
+    private NavController navController;
 
-    public CoinAdapter(NavController navController) {
+    public CoinAdapter() {
         super(new CoinComparator());
+    }
+
+    public void setNavController(NavController navController) {
         this.navController = navController;
     }
 

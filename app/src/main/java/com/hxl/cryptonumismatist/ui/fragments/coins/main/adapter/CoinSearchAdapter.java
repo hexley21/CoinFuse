@@ -4,6 +4,7 @@ import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragme
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.explorerArgKey;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -16,32 +17,37 @@ import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseAdapter;
 import com.hxl.cryptonumismatist.databinding.ItemCoinSearchBinding;
 import com.hxl.cryptonumismatist.util.CoinComparator;
+import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.cryptonumismatist.util.GlideFactory;
 import com.hxl.domain.model.Coin;
 
 import java.util.function.Function;
 
-public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.SearchCoinViewHolder> {
+public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinSearchViewHolder> {
+    private static final String TAG = "CoinSearchAdapter";
     private final Function<Bundle, Void> insertSearchFunction;
-    private final NavController navController;
+    private NavController navController;
 
-    public CoinSearchAdapter(NavController navController, Function<Bundle, Void> insertSearchFunction) {
+    public CoinSearchAdapter(Function<Bundle, Void> insertSearchFunction) {
         super(new CoinComparator());
-        this.navController = navController;
         this.insertSearchFunction = insertSearchFunction;
     }
 
-    @Override
-    protected CoinSearchAdapter.SearchCoinViewHolder getViewHolder(ViewGroup parent, int viewType) {
-        ItemCoinSearchBinding binding = ItemCoinSearchBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new SearchCoinViewHolder(binding);
+    public void setNavController(NavController navController) {
+        this.navController = navController;
     }
 
-    public static class SearchCoinViewHolder extends RecyclerView.ViewHolder implements Function<Coin, Void> {
+    @Override
+    protected CoinSearchViewHolder getViewHolder(ViewGroup parent, int viewType) {
+        ItemCoinSearchBinding binding = ItemCoinSearchBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new CoinSearchViewHolder(binding);
+    }
+
+    public static class CoinSearchViewHolder extends RecyclerView.ViewHolder implements Function<Coin, Void> {
         ItemCoinSearchBinding binding;
         RequestManager glide;
 
-        public SearchCoinViewHolder(ItemCoinSearchBinding binding) {
+        public CoinSearchViewHolder(ItemCoinSearchBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
             this.glide = GlideFactory.createGlide(itemView.getContext());
@@ -58,11 +64,18 @@ public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.Searc
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CoinSearchAdapter.SearchCoinViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CoinSearchViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
+        EspressoIdlingResource.increment();
 
         Bundle bundle = new Bundle();
         bundle.putString(coinArgKey, getList().get(position).id);
+
+        if (navController == null) {
+            Log.e(TAG, "onBindViewHolder: ", new NullPointerException("NavController was null"));
+            EspressoIdlingResource.decrement();
+            return;
+        }
 
         holder.itemView.setOnClickListener(v -> {
             navController.navigate(R.id.navigation_to_coinDetails, bundle);

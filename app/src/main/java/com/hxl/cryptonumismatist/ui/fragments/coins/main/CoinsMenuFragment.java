@@ -2,7 +2,6 @@ package com.hxl.cryptonumismatist.ui.fragments.coins.main;
 
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -65,14 +64,15 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
     private SwipeRefreshLayout refreshLayout;
     private ProgressBar progressBar;
     private OnBackPressedCallback callback;
+    private NavController navController;
     private int pbVisibility = View.VISIBLE;
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
-        coinMenuAdapter = new CoinAdapter(navController);
-        coinSearchAdapter = new CoinSearchAdapter(navController, insertSearchFunction);
-        searchHistoryCoinsAdapter =  new CoinSearchAdapter(navController, insertSearchFunction);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        coinMenuAdapter = new CoinAdapter();
+        coinSearchAdapter = new CoinSearchAdapter(insertSearchFunction);
+        searchHistoryCoinsAdapter =  new CoinSearchAdapter(insertSearchFunction);
     }
 
     @Override
@@ -80,6 +80,13 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
         refreshLayout = binding.srlCoins;
         progressBar = binding.pbCoins;
         progressBar.setVisibility(pbVisibility);
+
+        if (navController == null) {
+            navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
+            coinMenuAdapter.setNavController(navController);
+            coinSearchAdapter.setNavController(navController);
+            searchHistoryCoinsAdapter.setNavController(navController);
+        }
         callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
