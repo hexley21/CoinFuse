@@ -101,9 +101,7 @@
     <color name="md_theme_dark_surfaceBright">#37393C</color>
 
     <color name="status_bar_light">#D6E3EB</color>
-    <color name="navigation_bar_light">#E1E9F0</color>
     <color name="status_bar_dark">#202B33</color>
-    <color name="navigation_bar_dark">#1A2329</color>
 
     <color name="bookmark_light">#FBC02D</color>
     <color name="bookmark_dark">#FFF176</color>
