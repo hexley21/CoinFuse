@@ -27,7 +27,7 @@ public class CoinRepositoryImpl implements CoinRepository {
     @Override
     public Single<List<Coin>> getCoins() {
         if (isOnline()) {
-            return remoteSource.getCoins(2000, 0)
+            return remoteSource.getCoins()
                     .flatMap(x -> saveCoins(x).toSingleDefault(x));
         }
         return localSource.getCoins();

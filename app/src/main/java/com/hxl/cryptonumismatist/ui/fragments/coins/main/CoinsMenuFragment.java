@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.paging.LoadState;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -109,6 +110,14 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
         searchRv.setAdapter(coinSearchAdapter);
         historyRv.setAdapter(searchHistoryCoinsAdapter);
 
+        coinMenuAdapter.addLoadStateListener(combinedLoadStates -> {
+            if (combinedLoadStates.getRefresh() instanceof LoadState.NotLoading) {
+                progressBar.setVisibility(View.GONE);
+                refreshLayout.setRefreshing(false);
+            }
+            return null;
+        });
+
         if (coinMenuAdapter.getItemCount() == 0) {
             updateCoins();
         }
@@ -156,14 +165,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
 
     private void updateCoins() {
         vm.flowable.subscribe(
-                pagingData -> {
-                    coinMenuAdapter.submitData(getLifecycle(), pagingData);
-                    coinMenuAdapter.addOnPagesUpdatedListener(() -> {
-                        progressBar.setVisibility(View.GONE);
-                        refreshLayout.setRefreshing(false);
-                        return null;
-                    });
-                },
+                pagingData -> coinMenuAdapter.submitData(getLifecycle(), pagingData),
                 e -> {
                     Log.e(TAG, "updateCoins: failed", e);
 
