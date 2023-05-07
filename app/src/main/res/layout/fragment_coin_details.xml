@@ -168,9 +168,9 @@
                         android:gravity="center|start"
                         android:orientation="horizontal"
                         android:paddingLeft="@dimen/default_padding"
-                        android:paddingTop="@dimen/default_text_padding"
+                        android:paddingTop="@dimen/default_padding_small"
                         android:paddingRight="@dimen/default_padding"
-                        android:paddingBottom="@dimen/default_text_padding">
+                        android:paddingBottom="@dimen/default_padding_small">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_timestamp"
@@ -321,8 +321,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:paddingTop="@dimen/default_text_padding"
-                            android:paddingBottom="@dimen/default_text_padding">
+                            android:paddingTop="@dimen/default_padding_small"
+                            android:paddingBottom="@dimen/default_padding_small">
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
@@ -352,8 +352,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:paddingTop="@dimen/default_text_padding"
-                            android:paddingBottom="@dimen/default_text_padding">
+                            android:paddingTop="@dimen/default_padding_small"
+                            android:paddingBottom="@dimen/default_padding_small">
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
@@ -383,8 +383,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:paddingTop="@dimen/default_text_padding"
-                            android:paddingBottom="@dimen/default_text_padding">
+                            android:paddingTop="@dimen/default_padding_small"
+                            android:paddingBottom="@dimen/default_padding_small">
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
@@ -414,8 +414,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:paddingTop="@dimen/default_text_padding"
-                            android:paddingBottom="@dimen/default_text_padding">
+                            android:paddingTop="@dimen/default_padding_small"
+                            android:paddingBottom="@dimen/default_padding_small">
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
@@ -445,8 +445,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:paddingTop="@dimen/default_text_padding"
-                            android:paddingBottom="@dimen/default_text_padding">
+                            android:paddingTop="@dimen/default_padding_small"
+                            android:paddingBottom="@dimen/default_padding_small">
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"

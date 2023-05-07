@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:fadeScrollbars="true"
-                android:fadingEdgeLength="4dp"
+                android:fadingEdgeLength="@dimen/default_padding_tiny"
                 android:requiresFadingEdge="horizontal"
                 android:scrollbarSize="0dp">
 
@@ -99,9 +99,9 @@
             android:gravity="center|start"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/default_padding"
-            android:paddingTop="@dimen/default_text_padding"
+            android:paddingTop="@dimen/default_padding_small"
             android:paddingRight="@dimen/default_padding"
-            android:paddingBottom="@dimen/default_text_padding">
+            android:paddingBottom="@dimen/default_padding_small">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="150dp"
@@ -188,8 +188,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="@dimen/default_text_padding"
-                android:paddingBottom="@dimen/default_text_padding">
+                android:paddingTop="@dimen/default_padding_small"
+                android:paddingBottom="@dimen/default_padding_small">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="100dp"
@@ -222,8 +222,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="@dimen/default_text_padding"
-                android:paddingBottom="@dimen/default_text_padding">
+                android:paddingTop="@dimen/default_padding_small"
+                android:paddingBottom="@dimen/default_padding_small">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="124dp"
@@ -256,8 +256,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="@dimen/default_text_padding"
-                android:paddingBottom="@dimen/default_text_padding">
+                android:paddingTop="@dimen/default_padding_small"
+                android:paddingBottom="@dimen/default_padding_small">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="82dp"
@@ -290,8 +290,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="@dimen/default_text_padding"
-                android:paddingBottom="@dimen/default_text_padding">
+                android:paddingTop="@dimen/default_padding_small"
+                android:paddingBottom="@dimen/default_padding_small">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="100dp"
@@ -324,8 +324,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="@dimen/default_text_padding"
-                android:paddingBottom="@dimen/default_text_padding">
+                android:paddingTop="@dimen/default_padding_small"
+                android:paddingBottom="@dimen/default_padding_small">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="100dp"

@@ -15,7 +15,7 @@
             android:id="@+id/srl_coins"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="@dimen/search_bar_height"
             app:layout_behavior="@string/searchbar_scrolling_view_behavior"
             tools:ignore="PrivateResource">
 
@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                         android:text="@string/search_history"
-                        android:padding="16dp"
+                        android:padding="@dimen/default_padding"
                         android:gravity="start" />
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_coin_history"
