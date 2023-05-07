@@ -15,8 +15,8 @@
     <dimen name="search_bar_height">56dp</dimen>
 
     <!-- Coin item -->
-    <dimen name="coin_logo">56dp</dimen>
-    <dimen name="coin_item_height">86dp</dimen>
+    <dimen name="coin_logo">42dp</dimen>
+    <dimen name="coin_item_height">72dp</dimen>
 
     <!-- Coin search item -->
     <dimen name="coin_search_item_height">48dp</dimen>

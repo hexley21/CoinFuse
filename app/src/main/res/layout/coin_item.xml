@@ -9,6 +9,9 @@
         <variable name="symbol" type="String" />
         <variable name="price" type="String" />
         <variable name="change" type="String" />
+
+        <variable name="chSmbl" type="String" />
+        <variable name="currency" type="String" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -66,49 +69,58 @@
                     android:maxEms="10"
                     android:maxLines="1"
                     android:minEms="4"
+                    android:paddingBottom="@dimen/default_padding_tiny"
                     android:scrollHorizontally="false"
                     android:text="@{name}"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                     tools:text="Name" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_symbol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxEms="10"
-                    android:minEms="4"
                     android:text="@{symbol}"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                     tools:text="SMBL" />
 
             </LinearLayout>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_price"
+            <LinearLayout
+                android:id="@+id/coin_numbers"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="end"
-                android:maxEms="8"
-                android:minEms="2"
-                android:text='@{price + "$"}'
-                android:textAppearance="?attr/textAppearanceBody2"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tv_change"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="123,456.78$" />
+                android:orientation="vertical"
+                app:layout_constraintStart_toEndOf="@+id/img_coin">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_change"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:minEms="4"
-                android:text='@{change + "%"}'
-                android:textAppearance="?attr/textAppearanceBody2"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="123.45%" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:maxEms="8"
+                    android:minEms="2"
+                    android:paddingBottom="@dimen/default_padding_tiny"
+                    android:text='@{price + currency}'
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_change"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="123,456.78$" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_change"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text='@{chSmbl + change + "%"}'
+                    android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="123.45%" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <View
