@@ -1,4 +1,4 @@
-package com.hxl.cryptonumismatist.ui.fragments.bookmarks;
+package com.hxl.cryptonumismatist.ui.fragments.coins.main.adapter;
 
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.explorerArgKey;
@@ -13,16 +13,19 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.hxl.cryptonumismatist.R;
-import com.hxl.cryptonumismatist.base.BaseAdapter;
+import com.hxl.cryptonumismatist.base.BasePagingAdapter;
 import com.hxl.cryptonumismatist.databinding.CoinItemBinding;
-import com.hxl.cryptonumismatist.ui.fragments.coins.main.adapter.CoinViewHolder;
 import com.hxl.cryptonumismatist.util.CoinComparator;
+import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.domain.model.Coin;
 
-public class BookmarkAdapter extends BaseAdapter<Coin, CoinViewHolder> {
+import java.util.Objects;
+
+public class CoinAdapter extends BasePagingAdapter<Coin ,CoinViewHolder> {
+
     private final NavController navController;
 
-    public BookmarkAdapter(Activity activity, int navContainerId) {
+    public CoinAdapter(Activity activity, int navContainerId) {
         super(new CoinComparator());
         navController = Navigation.findNavController(activity, navContainerId);
     }
@@ -35,19 +38,21 @@ public class BookmarkAdapter extends BaseAdapter<Coin, CoinViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CoinViewHolder holder, int position) {
+        EspressoIdlingResource.increment();
         super.onBindViewHolder(holder, position);
 
         Bundle bundle = new Bundle();
-        bundle.putString(coinArgKey, getList().get(position).id);
+        bundle.putString(coinArgKey, Objects.requireNonNull(getItem(position)).id);
 
-        holder.itemView.setOnClickListener(v ->
-                navController.navigate(R.id.navigation_to_coinDetails, bundle));
-        holder.itemView.setOnLongClickListener(v -> {
-            bundle.putString(explorerArgKey, getList().get(position).explorer);
-            navController.navigate(R.id.navigation_to_coinDialog, bundle);
-            return true;
-        });
-
+        if (navController != null) {
+            holder.itemView.setOnClickListener(v ->
+                    navController.navigate(R.id.coinDetailsFragment, bundle));
+            holder.itemView.setOnLongClickListener(v -> {
+                bundle.putString(explorerArgKey, Objects.requireNonNull(getItem(position)).explorer);
+                navController.navigate(R.id.coinDialog, bundle);
+                return true;
+            });
+        }
+        EspressoIdlingResource.decrement();
     }
-
 }

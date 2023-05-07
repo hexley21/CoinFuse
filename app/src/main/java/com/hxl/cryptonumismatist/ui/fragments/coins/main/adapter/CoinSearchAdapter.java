@@ -1,4 +1,4 @@
-package com.hxl.cryptonumismatist.ui.fragments.coins.main;
+package com.hxl.cryptonumismatist.ui.fragments.coins.main.adapter;
 
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.explorerArgKey;
@@ -18,7 +18,7 @@ import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseAdapter;
 import com.hxl.cryptonumismatist.databinding.SearchCoinItemBinding;
 import com.hxl.cryptonumismatist.util.CoinComparator;
-import com.hxl.cryptonumismatist.util.GlideStandard;
+import com.hxl.cryptonumismatist.util.GlideFactory;
 import com.hxl.domain.model.Coin;
 
 import java.util.function.Function;
@@ -30,7 +30,7 @@ public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.Searc
 
     public CoinSearchAdapter(Activity activity, int navContainerId, Function<Bundle, Void> insertSearchFunction) {
         super(new CoinComparator());
-        this.glide = GlideStandard.getGlide(activity);
+        this.glide = GlideFactory.createGlide(activity);
         this.navController = Navigation.findNavController(activity, navContainerId);
         this.insertSearchFunction = insertSearchFunction;
     }

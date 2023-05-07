@@ -22,6 +22,8 @@ import com.google.android.material.search.SearchView;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseFragment;
 import com.hxl.cryptonumismatist.databinding.FragmentCoinsMenuBinding;
+import com.hxl.cryptonumismatist.ui.fragments.coins.main.adapter.CoinAdapter;
+import com.hxl.cryptonumismatist.ui.fragments.coins.main.adapter.CoinSearchAdapter;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
 
