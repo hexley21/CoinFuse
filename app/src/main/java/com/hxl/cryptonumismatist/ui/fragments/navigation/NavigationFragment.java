@@ -17,8 +17,8 @@ import com.hxl.cryptonumismatist.databinding.FragmentNavigationBinding;
 
 public class NavigationFragment extends Fragment {
 
-    public static final String coinArgKey = "coin";
-    public static final String explorerArgKey = "explorer";
+    public static final String coinArgKey = "coinId";
+    public static final String explorerArgKey = "explorerId";
     FragmentNavigationBinding binding;
 
     NavController navController;

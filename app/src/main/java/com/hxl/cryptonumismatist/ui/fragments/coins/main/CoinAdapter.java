@@ -73,10 +73,10 @@ public class CoinAdapter extends BasePagingAdapter<Coin , CoinAdapter.CoinViewHo
 
         if (navController != null) {
             holder.itemView.setOnClickListener(v ->
-                    navController.navigate(R.id.navigationFragment_to_coinDetailsFragment, bundle));
+                    navController.navigate(R.id.coinDetailsFragment, bundle));
             holder.itemView.setOnLongClickListener(v -> {
                 bundle.putString(explorerArgKey, Objects.requireNonNull(getItem(position)).explorer);
-                navController.navigate(R.id.action_navigationFragment_to_dialog_coin, bundle);
+                navController.navigate(R.id.coinDialog, bundle);
                 return true;
             });
         }

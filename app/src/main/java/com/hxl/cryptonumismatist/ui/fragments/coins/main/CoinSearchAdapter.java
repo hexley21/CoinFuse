@@ -72,7 +72,7 @@ public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.Searc
         });
         holder.itemView.setOnLongClickListener(v -> {
             bundle.putString(explorerArgKey, getList().get(position).explorer);
-            navController.navigate(R.id.action_navigationFragment_to_dialog_coin, bundle);
+            navController.navigate(R.id.coinDialog, bundle);
             return false;
         });
     }

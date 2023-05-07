@@ -68,10 +68,10 @@ public class BookmarkAdapter extends BaseAdapter<Coin, BookmarkAdapter.CoinViewH
         bundle.putString(coinArgKey, getList().get(position).id);
 
         holder.itemView.setOnClickListener(v ->
-                navController.navigate(R.id.navigationFragment_to_coinDetailsFragment, bundle));
+                navController.navigate(R.id.navigation_to_coinDetails, bundle));
         holder.itemView.setOnLongClickListener(v -> {
             bundle.putString(explorerArgKey, getList().get(position).explorer);
-            navController.navigate(R.id.action_navigationFragment_to_dialog_coin, bundle);
+            navController.navigate(R.id.navigation_to_coinDialog, bundle);
             return true;
         });
 
