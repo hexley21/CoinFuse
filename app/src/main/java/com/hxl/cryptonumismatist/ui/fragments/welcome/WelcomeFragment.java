@@ -71,7 +71,7 @@ public class WelcomeFragment extends BaseFragment<FragmentWelcomeBinding, Welcom
     }
 
     private void openCoinsFragment() {
-        findNavController(this).navigate(R.id.navigationFragment);
+        findNavController(this).navigate(R.id.welcome_to_navigation);
     }
 
     private void loadLastPage(@NonNull Boolean visibility) {

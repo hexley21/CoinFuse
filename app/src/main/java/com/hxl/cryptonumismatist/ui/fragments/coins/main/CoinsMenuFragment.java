@@ -2,6 +2,7 @@ package com.hxl.cryptonumismatist.ui.fragments.coins.main;
 
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -21,7 +24,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.search.SearchView;
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseFragment;
-import com.hxl.cryptonumismatist.databinding.FragmentCoinsMenuBinding;
+import com.hxl.cryptonumismatist.databinding.FragmentCoinMenuBinding;
 import com.hxl.cryptonumismatist.ui.fragments.coins.main.adapter.CoinAdapter;
 import com.hxl.cryptonumismatist.ui.fragments.coins.main.adapter.CoinSearchAdapter;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
@@ -37,10 +40,10 @@ import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 @AndroidEntryPoint
-public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, CoinsMenuViewModel> {
+public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, CoinsMenuViewModel> {
     @Override
-    protected FragmentCoinsMenuBinding setViewBinding(LayoutInflater inflater, ViewGroup container) {
-        return FragmentCoinsMenuBinding.inflate(inflater, container, false);
+    protected FragmentCoinMenuBinding setViewBinding(LayoutInflater inflater, ViewGroup container) {
+        return FragmentCoinMenuBinding.inflate(inflater, container, false);
     }
 
     @Override
@@ -55,14 +58,21 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
         insertSearchQuery(bundle.getString(coinArgKey));
         return null;
     };
-
-    private CoinAdapter coinsMenuAdapter;
+    
+    private CoinAdapter coinMenuAdapter;
     private CoinSearchAdapter coinSearchAdapter;
     private CoinSearchAdapter searchHistoryCoinsAdapter;
     private SwipeRefreshLayout refreshLayout;
     private ProgressBar progressBar;
     private OnBackPressedCallback callback;
+    private NavController navController;
     private int pbVisibility = View.VISIBLE;
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
+        coinMenuAdapter = new CoinAdapter(navController);
+    }
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
@@ -76,9 +86,8 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
             }
         };
 
-        coinsMenuAdapter = new CoinAdapter(requireActivity(), R.id.nav_host_fragment_main);
-        coinSearchAdapter = new CoinSearchAdapter(requireActivity(), R.id.nav_host_fragment_main, insertSearchFunction);
-        searchHistoryCoinsAdapter =  new CoinSearchAdapter(requireActivity(), R.id.nav_host_fragment_main, insertSearchFunction);
+        coinSearchAdapter = new CoinSearchAdapter(navController, insertSearchFunction);
+        searchHistoryCoinsAdapter =  new CoinSearchAdapter(navController, insertSearchFunction);
     }
 
     @Override
@@ -88,13 +97,15 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
         RecyclerView historyRv = binding.rvCoinHistory;
 
         coinsRv.setLayoutManager(new LinearLayoutManager(requireContext()));
-        coinsRv.setAdapter(coinsMenuAdapter);
+        coinsRv.setAdapter(coinMenuAdapter);
         searchRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         searchRv.setAdapter(coinSearchAdapter);
         historyRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         historyRv.setAdapter(searchHistoryCoinsAdapter);
 
-        updateCoins();
+        if (coinMenuAdapter.getItemCount() == 0) {
+            updateCoins();
+        }
         getSearchHistory();
         pbVisibility = View.GONE;
 
@@ -140,8 +151,8 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinsMenuBinding, Co
     private void updateCoins() {
         vm.flowable.subscribe(
                 pagingData -> {
-                    coinsMenuAdapter.submitData(getLifecycle(), pagingData);
-                    coinsMenuAdapter.addOnPagesUpdatedListener(() -> {
+                    coinMenuAdapter.submitData(getLifecycle(), pagingData);
+                    coinMenuAdapter.addOnPagesUpdatedListener(() -> {
                         progressBar.setVisibility(View.GONE);
                         refreshLayout.setRefreshing(false);
                         return null;
