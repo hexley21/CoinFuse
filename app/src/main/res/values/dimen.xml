@@ -12,7 +12,8 @@
     <dimen name="welcome_vertical_margin">24dp</dimen>
 
     <!-- Coin Menu -->
-    <dimen name="search_bar_height">56dp</dimen>
+    <dimen name="coin_search_bar_height">56dp</dimen>
+    <dimen name="coin_appbar_height">110dp</dimen>
 
     <!-- Coin item -->
     <dimen name="coin_logo">42dp</dimen>

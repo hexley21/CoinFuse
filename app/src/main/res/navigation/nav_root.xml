@@ -36,6 +36,13 @@
         <action
             android:id="@+id/navigation_to_coinDialog"
             app:destination="@id/coinDialog" />
+        <action
+            android:id="@+id/navigation_to_coinSortDialog"
+            app:destination="@id/coinSortDialog" >
+            <argument
+                android:name="isTimeSortable"
+                android:defaultValue="false" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/coinDetailsFragment"
@@ -58,5 +65,14 @@
         <argument android:name="explorerId"
             app:argType="string"
             app:nullable="true"/>
+    </dialog>
+    <dialog
+        android:id="@+id/coinSortDialog"
+        android:name="com.hxl.cryptonumismatist.ui.dialogs.coins.CoinSortDialog"
+        android:label="CoinSortDialog"
+        tools:layout="@layout/dialog_coin_sort">
+        <argument android:name="isTimeSortable"
+            app:argType="boolean"
+            app:nullable="false"/>
     </dialog>
 </navigation>

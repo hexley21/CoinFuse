@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+        <RelativeLayout
+            android:id="@+id/standard_bottom_sheet"
+            style="@style/Widget.Material3.BottomSheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+                android:id="@+id/drag_handle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/dialog_coin_sort_rank"
+                style="@style/CN_DialogItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/drag_handle"
+                android:text="@string/sort_by_rank"
+                app:drawableStartCompat="@drawable/star" />
+
+            <TextView
+                android:id="@+id/dialog_coin_sort_name"
+                style="@style/CN_DialogItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dialog_coin_sort_rank"
+                android:text="@string/sort_by_name"
+                app:drawableStartCompat="@drawable/sort_by_alpha" />
+
+            <TextView
+                android:id="@+id/dialog_coin_sort_price"
+                style="@style/CN_DialogItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dialog_coin_sort_name"
+                android:text="@string/sort_by_price"
+                app:drawableStartCompat="@drawable/payments" />
+
+            <TextView
+                android:id="@+id/dialog_coin_sort_market"
+                style="@style/CN_DialogItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dialog_coin_sort_price"
+                android:text="@string/sort_by_market"
+                app:drawableStartCompat="@drawable/account_balance" />
+
+            <TextView
+                android:id="@+id/dialog_coin_sort_volume"
+                style="@style/CN_DialogItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dialog_coin_sort_market"
+                android:text="@string/sort_by_volume"
+                app:drawableStartCompat="@drawable/equalizer" />
+
+            <TextView
+                android:id="@+id/dialog_coin_sort_change"
+                style="@style/CN_DialogItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dialog_coin_sort_volume"
+                android:text="@string/sort_by_change"
+                app:drawableStartCompat="@drawable/percent" />
+
+            <TextView
+                android:id="@+id/dialog_coin_sort_time"
+                style="@style/CN_DialogItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dialog_coin_sort_change"
+                android:text="@string/sort_by_time"
+                app:drawableStartCompat="@drawable/schedule" />
+
+        </RelativeLayout>
+</layout>

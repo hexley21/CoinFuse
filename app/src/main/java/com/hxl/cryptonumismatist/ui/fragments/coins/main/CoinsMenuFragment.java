@@ -1,6 +1,7 @@
 package com.hxl.cryptonumismatist.ui.fragments.coins.main;
 
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.isTimeSortableArgKey;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -102,7 +103,6 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
         RecyclerView searchRv = binding.rvCoinSearch;
         RecyclerView historyRv = binding.rvCoinHistory;
 
-        coinsRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         searchRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         historyRv.setLayoutManager(new LinearLayoutManager(requireContext()));
 
@@ -123,6 +123,12 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
         }
         getSearchHistory();
         pbVisibility = View.GONE;
+
+        binding.chipCoinSort.setOnClickListener(v -> {
+            Bundle sortBundle = new Bundle();
+            sortBundle.putBoolean(isTimeSortableArgKey, false);
+            navController.navigate(R.id.navigation_to_coinSortDialog, sortBundle);
+        });
 
         binding.searchView.getEditText().setOnEditorActionListener((v, actionId, event) -> {
             searchCoins(v.getText().toString());

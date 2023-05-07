@@ -19,6 +19,7 @@ public class NavigationFragment extends Fragment {
 
     public static final String coinArgKey = "coinId";
     public static final String explorerArgKey = "explorerId";
+    public static final String isTimeSortableArgKey = "isTimeSortable";
     FragmentNavigationBinding binding;
 
     NavController navController;
