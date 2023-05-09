@@ -24,6 +24,7 @@ public class BookmarksViewModel extends ViewModel {
 
     public Single<List<Coin>> bookmarkedCoins(CoinSortBy coinSortBy, OrderBy orderBy) {
         return getBookmarkedCoins.invoke()
+                .observeOn(AndroidSchedulers.mainThread())
                 .map(x -> {
                     x.sort(CoinComparatorFactory.createComparator(coinSortBy, orderBy));
                     return x;
