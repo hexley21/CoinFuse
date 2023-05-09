@@ -56,7 +56,7 @@ public class CoinRepositoryImplTest {
     @Test
     public void testGetCoinsReturnsListFromRemoteSource() {
         // Arrange
-        when(remoteSource.getCoins(anyInt(), anyInt())).thenReturn(Single.just(getFakeCoins(SIZE)));
+        when(remoteSource.getCoins()).thenReturn(Single.just(getFakeCoins(SIZE)));
         when(repository.saveCoins(anyList())).thenReturn(Completable.complete());
         when(repository.isOnline()).thenReturn(true);
         // Act
@@ -66,10 +66,10 @@ public class CoinRepositoryImplTest {
                 .awaitCount(1)
                 .assertNoErrors()
                 .assertValue(x -> x.size() == SIZE);
-        verify(remoteSource, times(1)).getCoins(anyInt(), anyInt());
+        verify(remoteSource, times(1)).getCoins();
         verify(repository, times(1)).saveCoins(anyList());
         verify(repository, times(1)).isOnline();
-        verify(localSource, never()).getCoins(anyInt(), anyInt());
+        verify(localSource, never()).getCoins();
     }
 
     @Test

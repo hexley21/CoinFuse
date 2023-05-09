@@ -11,7 +11,7 @@
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome">
         <action
-            android:id="@+id/welcomeFragment_to_navigationFragment"
+            android:id="@+id/welcome_to_navigation"
             app:destination="@id/navigationFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
@@ -27,36 +27,58 @@
         android:label="fragment_navigation"
         tools:layout="fragment_navigation">
         <action
-            android:id="@+id/navigationFragment_to_coinDetailsFragment"
+            android:id="@+id/navigation_to_coinDetails"
             app:destination="@id/coinDetailsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_navigationFragment_to_dialog_coin"
-            app:destination="@id/dialog_coin" />
+            android:id="@+id/navigation_to_coinDialog"
+            app:destination="@id/coinDialog" />
+        <action
+            android:id="@+id/navigation_to_coinSortDialog"
+            app:destination="@id/coinSortDialog" >
+            <argument
+                android:name="isTimeSortable"
+                android:defaultValue="false" />
+            <argument
+                android:name="coinSortCallback"
+                app:argType="com.hxl.cryptonumismatist.ui.dialogs.coins.CoinSortCallback" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/coinDetailsFragment"
         android:name="com.hxl.cryptonumismatist.ui.fragments.coins.details.CoinDetailsFragment"
         android:label="fragment_coin_details"
         tools:layout="@layout/fragment_coin_details" >
-        <argument android:name="coin"
+        <argument android:name="coinId"
             app:argType="string"
             app:nullable="false" />
     </fragment>
 
     <dialog
-        android:id="@+id/dialog_coin"
+        android:id="@+id/coinDialog"
         android:label="CoinDialog"
         android:name="com.hxl.cryptonumismatist.ui.dialogs.coins.CoinDialog"
         tools:layout="@layout/dialog_coin">
-        <argument android:name="coin"
+        <argument android:name="coinId"
             app:argType="string"
             app:nullable="false"/>
-        <argument android:name="explorer"
+        <argument android:name="explorerId"
             app:argType="string"
             app:nullable="true"/>
+    </dialog>
+    <dialog
+        android:id="@+id/coinSortDialog"
+        android:name="com.hxl.cryptonumismatist.ui.dialogs.coins.CoinSortDialog"
+        android:label="CoinSortDialog"
+        tools:layout="@layout/dialog_coin_sort">
+        <argument android:name="isTimeSortable"
+            app:argType="boolean"
+            app:nullable="false"/>
+        <argument
+            android:name="coinSortCallback"
+            app:argType="com.hxl.cryptonumismatist.ui.dialogs.coins.CoinSortCallback" />
     </dialog>
 </navigation>

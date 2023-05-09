@@ -15,25 +15,29 @@
             android:id="@+id/srl_coins"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="@dimen/coin_search_bar_height"
             app:layout_behavior="@string/searchbar_scrolling_view_behavior"
             tools:ignore="PrivateResource">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_coins"
+                style="Nested"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="20"
-                tools:listitem="@layout/coin_item" />
+                tools:listitem="@layout/item_coin" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <ProgressBar
-            android:id="@+id/pb_coins"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+
+        <include
+            android:id="@+id/shimmer_coins"
+            layout="@layout/shimmer_coin_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/coin_search_bar_height"
             android:visibility="gone"
-            tools:visibility="invisible" />
+            tools:visibility="gone" />
 
         <ImageView
             android:id="@+id/icon_coin_error"
@@ -69,7 +73,7 @@
                 style="@style/CN_SearchBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="?attr/statusBarColor"
+                android:backgroundTint="?attr/android:colorBackground"
                 android:hint="@string/hint_search"
                 app:defaultMarginsEnabled="false" />
         </com.google.android.material.appbar.AppBarLayout>
@@ -89,6 +93,7 @@
                     android:layout_height="match_parent">
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_coin_search"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
                     <com.google.android.material.textview.MaterialTextView
@@ -96,10 +101,11 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                         android:text="@string/search_history"
-                        android:padding="16dp"
+                        android:padding="@dimen/default_padding"
                         android:gravity="start" />
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_coin_history"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
                 </LinearLayout>

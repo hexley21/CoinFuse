@@ -25,14 +25,13 @@
         <item name="colorOutline">@color/md_theme_dark_outline</item>
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
-        <item name="elevationOverlayColor">@color/md_theme_dark_surfaceTint</item>
+        <item name="elevationOverlayColor">@color/md_theme_dark_background</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
-        <item name="statusBarColor">@color/status_bar_dark</item>
-        <item name="navigationBarColor">@color/navigation_bar_dark</item>
+        <item name="statusBarColor">@color/md_theme_dark_background</item>
 
         <item name="android:statusBarColor">?attr/statusBarColor</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
-        <item name="android:navigationBarColor">?attr/navigationBarColor</item>
+        <item name="android:navigationBarColor">@color/md_theme_dark_background</item>
 
         <item name="bookmark">@color/bookmark_dark</item>
         <item name="bookmark_ripple">@color/bookmark_dark_ripple</item>

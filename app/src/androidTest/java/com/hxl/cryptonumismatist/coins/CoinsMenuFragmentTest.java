@@ -57,7 +57,7 @@ public class CoinsMenuFragmentTest {
         launchFragmentInHiltContainer(CoinsMenuFragment.class);
 
         // Check Coins Fragment basic properties
-        onView(withId(R.id.pb_coins)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.shimmer_coins)).check(matches(not(isDisplayed())));
         onView(withId(R.id.search_bar)).check(matches(isDisplayed()));
 
         onView(withId(R.id.rv_coins)).perform(scrollToLastPosition());

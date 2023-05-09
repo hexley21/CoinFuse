@@ -15,6 +15,15 @@
             @style/ShapeAppearance.Material3.Corner.None
         </item>
     </style>
+    <style name="CN_BottomNavigation" parent="Widget.Material3.BottomNavigationView">
+        <item name="android:color">?attr/colorSurfaceVariant</item>
+        <item name="itemActiveIndicatorStyle">@style/CN_BottomNavigation.Active</item>
+        <item name="itemRippleColor">@color/navbar_ripple</item>
+    </style>
+
+    <style name="CN_BottomNavigation.Active" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">?attr/colorSurfaceVariant</item>
+    </style>
 
     <style name="CN_Bookmark" parent="Widget.Material3.CompoundButton.CheckBox">
         <item name="buttonTint">@color/bookmark_colors</item>

@@ -8,7 +8,7 @@
         android:id="@+id/coinsMenuFragment"
         android:name="com.hxl.cryptonumismatist.ui.fragments.coins.main.CoinsMenuFragment"
         android:label="fragment_coins_menu"
-        tools:layout="@layout/fragment_coins_menu" />
+        tools:layout="@layout/fragment_coin_menu" />
 
     <fragment
         android:id="@+id/bookmarksFragment"

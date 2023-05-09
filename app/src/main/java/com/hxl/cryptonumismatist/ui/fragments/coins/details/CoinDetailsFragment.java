@@ -23,7 +23,7 @@ import com.hxl.cryptonumismatist.databinding.FragmentCoinDetailsBinding;
 import com.hxl.cryptonumismatist.ui.fragments.coins.details.graph.DateAxisFormatter;
 import com.hxl.cryptonumismatist.ui.fragments.coins.details.graph.LineChartUtil;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
-import com.hxl.cryptonumismatist.util.GlideStandard;
+import com.hxl.cryptonumismatist.util.GlideFactory;
 import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.presentation.viewmodels.CoinDetailsViewModel;
 
@@ -64,7 +64,7 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
             initChartUtil();
             bind();
         }
-        glide = GlideStandard.getGlide(requireContext());
+        glide = GlideFactory.createGlide(requireContext());
     }
 
     @Override

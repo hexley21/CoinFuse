@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:itemCount="20"
-                tools:listitem="@layout/coin_item" />
+                tools:listitem="@layout/item_coin" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <ProgressBar
