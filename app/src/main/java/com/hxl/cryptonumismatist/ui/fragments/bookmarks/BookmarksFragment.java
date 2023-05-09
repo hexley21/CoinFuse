@@ -45,7 +45,7 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
-        binding.pbCoinBookmarks.setVisibility(pbVisibility);
+        binding.shimmerCoins.setVisibility(pbVisibility);
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
         bookmarkCoinsAdapter = new BookmarkAdapter(navController);
     }
@@ -72,7 +72,7 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coins -> {
-                            binding.pbCoinBookmarks.setVisibility(View.GONE);
+                            binding.shimmerCoins.setVisibility(View.GONE);
                             binding.srlCoinBookmarks.setRefreshing(false);
                             bookmarkCoinsAdapter.setList(coins);
                             if (coins.isEmpty()) {
@@ -83,7 +83,7 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
                             EspressoIdlingResource.decrement();
                         },
                         e -> {
-                            binding.pbCoinBookmarks.setVisibility(View.GONE);
+                            binding.shimmerCoins.setVisibility(View.GONE);
                             binding.srlCoinBookmarks.setRefreshing(false);
                             visibilityBookmarkError(e.getMessage());
 
@@ -95,7 +95,7 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
     }
 
     private void visibilityBookmarkError(String error) {
-        binding.pbCoinBookmarks.setVisibility(View.GONE);
+        binding.shimmerCoins.setVisibility(View.GONE);
         binding.textErrorCoinBookmark.setVisibility(View.VISIBLE);
         binding.iconErrorCoinBookmarks.setVisibility(View.VISIBLE);
         binding.setErrorCoinBookmarks(error);
