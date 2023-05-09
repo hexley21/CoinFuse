@@ -1,6 +1,9 @@
 package com.hxl.cryptonumismatist.ui.fragments.bookmarks;
 
-import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.*;
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinSortCallbackArgKey;
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.isTimeSortableArgKey;
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.orderByArgKey;
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.sortByArgKey;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +13,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -92,40 +96,57 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
         rvCoinBookmarks.setAdapter(bookmarkCoinsAdapter);
 
         if (bookmarkCoinsAdapter.getList().isEmpty()) {
-            fetchBookmarkedCoins();
+            getCoins();
         }
+
         binding.chipCoinBookmarkSort.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putBoolean(isTimeSortableArgKey, true);
-            bundle.putParcelable(coinSortCallbackArgKey, (CoinSortCallback) this::fetchBookmarkedCoins);
+
+            bundle.putParcelable(coinSortCallbackArgKey, (CoinSortCallback) this::fetchCoinsCallback);
+
             bundle.putSerializable(sortByArgKey, finalSortBy);
             bundle.putSerializable(orderByArgKey, finalOrderBy);
-            navController.navigate(R.id.navigation_to_coinSortDialog, bundle);
 
+            binding.searchBarCoinBookmarks.clearFocus();
+
+            navController.navigate(R.id.navigation_to_coinSortDialog, bundle);
         });
+
         loadingVisibility = View.GONE;
+
         binding.srlCoinBookmarks.setOnRefreshListener(() -> {
             setPbVisibilityErrorRefresh();
-            if ((finalSortBy == CoinSortBy.TIMESTAMP) && (finalOrderBy == OrderBy.DESC)) {
-                fetchBookmarkedCoins();
-            }
-            else {
-                fetchBookmarkedCoins(finalSortBy, finalOrderBy);
-            }
+            binding.searchBarCoinBookmarks.setQuery("", false);
+            binding.searchBarCoinBookmarks.clearFocus();
+            fetchCoins();
         });
 
         binding.chipCoinBookmarkSortDelete.setOnClickListener(v -> {
-            fetchBookmarkedCoins();
             finalOrderBy = OrderBy.DESC;
             finalSortBy = CoinSortBy.TIMESTAMP;
+            fetchCoins();
             chipVisibility = View.GONE;
             binding.chipCoinBookmarkSortDelete.setVisibility(View.GONE);
         });
+
+        binding.searchBarCoinBookmarks.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                fetchCoins();
+                return false;
+            }
+        });
     }
 
-    private void fetchBookmarkedCoins() {
+    private void getCoins() {
         EspressoIdlingResource.increment();
-        vm.bookmarkedCoins()
+        vm.bookmarkedCoins(finalSortBy, finalOrderBy)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coinsConsumer,
@@ -134,22 +155,37 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
                 );
     }
 
-    private void fetchBookmarkedCoins(CoinSortBy coinSortBy, OrderBy orderBy) {
+    private void getCoinsByQuery(String query) {
         EspressoIdlingResource.increment();
-        finalSortBy = coinSortBy;
-        finalOrderBy = orderBy;
-        chipVisibility = View.VISIBLE;
-        binding.chipCoinBookmarkSortDelete.setVisibility(View.VISIBLE);
-        vm.bookmarkedCoins(coinSortBy, orderBy)
+        vm.bookmarkedCoins(query, finalSortBy, finalOrderBy)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coinsConsumer,
                         coinsErrorConsumer,
                         compositeDisposable
                 );
+    }
+
+    private void fetchCoins() {
+        if (binding.searchBarCoinBookmarks.getQuery().length() == 0) {
+            getCoins();
+            return;
+        }
+        getCoinsByQuery(binding.searchBarCoinBookmarks.getQuery().toString());
+    }
+
+    private void fetchCoinsCallback(CoinSortBy coinSortBy, OrderBy orderBy) {
+        if ((finalSortBy != coinSortBy) || (finalOrderBy != orderBy)) {
+            chipVisibility = View.VISIBLE;
+            binding.chipCoinBookmarkSortDelete.setVisibility(View.VISIBLE);
+            finalSortBy = coinSortBy;
+            finalOrderBy = orderBy;
+        }
+        fetchCoins();
     }
     private final Consumer<List<Coin>> coinsConsumer = coins -> {
             bookmarkCoinsAdapter.setList(coins);
+            setPbVisibilityErrorRefresh();
             if (coins.isEmpty()) {
                 visibilityBookmarkError(getResources().getString(R.string.error_no_bookmarks));
             }
