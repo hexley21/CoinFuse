@@ -15,7 +15,7 @@ import com.hxl.cryptonumismatist.base.BaseDialog;
 import com.hxl.cryptonumismatist.databinding.DialogCoinSortBinding;
 import com.hxl.cryptonumismatist.util.UiUtils;
 import com.hxl.presentation.OrderBy;
-import com.hxl.presentation.SortCoin;
+import com.hxl.presentation.coin.CoinSortBy;
 
 public class CoinSortDialog extends BaseDialog<DialogCoinSortBinding> {
     @Override
@@ -23,7 +23,7 @@ public class CoinSortDialog extends BaseDialog<DialogCoinSortBinding> {
         return DialogCoinSortBinding.inflate(inflater, container, false);
     }
 
-    private SortCoin.SortType finalSortType = SortCoin.SortType.RANK;
+    private CoinSortBy finalCoinSortBy = CoinSortBy.RANK;
     private OrderBy finalOrderBy = OrderBy.DESC;
 
     @Override
@@ -39,17 +39,17 @@ public class CoinSortDialog extends BaseDialog<DialogCoinSortBinding> {
             binding.dialogCoinSortTime.setVisibility(View.GONE);
         }
 
-        registerListener(binding.dialogCoinSortRank, SortCoin.SortType.RANK);
-        registerListener(binding.dialogCoinSortName, SortCoin.SortType.NAME);
-        registerListener(binding.dialogCoinSortPrice, SortCoin.SortType.PRICE);
-        registerListener(binding.dialogCoinSortMarket, SortCoin.SortType.MARKET);
-        registerListener(binding.dialogCoinSortVolume, SortCoin.SortType.VOLUME);
-        registerListener(binding.dialogCoinSortChange, SortCoin.SortType.CHANGE);
-        registerListener(binding.dialogCoinSortTime, SortCoin.SortType.TIMESTAMP);
+        registerListener(binding.dialogCoinSortRank, CoinSortBy.RANK);
+        registerListener(binding.dialogCoinSortName, CoinSortBy.NAME);
+        registerListener(binding.dialogCoinSortPrice, CoinSortBy.PRICE);
+        registerListener(binding.dialogCoinSortMarket, CoinSortBy.MARKET);
+        registerListener(binding.dialogCoinSortVolume, CoinSortBy.VOLUME);
+        registerListener(binding.dialogCoinSortChange, CoinSortBy.CHANGE);
+        registerListener(binding.dialogCoinSortTime, CoinSortBy.TIMESTAMP);
 
         binding.sortApply.setOnClickListener(v -> {
             dismiss();
-            function.apply(finalSortType, finalOrderBy);
+            function.apply(finalCoinSortBy, finalOrderBy);
         });
 
         binding.chipOrderBy.setOnCheckedChangeListener((v, b) -> {
@@ -66,10 +66,10 @@ public class CoinSortDialog extends BaseDialog<DialogCoinSortBinding> {
         });
     }
 
-    private void registerListener(AppCompatRadioButton radioButton, SortCoin.SortType sortType) {
+    private void registerListener(AppCompatRadioButton radioButton, CoinSortBy coinSortBy) {
         radioButton.setOnCheckedChangeListener((v, b) -> {
             if (b) {
-                finalSortType = sortType;
+                finalCoinSortBy = coinSortBy;
             }
         });
     }

@@ -1,13 +1,14 @@
 package com.hxl.presentation.viewmodels;
 
-import static com.hxl.presentation.SortCoin.SortType.TIMESTAMP;
+import static com.hxl.presentation.coin.CoinSortBy.TIMESTAMP;
 
 import androidx.lifecycle.ViewModel;
 
 import com.hxl.domain.interactors.coins.GetBookmarkedCoins;
 import com.hxl.domain.model.Coin;
 import com.hxl.presentation.OrderBy;
-import com.hxl.presentation.SortCoin;
+import com.hxl.presentation.coin.CoinSortBy;
+import com.hxl.presentation.coin.CoinComparatorFactory;
 
 import java.util.List;
 
@@ -24,15 +25,15 @@ public class BookmarksViewModel extends ViewModel {
     public Single<List<Coin>> bookmarkedCoins() {
         return getBookmarkedCoins.invoke()
                 .map(x -> {
-                    x.sort(SortCoin.by(TIMESTAMP, OrderBy.DESC));
+                    x.sort(CoinComparatorFactory.createComparator(TIMESTAMP, OrderBy.DESC));
                     return x;
                 });
     }
 
-    public Single<List<Coin>> bookmarkedCoins(SortCoin.SortType sortType, OrderBy orderBy) {
+    public Single<List<Coin>> bookmarkedCoins(CoinSortBy coinSortBy, OrderBy orderBy) {
         return getBookmarkedCoins.invoke()
                 .map(x -> {
-                    x.sort(SortCoin.by(sortType, orderBy));
+                    x.sort(CoinComparatorFactory.createComparator(coinSortBy, orderBy));
                     return x;
                 });
     }

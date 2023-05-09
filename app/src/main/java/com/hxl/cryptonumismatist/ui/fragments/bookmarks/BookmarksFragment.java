@@ -24,7 +24,7 @@ import com.hxl.cryptonumismatist.ui.dialogs.coins.CoinSortCallback;
 import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.domain.model.Coin;
 import com.hxl.presentation.OrderBy;
-import com.hxl.presentation.SortCoin;
+import com.hxl.presentation.coin.CoinSortBy;
 import com.hxl.presentation.viewmodels.BookmarksViewModel;
 
 import java.util.List;
@@ -95,9 +95,9 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
                 );
     }
 
-    private void fetchBookmarkedCoins(SortCoin.SortType sortType, OrderBy orderBy) {
+    private void fetchBookmarkedCoins(CoinSortBy coinSortBy, OrderBy orderBy) {
         EspressoIdlingResource.increment();
-        vm.bookmarkedCoins(sortType, orderBy)
+        vm.bookmarkedCoins(coinSortBy, orderBy)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coinsConsumer,

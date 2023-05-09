@@ -13,7 +13,7 @@ import com.hxl.domain.interactors.coins.InsertCoinSearchQuery;
 import com.hxl.domain.interactors.coins.SearchCoins;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.ValueAndTimestamp;
-import com.hxl.presentation.CoinPagingSource;
+import com.hxl.presentation.coin.CoinPagingSource;
 
 import org.jetbrains.annotations.NotNull;
 
