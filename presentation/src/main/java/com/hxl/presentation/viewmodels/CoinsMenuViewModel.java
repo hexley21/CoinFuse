@@ -61,7 +61,7 @@ public class CoinsMenuViewModel extends ViewModel {
         return deleteCoinSearchQuery.invoke(query);
     }
 
-    public Flowable<PagingData<Coin>> flowable;
+    public Flowable<PagingData<Coin>> coinStream;
 
     @Inject
     public CoinsMenuViewModel(@NotNull GetCoins getCoins,
@@ -79,6 +79,7 @@ public class CoinsMenuViewModel extends ViewModel {
                 new PagingConfig(CoinPagingSource.AMOUNT),
                 () -> new CoinPagingSource(getCoins));
 
-        flowable = PagingRx.getFlowable(pager);
+        coinStream = PagingRx.getFlowable(pager);
+
     }
 }

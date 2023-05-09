@@ -15,7 +15,7 @@
             android:id="@+id/srl_coins"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/coin_appbar_height"
+            android:layout_marginTop="@dimen/coin_search_bar_height"
             app:layout_behavior="@string/searchbar_scrolling_view_behavior"
             tools:ignore="PrivateResource">
 
@@ -65,37 +65,15 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <com.google.android.material.appbar.CollapsingToolbarLayout
+
+            <com.google.android.material.search.SearchBar
+                android:id="@+id/search_bar"
+                style="@style/CN_SearchBar"
                 android:layout_width="match_parent"
-                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|snap"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_coin_sort"
-                    style="@style/Widget.Material3.Chip.Input.Icon.Elevated"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/default_padding"
-                    android:layout_marginTop="@dimen/coin_search_bar_height"
-                    android:layout_marginBottom="@dimen/default_padding_small"
-                    android:checkable="false"
-                    android:checked="false"
-                    android:elevation="0dp"
-                    android:text="@string/sort_by"
-                    app:closeIcon="@drawable/sort"
-                    app:layout_collapseMode="pin"
-                    tools:text="Sort by" />
-                <com.google.android.material.search.SearchBar
-                    android:id="@+id/search_bar"
-                    style="@style/CN_SearchBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="?attr/android:colorBackground"
-                    android:hint="@string/hint_search"
-                    app:defaultMarginsEnabled="false"
-                    app:layout_collapseMode="pin"/>
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
+                android:layout_height="wrap_content"
+                android:backgroundTint="?attr/android:colorBackground"
+                android:hint="@string/hint_search"
+                app:defaultMarginsEnabled="false" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.search.SearchView
@@ -113,6 +91,7 @@
                     android:layout_height="match_parent">
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_coin_search"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
                     <com.google.android.material.textview.MaterialTextView
@@ -124,6 +103,7 @@
                         android:gravity="start" />
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_coin_history"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
                 </LinearLayout>

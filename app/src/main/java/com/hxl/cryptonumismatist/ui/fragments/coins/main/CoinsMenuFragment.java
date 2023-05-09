@@ -1,7 +1,6 @@
 package com.hxl.cryptonumismatist.ui.fragments.coins.main;
 
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinArgKey;
-import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.isTimeSortableArgKey;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +17,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.paging.LoadState;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -103,9 +101,6 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
         RecyclerView searchRv = binding.rvCoinSearch;
         RecyclerView historyRv = binding.rvCoinHistory;
 
-        searchRv.setLayoutManager(new LinearLayoutManager(requireContext()));
-        historyRv.setLayoutManager(new LinearLayoutManager(requireContext()));
-
         coinsRv.setAdapter(coinMenuAdapter);
         searchRv.setAdapter(coinSearchAdapter);
         historyRv.setAdapter(searchHistoryCoinsAdapter);
@@ -123,12 +118,6 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
         }
         getSearchHistory();
         pbVisibility = View.GONE;
-
-        binding.chipCoinSort.setOnClickListener(v -> {
-            Bundle sortBundle = new Bundle();
-            sortBundle.putBoolean(isTimeSortableArgKey, false);
-            navController.navigate(R.id.navigation_to_coinSortDialog, sortBundle);
-        });
 
         binding.searchView.getEditText().setOnEditorActionListener((v, actionId, event) -> {
             searchCoins(v.getText().toString());
@@ -170,7 +159,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
     }
 
     private void updateCoins() {
-        vm.flowable.subscribe(
+        vm.coinStream.subscribe(
                 pagingData -> coinMenuAdapter.submitData(getLifecycle(), pagingData),
                 e -> {
                     Log.e(TAG, "updateCoins: failed", e);
