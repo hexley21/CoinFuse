@@ -1,6 +1,6 @@
 package com.hxl.presentation;
 
-public enum SortBy {
+public enum OrderBy{
     ASC,
     DESC
 }

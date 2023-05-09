@@ -11,16 +11,14 @@ import java.util.Comparator;
 
 public class SortCoin {
 
-    public static Comparator<Coin> by(SortType sortType, SortBy sortBy) {
-        if (sortBy == SortBy.DESC)
+    public static Comparator<Coin> by(SortType sortType, OrderBy orderBy) {
+        if (orderBy == OrderBy.DESC)
             return sortByDesc(sortType);
         return sortByAsc(sortType);
     }
 
     private static Comparator<Coin> sortByDesc(SortType sortType) {
         switch (sortType) {
-            case RANK:
-                return comparingInt(c -> -c.rank);
             case NAME:
                 return (c1, c2) -> c2.name.compareTo(c1.name);
             case PRICE:
@@ -39,8 +37,6 @@ public class SortCoin {
 
     private static Comparator<Coin> sortByAsc(SortType sortType) {
         switch (sortType) {
-            case RANK:
-                return comparingInt(c -> c.rank);
             case NAME:
                 return comparing(c -> c.name);
             case PRICE:
