@@ -45,7 +45,7 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
-        binding.pbBookmarks.setVisibility(pbVisibility);
+        binding.pbCoinBookmarks.setVisibility(pbVisibility);
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
         bookmarkCoinsAdapter = new BookmarkAdapter(navController);
     }
@@ -54,13 +54,13 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView rvBookmarkCoins = binding.rvBookmarkCoins;
-        rvBookmarkCoins.setLayoutManager(new LinearLayoutManager(requireContext()));
-        rvBookmarkCoins.setAdapter(bookmarkCoinsAdapter);
+        RecyclerView rvCoinBookmarks = binding.rvCoinBookmarks;
+        rvCoinBookmarks.setLayoutManager(new LinearLayoutManager(requireContext()));
+        rvCoinBookmarks.setAdapter(bookmarkCoinsAdapter);
 
         fetchBookmarkedCoins();
         pbVisibility = View.GONE;
-        binding.srlBookmarkCoins.setOnRefreshListener(() -> {
+        binding.srlCoinBookmarks.setOnRefreshListener(() -> {
             setPbVisibilityErrorRefresh();
             fetchBookmarkedCoins();
         });
@@ -72,8 +72,8 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coins -> {
-                            binding.pbBookmarks.setVisibility(View.GONE);
-                            binding.srlBookmarkCoins.setRefreshing(false);
+                            binding.pbCoinBookmarks.setVisibility(View.GONE);
+                            binding.srlCoinBookmarks.setRefreshing(false);
                             bookmarkCoinsAdapter.setList(coins);
                             if (coins.isEmpty()) {
                                 visibilityBookmarkError(getResources().getString(R.string.error_no_bookmarks));
@@ -83,8 +83,8 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
                             EspressoIdlingResource.decrement();
                         },
                         e -> {
-                            binding.pbBookmarks.setVisibility(View.GONE);
-                            binding.srlBookmarkCoins.setRefreshing(false);
+                            binding.pbCoinBookmarks.setVisibility(View.GONE);
+                            binding.srlCoinBookmarks.setRefreshing(false);
                             visibilityBookmarkError(e.getMessage());
 
                             Log.e(TAG, "fetchBookmarkedCoins: failed", e);
@@ -95,14 +95,14 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
     }
 
     private void visibilityBookmarkError(String error) {
-        binding.pbBookmarks.setVisibility(View.GONE);
-        binding.textBookmarkError.setVisibility(View.VISIBLE);
-        binding.iconBookmarkError.setVisibility(View.VISIBLE);
-        binding.setBookmarkError(error);
+        binding.pbCoinBookmarks.setVisibility(View.GONE);
+        binding.textErrorCoinBookmark.setVisibility(View.VISIBLE);
+        binding.iconErrorCoinBookmarks.setVisibility(View.VISIBLE);
+        binding.setErrorCoinBookmarks(error);
     }
 
     private void setPbVisibilityErrorRefresh() {
-        binding.textBookmarkError.setVisibility(View.GONE);
-        binding.iconBookmarkError.setVisibility(View.GONE);
+        binding.textErrorCoinBookmark.setVisibility(View.GONE);
+        binding.iconErrorCoinBookmarks.setVisibility(View.GONE);
     }
 }
