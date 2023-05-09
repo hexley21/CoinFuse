@@ -5,11 +5,9 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 
-import androidx.annotation.ColorInt;
 import androidx.appcompat.content.res.AppCompatResources;
 public final class UiUtils {
 
-    @ColorInt
     public static int getColor(Context context, int colorId) {
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = context.getTheme();

@@ -55,7 +55,9 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
     private CoinSortBy finalSortBy = CoinSortBy.TIMESTAMP;
     private OrderBy finalOrderBy = OrderBy.DESC;
 
-    private int pbVisibility = View.VISIBLE;
+    private int loadingVisibility = View.VISIBLE;
+    private int chipVisibility = View.GONE;
+
 
     private final AsyncListDiffer.ListListener<Coin> onDataChange = (old, cur) -> {
         binding.shimmerCoins.setVisibility(View.GONE);
@@ -73,7 +75,8 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
-        binding.shimmerCoins.setVisibility(pbVisibility);
+        binding.shimmerCoins.setVisibility(loadingVisibility);
+        binding.chipCoinBookmarkSortDelete.setVisibility(chipVisibility);
         if (bookmarkCoinsAdapter.getNavController() == null) {
             navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
             bookmarkCoinsAdapter.setNavController(navController);
@@ -98,8 +101,9 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
             bundle.putSerializable(sortByArgKey, finalSortBy);
             bundle.putSerializable(orderByArgKey, finalOrderBy);
             navController.navigate(R.id.navigation_to_coinSortDialog, bundle);
+
         });
-        pbVisibility = View.GONE;
+        loadingVisibility = View.GONE;
         binding.srlCoinBookmarks.setOnRefreshListener(() -> {
             setPbVisibilityErrorRefresh();
             if ((finalSortBy == CoinSortBy.TIMESTAMP) && (finalOrderBy == OrderBy.DESC)) {
@@ -108,6 +112,14 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
             else {
                 fetchBookmarkedCoins(finalSortBy, finalOrderBy);
             }
+        });
+
+        binding.chipCoinBookmarkSortDelete.setOnClickListener(v -> {
+            fetchBookmarkedCoins();
+            finalOrderBy = OrderBy.DESC;
+            finalSortBy = CoinSortBy.TIMESTAMP;
+            chipVisibility = View.GONE;
+            binding.chipCoinBookmarkSortDelete.setVisibility(View.GONE);
         });
     }
 
@@ -126,6 +138,8 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
         EspressoIdlingResource.increment();
         finalSortBy = coinSortBy;
         finalOrderBy = orderBy;
+        chipVisibility = View.VISIBLE;
+        binding.chipCoinBookmarkSortDelete.setVisibility(View.VISIBLE);
         vm.bookmarkedCoins(coinSortBy, orderBy)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

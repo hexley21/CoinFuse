@@ -27,7 +27,6 @@ public class CoinSortDialog extends BaseDialog<DialogCoinSortBinding> {
 
     private CoinSortBy finalCoinSortBy;
     private OrderBy finalOrderBy;
-    private boolean hasChanged = false;
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
@@ -81,7 +80,10 @@ public class CoinSortDialog extends BaseDialog<DialogCoinSortBinding> {
 
         binding.sortApply.setOnClickListener(v -> {
             dismiss();
-            if (hasChanged) {
+            assert getArguments() != null;
+            CoinSortBy oldSort = (CoinSortBy) getArguments().getSerializable(sortByArgKey);
+            OrderBy oldOrder = (OrderBy) getArguments().getSerializable(orderByArgKey);
+            if ((oldSort != finalCoinSortBy) || (oldOrder != finalOrderBy)) {
                 function.apply(finalCoinSortBy, finalOrderBy);
             }
         });
@@ -97,7 +99,6 @@ public class CoinSortDialog extends BaseDialog<DialogCoinSortBinding> {
                 binding.chipOrderBy.setText(UiUtils.getString(requireContext(), R.string.sort_by_desc));
                 binding.chipOrderBy.setChipIcon(UiUtils.getDrawable(requireContext(), R.drawable.arrow_downward));
             }
-            hasChanged = true;
         });
 
 
@@ -108,7 +109,6 @@ public class CoinSortDialog extends BaseDialog<DialogCoinSortBinding> {
             if (b) {
                 finalCoinSortBy = coinSortBy;
             }
-            hasChanged = true;
         });
     }
 
