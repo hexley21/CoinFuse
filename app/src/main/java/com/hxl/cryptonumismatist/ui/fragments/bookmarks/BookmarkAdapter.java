@@ -13,11 +13,18 @@ import com.hxl.cryptonumismatist.util.CoinComparator;
 import com.hxl.domain.model.Coin;
 
 public class BookmarkAdapter extends BaseAdapter<Coin, CoinViewHolder> {
-    private final NavController navController;
+    private NavController navController = null;
 
-    public BookmarkAdapter(NavController navController) {
+    public BookmarkAdapter() {
         super(new CoinComparator());
+    }
+
+    public void setNavController(NavController navController) {
         this.navController = navController;
+    }
+
+    public NavController getNavController() {
+        return navController;
     }
 
     @Override

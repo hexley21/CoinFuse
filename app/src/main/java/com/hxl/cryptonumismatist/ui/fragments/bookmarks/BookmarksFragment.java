@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,11 +57,27 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
 
     private int pbVisibility = View.VISIBLE;
 
+    private final AsyncListDiffer.ListListener<Coin> onDataChange = (old, cur) -> {
+        binding.shimmerCoins.setVisibility(View.GONE);
+        binding.srlCoinBookmarks.setRefreshing(false);
+        binding.rvCoinBookmarks.scrollToPosition(0);
+    };
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        bookmarkCoinsAdapter = new BookmarkAdapter();
+        bookmarkCoinsAdapter.addOnDataChangeListener(onDataChange);
+    }
+
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         binding.shimmerCoins.setVisibility(pbVisibility);
-        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
-        bookmarkCoinsAdapter = new BookmarkAdapter(navController);
+        if (bookmarkCoinsAdapter.getNavController() == null) {
+            navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
+            bookmarkCoinsAdapter.setNavController(navController);
+        }
     }
 
     @Override
@@ -71,8 +88,9 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
         rvCoinBookmarks.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvCoinBookmarks.setAdapter(bookmarkCoinsAdapter);
 
-        fetchBookmarkedCoins();
-
+        if (bookmarkCoinsAdapter.getList().isEmpty()) {
+            fetchBookmarkedCoins();
+        }
         binding.chipCoinBookmarkSort.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putBoolean(isTimeSortableArgKey, true);
@@ -116,12 +134,8 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
                         compositeDisposable
                 );
     }
-
     private final Consumer<List<Coin>> coinsConsumer = coins -> {
-            binding.shimmerCoins.setVisibility(View.GONE);
-            binding.srlCoinBookmarks.setRefreshing(false);
             bookmarkCoinsAdapter.setList(coins);
-            binding.rvCoinBookmarks.scrollTo(0, 0);
             if (coins.isEmpty()) {
                 visibilityBookmarkError(getResources().getString(R.string.error_no_bookmarks));
             }
@@ -129,6 +143,7 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
             Log.d(TAG, "fetchBookmarkedCoins: success");
             EspressoIdlingResource.decrement();
         };
+
 
     private final Consumer<Throwable> coinsErrorConsumer = e -> {
         binding.shimmerCoins.setVisibility(View.GONE);
