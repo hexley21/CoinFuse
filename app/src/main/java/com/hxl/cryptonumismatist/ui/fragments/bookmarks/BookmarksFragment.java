@@ -143,6 +143,12 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
         });
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.searchBarCoinBookmarks.clearFocus();
+    }
+
     private void getCoins() {
         EspressoIdlingResource.increment();
         vm.bookmarkedCoins(finalSortBy, finalOrderBy)
