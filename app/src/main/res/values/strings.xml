@@ -58,6 +58,7 @@
     <string name="sort_by_volume">By Volume</string>
     <string name="sort_by_change">By Change 24HR</string>
     <string name="sort_by_time">By Time</string>
+    <string name="apply">Apply</string>
 
     <!-- Bookmarks -->
     <string name="error_no_bookmarks">There are no bookmarks</string>

@@ -42,6 +42,9 @@
             <argument
                 android:name="isTimeSortable"
                 android:defaultValue="false" />
+            <argument
+                android:name="coinSortCallback"
+                app:argType="com.hxl.cryptonumismatist.ui.dialogs.coins.CoinSortCallback" />
         </action>
     </fragment>
     <fragment
@@ -74,5 +77,8 @@
         <argument android:name="isTimeSortable"
             app:argType="boolean"
             app:nullable="false"/>
+        <argument
+            android:name="coinSortCallback"
+            app:argType="com.hxl.cryptonumismatist.ui.dialogs.coins.CoinSortCallback" />
     </dialog>
 </navigation>

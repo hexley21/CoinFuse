@@ -2,9 +2,11 @@ package com.hxl.cryptonumismatist.util;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 
 import androidx.annotation.ColorInt;
+import androidx.core.content.ContextCompat;
 
 public final class UiUtils {
 
@@ -18,5 +20,9 @@ public final class UiUtils {
 
     public static String getString(Context context, int stringId) {
         return context.getString(stringId);
+    }
+
+    public static Drawable getDrawable(Context context, int drawableId){
+        return ContextCompat.getDrawable(context, drawableId);
     }
 }

@@ -14,68 +14,86 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <TextView
+            <CheckBox
                 android:id="@+id/dialog_coin_sort_rank"
                 style="@style/CN_DialogItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/drag_handle"
+                android:button="@android:color/transparent"
                 android:text="@string/sort_by_rank"
                 app:drawableStartCompat="@drawable/star" />
 
-            <TextView
+            <CheckBox
                 android:id="@+id/dialog_coin_sort_name"
                 style="@style/CN_DialogItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dialog_coin_sort_rank"
+                android:button="@android:color/transparent"
                 android:text="@string/sort_by_name"
                 app:drawableStartCompat="@drawable/sort_by_alpha" />
 
-            <TextView
+            <CheckBox
                 android:id="@+id/dialog_coin_sort_price"
                 style="@style/CN_DialogItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dialog_coin_sort_name"
+                android:button="@android:color/transparent"
                 android:text="@string/sort_by_price"
                 app:drawableStartCompat="@drawable/payments" />
 
-            <TextView
+            <CheckBox
                 android:id="@+id/dialog_coin_sort_market"
                 style="@style/CN_DialogItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dialog_coin_sort_price"
+                android:button="@android:color/transparent"
                 android:text="@string/sort_by_market"
                 app:drawableStartCompat="@drawable/account_balance" />
 
-            <TextView
+            <CheckBox
                 android:id="@+id/dialog_coin_sort_volume"
                 style="@style/CN_DialogItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dialog_coin_sort_market"
+                android:button="@android:color/transparent"
                 android:text="@string/sort_by_volume"
                 app:drawableStartCompat="@drawable/equalizer" />
 
-            <TextView
+            <CheckBox
                 android:id="@+id/dialog_coin_sort_change"
                 style="@style/CN_DialogItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dialog_coin_sort_volume"
+                android:button="@android:color/transparent"
                 android:text="@string/sort_by_change"
                 app:drawableStartCompat="@drawable/percent" />
 
-            <TextView
+            <CheckBox
                 android:id="@+id/dialog_coin_sort_time"
                 style="@style/CN_DialogItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dialog_coin_sort_change"
+                android:button="@android:color/transparent"
                 android:text="@string/sort_by_time"
                 app:drawableStartCompat="@drawable/schedule" />
+
+            <Button
+                android:id="@+id/sort_apply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dialog_coin_sort_time"
+                android:layout_marginStart="@dimen/default_padding"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginEnd="@dimen/default_padding"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:text="@string/apply" />
 
         </RelativeLayout>
 </layout>

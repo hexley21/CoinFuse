@@ -14,6 +14,7 @@
     <string name="sort_by_volume">ვოლუმით</string>
     <string name="sort_by_change">ცვლილებით</string>
     <string name="sort_by_time">დროით</string>
+    <string name="apply">მიღება</string>
     <string name="error_no_bookmarks">შენახულები არ არის</string>
     <string name="cd_img_walk_through">გზამკლევის სურათი</string>
 
