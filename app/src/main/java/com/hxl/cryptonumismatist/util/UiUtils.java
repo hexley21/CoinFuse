@@ -6,8 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 
 import androidx.annotation.ColorInt;
-import androidx.core.content.ContextCompat;
-
+import androidx.appcompat.content.res.AppCompatResources;
 public final class UiUtils {
 
     @ColorInt
@@ -23,6 +22,6 @@ public final class UiUtils {
     }
 
     public static Drawable getDrawable(Context context, int drawableId){
-        return ContextCompat.getDrawable(context, drawableId);
+        return AppCompatResources.getDrawable(context, drawableId);
     }
 }

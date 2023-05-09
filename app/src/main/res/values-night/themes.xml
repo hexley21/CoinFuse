@@ -38,6 +38,7 @@
         <item name="background_ripple">@color/background_dark_ripple</item>
 
         <item name="growth">@color/growth_dark</item>
+        <item name="android:textColorHint">?attr/colorOnSurface</item>
     </style>
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
