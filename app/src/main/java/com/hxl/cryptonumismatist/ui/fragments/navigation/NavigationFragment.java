@@ -21,6 +21,8 @@ public class NavigationFragment extends Fragment {
     public static final String explorerArgKey = "explorerId";
     public static final String isTimeSortableArgKey = "isTimeSortable";
     public static final String coinSortCallbackArgKey = "coinSortCallback";
+    public static final String orderByArgKey = "orderBy";
+    public static final String sortByArgKey = "sortBy";
     FragmentNavigationBinding binding;
 
     NavController navController;

@@ -60,6 +60,9 @@
     <string name="sort_by_time">By Time</string>
     <string name="apply">Apply</string>
 
+    <string name="sort_by_asc">Ascending</string>
+    <string name="sort_by_desc">Descending</string>
+
     <!-- Bookmarks -->
     <string name="error_no_bookmarks">There are no bookmarks</string>
 

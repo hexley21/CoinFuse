@@ -2,20 +2,22 @@ package com.hxl.cryptonumismatist.ui.dialogs.coins;
 
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinSortCallbackArgKey;
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.isTimeSortableArgKey;
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.orderByArgKey;
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.sortByArgKey;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
+
+import androidx.appcompat.widget.AppCompatRadioButton;
 
 import com.hxl.cryptonumismatist.R;
 import com.hxl.cryptonumismatist.base.BaseDialog;
 import com.hxl.cryptonumismatist.databinding.DialogCoinSortBinding;
 import com.hxl.cryptonumismatist.util.UiUtils;
-import com.hxl.presentation.SortBy;
-import com.hxl.presentation.SortCoin;
+import com.hxl.presentation.OrderBy;
+import com.hxl.presentation.coin.CoinSortBy;
 
 public class CoinSortDialog extends BaseDialog<DialogCoinSortBinding> {
     @Override
@@ -23,14 +25,16 @@ public class CoinSortDialog extends BaseDialog<DialogCoinSortBinding> {
         return DialogCoinSortBinding.inflate(inflater, container, false);
     }
 
-    private SortCoin.SortType finalSortType = SortCoin.SortType.NONE;
-    private SortBy finalSortBy = SortBy.DESC;
+    private CoinSortBy finalCoinSortBy;
+    private OrderBy finalOrderBy;
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         assert getArguments() != null;
         boolean isTimeSortable = getArguments().getBoolean(isTimeSortableArgKey);
-        CoinSortCallback serializableFunction = (CoinSortCallback) getArguments().getParcelable(coinSortCallbackArgKey);
+        CoinSortCallback serializableFunction = getArguments().getParcelable(coinSortCallbackArgKey);
+        finalCoinSortBy = (CoinSortBy) getArguments().getSerializable(sortByArgKey);
+        finalOrderBy = (OrderBy) getArguments().getSerializable(orderByArgKey);
         bind(isTimeSortable, serializableFunction);
     }
 
@@ -39,39 +43,73 @@ public class CoinSortDialog extends BaseDialog<DialogCoinSortBinding> {
             binding.dialogCoinSortTime.setVisibility(View.GONE);
         }
 
-        registerListener(binding.dialogCoinSortRank, SortCoin.SortType.RANK);
-        registerListener(binding.dialogCoinSortName, SortCoin.SortType.NAME);
-        registerListener(binding.dialogCoinSortPrice, SortCoin.SortType.PRICE);
-        registerListener(binding.dialogCoinSortMarket, SortCoin.SortType.MARKET);
-        registerListener(binding.dialogCoinSortVolume, SortCoin.SortType.VOLUME);
-        registerListener(binding.dialogCoinSortChange, SortCoin.SortType.CHANGE);
-        registerListener(binding.dialogCoinSortTime, SortCoin.SortType.TIMESTAMP);
+        switch (finalCoinSortBy) {
+            case NAME:
+                binding.dialogCoinSortName.setChecked(true);
+                break;
+            case PRICE:
+                binding.dialogCoinSortPrice.setChecked(true);
+                break;
+            case MARKET:
+                binding.dialogCoinSortMarket.setChecked(true);
+                break;
+            case VOLUME:
+                binding.dialogCoinSortVolume.setChecked(true);
+                break;
+            case CHANGE:
+                binding.dialogCoinSortChange.setChecked(true);
+                break;
+            case TIMESTAMP:
+                binding.dialogCoinSortTime.setChecked(true);
+                break;
+        }
 
-        binding.sortApply.setOnClickListener(v -> function.apply(finalSortType, finalSortBy));
-    }
+        if (finalOrderBy == OrderBy.ASC) {
+            binding.chipOrderBy.setChecked(true);
+            binding.chipOrderBy.setText(UiUtils.getString(requireContext(), R.string.sort_by_asc));
+            binding.chipOrderBy.setChipIcon(UiUtils.getDrawable(requireContext(), R.drawable.arrow_upward));
+        }
 
-    private void registerListener(CheckBox checkBox, SortCoin.SortType sortType) {
-        checkBox.setOnCheckedChangeListener((v, b) -> {
-            finalSortType = sortType;
-            Drawable drawableStart = checkBox.getCompoundDrawablesRelative()[0];
-            if(b) {
-                finalSortBy = SortBy.DESC;
-                checkBox.setCompoundDrawablesRelative(
-                        drawableStart,
-                        null,
-                        UiUtils.getDrawable(requireContext(), R.drawable.arrow_downward),
-                        null);
-            }
-            else {
-                finalSortBy = SortBy.ASC;
-                checkBox.setCompoundDrawablesRelative(
-                        drawableStart,
-                        null,
-                        UiUtils.getDrawable(requireContext(), R.drawable.arrow_upward),
-                        null);
+        registerListener(binding.dialogCoinSortRank, CoinSortBy.RANK);
+        registerListener(binding.dialogCoinSortName, CoinSortBy.NAME);
+        registerListener(binding.dialogCoinSortPrice, CoinSortBy.PRICE);
+        registerListener(binding.dialogCoinSortMarket, CoinSortBy.MARKET);
+        registerListener(binding.dialogCoinSortVolume, CoinSortBy.VOLUME);
+        registerListener(binding.dialogCoinSortChange, CoinSortBy.CHANGE);
+        registerListener(binding.dialogCoinSortTime, CoinSortBy.TIMESTAMP);
+
+        binding.sortApply.setOnClickListener(v -> {
+            dismiss();
+            assert getArguments() != null;
+            CoinSortBy oldSort = (CoinSortBy) getArguments().getSerializable(sortByArgKey);
+            OrderBy oldOrder = (OrderBy) getArguments().getSerializable(orderByArgKey);
+            if ((oldSort != finalCoinSortBy) || (oldOrder != finalOrderBy)) {
+                function.apply(finalCoinSortBy, finalOrderBy);
             }
         });
 
+        binding.chipOrderBy.setOnCheckedChangeListener((v, b) -> {
+            if (b) {
+                finalOrderBy = OrderBy.ASC;
+                binding.chipOrderBy.setText(UiUtils.getString(requireContext(), R.string.sort_by_asc));
+                binding.chipOrderBy.setChipIcon(UiUtils.getDrawable(requireContext(), R.drawable.arrow_upward));
+            }
+            else {
+                finalOrderBy = OrderBy.DESC;
+                binding.chipOrderBy.setText(UiUtils.getString(requireContext(), R.string.sort_by_desc));
+                binding.chipOrderBy.setChipIcon(UiUtils.getDrawable(requireContext(), R.drawable.arrow_downward));
+            }
+        });
+
+
+    }
+
+    private void registerListener(AppCompatRadioButton radioButton, CoinSortBy coinSortBy) {
+        radioButton.setOnCheckedChangeListener((v, b) -> {
+            if (b) {
+                finalCoinSortBy = coinSortBy;
+            }
+        });
     }
 
 }

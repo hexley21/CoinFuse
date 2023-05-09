@@ -45,6 +45,14 @@
             <argument
                 android:name="coinSortCallback"
                 app:argType="com.hxl.cryptonumismatist.ui.dialogs.coins.CoinSortCallback" />
+            <argument
+                android:name="orderBy"
+                app:argType="com.hxl.presentation.OrderBy"
+                android:defaultValue="DESC" />
+            <argument
+                android:name="sortBy"
+                app:argType="com.hxl.presentation.coin.CoinSortBy"
+                android:defaultValue="RANK" />
         </action>
     </fragment>
     <fragment
@@ -80,5 +88,13 @@
         <argument
             android:name="coinSortCallback"
             app:argType="com.hxl.cryptonumismatist.ui.dialogs.coins.CoinSortCallback" />
+        <argument
+            android:name="orderBy"
+            app:argType="com.hxl.presentation.OrderBy"
+            android:defaultValue="DESC" />
+        <argument
+            android:name="sortBy"
+            app:argType="com.hxl.presentation.coin.CoinSortBy"
+            android:defaultValue="RANK" />
     </dialog>
 </navigation>

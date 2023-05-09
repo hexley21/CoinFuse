@@ -1,4 +1,4 @@
-package com.hxl.presentation;
+package com.hxl.presentation.coin;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

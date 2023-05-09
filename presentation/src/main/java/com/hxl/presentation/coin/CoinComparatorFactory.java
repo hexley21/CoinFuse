@@ -1,4 +1,4 @@
-package com.hxl.presentation;
+package com.hxl.presentation.coin;
 
 import static java.util.Comparator.comparing;
 import static java.util.Comparator.comparingDouble;
@@ -6,21 +6,20 @@ import static java.util.Comparator.comparingInt;
 import static java.util.Comparator.comparingLong;
 
 import com.hxl.domain.model.Coin;
+import com.hxl.presentation.OrderBy;
 
 import java.util.Comparator;
 
-public class SortCoin {
+public final class CoinComparatorFactory {
 
-    public static Comparator<Coin> by(SortType sortType, SortBy sortBy) {
-        if (sortBy == SortBy.DESC)
-            return sortByDesc(sortType);
-        return sortByAsc(sortType);
+    public static Comparator<Coin> createComparator(CoinSortBy coinSortBy, OrderBy orderBy) {
+        if (orderBy == OrderBy.DESC)
+            return sortByDesc(coinSortBy);
+        return sortByAsc(coinSortBy);
     }
 
-    private static Comparator<Coin> sortByDesc(SortType sortType) {
-        switch (sortType) {
-            case RANK:
-                return comparingInt(c -> -c.rank);
+    private static Comparator<Coin> sortByDesc(CoinSortBy coinSortBy) {
+        switch (coinSortBy) {
             case NAME:
                 return (c1, c2) -> c2.name.compareTo(c1.name);
             case PRICE:
@@ -37,10 +36,8 @@ public class SortCoin {
         return comparingInt(c -> c.rank);
     }
 
-    private static Comparator<Coin> sortByAsc(SortType sortType) {
-        switch (sortType) {
-            case RANK:
-                return comparingInt(c -> c.rank);
+    private static Comparator<Coin> sortByAsc(CoinSortBy coinSortBy) {
+        switch (coinSortBy) {
             case NAME:
                 return comparing(c -> c.name);
             case PRICE:
@@ -55,16 +52,5 @@ public class SortCoin {
                 return comparingLong(c -> c.timestamp);
         }
         return comparingInt(c -> c.rank);
-    }
-
-    public enum SortType {
-        RANK,
-        NAME,
-        PRICE,
-        MARKET,
-        VOLUME,
-        CHANGE,
-        TIMESTAMP,
-        NONE
     }
 }

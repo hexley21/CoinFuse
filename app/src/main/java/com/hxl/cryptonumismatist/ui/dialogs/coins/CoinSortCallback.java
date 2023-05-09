@@ -5,12 +5,12 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import com.hxl.presentation.SortBy;
-import com.hxl.presentation.SortCoin;
+import com.hxl.presentation.OrderBy;
+import com.hxl.presentation.coin.CoinSortBy;
 
 public interface CoinSortCallback extends Parcelable {
 
-    void apply(SortCoin.SortType sortType, SortBy sortBy);
+    void apply(CoinSortBy coinSortBy, OrderBy orderBy);
 
     @Override
     default int describeContents() {

@@ -35,7 +35,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 @AndroidEntryPoint
 public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, CoinsMenuViewModel> {
@@ -176,7 +175,6 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
     private void searchCoins(String query) {
         EspressoIdlingResource.increment();
         vm.searchCoins(query)
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coins -> {
                             coinSearchAdapter.setList(coins);
@@ -195,7 +193,6 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
     private void getSearchHistory() {
         EspressoIdlingResource.increment();
         vm.getCoinSearchHistory()
-                .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(h -> {
                     List<String> queries = h.stream().map(x -> x.value).collect(Collectors.toList());
                     return vm.getCoins(queries).map(c -> {

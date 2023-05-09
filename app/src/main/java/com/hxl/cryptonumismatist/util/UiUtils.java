@@ -5,12 +5,9 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 
-import androidx.annotation.ColorInt;
-import androidx.core.content.ContextCompat;
-
+import androidx.appcompat.content.res.AppCompatResources;
 public final class UiUtils {
 
-    @ColorInt
     public static int getColor(Context context, int colorId) {
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = context.getTheme();
@@ -23,6 +20,6 @@ public final class UiUtils {
     }
 
     public static Drawable getDrawable(Context context, int drawableId){
-        return ContextCompat.getDrawable(context, drawableId);
+        return AppCompatResources.getDrawable(context, drawableId);
     }
 }
