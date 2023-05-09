@@ -1,7 +1,6 @@
 package com.hxl.cryptonumismatist.ui.fragments.bookmarks;
 
-import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinSortCallbackArgKey;
-import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.isTimeSortableArgKey;
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.*;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -52,6 +51,9 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
     private BookmarkAdapter bookmarkCoinsAdapter;
     private NavController navController;
 
+    private CoinSortBy finalSortBy = CoinSortBy.TIMESTAMP;
+    private OrderBy finalOrderBy = OrderBy.DESC;
+
     private int pbVisibility = View.VISIBLE;
 
     @Override
@@ -75,12 +77,19 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
             Bundle bundle = new Bundle();
             bundle.putBoolean(isTimeSortableArgKey, true);
             bundle.putParcelable(coinSortCallbackArgKey, (CoinSortCallback) this::fetchBookmarkedCoins);
+            bundle.putSerializable(sortByArgKey, finalSortBy);
+            bundle.putSerializable(orderByArgKey, finalOrderBy);
             navController.navigate(R.id.navigation_to_coinSortDialog, bundle);
         });
         pbVisibility = View.GONE;
         binding.srlCoinBookmarks.setOnRefreshListener(() -> {
             setPbVisibilityErrorRefresh();
-            fetchBookmarkedCoins();
+            if ((finalSortBy == CoinSortBy.TIMESTAMP) && (finalOrderBy == OrderBy.DESC)) {
+                fetchBookmarkedCoins();
+            }
+            else {
+                fetchBookmarkedCoins(finalSortBy, finalOrderBy);
+            }
         });
     }
 
@@ -97,6 +106,8 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
 
     private void fetchBookmarkedCoins(CoinSortBy coinSortBy, OrderBy orderBy) {
         EspressoIdlingResource.increment();
+        finalSortBy = coinSortBy;
+        finalOrderBy = orderBy;
         vm.bookmarkedCoins(coinSortBy, orderBy)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

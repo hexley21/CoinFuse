@@ -2,6 +2,8 @@ package com.hxl.cryptonumismatist.ui.dialogs.coins;
 
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.coinSortCallbackArgKey;
 import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.isTimeSortableArgKey;
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.orderByArgKey;
+import static com.hxl.cryptonumismatist.ui.fragments.navigation.NavigationFragment.sortByArgKey;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,20 +25,50 @@ public class CoinSortDialog extends BaseDialog<DialogCoinSortBinding> {
         return DialogCoinSortBinding.inflate(inflater, container, false);
     }
 
-    private CoinSortBy finalCoinSortBy = CoinSortBy.RANK;
-    private OrderBy finalOrderBy = OrderBy.DESC;
+    private CoinSortBy finalCoinSortBy;
+    private OrderBy finalOrderBy;
+    private boolean hasChanged = false;
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         assert getArguments() != null;
         boolean isTimeSortable = getArguments().getBoolean(isTimeSortableArgKey);
         CoinSortCallback serializableFunction = getArguments().getParcelable(coinSortCallbackArgKey);
+        finalCoinSortBy = (CoinSortBy) getArguments().getSerializable(sortByArgKey);
+        finalOrderBy = (OrderBy) getArguments().getSerializable(orderByArgKey);
         bind(isTimeSortable, serializableFunction);
     }
 
     private void bind(boolean isTimeSortable, CoinSortCallback function) {
         if (!isTimeSortable) {
             binding.dialogCoinSortTime.setVisibility(View.GONE);
+        }
+
+        switch (finalCoinSortBy) {
+            case NAME:
+                binding.dialogCoinSortName.setChecked(true);
+                break;
+            case PRICE:
+                binding.dialogCoinSortPrice.setChecked(true);
+                break;
+            case MARKET:
+                binding.dialogCoinSortMarket.setChecked(true);
+                break;
+            case VOLUME:
+                binding.dialogCoinSortVolume.setChecked(true);
+                break;
+            case CHANGE:
+                binding.dialogCoinSortChange.setChecked(true);
+                break;
+            case TIMESTAMP:
+                binding.dialogCoinSortTime.setChecked(true);
+                break;
+        }
+
+        if (finalOrderBy == OrderBy.ASC) {
+            binding.chipOrderBy.setChecked(true);
+            binding.chipOrderBy.setText(UiUtils.getString(requireContext(), R.string.sort_by_asc));
+            binding.chipOrderBy.setChipIcon(UiUtils.getDrawable(requireContext(), R.drawable.arrow_upward));
         }
 
         registerListener(binding.dialogCoinSortRank, CoinSortBy.RANK);
@@ -49,7 +81,9 @@ public class CoinSortDialog extends BaseDialog<DialogCoinSortBinding> {
 
         binding.sortApply.setOnClickListener(v -> {
             dismiss();
-            function.apply(finalCoinSortBy, finalOrderBy);
+            if (hasChanged) {
+                function.apply(finalCoinSortBy, finalOrderBy);
+            }
         });
 
         binding.chipOrderBy.setOnCheckedChangeListener((v, b) -> {
@@ -63,7 +97,10 @@ public class CoinSortDialog extends BaseDialog<DialogCoinSortBinding> {
                 binding.chipOrderBy.setText(UiUtils.getString(requireContext(), R.string.sort_by_desc));
                 binding.chipOrderBy.setChipIcon(UiUtils.getDrawable(requireContext(), R.drawable.arrow_downward));
             }
+            hasChanged = true;
         });
+
+
     }
 
     private void registerListener(AppCompatRadioButton radioButton, CoinSortBy coinSortBy) {
@@ -71,6 +108,7 @@ public class CoinSortDialog extends BaseDialog<DialogCoinSortBinding> {
             if (b) {
                 finalCoinSortBy = coinSortBy;
             }
+            hasChanged = true;
         });
     }
 
