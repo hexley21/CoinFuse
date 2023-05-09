@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -62,7 +61,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
     private CoinSearchAdapter coinSearchAdapter;
     private CoinSearchAdapter searchHistoryCoinsAdapter;
     private SwipeRefreshLayout refreshLayout;
-    private ProgressBar progressBar;
+    private View loadingView;
     private OnBackPressedCallback callback;
     private NavController navController;
     private int pbVisibility = View.VISIBLE;
@@ -78,8 +77,8 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         refreshLayout = binding.srlCoins;
-        progressBar = binding.pbCoins;
-        progressBar.setVisibility(pbVisibility);
+        loadingView = binding.shimmerCoins;
+        loadingView.setVisibility(pbVisibility);
 
         if (navController == null) {
             navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
@@ -107,7 +106,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
 
         coinMenuAdapter.addLoadStateListener(combinedLoadStates -> {
             if (combinedLoadStates.getRefresh() instanceof LoadState.NotLoading) {
-                progressBar.setVisibility(View.GONE);
+                loadingView.setVisibility(View.GONE);
                 refreshLayout.setRefreshing(false);
             }
             return null;
@@ -164,7 +163,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
                 e -> {
                     Log.e(TAG, "updateCoins: failed", e);
 
-                    progressBar.setVisibility(View.GONE);
+                    loadingView.setVisibility(View.GONE);
                     refreshLayout.setRefreshing(false);
 
                     visibilityCoinError(e.getMessage());
@@ -235,7 +234,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
     }
 
     private void visibilityCoinError(String error) {
-        binding.pbCoins.setVisibility(View.GONE);
+        binding.shimmerCoins.setVisibility(View.GONE);
         binding.textCoinError.setVisibility(View.VISIBLE);
         binding.iconCoinError.setVisibility(View.VISIBLE);
         binding.setCoinError(error);

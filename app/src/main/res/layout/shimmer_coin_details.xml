@@ -18,45 +18,31 @@
             android:orientation="horizontal"
             android:paddingLeft="@dimen/default_padding"
             android:paddingRight="@dimen/default_padding">
-
-            <HorizontalScrollView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fadeScrollbars="true"
-                android:fadingEdgeLength="@dimen/default_padding_tiny"
-                android:requiresFadingEdge="horizontal"
-                android:scrollbarSize="0dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="@dimen/details_header_img_size"
-                        android:layout_height="@dimen/details_header_img_size"
-                        app:cardBackgroundColor="?attr/colorSecondary"
-                        app:cardCornerRadius="12dp" />
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="150dp"
-                        android:layout_height="48dp"
-                        android:layout_margin="8dp"
-                        android:gravity="center|start"
-                        app:cardBackgroundColor="?attr/colorSecondary"
-                        app:cardCornerRadius="12dp" />
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="64dp"
-                        android:layout_height="48dp"
-                        android:layout_margin="8dp"
-                        android:gravity="center|start"
-                        app:cardBackgroundColor="?attr/colorSecondary"
-                        app:cardCornerRadius="12dp" />
-                </LinearLayout>
-            </HorizontalScrollView>
+                android:gravity="center"
+                android:orientation="horizontal">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="@dimen/details_header_img_size"
+                    android:layout_height="@dimen/details_header_img_size"
+                    app:cardBackgroundColor="?attr/colorSecondary"
+                    app:cardCornerRadius="12dp" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:gravity="center|start"
+                    app:cardBackgroundColor="?attr/colorSecondary"
+                    app:cardCornerRadius="12dp" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="64dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:gravity="center|start"
+                    app:cardBackgroundColor="?attr/colorSecondary"
+                    app:cardCornerRadius="12dp" />
+            </LinearLayout>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="@dimen/details_header_img_size"

@@ -19,7 +19,6 @@
         style="@style/Widget.Material3.CardView.Elevated"
         android:layout_width="match_parent"
         android:layout_height="@dimen/coin_item_height"
-        android:layout_gravity="center"
         app:cardCornerRadius="0dp"
         app:cardElevation="0dp"
         app:contentPaddingLeft="@dimen/default_padding"

@@ -29,13 +29,15 @@
                 tools:listitem="@layout/item_coin" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <ProgressBar
-            android:id="@+id/pb_coins"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+
+        <include
+            android:id="@+id/shimmer_coins"
+            layout="@layout/shimmer_coin_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/coin_search_bar_height"
             android:visibility="gone"
-            tools:visibility="invisible" />
+            tools:visibility="gone" />
 
         <ImageView
             android:id="@+id/icon_coin_error"
