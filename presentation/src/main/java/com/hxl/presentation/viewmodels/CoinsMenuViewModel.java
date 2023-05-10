@@ -22,7 +22,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
@@ -43,18 +42,15 @@ public class CoinsMenuViewModel extends ViewModel {
     public Pager<Integer, Coin> pager;
 
     public Single<List<Coin>> getCoins(List<String> coins) {
-        return getCoins.invoke(coins)
-                .observeOn(AndroidSchedulers.mainThread());
+        return getCoins.invoke(coins);
     }
 
     public Single<List<Coin>> searchCoins(String key) {
-        return searchCoins.invoke(key)
-                .observeOn(AndroidSchedulers.mainThread());
+        return searchCoins.invoke(key);
     }
 
     public Single<List<ValueAndTimestamp<String>>> getCoinSearchHistory() {
-        return getCoinSearchHistory.invoke()
-                .observeOn(AndroidSchedulers.mainThread());
+        return getCoinSearchHistory.invoke();
     }
 
     public Completable insertCoinSearchQuery(String query) {
@@ -83,7 +79,7 @@ public class CoinsMenuViewModel extends ViewModel {
                 new PagingConfig(CoinPagingSource.AMOUNT),
                 () -> new CoinPagingSource(getCoins));
 
-        coinStream = PagingRx.getFlowable(pager).observeOn(AndroidSchedulers.mainThread());
+        coinStream = PagingRx.getFlowable(pager);
 
     }
 }

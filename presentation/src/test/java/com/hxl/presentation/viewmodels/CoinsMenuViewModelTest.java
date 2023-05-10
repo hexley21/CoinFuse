@@ -42,7 +42,6 @@ public class CoinsMenuViewModelTest {
     @InjectMocks
     CoinsMenuViewModel viewModel;
 
-
     @Test
     public void getCoinsReturnsListFromRepository() {
         // Arrange

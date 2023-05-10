@@ -35,6 +35,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 @AndroidEntryPoint
 public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, CoinsMenuViewModel> {
@@ -157,7 +158,8 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
     }
 
     private void updateCoins() {
-        vm.coinStream.subscribe(
+        vm.coinStream.observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
                 pagingData -> coinMenuAdapter.submitData(getLifecycle(), pagingData),
                 e -> {
                     Log.e(TAG, "updateCoins: failed", e);
@@ -175,6 +177,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
     private void searchCoins(String query) {
         EspressoIdlingResource.increment();
         vm.searchCoins(query)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coins -> {
                             coinSearchAdapter.setList(coins);
@@ -203,6 +206,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
                         return c;
                     });
                 })
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coins -> {
                             searchHistoryCoinsAdapter.setList(coins);
