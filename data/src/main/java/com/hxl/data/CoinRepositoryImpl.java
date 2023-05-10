@@ -9,6 +9,7 @@ import com.hxl.domain.repository.CoinRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -131,8 +132,21 @@ public class CoinRepositoryImpl implements CoinRepository {
     }
 
     @Override
-    public Single<List<ValueAndTimestamp<String>>> getCoinSearchHistory() {
+    public Single<List<ValueAndTimestamp<String>>> getCoinSearchHistoryValues() {
         return localSource.getCoinSearchHistory();
+    }
+
+    @Override
+    public Single<List<Coin>> getCoinsBySearchHistory() {
+        return getCoinSearchHistoryValues()
+                .flatMap(h -> {
+                    List<String> queries = h.stream().map(x -> x.value).collect(Collectors.toList());
+                    return getCoins(queries).map(c ->
+                            c.stream().sorted(Comparator.comparingLong(coin -> {
+                                int index = queries.indexOf(coin.id);
+                                return index >= 0 ? -h.get(index).timestamp : Long.MIN_VALUE;
+                            })).collect(Collectors.toList()));
+                });
     }
 
     @Override

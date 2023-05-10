@@ -29,10 +29,7 @@ import com.hxl.cryptonumismatist.util.EspressoIdlingResource;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -195,17 +192,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
 
     private void getSearchHistory() {
         EspressoIdlingResource.increment();
-        vm.getCoinSearchHistory()
-                .flatMap(h -> {
-                    List<String> queries = h.stream().map(x -> x.value).collect(Collectors.toList());
-                    return vm.getCoins(queries).map(c -> {
-                        c.sort(Comparator.comparingLong(coin -> {
-                            int index = queries.indexOf(coin.id);
-                            return index >= 0 ? -h.get(index).timestamp : Long.MIN_VALUE;
-                        }));
-                        return c;
-                    });
-                })
+        vm.getCoinsBySearchHistory()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coins -> {

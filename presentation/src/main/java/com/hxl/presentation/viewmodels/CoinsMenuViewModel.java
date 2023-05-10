@@ -7,12 +7,11 @@ import androidx.paging.PagingData;
 import androidx.paging.rxjava3.PagingRx;
 
 import com.hxl.domain.interactors.coins.DeleteCoinSearchQuery;
-import com.hxl.domain.interactors.coins.GetCoinSearchHistory;
 import com.hxl.domain.interactors.coins.GetCoins;
+import com.hxl.domain.interactors.coins.GetCoinsBySearchHistory;
 import com.hxl.domain.interactors.coins.InsertCoinSearchQuery;
 import com.hxl.domain.interactors.coins.SearchCoins;
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.ValueAndTimestamp;
 import com.hxl.presentation.coin.CoinPagingSource;
 
 import org.jetbrains.annotations.NotNull;
@@ -31,7 +30,7 @@ public class CoinsMenuViewModel extends ViewModel {
 
     @NotNull private final GetCoins getCoins;
     @NotNull private final SearchCoins searchCoins;
-    @NotNull private final GetCoinSearchHistory getCoinSearchHistory;
+    @NotNull private final GetCoinsBySearchHistory getCoinsBySearchHistory;
     @NotNull private final InsertCoinSearchQuery insertCoinSearchQuery;
     @NotNull private final DeleteCoinSearchQuery deleteCoinSearchQuery;
 
@@ -41,16 +40,12 @@ public class CoinsMenuViewModel extends ViewModel {
 
     public Pager<Integer, Coin> pager;
 
-    public Single<List<Coin>> getCoins(List<String> coins) {
-        return getCoins.invoke(coins);
-    }
-
     public Single<List<Coin>> searchCoins(String key) {
         return searchCoins.invoke(key);
     }
 
-    public Single<List<ValueAndTimestamp<String>>> getCoinSearchHistory() {
-        return getCoinSearchHistory.invoke();
+    public Single<List<Coin>> getCoinsBySearchHistory() {
+        return getCoinsBySearchHistory.invoke();
     }
 
     public Completable insertCoinSearchQuery(String query) {
@@ -66,12 +61,12 @@ public class CoinsMenuViewModel extends ViewModel {
     @Inject
     public CoinsMenuViewModel(@NotNull GetCoins getCoins,
                               @NotNull SearchCoins searchCoins,
-                              @NotNull GetCoinSearchHistory getCoinSearchHistory,
+                              @NotNull GetCoinsBySearchHistory getCoinsBySearchHistory,
                               @NotNull InsertCoinSearchQuery insertCoinSearchQuery,
                               @NotNull DeleteCoinSearchQuery deleteCoinSearchQuery) {
         this.getCoins = getCoins;
         this.searchCoins = searchCoins;
-        this.getCoinSearchHistory = getCoinSearchHistory;
+        this.getCoinsBySearchHistory = getCoinsBySearchHistory;
         this.insertCoinSearchQuery = insertCoinSearchQuery;
         this.deleteCoinSearchQuery = deleteCoinSearchQuery;
 

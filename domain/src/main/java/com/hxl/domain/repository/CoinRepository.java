@@ -26,7 +26,8 @@ public interface CoinRepository {
     Single<Boolean> isCoinBookmarked(String id);
     Single<List<Coin>> getBookmarkedCoins();
     Single<List<Coin>> searchBookmarkedCoins(String query);
-    Single<List<ValueAndTimestamp<String>>> getCoinSearchHistory();
+    Single<List<ValueAndTimestamp<String>>> getCoinSearchHistoryValues();
+    Single<List<Coin>> getCoinsBySearchHistory();
     Completable insertCoinSearchQuery(String query);
     Completable insertCoinSearchQuery(List<String> query);
     Completable deleteCoinSearchQuery(String query);
