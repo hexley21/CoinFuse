@@ -34,6 +34,7 @@ import com.hxl.presentation.viewmodels.BookmarksViewModel;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.functions.Consumer;
 
 @AndroidEntryPoint
@@ -152,6 +153,7 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
     private void getCoins() {
         EspressoIdlingResource.increment();
         vm.bookmarkedCoins(finalSortBy, finalOrderBy)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coinsConsumer,
                         coinsErrorConsumer,
@@ -161,7 +163,8 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
 
     private void getCoinsByQuery(String query) {
         EspressoIdlingResource.increment();
-        vm.bookmarkedCoins(query, finalSortBy, finalOrderBy)
+        vm.searchBookmarkedCoins(query, finalSortBy, finalOrderBy)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         coinsConsumer,
                         coinsErrorConsumer,

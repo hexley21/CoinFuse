@@ -121,6 +121,16 @@ public class CoinRepositoryImpl implements CoinRepository {
     }
 
     @Override
+    public Single<List<Coin>> searchBookmarkedCoins(String query) {
+        return getBookmarkedCoins()
+                .map(x -> x.stream().filter(c -> (
+                        (c.id.toLowerCase().startsWith(query))
+                        || (c.symbol.toLowerCase().startsWith(query))
+                        || (c.name.toLowerCase().startsWith(query))
+                )).collect(Collectors.toList()));
+    }
+
+    @Override
     public Single<List<ValueAndTimestamp<String>>> getCoinSearchHistory() {
         return localSource.getCoinSearchHistory();
     }
