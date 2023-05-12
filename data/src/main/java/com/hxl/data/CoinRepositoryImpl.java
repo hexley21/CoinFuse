@@ -132,13 +132,8 @@ public class CoinRepositoryImpl implements CoinRepository {
     }
 
     @Override
-    public Single<List<ValueAndTimestamp<String>>> getCoinSearchHistoryValues() {
-        return localSource.getCoinSearchHistory();
-    }
-
-    @Override
     public Single<List<Coin>> getCoinsBySearchHistory() {
-        return getCoinSearchHistoryValues()
+        return localSource.getCoinSearchHistory()
                 .flatMap(h -> {
                     List<String> queries = h.stream().map(x -> x.value).collect(Collectors.toList());
                     return getCoins(queries).map(c ->

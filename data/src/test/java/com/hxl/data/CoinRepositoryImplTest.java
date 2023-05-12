@@ -420,23 +420,6 @@ public class CoinRepositoryImplTest {
     }
     // endregion
 
-    // region getCoinSearchHistory()
-    @Test
-    public void getCoinSearchHistoryReturnsSearchQueriesFromLocalSource() {
-        // Arrange
-        when(localSource.getCoinSearchHistory()).thenReturn(Single.just(getFakeSearchQueries(SIZE)));
-        // Act
-        Single<List<ValueAndTimestamp<String>>> searchQueries = repository.getCoinSearchHistoryValues();
-        // Assert
-        searchQueries.test()
-                .awaitCount(1)
-                .assertNoErrors()
-                .assertValue(x -> x.size() == SIZE);
-        verify(localSource, times(1)).getCoinSearchHistory();
-        verify(repository, times(1)).getCoinSearchHistoryValues();
-    }
-    // endregion
-
     // region insertCoinSearchQuery(String query)
     @Test
     public void insertCoinSearchQueryInsertsQueryToLocalSource() {
