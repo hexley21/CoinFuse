@@ -26,6 +26,7 @@
     <!-- Coin Details -->
     <dimen name="details_header_img_size">52dp</dimen>
     <dimen name="details_header_container_size">84dp</dimen>
+    <dimen name="graph_height">250dp</dimen>
 
     <!-- Icons -->
     <dimen name="error_icon_height">200dp</dimen>

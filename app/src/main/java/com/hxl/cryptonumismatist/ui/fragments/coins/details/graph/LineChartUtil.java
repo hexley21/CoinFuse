@@ -32,15 +32,16 @@ public class LineChartUtil {
         Description chartDescription = new Description();
         chartDescription.setText("");
         lineChart.setDescription(chartDescription);
-        lineChart.setFitsSystemWindows(true);
         lineChart.setDrawGridBackground(false);
         lineChart.setMaxHighlightDistance(300);
 
         // Disable any kind of interaction with graph
-        lineChart.setDragEnabled(false);
-        lineChart.setScaleEnabled(false);
-        lineChart.setTouchEnabled(false);
-        lineChart.setPinchZoom(false);
+        lineChart.setDragEnabled(true);
+        lineChart.setScaleXEnabled(true);
+        lineChart.setScaleYEnabled(false);
+        lineChart.setTouchEnabled(true);
+        lineChart.setPinchZoom(true);
+        lineChart.setDoubleTapToZoomEnabled(false);
 
         // Config X (horizontal) axis
         XAxis x = lineChart.getXAxis();

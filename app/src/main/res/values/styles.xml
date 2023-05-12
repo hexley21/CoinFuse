@@ -47,4 +47,9 @@
     <style name="CN_Chip" parent="Widget.Material3.Chip.Filter">
         <item name="chipBackgroundColor">@color/chip_colors</item>
     </style>
+
+    <style name="CN_Shimmer_Container">
+        <item name="cardBackgroundColor">?attr/colorSecondary</item>
+        <item name="cardCornerRadius">12dp</item>
+    </style>
 </resources>

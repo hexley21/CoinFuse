@@ -71,6 +71,8 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
     public void onViewCreated(@androidx.annotation.NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        binding.detailsTopAppBar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
+
         binding.intervalGroup.setOnCheckedStateChangeListener((group, checkedIds) -> {
             switch (group.getCheckedChipId()) {
                 case (R.id.chip_24h):

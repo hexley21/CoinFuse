@@ -37,6 +37,7 @@
     <string name="chip_6m" translatable="false">6M</string>
     <string name="chip_1y" translatable="false">1Y</string>
         <!-- Details -->
+    <string name="statistics">Statistics</string>
     <string name="tv_market_cap">Market Cap</string>
     <string name="tv_volume_24h">Volume (24H)</string>
     <string name="tv_supply">Supply</string>

@@ -4,6 +4,7 @@
     <string name="btn_get_started">დაწყება</string>
     <string name="tv_skip">გამოტოვება</string>
     <string name="hint_search">ქოინების ძიება</string>
+    <string name="statistics">სტატისტიკა</string>
     <string name="tv_market_cap">საბაზრო კაპიტალი</string>
     <string name="error_no_internet">ინტერნეტი არ არის</string>
     <string name="add_to_bookmarks">შენახულებში დამატება</string>
