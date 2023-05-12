@@ -23,7 +23,7 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Single;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GetCoinCoinPriceHistoryTest {
+public class GetCoinPriceHistoryTest {
 
     @Mock
     CoinRepository repository;
