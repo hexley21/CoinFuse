@@ -10,10 +10,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.hxl.cryptonumismatist.R;
 
-public final class GlideStandard {
+public final class GlideFactory {
 
     @NonNull
-    public static RequestManager getGlide(Context context) {
+    public static RequestManager createGlide(Context context) {
         return Glide.with(context).setDefaultRequestOptions(
                 new RequestOptions()
                         .placeholder(R.drawable.logo)

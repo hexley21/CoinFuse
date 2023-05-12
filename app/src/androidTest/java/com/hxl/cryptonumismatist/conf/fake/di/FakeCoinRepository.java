@@ -72,7 +72,17 @@ public class FakeCoinRepository implements CoinRepository {
     }
 
     @Override
-    public Single<List<ValueAndTimestamp<String>>> getCoinSearchHistory() {
+    public Single<List<Coin>> searchBookmarkedCoins(String query) {
+        return null;
+    }
+
+    @Override
+    public Single<List<ValueAndTimestamp<String>>> getCoinSearchHistoryValues() {
+        return null;
+    }
+
+    @Override
+    public Single<List<Coin>> getCoinsBySearchHistory() {
         return null;
     }
 

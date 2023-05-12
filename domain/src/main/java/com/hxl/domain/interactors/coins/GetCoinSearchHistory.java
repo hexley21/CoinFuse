@@ -19,6 +19,6 @@ public class GetCoinSearchHistory {
     }
 
     public Single<List<ValueAndTimestamp<String>>> invoke() {
-        return repository.getCoinSearchHistory();
+        return repository.getCoinSearchHistoryValues();
     }
 }

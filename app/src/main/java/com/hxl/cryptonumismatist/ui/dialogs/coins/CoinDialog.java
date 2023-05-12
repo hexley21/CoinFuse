@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -26,19 +27,20 @@ import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 @AndroidEntryPoint
-public class CoinDialog extends BaseDialog<DialogCoinBinding, CoinDialogViewModel> {
+public class CoinDialog extends BaseDialog<DialogCoinBinding> {
     @Override
     protected DialogCoinBinding setViewBinding(LayoutInflater inflater, ViewGroup container) {
         return DialogCoinBinding.inflate(inflater, container, false);
     }
 
-    @Override
-    protected CoinDialogViewModel setViewModel() {
-        return new ViewModelProvider(this).get(CoinDialogViewModel.class);
-    }
-
+    private CoinDialogViewModel vm;
     private static final String TAG = "CoinDialog";
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        vm = new ViewModelProvider(this).get(CoinDialogViewModel.class);
+    }
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {

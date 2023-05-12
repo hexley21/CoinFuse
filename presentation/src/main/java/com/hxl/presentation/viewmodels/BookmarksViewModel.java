@@ -3,47 +3,47 @@ package com.hxl.presentation.viewmodels;
 import androidx.lifecycle.ViewModel;
 
 import com.hxl.domain.interactors.coins.GetBookmarkedCoins;
-import com.hxl.domain.interactors.coins.UnBookmarkCoin;
+import com.hxl.domain.interactors.coins.SearchBookmarkedCoins;
 import com.hxl.domain.model.Coin;
-import com.hxl.presentation.SortCoin;
+import com.hxl.presentation.OrderBy;
+import com.hxl.presentation.coin.CoinSortBy;
+import com.hxl.presentation.coin.CoinComparatorFactory;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
-import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 
 @HiltViewModel
 public class BookmarksViewModel extends ViewModel {
 
     private final GetBookmarkedCoins getBookmarkedCoins;
-    private final UnBookmarkCoin unBookmarkCoin;
+    private final SearchBookmarkedCoins searchBookmarkedCoins;
 
-    public Single<List<Coin>> bookmarkedCoins() {
+    public Single<List<Coin>> bookmarkedCoins(CoinSortBy coinSortBy, OrderBy orderBy) {
         return getBookmarkedCoins.invoke()
+                .observeOn(AndroidSchedulers.mainThread())
                 .map(x -> {
-                    x.sort(SortCoin.by(SortCoin.SortType.TIMESTAMP_DESC));
+                    x.sort(CoinComparatorFactory.createComparator(coinSortBy, orderBy));
                     return x;
                 });
     }
 
-    public Single<List<Coin>> bookmarkedCoins(SortCoin.SortType sortType) {
-        return getBookmarkedCoins.invoke()
+    public Single<List<Coin>> searchBookmarkedCoins(String query, CoinSortBy coinSortBy, OrderBy orderBy) {
+        String q = query.toLowerCase();
+        return searchBookmarkedCoins.invoke(q)
                 .map(x -> {
-                    x.sort(SortCoin.by(sortType));
+                    x.sort(CoinComparatorFactory.createComparator(coinSortBy, orderBy));
                     return x;
                 });
-    }
-
-    public Completable unBookmarkCoin(String id) {
-        return unBookmarkCoin.invoke(id);
     }
 
     @Inject
-    public BookmarksViewModel(GetBookmarkedCoins getBookmarkedCoins, UnBookmarkCoin unBookmarkCoin) {
+    public BookmarksViewModel(GetBookmarkedCoins getBookmarkedCoins, SearchBookmarkedCoins searchBookmarkedCoins) {
         this.getBookmarkedCoins = getBookmarkedCoins;
-        this.unBookmarkCoin = unBookmarkCoin;
+        this.searchBookmarkedCoins = searchBookmarkedCoins;
     }
 }

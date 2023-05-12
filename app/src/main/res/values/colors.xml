@@ -78,7 +78,7 @@
     <color name="md_theme_dark_errorContainer">#93000A</color>
     <color name="md_theme_dark_onError">#690005</color>
     <color name="md_theme_dark_onErrorContainer">#FFDAD6</color>
-    <color name="md_theme_dark_background">#191C1E</color>
+    <color name="md_theme_dark_background">#111416</color>
     <color name="md_theme_dark_onBackground">#E2E2E5</color>
     <color name="md_theme_dark_outline">#8B9198</color>
     <color name="md_theme_dark_inverseOnSurface">#191C1E</color>
@@ -88,7 +88,7 @@
     <color name="md_theme_dark_surfaceTint">#86CFFF</color>
     <color name="md_theme_dark_outlineVariant">#41484D</color>
     <color name="md_theme_dark_scrim">#000000</color>
-    <color name="md_theme_dark_surface">#111416</color>
+    <color name="md_theme_dark_surface">#191C1E</color>
     <color name="md_theme_dark_onSurface">#C5C6C9</color>
     <color name="md_theme_dark_surfaceVariant">#41484D</color>
     <color name="md_theme_dark_onSurfaceVariant">#C1C7CE</color>
@@ -99,11 +99,6 @@
     <color name="md_theme_dark_surfaceContainerLowest">#0C0E11</color>
     <color name="md_theme_dark_surfaceDim">#111416</color>
     <color name="md_theme_dark_surfaceBright">#37393C</color>
-
-    <color name="status_bar_light">#D6E3EB</color>
-    <color name="navigation_bar_light">#E1E9F0</color>
-    <color name="status_bar_dark">#202B33</color>
-    <color name="navigation_bar_dark">#1A2329</color>
 
     <color name="bookmark_light">#FBC02D</color>
     <color name="bookmark_dark">#FFF176</color>

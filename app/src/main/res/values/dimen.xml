@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Defaults -->
+    <dimen name="default_padding_big">32dp</dimen>
     <dimen name="default_padding">16dp</dimen>
-    <dimen name="default_text_padding">8dp</dimen>
+    <dimen name="default_padding_small">8dp</dimen>
+    <dimen name="default_padding_tiny">4dp</dimen>
     <dimen name="default_drawable_padding">24dp</dimen>
 
-    <!-- Coins Menu -->
-    <dimen name="coin_list_item_height">64dp</dimen>
-    <dimen name="search_coin_list_item_height">48dp</dimen>
-    <dimen name="coins_list_item_padding">16dp</dimen>
+    <!-- Welcome Fragment -->
+    <dimen name="welcome_horizontal_margin">36dp</dimen>
+    <dimen name="welcome_vertical_margin">24dp</dimen>
+
+    <!-- Coin Menu -->
+    <dimen name="coin_search_bar_height">56dp</dimen>
+    <dimen name="coin_appbar_height">110dp</dimen>
+
+    <!-- Coin item -->
+    <dimen name="coin_logo">42dp</dimen>
+    <dimen name="coin_item_height">72dp</dimen>
+
+    <!-- Coin search item -->
+    <dimen name="coin_search_item_height">48dp</dimen>
+    <dimen name="coin_search_logo">36dp</dimen>
 
     <!-- Coin Details -->
     <dimen name="details_header_img_size">52dp</dimen>
     <dimen name="details_header_container_size">84dp</dimen>
+    <dimen name="graph_height">250dp</dimen>
 
     <!-- Icons -->
     <dimen name="error_icon_height">200dp</dimen>

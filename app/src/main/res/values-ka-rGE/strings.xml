@@ -4,9 +4,20 @@
     <string name="btn_get_started">დაწყება</string>
     <string name="tv_skip">გამოტოვება</string>
     <string name="hint_search">ქოინების ძიება</string>
+    <string name="statistics">სტატისტიკა</string>
     <string name="tv_market_cap">საბაზრო კაპიტალი</string>
     <string name="error_no_internet">ინტერნეტი არ არის</string>
     <string name="add_to_bookmarks">შენახულებში დამატება</string>
+    <string name="sort_by_rank">რანგით</string>
+    <string name="sort_by_name">სახელით</string>
+    <string name="sort_by_price">ფასით</string>
+    <string name="sort_by_market">ბაზრის კაპ…</string>
+    <string name="sort_by_volume">ვოლუმით</string>
+    <string name="sort_by_change">ცვლილებით</string>
+    <string name="sort_by_time">დროით</string>
+    <string name="apply">მიღება</string>
+    <string name="sort_by_asc">ზრდადობით</string>
+    <string name="sort_by_desc">კლებადობიით</string>
     <string name="error_no_bookmarks">შენახულები არ არის</string>
     <string name="cd_img_walk_through">გზამკლევის სურათი</string>
 
@@ -32,5 +43,6 @@
     <string name="visit_explorer">მკვლევართან გადასვლა</string>
     <string name="remove_from_bookmarks">შენახულებიდან ამოშლა</string>
     <string name="error_no_main_data">მონაცემები არ არის… \n გადატვირთედ გვერდი ან გადაუერთდით ინტერნეტს</string>
+    <string name="sort_by">დალაგება</string>
 
 </resources>

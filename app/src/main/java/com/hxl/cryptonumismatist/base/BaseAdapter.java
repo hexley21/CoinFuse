@@ -20,14 +20,17 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder & Functi
         return differ.getCurrentList();
     }
 
-    public BaseAdapter(DiffUtil.ItemCallback<T> comparator) {
-        this.differ = new AsyncListDiffer<>(this, comparator);
-    }
-
     public void setList(List<T> list) {
         EspressoIdlingResource.increment();
         differ.submitList(list);
         EspressoIdlingResource.decrement();
+    }
+
+    public void addOnDataChangeListener(AsyncListDiffer.ListListener<T> listener) {
+        differ.addListListener(listener);
+    }
+    public BaseAdapter(DiffUtil.ItemCallback<T> comparator) {
+        this.differ = new AsyncListDiffer<>(this, comparator);
     }
 
     protected abstract VH getViewHolder(ViewGroup parent, int viewType);

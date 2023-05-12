@@ -34,7 +34,7 @@ public class GetCoinSearchHistoryTest {
     public void invokeReturnsSearchQueryListFromRepository() {
         // Arrange
         List<ValueAndTimestamp<String>> fakeSearchQueries = getFakeSearchQueries(SIZE);
-        when(repository.getCoinSearchHistory()).thenReturn(Single.just(fakeSearchQueries));
+        when(repository.getCoinSearchHistoryValues()).thenReturn(Single.just(fakeSearchQueries));
         // Act
         Single<List<ValueAndTimestamp<String>>> searchQueries = interactor.invoke();
         // Assert
@@ -43,6 +43,6 @@ public class GetCoinSearchHistoryTest {
                 .assertNoErrors()
                 .assertValue(x -> x.size() == SIZE);
 
-        verify(repository, times(1)).getCoinSearchHistory();
+        verify(repository, times(1)).getCoinSearchHistoryValues();
     }
 }

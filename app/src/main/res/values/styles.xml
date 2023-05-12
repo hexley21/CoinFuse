@@ -10,10 +10,33 @@
         <item name="android:textAppearance">@style/TextAppearance.Material3.TitleMedium</item>
     </style>
 
+    <style name="CN_DialogItem.Sort">
+        <item name="android:drawablePadding">@dimen/default_drawable_padding</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">@dimen/default_padding</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:textAppearance">@style/TextAppearance.Material3.TitleMedium</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawableEnd">?android:attr/listChoiceIndicatorSingle</item>
+    </style>
+
     <style name="CN_SearchBar" parent="Widget.Material3.SearchBar">
         <item name="shapeAppearanceOverlay">
             @style/ShapeAppearance.Material3.Corner.None
         </item>
+    </style>
+
+    <style name="CN_SearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:textColorHint">?attr/colorOnSurface</item>
+    </style>
+    <style name="CN_BottomNavigation" parent="Widget.Material3.BottomNavigationView">
+        <item name="android:color">?attr/colorSurfaceVariant</item>
+        <item name="itemActiveIndicatorStyle">@style/CN_BottomNavigation.Active</item>
+        <item name="itemRippleColor">@color/navbar_ripple</item>
+    </style>
+
+    <style name="CN_BottomNavigation.Active" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">?attr/colorSurfaceVariant</item>
     </style>
 
     <style name="CN_Bookmark" parent="Widget.Material3.CompoundButton.CheckBox">
@@ -23,5 +46,10 @@
 
     <style name="CN_Chip" parent="Widget.Material3.Chip.Filter">
         <item name="chipBackgroundColor">@color/chip_colors</item>
+    </style>
+
+    <style name="CN_Shimmer_Container">
+        <item name="cardBackgroundColor">?attr/colorSecondary</item>
+        <item name="cardCornerRadius">12dp</item>
     </style>
 </resources>

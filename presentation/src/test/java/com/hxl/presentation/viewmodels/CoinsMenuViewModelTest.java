@@ -7,12 +7,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.hxl.domain.interactors.coins.DeleteCoinSearchQuery;
-import com.hxl.domain.interactors.coins.GetCoinSearchHistory;
 import com.hxl.domain.interactors.coins.GetCoins;
+import com.hxl.domain.interactors.coins.GetCoinsBySearchHistory;
 import com.hxl.domain.interactors.coins.InsertCoinSearchQuery;
 import com.hxl.domain.interactors.coins.SearchCoins;
 import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.ValueAndTimestamp;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,14 +33,13 @@ public class CoinsMenuViewModelTest {
     @Mock
     SearchCoins searchCoins;
     @Mock
-    GetCoinSearchHistory getCoinSearchHistory;
+    GetCoinsBySearchHistory getCoinsBySearchHistory;
     @Mock
     InsertCoinSearchQuery insertCoinSearchQuery;
     @Mock
     DeleteCoinSearchQuery deleteCoinSearchQuery;
     @InjectMocks
     CoinsMenuViewModel viewModel;
-
 
     @Test
     public void getCoinsReturnsListFromRepository() {
@@ -73,18 +71,18 @@ public class CoinsMenuViewModelTest {
         verify(searchCoins).invoke(ID);
     }
     @Test
-    public void getCoinSearchHistoryReturnsSearchQueryFromRepository() {
+    public void getCoinsBySearchHistoryReturnsCoinsFromRepository() {
         // Arrange
-        List<ValueAndTimestamp<String>> searchQueries = getFakeSearchQueries(SIZE);
-        when(getCoinSearchHistory.invoke()).thenReturn(Single.just(searchQueries));
+        List<Coin> fakeCoins = getFakeCoins(SIZE);
+        when(getCoinsBySearchHistory.invoke()).thenReturn(Single.just(fakeCoins));
         // Act
-        Single<List<ValueAndTimestamp<String>>> viewModelCoins = viewModel.getCoinSearchHistory();
+        Single<List<Coin>> viewModelCoins = viewModel.getCoinsBySearchHistory();
         // Assert
         viewModelCoins.test()
                 .awaitCount(1)
                 .assertNoErrors()
                 .assertValue(x -> x.size() == SIZE);
-        verify(getCoinSearchHistory).invoke();
+        verify(getCoinsBySearchHistory).invoke();
     }
 
     @Test

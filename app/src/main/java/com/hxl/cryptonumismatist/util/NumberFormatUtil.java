@@ -31,6 +31,7 @@ public final class NumberFormatUtil {
         if (num != null) {
             DecimalFormat df = new DecimalFormat("###,###.##");
             df.setGroupingSize(3);
+            df.setMinimumFractionDigits(2);
             df.setDecimalSeparatorAlwaysShown(true);
             return df.format(num);
         }
