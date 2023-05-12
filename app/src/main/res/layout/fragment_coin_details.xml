@@ -72,7 +72,7 @@
 
                         <CheckBox
                             android:id="@+id/cb_bookmark"
-                            style="@style/CN_Bookmark"
+                            style="@style/CF_Bookmark"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_alignBottom="@id/details_top_app_bar"
@@ -209,28 +209,28 @@
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_24h"
-                                    style="@style/CN_Chip"
+                                    style="@style/CF_Chip"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/chip_24h" />
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_7d"
-                                    style="@style/CN_Chip"
+                                    style="@style/CF_Chip"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/chip_7d" />
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_14d"
-                                    style="@style/CN_Chip"
+                                    style="@style/CF_Chip"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/chip_14d" />
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_1m"
-                                    style="@style/CN_Chip"
+                                    style="@style/CF_Chip"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/chip_1m" />
@@ -238,7 +238,7 @@
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_2m"
-                                    style="@style/CN_Chip"
+                                    style="@style/CF_Chip"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/chip_2m" />
@@ -246,14 +246,14 @@
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_6m"
-                                    style="@style/CN_Chip"
+                                    style="@style/CF_Chip"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/chip_6m" />
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_1y"
-                                    style="@style/CN_Chip"
+                                    style="@style/CF_Chip"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/chip_1y" />

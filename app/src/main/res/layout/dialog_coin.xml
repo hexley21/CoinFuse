@@ -17,7 +17,7 @@
 
             <TextView
                 android:id="@+id/dialog_coin_bookmark"
-                style="@style/CN_DialogItem"
+                style="@style/CF_DialogItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/drag_handle"
@@ -27,7 +27,7 @@
 
             <TextView
                 android:id="@+id/dialog_coin_explorer"
-                style="@style/CN_DialogItem"
+                style="@style/CF_DialogItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dialog_coin_bookmark"

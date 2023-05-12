@@ -70,7 +70,7 @@
 
             <com.google.android.material.search.SearchBar
                 android:id="@+id/search_bar"
-                style="@style/CN_SearchBar"
+                style="@style/CF_SearchBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="?attr/android:colorBackground"

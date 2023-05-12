@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Crypto Numismatist</string>
+    <string name="app_name" translatable="false">CoinFuse</string>
 
     <!-- Welcome -->
     <string name="btn_next">Next</string>

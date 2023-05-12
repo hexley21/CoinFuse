@@ -15,7 +15,7 @@ dependencyResolutionManagement {
         maven { url = java.net.URI("https://jitpack.io") }
     }
 }
-rootProject.name = "Crypto Numismatist"
+rootProject.name = "CoinFuse"
 include(":app")
 include(":domain")
 include(":data")

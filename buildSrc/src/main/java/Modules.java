@@ -7,7 +7,7 @@ public final class Modules {
     public static final String presentation =":presentation";
 
     public final static class NameSpaces {
-        public static final String app = "com.hxl.cryptonumismatist";
+        public static final String app = "com.hxl.coinfuse";
         public static final String local = "com.hxl.local";
         public static final String presentation = "com.hxl.presentation";
     }

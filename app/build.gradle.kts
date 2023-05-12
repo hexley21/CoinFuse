@@ -17,7 +17,7 @@ android {
         versionCode = Environments.versionCode
         versionName = Environments.versionName
 
-        testInstrumentationRunner = "com.hxl.cryptonumismatist.conf.AppTestRunner"
+        testInstrumentationRunner = "com.hxl.coinfuse.conf.AppTestRunner"
         testInstrumentationRunnerArguments.putAll(
             mapOf(
                 "clearPackageData" to "true"

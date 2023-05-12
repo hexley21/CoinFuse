@@ -23,7 +23,7 @@
                 app:navigationIcon="@drawable/arrow_back" />
 
             <CheckBox
-                style="@style/CN_Bookmark"
+                style="@style/CF_Bookmark"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignBottom="@id/shim_top"
@@ -34,7 +34,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/shim_img"
-                style="@style/CN_Shimmer_Container"
+                style="@style/CF_Shimmer_Container"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/shim_top"
@@ -56,13 +56,13 @@
                 android:paddingStart="@dimen/default_padding_small">
 
                 <androidx.cardview.widget.CardView
-                    style="@style/CN_Shimmer_Container"
+                    style="@style/CF_Shimmer_Container"
                     android:layout_width="100dp"
                     android:layout_height="22dp"
                     android:layout_marginBottom="@dimen/default_padding_small" />
 
                 <androidx.cardview.widget.CardView
-                    style="@style/CN_Shimmer_Container"
+                    style="@style/CF_Shimmer_Container"
                     android:layout_width="48dp"
                     android:layout_height="14dp" />
 
@@ -70,7 +70,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/shim_price"
-                style="@style/CN_Shimmer_Container"
+                style="@style/CF_Shimmer_Container"
                 android:layout_width="256dp"
                 android:layout_height="26dp"
                 android:layout_below="@id/shim_top"
@@ -79,7 +79,7 @@
                 android:layout_marginTop="@dimen/default_padding" />
 
             <androidx.cardview.widget.CardView
-                style="@style/CN_Shimmer_Container"
+                style="@style/CF_Shimmer_Container"
                 android:layout_width="48dp"
                 android:layout_height="18dp"
                 android:layout_below="@id/shim_top"
@@ -88,7 +88,7 @@
                 android:layout_toEndOf="@id/shim_price" />
 
             <androidx.cardview.widget.CardView
-                style="@style/CN_Shimmer_Container"
+                style="@style/CF_Shimmer_Container"
                 android:layout_width="169dp"
                 android:layout_height="18dp"
                 android:layout_below="@id/shim_price"
@@ -220,7 +220,7 @@
                         android:textColor="?attr/colorOnSurfaceVariant" />
 
                     <androidx.cardview.widget.CardView
-                        style="@style/CN_Shimmer_Container"
+                        style="@style/CF_Shimmer_Container"
                         android:layout_width="match_parent"
                         android:layout_height="18dp"
                         android:layout_marginTop="@dimen/default_padding_small" />
@@ -248,7 +248,7 @@
                         android:textColor="?attr/colorOnSurfaceVariant" />
 
                     <androidx.cardview.widget.CardView
-                        style="@style/CN_Shimmer_Container"
+                        style="@style/CF_Shimmer_Container"
                         android:layout_width="match_parent"
                         android:layout_height="18dp"
                         android:layout_marginTop="@dimen/default_padding_small" />
@@ -283,7 +283,7 @@
                         android:textColor="?attr/colorOnSurfaceVariant" />
 
                     <androidx.cardview.widget.CardView
-                        style="@style/CN_Shimmer_Container"
+                        style="@style/CF_Shimmer_Container"
                         android:layout_width="match_parent"
                         android:layout_height="18dp"
                         android:layout_marginTop="@dimen/default_padding_small" />
@@ -329,7 +329,7 @@
                         android:textColor="?attr/colorOnSurfaceVariant" />
 
                     <androidx.cardview.widget.CardView
-                        style="@style/CN_Shimmer_Container"
+                        style="@style/CF_Shimmer_Container"
                         android:layout_width="match_parent"
                         android:layout_height="18dp"
                         android:layout_marginTop="@dimen/default_padding_small" />
@@ -357,7 +357,7 @@
                         android:textColor="?attr/colorOnSurfaceVariant" />
 
                     <androidx.cardview.widget.CardView
-                        style="@style/CN_Shimmer_Container"
+                        style="@style/CF_Shimmer_Container"
                         android:layout_width="match_parent"
                         android:layout_height="18dp"
                         android:layout_marginTop="@dimen/default_padding_small" />

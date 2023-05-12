@@ -22,7 +22,7 @@
 
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/dialog_coin_sort_rank"
-                    style="@style/CN_DialogItem.Sort"
+                    style="@style/CF_DialogItem.Sort"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
@@ -31,7 +31,7 @@
 
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/dialog_coin_sort_name"
-                    style="@style/CN_DialogItem.Sort"
+                    style="@style/CF_DialogItem.Sort"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/sort_by_name"
@@ -39,7 +39,7 @@
 
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/dialog_coin_sort_price"
-                    style="@style/CN_DialogItem.Sort"
+                    style="@style/CF_DialogItem.Sort"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/sort_by_price"
@@ -47,7 +47,7 @@
 
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/dialog_coin_sort_market"
-                    style="@style/CN_DialogItem.Sort"
+                    style="@style/CF_DialogItem.Sort"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/sort_by_market"
@@ -55,7 +55,7 @@
 
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/dialog_coin_sort_volume"
-                    style="@style/CN_DialogItem.Sort"
+                    style="@style/CF_DialogItem.Sort"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/sort_by_volume"
@@ -63,7 +63,7 @@
 
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/dialog_coin_sort_change"
-                    style="@style/CN_DialogItem.Sort"
+                    style="@style/CF_DialogItem.Sort"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/sort_by_change"
@@ -71,7 +71,7 @@
 
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/dialog_coin_sort_time"
-                    style="@style/CN_DialogItem.Sort"
+                    style="@style/CF_DialogItem.Sort"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/sort_by_time"
