@@ -3,7 +3,7 @@ package com.hxl.presentation.fakes;
 import java.util.Random;
 import java.util.UUID;
 
-public class AppTestConstants {
+public class PresentationTestConstants {
     // Coins
     public static final int SIZE = 5;
     public static final String ID = "bitcoin";

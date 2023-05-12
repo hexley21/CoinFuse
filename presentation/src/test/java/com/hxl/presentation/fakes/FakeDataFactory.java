@@ -1,6 +1,6 @@
 package com.hxl.presentation.fakes;
 
-import static com.hxl.presentation.fakes.AppTestConstants.*;
+import static com.hxl.presentation.fakes.PresentationTestConstants.*;
 
 import static java.sql.Types.TIMESTAMP;
 
