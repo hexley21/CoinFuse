@@ -1,7 +1,7 @@
 package com.hxl.presentation.viewmodels;
 
-import static com.hxl.presentation.fakes.AppTestConstants.ID;
-import static com.hxl.presentation.fakes.AppTestConstants.SIZE;
+import static com.hxl.presentation.fakes.PresentationTestConstants.ID;
+import static com.hxl.presentation.fakes.PresentationTestConstants.SIZE;
 import static com.hxl.presentation.fakes.FakeDataFactory.getFakeHistory;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;

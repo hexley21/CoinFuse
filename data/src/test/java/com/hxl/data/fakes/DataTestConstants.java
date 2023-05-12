@@ -8,6 +8,7 @@ import java.util.UUID;
 public class DataTestConstants {
     // Coin Repository
     public static final String ID =  "bitcoin";
+    public static final String[] IDS = {"bitcoin", "ethereum", "monero"};
     public static final String ASSET_URL = "https://assets/%s.png";
     public static final int LIMIT = 2;
     public static final int OFFSET = 3;

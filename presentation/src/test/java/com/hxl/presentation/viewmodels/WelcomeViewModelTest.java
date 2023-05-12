@@ -1,6 +1,6 @@
 package com.hxl.presentation.viewmodels;
 
-import static com.hxl.presentation.fakes.AppTestConstants.DEF_BOOL;
+import static com.hxl.presentation.fakes.PresentationTestConstants.DEF_BOOL;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Mockito.doNothing;

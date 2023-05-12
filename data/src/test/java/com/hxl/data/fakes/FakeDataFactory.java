@@ -20,6 +20,14 @@ public class FakeDataFactory {
         return fakeCoins;
     }
 
+    public static List<Coin> getFakeCoins(List<String> ids) {
+        List<Coin> fakeCoins = new ArrayList<>();
+        for (String i: ids) {
+            fakeCoins.add(getCoin(i));
+        }
+        return fakeCoins;
+    }
+
     public static List<CoinPriceHistory> getFakePriceHistory(int size) {
         List<CoinPriceHistory> fakeCoinPriceHistory = new ArrayList<>();
         for (int i = 0; i < size; i++) {
@@ -39,6 +47,19 @@ public class FakeDataFactory {
             fakeSearchQueries.add(
                     new ValueAndTimestamp<>(
                             randomName(),
+                            TIMESTAMP
+                    )
+            );
+        }
+        return fakeSearchQueries;
+    }
+
+    public static List<ValueAndTimestamp<String>> getFakeSearchQueries(List<String> ids) {
+        List<ValueAndTimestamp<String>> fakeSearchQueries = new ArrayList<>();
+        for (String i: ids) {
+            fakeSearchQueries.add(
+                    new ValueAndTimestamp<>(
+                            i,
                             TIMESTAMP
                     )
             );

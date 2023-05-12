@@ -4,7 +4,6 @@ import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
-import com.hxl.domain.model.ValueAndTimestamp;
 import com.hxl.domain.repository.CoinRepository;
 
 import java.io.IOException;

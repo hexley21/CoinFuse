@@ -1,6 +1,7 @@
 package com.hxl.data;
 
 import static com.hxl.data.fakes.DataTestConstants.ID;
+import static com.hxl.data.fakes.DataTestConstants.IDS;
 import static com.hxl.data.fakes.DataTestConstants.LIMIT;
 import static com.hxl.data.fakes.DataTestConstants.OFFSET;
 import static com.hxl.data.fakes.DataTestConstants.SIZE;
@@ -32,7 +33,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
@@ -295,23 +298,6 @@ public class CoinRepositoryImplTest {
     }
     // endregion
 
-    // region getCoinHistory(String id, Interval interval)
-    @Test
-    public void getCoinHistoryReturnsListFromRemoteSource() {
-        // Arrange
-        when(remoteSource.getCoinPriceHistory(anyString(), any(CoinPriceHistory.Interval.class))).thenReturn(Single.just(getFakePriceHistory(SIZE)));
-        // Act
-        Single<List<CoinPriceHistory>> history = repository.getCoinPriceHistory(ID, CoinPriceHistory.Interval.D1);
-        // Assert
-        history.test()
-                .awaitCount(1)
-                .assertNoErrors()
-                .assertValue(x -> x.size() == SIZE);
-        verify(remoteSource, times(1)).getCoinPriceHistory(ID, CoinPriceHistory.Interval.D1);
-        verify(repository, times(1)).getCoinPriceHistory(ID, CoinPriceHistory.Interval.D1);
-    }
-    // endregion
-
     // region bookmarkCoin(String id)
     @Test
     public void testBookmarkCoinInsertsIdToDatabase() {
@@ -339,6 +325,23 @@ public class CoinRepositoryImplTest {
                 .assertComplete()
                 .assertNoErrors();
         verify(localSource, times(1)).unBookmarkCoin(anyString());
+    }
+    // endregion
+
+    // region isCoinBookmarked()
+    @Test
+    public void isCoinBookmarkedReturnsBooleanFromLocalSource() {
+        // Arrange
+        when(localSource.isCoinBookmarked(anyString())).thenReturn(Single.just(Boolean.TRUE));
+        // Act
+        Single<Boolean> isCoinBookmarked = repository.isCoinBookmarked(ID);
+        // Assert
+        isCoinBookmarked.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x);
+        verify(localSource, times(1)).isCoinBookmarked(ID);
+        verify(repository, times(1)).isCoinBookmarked(ID);
     }
     // endregion
 
@@ -403,20 +406,99 @@ public class CoinRepositoryImplTest {
     }
     // endregion
 
-    // region isCoinBookmarked()
+    // region searchBookmarkedCoins(String query)
     @Test
-    public void isCoinBookmarkedReturnsBooleanFromLocalSource() {
+    public void searchBookmarkedCoinsReturnsBookmarkedCoinsByQueryFromRemoteSource() {
         // Arrange
-        when(localSource.isCoinBookmarked(anyString())).thenReturn(Single.just(Boolean.TRUE));
+        List<String> fakeNames = Arrays.stream(IDS).collect(Collectors.toList());
+        List<Coin> fakeCoins = getFakeCoins(fakeNames);
+        List<ValueAndTimestamp<String>> fakeBookmarks = getFakeSearchQueries(fakeNames);
         // Act
-        Single<Boolean> isCoinBookmarked = repository.isCoinBookmarked(ID);
+        when(repository.isOnline()).thenReturn(true);
+        when(localSource.getBookmarkedCoinIds()).thenReturn(Single.just(fakeBookmarks));
+        when(repository.saveCoins(anyList())).thenReturn(Completable.complete());
+        when(remoteSource.getCoins(anyList())).thenReturn(Single.just(fakeCoins));
         // Assert
-        isCoinBookmarked.test()
+        repository.searchBookmarkedCoins(ID).test()
                 .awaitCount(1)
+                .assertComplete()
                 .assertNoErrors()
-                .assertValue(x -> x);
-        verify(localSource, times(1)).isCoinBookmarked(ID);
-        verify(repository, times(1)).isCoinBookmarked(ID);
+                .assertValue(x -> x.size() == 1);
+        verify(localSource, times(1)).getBookmarkedCoinIds();
+        verify(repository, times(1)).isOnline();
+        verify(repository, times(1)).saveCoins(fakeCoins);
+        verify(localSource, never()).getBookmarkedCoins();
+    }
+
+    @Test
+    public void searchBookmarkedCoinsReturnsBookmarkedCoinsByQueryFromLocalSource() {
+        // Arrange
+        List<String> fakeNames = Arrays.stream(IDS).collect(Collectors.toList());
+        List<Coin> fakeCoins = getFakeCoins(fakeNames);
+        // Act
+        when(repository.isOnline()).thenReturn(false);
+        when(localSource.getBookmarkedCoins()).thenReturn(Single.just(fakeCoins));
+        // Assert
+        repository.searchBookmarkedCoins(ID).test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors()
+                .assertValue(x -> x.size() == 1);
+        verify(repository, times(1)).isOnline();
+        verify(localSource, times(1)).getBookmarkedCoins();
+        verify(repository, never()).saveCoins(fakeCoins);
+        verify(remoteSource, never()).getCoins(fakeNames);
+    }
+    // endregion
+
+    // region getCoinsBySearchHistory()
+    @Test
+    public void getCoinsBySearchHistoryReturnsCoinsFromRemoteSource() {
+        // Arrange
+        List<String> fakeNames = Arrays.stream(IDS).collect(Collectors.toList());
+        List<Coin> fakeCoins = getFakeCoins(fakeNames);
+        List<ValueAndTimestamp<String>> fakeSearchQueries = getFakeSearchQueries(fakeNames);
+        // Act
+        when(repository.isOnline()).thenReturn(true);
+        when(localSource.getCoinSearchHistory()).thenReturn(Single.just(fakeSearchQueries));
+        when(repository.saveCoins(anyList())).thenReturn(Completable.complete());
+        when(remoteSource.getCoins(anyList())).thenReturn(Single.just(fakeCoins));
+        // Assert
+        repository.getCoinsBySearchHistory().test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors()
+                .assertValue(x -> x.size() == IDS.length);
+
+        verify(repository, times(1)).isOnline();
+        verify(localSource, times(1)).getCoinSearchHistory();
+        verify(repository, times(1)).saveCoins(fakeCoins);
+        verify(remoteSource, times(1)).getCoins(fakeNames);
+        verify(localSource, never()).getCoins(fakeNames);
+    }
+
+    @Test
+    public void getCoinsBySearchHistoryReturnsCoinsFromLocalSource() {
+        // Arrange
+        List<String> fakeNames = Arrays.stream(IDS).collect(Collectors.toList());
+        List<Coin> fakeCoins = getFakeCoins(fakeNames);
+        List<ValueAndTimestamp<String>> fakeSearchQueries = getFakeSearchQueries(fakeNames);
+        // Act
+        when(repository.isOnline()).thenReturn(false);
+        when(localSource.getCoinSearchHistory()).thenReturn(Single.just(fakeSearchQueries));
+        when(localSource.getCoins(anyList())).thenReturn(Single.just(fakeCoins));
+        // Assert
+        repository.getCoinsBySearchHistory().test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors()
+                .assertValue(x -> x.size() == IDS.length);
+
+        verify(repository, times(1)).isOnline();
+        verify(localSource, times(1)).getCoinSearchHistory();
+        verify(localSource, times(1)).getCoins(fakeNames);
+        verify(repository, never()).saveCoins(fakeCoins);
+        verify(remoteSource, never()).getCoins(fakeNames);
     }
     // endregion
 
@@ -492,6 +574,23 @@ public class CoinRepositoryImplTest {
 
         verify(localSource, times(1)).deleteCoinSearchHistory();
         verify(repository, times(1)).deleteCoinSearchHistory();
+    }
+    // endregion
+
+    // region getCoinPriceHistory(String id, Interval interval)
+    @Test
+    public void getCoinPriceHistoryReturnsListFromRemoteSource() {
+        // Arrange
+        when(remoteSource.getCoinPriceHistory(anyString(), any(CoinPriceHistory.Interval.class))).thenReturn(Single.just(getFakePriceHistory(SIZE)));
+        // Act
+        Single<List<CoinPriceHistory>> history = repository.getCoinPriceHistory(ID, CoinPriceHistory.Interval.D1);
+        // Assert
+        history.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.size() == SIZE);
+        verify(remoteSource, times(1)).getCoinPriceHistory(ID, CoinPriceHistory.Interval.D1);
+        verify(repository, times(1)).getCoinPriceHistory(ID, CoinPriceHistory.Interval.D1);
     }
     // endregion
 
