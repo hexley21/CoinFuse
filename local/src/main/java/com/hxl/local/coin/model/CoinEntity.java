@@ -1,11 +1,11 @@
-package com.hxl.local.model.coin;
+package com.hxl.local.coin.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.hxl.local.database.AppDatabase;
+import com.hxl.local.room.AppDatabase;
 
 @Entity(tableName = AppDatabase.COIN_TABLE_NAME)
 public class CoinEntity {

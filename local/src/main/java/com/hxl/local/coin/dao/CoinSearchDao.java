@@ -1,11 +1,11 @@
-package com.hxl.local.database.coin;
+package com.hxl.local.coin.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.hxl.local.model.coin.CoinSearchEntity;
+import com.hxl.local.coin.model.CoinSearchEntity;
 
 import java.util.List;
 

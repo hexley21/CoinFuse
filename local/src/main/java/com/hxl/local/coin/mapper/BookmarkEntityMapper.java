@@ -1,9 +1,9 @@
-package com.hxl.local.mapper.coin;
+package com.hxl.local.coin.mapper;
 
 import androidx.annotation.NonNull;
 
 import com.hxl.domain.model.ValueAndTimestamp;
-import com.hxl.local.model.coin.BookmarkEntity;
+import com.hxl.local.coin.model.BookmarkEntity;
 
 public class BookmarkEntityMapper {
 

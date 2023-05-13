@@ -1,9 +1,9 @@
-package com.hxl.local.mapper.coin;
+package com.hxl.local.coin.mapper;
 
 import androidx.annotation.NonNull;
 
 import com.hxl.domain.model.ValueAndTimestamp;
-import com.hxl.local.model.coin.CoinSearchEntity;
+import com.hxl.local.coin.model.CoinSearchEntity;
 
 public class CoinSearchEntityMapper {
 

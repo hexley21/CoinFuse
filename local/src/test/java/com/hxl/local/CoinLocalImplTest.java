@@ -8,13 +8,13 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.ValueAndTimestamp;
-import com.hxl.local.database.coin.BookmarkDao;
-import com.hxl.local.database.coin.CoinDao;
-import com.hxl.local.database.AppDatabase;
-import com.hxl.local.database.coin.CoinSearchDao;
-import com.hxl.local.model.coin.BookmarkEntity;
-import com.hxl.local.model.coin.CoinEntity;
-import com.hxl.local.model.coin.CoinSearchEntity;
+import com.hxl.local.coin.dao.BookmarkDao;
+import com.hxl.local.coin.dao.CoinDao;
+import com.hxl.local.coin.dao.CoinSearchDao;
+import com.hxl.local.coin.model.BookmarkEntity;
+import com.hxl.local.coin.model.CoinEntity;
+import com.hxl.local.coin.model.CoinSearchEntity;
+import com.hxl.local.room.AppDatabase;
 
 import org.junit.After;
 import org.junit.Before;

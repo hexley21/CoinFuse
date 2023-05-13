@@ -6,7 +6,8 @@ import static org.junit.Assert.assertEquals;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.hxl.domain.model.Coin;
-import com.hxl.local.model.coin.CoinEntity;
+import com.hxl.local.coin.mapper.CoinEntityMapper;
+import com.hxl.local.coin.model.CoinEntity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

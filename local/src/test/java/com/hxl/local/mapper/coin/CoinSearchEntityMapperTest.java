@@ -1,7 +1,8 @@
 package com.hxl.local.mapper.coin;
 
 import com.hxl.domain.model.ValueAndTimestamp;
-import com.hxl.local.model.coin.CoinSearchEntity;
+import com.hxl.local.coin.mapper.CoinSearchEntityMapper;
+import com.hxl.local.coin.model.CoinSearchEntity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

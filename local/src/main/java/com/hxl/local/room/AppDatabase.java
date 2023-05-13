@@ -1,17 +1,18 @@
-package com.hxl.local.database;
+package com.hxl.local.room;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
-import com.hxl.local.database.coin.BookmarkDao;
-import com.hxl.local.database.coin.CoinDao;
-import com.hxl.local.database.coin.CoinSearchDao;
-import com.hxl.local.model.coin.BookmarkEntity;
-import com.hxl.local.model.coin.CoinEntity;
-import com.hxl.local.model.coin.CoinSearchEntity;
+import com.hxl.local.coin.dao.BookmarkDao;
+import com.hxl.local.coin.dao.CoinDao;
+import com.hxl.local.coin.dao.CoinSearchDao;
+import com.hxl.local.coin.model.BookmarkEntity;
+import com.hxl.local.coin.model.CoinEntity;
+import com.hxl.local.coin.model.CoinSearchEntity;
+import com.hxl.local.exchange.dao.ExchangeDao;
 
 @Database(
-        entities = {CoinEntity.class, BookmarkEntity.class, CoinSearchEntity.class},
+        entities = {CoinEntity.class, BookmarkEntity.class, CoinSearchEntity.class, ExchangeDao.class},
         version = 1,
         exportSchema = false
 )
@@ -21,7 +22,10 @@ public abstract class AppDatabase extends RoomDatabase {
     public static final String BOOKMARKS_TABLE_NAME = "bookmarks";
     public static final String COIN_SEARCH_HISTORY_TABLE_NAME = "coin_search_history";
 
+    public static final String EXCHANGE_TABLE_NAME = "exchanges";
+
     public abstract CoinDao coinDao();
     public abstract BookmarkDao bookmarkDao();
     public abstract CoinSearchDao coinSearchDao();
+    public abstract ExchangeDao exchangeDao();
 }
