@@ -1,4 +1,7 @@
-package com.hxl.remote.api;
+package com.hxl.remote;
+
+import com.hxl.remote.coin.api.CoinService;
+import com.hxl.remote.exchange.api.ExchangeService;
 
 import java.util.concurrent.TimeUnit;
 
@@ -11,6 +14,10 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 public class ServiceFactory {
     public CoinService createCoin(boolean isDebug, String baseUrl) {
         return createRetrofit(isDebug, baseUrl).create(CoinService.class);
+    }
+
+    public ExchangeService createExchange(boolean isDebug, String baseUrl) {
+        return createRetrofit(isDebug, baseUrl).create(ExchangeService.class);
     }
 
     private Retrofit createRetrofit(boolean isDebug, String baseUrl) {

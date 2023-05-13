@@ -1,8 +1,8 @@
-package com.hxl.remote.api;
+package com.hxl.remote.coin.api;
 
-import com.hxl.remote.model.CoinDTO;
-import com.hxl.remote.model.HistoryDTO;
-import com.hxl.remote.model.Response;
+import com.hxl.remote.coin.model.CoinDTO;
+import com.hxl.remote.coin.model.HistoryDTO;
+import com.hxl.remote.Response;
 
 import java.util.List;
 

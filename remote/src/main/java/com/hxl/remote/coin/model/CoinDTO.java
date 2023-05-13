@@ -1,4 +1,4 @@
-package com.hxl.remote.model;
+package com.hxl.remote.coin.model;
 
 import com.squareup.moshi.Json;
 

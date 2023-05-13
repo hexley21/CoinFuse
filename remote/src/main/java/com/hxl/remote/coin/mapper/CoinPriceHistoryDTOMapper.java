@@ -1,7 +1,7 @@
-package com.hxl.remote.mapper;
+package com.hxl.remote.coin.mapper;
 
 import com.hxl.domain.model.CoinPriceHistory;
-import com.hxl.remote.model.HistoryDTO;
+import com.hxl.remote.coin.model.HistoryDTO;
 
 public class CoinPriceHistoryDTOMapper {
 

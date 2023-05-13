@@ -12,12 +12,12 @@ import static org.mockito.Mockito.when;
 
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
-import com.hxl.remote.api.CoinService;
+import com.hxl.remote.coin.api.CoinService;
+import com.hxl.remote.coin.CoinRemoteImpl;
 import com.hxl.remote.fake.FakeRemoteDataFactory;
-import com.hxl.remote.model.CoinDTO;
-import com.hxl.remote.mapper.CoinDTOMapper;
-import com.hxl.remote.model.HistoryDTO;
-import com.hxl.remote.model.Response;
+import com.hxl.remote.coin.model.CoinDTO;
+import com.hxl.remote.coin.mapper.CoinDTOMapper;
+import com.hxl.remote.coin.model.HistoryDTO;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

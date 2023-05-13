@@ -3,7 +3,8 @@ package com.hxl.remote.mapper;
 import static org.junit.Assert.assertEquals;
 
 import com.hxl.domain.model.CoinPriceHistory;
-import com.hxl.remote.model.HistoryDTO;
+import com.hxl.remote.coin.mapper.CoinPriceHistoryDTOMapper;
+import com.hxl.remote.coin.model.HistoryDTO;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
