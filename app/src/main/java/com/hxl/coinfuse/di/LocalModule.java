@@ -7,10 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.room.Room;
 
 import com.hxl.coinfuse.BuildConfig;
-import com.hxl.local.database.AppDatabase;
-import com.hxl.local.database.coin.CoinDao;
-import com.hxl.local.database.coin.BookmarkDao;
-import com.hxl.local.database.coin.CoinSearchDao;
+import com.hxl.local.exchange.dao.ExchangeDao;
+import com.hxl.local.room.AppDatabase;
+import com.hxl.local.coin.dao.CoinDao;
+import com.hxl.local.coin.dao.BookmarkDao;
+import com.hxl.local.coin.dao.CoinSearchDao;
 
 import javax.inject.Singleton;
 
@@ -26,7 +27,7 @@ public class LocalModule {
 
     @Provides
     @Singleton
-    AppDatabase provideCoinDatabase(@ApplicationContext Context context) {
+    AppDatabase provideAppDatabase(@ApplicationContext Context context) {
         return Room.databaseBuilder(
                 context,
                 AppDatabase.class,
@@ -50,6 +51,12 @@ public class LocalModule {
     @Singleton
     CoinSearchDao provideCoinSearchDao(@NonNull AppDatabase appDatabase) {
         return appDatabase.coinSearchDao();
+    }
+
+    @Provides
+    @Singleton
+    ExchangeDao provideExchangeDao(@NonNull AppDatabase appDatabase) {
+        return appDatabase.exchangeDao();
     }
 
     @Provides

@@ -6,17 +6,26 @@ import com.hxl.data.CoinRepositoryImpl;
 import com.hxl.data.PreferenceRepositoryImpl;
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
+import com.hxl.data.repository.exchange.ExchangeLocal;
+import com.hxl.data.repository.exchange.ExchangeRemote;
 import com.hxl.data.repository.pref.PreferenceLocal;
+import com.hxl.data.source.exchange.ExchangeLocalSource;
+import com.hxl.data.source.exchange.ExchangeRemoteSource;
+import com.hxl.data.source.exchange.ExchangeSourceFactory;
 import com.hxl.domain.repository.CoinRepository;
 import com.hxl.domain.repository.PreferenceRepository;
 import com.hxl.local.CoinLocalImpl;
+import com.hxl.local.ExchangeLocalImpl;
 import com.hxl.local.PreferenceLocalImpl;
-import com.hxl.local.database.coin.BookmarkDao;
-import com.hxl.local.database.coin.CoinDao;
-import com.hxl.local.database.coin.CoinSearchDao;
-import com.hxl.remote.CoinRemoteImpl;
-import com.hxl.remote.api.CoinService;
-import com.hxl.remote.mapper.CoinDTOMapper;
+import com.hxl.local.coin.dao.BookmarkDao;
+import com.hxl.local.coin.dao.CoinDao;
+import com.hxl.local.coin.dao.CoinSearchDao;
+import com.hxl.local.exchange.dao.ExchangeDao;
+import com.hxl.remote.coin.CoinRemoteImpl;
+import com.hxl.remote.coin.api.CoinService;
+import com.hxl.remote.coin.mapper.CoinDTOMapper;
+import com.hxl.remote.exchange.ExchangeRemoteImpl;
+import com.hxl.remote.exchange.api.ExchangeService;
 
 import javax.inject.Singleton;
 
@@ -29,7 +38,7 @@ import dagger.hilt.components.SingletonComponent;
 @InstallIn(SingletonComponent.class)
 public class DataModule {
 
-    // region prefs
+    // region Prefs
     @Provides
     @Singleton
     PreferenceLocal providePreferenceLocal(SharedPreferences sharedPreferences) {
@@ -43,7 +52,7 @@ public class DataModule {
     }
     // endregion
 
-    // region coin
+    // region Coin
     @Provides
     @Singleton
     CoinRemote provideCoinRemoteSource(CoinService coinService, CoinDTOMapper mapper) {
@@ -61,5 +70,30 @@ public class DataModule {
     CoinRepository provideCoinRepository(CoinRemote coinRemote, CoinLocal coinLocal) {
         return new CoinRepositoryImpl(coinRemote, coinLocal);
     }
+    // endregion
+
+    // region Exchange
+
+    @Provides
+    @Singleton
+    ExchangeRemote provideExchangeRemoteSource(ExchangeService service) {
+        return new ExchangeRemoteImpl(service);
+    }
+
+    @Provides
+    @Singleton
+    ExchangeLocal provideExchangeLocalSource(ExchangeDao dao) {
+        return new ExchangeLocalImpl(dao);
+    }
+
+    @Provides
+    @Singleton
+    ExchangeSourceFactory providesExchangeSourceFactory(ExchangeRemote remote, ExchangeLocal local) {
+        return new ExchangeSourceFactory(
+                new ExchangeRemoteSource(remote),
+                new ExchangeLocalSource(local)
+        );
+    }
+
     // endregion
 }
