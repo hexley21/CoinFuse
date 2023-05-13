@@ -10,9 +10,10 @@ import com.hxl.local.coin.model.BookmarkEntity;
 import com.hxl.local.coin.model.CoinEntity;
 import com.hxl.local.coin.model.CoinSearchEntity;
 import com.hxl.local.exchange.dao.ExchangeDao;
+import com.hxl.local.exchange.model.ExchangeEntity;
 
 @Database(
-        entities = {CoinEntity.class, BookmarkEntity.class, CoinSearchEntity.class, ExchangeDao.class},
+        entities = {CoinEntity.class, BookmarkEntity.class, CoinSearchEntity.class, ExchangeEntity.class},
         version = 1,
         exportSchema = false
 )
