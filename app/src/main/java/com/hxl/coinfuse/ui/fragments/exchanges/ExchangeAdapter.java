@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hxl.coinfuse.R;
@@ -48,7 +47,7 @@ public class ExchangeAdapter extends BaseAdapter<Exchange, ExchangeAdapter.Excha
     @Override
     public void onBindViewHolder(@NonNull ExchangeViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        String coinId = getList().get(position).exchangeId;
+        String exchangeId = getList().get(position).exchangeId;
 
         EspressoIdlingResource.increment();
 
@@ -58,12 +57,8 @@ public class ExchangeAdapter extends BaseAdapter<Exchange, ExchangeAdapter.Excha
             return;
         }
 
-        Bundle bundle = new Bundle();
-        bundle.putString(exchangeArgKey, coinId);
-
-        holder.itemView.setOnClickListener(v ->
-                navController.navigate(R.id.navigation_to_coinDetails, bundle));
-
+//        Bundle bundle = new Bundle();
+//        bundle.putString(exchangeArgKey, exchangeId);
 
         EspressoIdlingResource.decrement();
     }
@@ -81,6 +76,7 @@ public class ExchangeAdapter extends BaseAdapter<Exchange, ExchangeAdapter.Excha
             binding.setName(exchange.name);
             binding.setRank(String.valueOf(exchange.rank));
             binding.setPrice(formatDouble(exchange.volumeUsd));
+            binding.setPairs(String.valueOf(exchange.tradingPairs));
             binding.setCurrency("$");
         }
     }

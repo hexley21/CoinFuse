@@ -6,6 +6,7 @@
     <data>
         <variable name="rank" type="String" />
         <variable name="name" type="String" />
+        <variable name="pairs" type="String" />
         <variable name="price" type="String" />
 
         <variable name="currency" type="String" />
@@ -60,7 +61,7 @@
                 android:gravity="end"
                 android:maxEms="8"
                 android:minEms="2"
-                android:text='@{currency + price}'
+                android:text='@{pairs}'
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_change"
@@ -73,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:maxEms="8"
-                android:minEms="2"
+                android:minEms="4"
                 android:paddingStart="@dimen/default_padding"
                 android:text='@{currency + price}'
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
