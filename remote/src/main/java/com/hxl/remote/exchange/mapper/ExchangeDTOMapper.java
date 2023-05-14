@@ -12,10 +12,10 @@ public class ExchangeDTOMapper {
         return new Exchange(
                 dto.exchangeId,
                 dto.name,
-                parseInt(dto.rank),
-                parseDouble(dto.percentTotalVolume),
-                parseDouble(dto.volumeUsd),
-                parseInt(dto.tradingPairs),
+                dto.rank == null ? null : parseInt(dto.rank),
+                dto.percentTotalVolume == null ? null : parseDouble(dto.percentTotalVolume),
+                dto.volumeUsd == null ? null : parseDouble(dto.volumeUsd),
+                dto.tradingPairs == null ? null : parseInt(dto.tradingPairs),
                 dto.socket,
                 dto.exchangeUrl,
                 dto.updated
