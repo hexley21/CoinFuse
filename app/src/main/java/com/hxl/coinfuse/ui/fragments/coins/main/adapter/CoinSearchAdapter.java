@@ -22,14 +22,13 @@ import com.hxl.coinfuse.util.GlideFactory;
 import com.hxl.domain.model.Coin;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinSearchViewHolder> {
     private static final String TAG = "CoinSearchAdapter";
-    private final Function<Bundle, Void> insertSearchFunction;
+    private final Consumer<Bundle> insertSearchFunction;
     private NavController navController;
 
-    public CoinSearchAdapter(Function<Bundle, Void> insertSearchFunction) {
+    public CoinSearchAdapter(Consumer<Bundle> insertSearchFunction) {
         super(new CoinComparator());
         this.insertSearchFunction = insertSearchFunction;
     }
@@ -79,7 +78,7 @@ public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinS
 
         holder.itemView.setOnClickListener(v -> {
             navController.navigate(R.id.navigation_to_coinDetails, bundle);
-            insertSearchFunction.apply(bundle);
+            insertSearchFunction.accept(bundle);
         });
         holder.itemView.setOnLongClickListener(v -> {
             bundle.putString(explorerArgKey, getList().get(position).explorer);

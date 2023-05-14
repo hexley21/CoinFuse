@@ -29,7 +29,7 @@ import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
 
 import java.util.ArrayList;
-import java.util.function.Function;
+import java.util.function.Consumer;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -49,9 +49,8 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
     private static final String TAG = "CoinsMenuFragment";
 
 
-    private final Function<Bundle, Void> insertSearchFunction = bundle -> {
+    private final Consumer<Bundle> insertSearchFunction = bundle -> {
         insertSearchQuery(bundle.getString(coinArgKey));
-        return null;
     };
     
     private CoinAdapter coinMenuAdapter;

@@ -1,4 +1,4 @@
-package com.hxl.data.repository;
+package com.hxl.data.util;
 
 import java.io.IOException;
 

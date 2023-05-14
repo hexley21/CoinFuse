@@ -1,6 +1,6 @@
 package com.hxl.data;
 
-import com.hxl.data.repository.PingUtil;
+import com.hxl.data.util.PingUtil;
 import com.hxl.data.source.exchange.ExchangeSourceFactory;
 import com.hxl.domain.model.Exchange;
 import com.hxl.domain.repository.ExchangeRepository;
