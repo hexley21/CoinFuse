@@ -1,4 +1,4 @@
-package com.hxl.remote.mapper;
+package com.hxl.remote.mapper.coin;
 
 import com.hxl.domain.model.Coin;
 import com.hxl.remote.coin.mapper.CoinDTOMapper;
@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 @RunWith(MockitoJUnitRunner.class)
 public class CoinDTOMapperTest {
 
-    CoinDTOMapper mapper;
+    private CoinDTOMapper mapper;
 
     @Before
     public void setUp() {
