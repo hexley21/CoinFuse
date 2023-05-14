@@ -90,7 +90,7 @@ public class DataModule {
 
     @Provides
     @Singleton
-    ExchangeSourceFactory providesExchangeSourceFactory(ExchangeRemote remote, ExchangeLocal local) {
+    ExchangeSourceFactory provideExchangeSourceFactory(ExchangeRemote remote, ExchangeLocal local) {
         return new ExchangeSourceFactory(
                 new ExchangeRemoteSource(remote),
                 new ExchangeLocalSource(local)
@@ -99,7 +99,7 @@ public class DataModule {
 
     @Provides
     @Singleton
-    ExchangeRepository providesExchangeRepository(ExchangeSourceFactory sourceFactory) {
+    ExchangeRepository provideExchangeRepository(ExchangeSourceFactory sourceFactory) {
         return new ExchangeRepositoryImpl(sourceFactory);
     }
 
