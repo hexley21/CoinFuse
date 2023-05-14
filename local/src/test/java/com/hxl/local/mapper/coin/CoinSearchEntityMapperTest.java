@@ -6,6 +6,7 @@ import com.hxl.local.coin.model.CoinSearchEntity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import static com.hxl.local.fake.FakeLocalDataFactory.getCoinSearchEntity;
 import static com.hxl.local.fake.FakeLocalDataFactory.getSearchQuery;
@@ -13,9 +14,7 @@ import static com.hxl.local.fake.LocalTestConstants.ID;
 
 import static org.junit.Assert.assertEquals;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-
-@RunWith(AndroidJUnit4.class)
+@RunWith(JUnit4.class)
 public class CoinSearchEntityMapperTest {
 
     @Test
