@@ -1,9 +1,7 @@
 package com.hxl.coinfuse.ui.fragments.exchanges;
 
-import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeArgKey;
-import static com.hxl.coinfuse.util.NumberFormatUtil.formatDouble;
+import static com.hxl.coinfuse.util.NumberFormatUtil.formatBigDouble;
 
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -12,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseAdapter;
 import com.hxl.coinfuse.databinding.ItemExchangeBinding;
 import com.hxl.coinfuse.util.EspressoIdlingResource;
@@ -75,7 +72,7 @@ public class ExchangeAdapter extends BaseAdapter<Exchange, ExchangeAdapter.Excha
         public void accept(Exchange exchange) {
             binding.setName(exchange.name);
             binding.setRank(String.valueOf(exchange.rank));
-            binding.setPrice(formatDouble(exchange.volumeUsd));
+            binding.setPrice(formatBigDouble(exchange.volumeUsd));
             binding.setPairs(String.valueOf(exchange.tradingPairs));
             binding.setCurrency("$");
         }

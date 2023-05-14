@@ -1,6 +1,7 @@
 package com.hxl.coinfuse.ui.fragments.coins.details;
 
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinArgKey;
+import static com.hxl.coinfuse.util.NumberFormatUtil.formatBigDouble;
 import static com.hxl.coinfuse.util.NumberFormatUtil.formatDoubleDetailed;
 import static com.hxl.coinfuse.util.NumberFormatUtil.formatFloat;
 
@@ -165,9 +166,9 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm, dd MMM yyyy", Locale.getDefault());
                             binding.setTimestamp(localDateTime.format(formatter));
                             // Set market-cap, volume & supply
-                            binding.setMarketCap(formatDoubleDetailed(coin.marketCapUsd));
-                            binding.setVolume24Hr(formatDoubleDetailed(coin.volumeUsd24Hr));
-                            binding.setSupply(formatDoubleDetailed(coin.supply));
+                            binding.setMarketCap(formatBigDouble(coin.marketCapUsd));
+                            binding.setVolume24Hr(formatBigDouble(coin.volumeUsd24Hr));
+                            binding.setSupply(formatBigDouble(coin.supply));
 
                             Log.d(TAG, String.format("getCoin.onSuccess: %s was fetched successfully", coinId));
                         },

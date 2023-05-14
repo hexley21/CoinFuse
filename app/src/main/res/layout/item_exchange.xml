@@ -60,7 +60,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:maxEms="8"
-                android:minEms="2"
                 android:text='@{pairs}'
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                 app:layout_constraintBottom_toBottomOf="parent"
