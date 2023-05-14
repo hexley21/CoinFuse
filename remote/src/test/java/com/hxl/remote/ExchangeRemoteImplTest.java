@@ -10,7 +10,6 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-import com.hxl.domain.model.Exchange;
 import com.hxl.remote.exchange.ExchangeRemoteImpl;
 import com.hxl.remote.exchange.api.ExchangeService;
 import com.hxl.remote.exchange.model.ExchangeDTO;

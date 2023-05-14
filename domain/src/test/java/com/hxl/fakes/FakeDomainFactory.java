@@ -3,7 +3,6 @@ package com.hxl.fakes;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.domain.model.Exchange;
-import com.hxl.domain.model.ValueAndTimestamp;
 
 import java.util.ArrayList;
 import java.util.List;
