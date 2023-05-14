@@ -3,6 +3,7 @@ package com.hxl.coinfuse.di;
 import android.content.SharedPreferences;
 
 import com.hxl.data.CoinRepositoryImpl;
+import com.hxl.data.ExchangeRepositoryImpl;
 import com.hxl.data.PreferenceRepositoryImpl;
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
@@ -13,6 +14,7 @@ import com.hxl.data.source.exchange.ExchangeLocalSource;
 import com.hxl.data.source.exchange.ExchangeRemoteSource;
 import com.hxl.data.source.exchange.ExchangeSourceFactory;
 import com.hxl.domain.repository.CoinRepository;
+import com.hxl.domain.repository.ExchangeRepository;
 import com.hxl.domain.repository.PreferenceRepository;
 import com.hxl.local.CoinLocalImpl;
 import com.hxl.local.ExchangeLocalImpl;
@@ -93,6 +95,12 @@ public class DataModule {
                 new ExchangeRemoteSource(remote),
                 new ExchangeLocalSource(local)
         );
+    }
+
+    @Provides
+    @Singleton
+    ExchangeRepository providesExchangeRepository(ExchangeSourceFactory sourceFactory) {
+        return new ExchangeRepositoryImpl(sourceFactory);
     }
 
     // endregion
