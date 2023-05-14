@@ -23,17 +23,29 @@ public class ExchangeRepositoryImpl implements ExchangeRepository {
 
     @Override
     public Single<List<Exchange>> getExchanges() {
-        return sourceFactory.getDataSource(PingUtil.isOnline()).getExchanges();
+        boolean isOnline = PingUtil.isOnline();
+        Single<List<Exchange>> exchanges = sourceFactory.getDataSource(isOnline).getExchanges();
+        if (isOnline)
+            return exchanges.flatMap(x -> insertExchange(x).toSingleDefault(x));
+        return exchanges;
     }
 
     @Override
     public Single<List<Exchange>> getExchanges(int limit, int offset) {
-        return sourceFactory.getDataSource(PingUtil.isOnline()).getExchanges(limit, offset);
+        boolean isOnline = PingUtil.isOnline();
+        Single<List<Exchange>> exchanges = sourceFactory.getDataSource(isOnline).getExchanges(limit, offset);
+        if (isOnline)
+            return exchanges.flatMap(x -> insertExchange(x).toSingleDefault(x));
+        return exchanges;
     }
 
     @Override
     public Single<Exchange> getExchange(String exchangeId) {
-        return sourceFactory.getDataSource(PingUtil.isOnline()).getExchange(exchangeId);
+        boolean isOnline = PingUtil.isOnline();
+        Single<Exchange> exchange = sourceFactory.getDataSource(isOnline).getExchange(exchangeId);
+        if (isOnline)
+            return exchange.flatMap(x -> insertExchange(x).toSingleDefault(x));
+        return exchange;
     }
 
     @Override
