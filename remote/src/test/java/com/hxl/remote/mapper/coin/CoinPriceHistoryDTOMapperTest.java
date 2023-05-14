@@ -1,4 +1,4 @@
-package com.hxl.remote.mapper;
+package com.hxl.remote.mapper.coin;
 
 import static org.junit.Assert.assertEquals;
 

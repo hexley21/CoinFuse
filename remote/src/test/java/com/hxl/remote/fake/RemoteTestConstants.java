@@ -20,11 +20,17 @@ public class RemoteTestConstants {
     public static String randomInt() {
         return String.valueOf(random.nextInt());
     }
+    public static long randomLong() {
+        return random.nextLong();
+    }
     public static String randomDouble() {
         return String.valueOf(random.nextDouble());
     }
     public static String randomFloat() {
         return String.valueOf(random.nextFloat());
+    }
+    public static boolean randomBoolean() {
+        return random.nextBoolean();
     }
 
 }

@@ -26,8 +26,4 @@ public class GetExchanges {
         return repository.getExchanges(limit, offset);
     }
 
-    public Single<Exchange> invoke(String baseId) {
-        return repository.getExchange(baseId);
-    }
-
 }

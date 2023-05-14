@@ -22,4 +22,17 @@ public class ExchangeDTO {
     @Json(name = "updated")
     public Long updated;
 
+    public ExchangeDTO() {}
+
+    public ExchangeDTO(String exchangeId, String name, String rank, String percentTotalVolume, String volumeUsd, String tradingPairs, Boolean socket, String exchangeUrl, Long updated) {
+        this.exchangeId = exchangeId;
+        this.name = name;
+        this.rank = rank;
+        this.percentTotalVolume = percentTotalVolume;
+        this.volumeUsd = volumeUsd;
+        this.tradingPairs = tradingPairs;
+        this.socket = socket;
+        this.exchangeUrl = exchangeUrl;
+        this.updated = updated;
+    }
 }
