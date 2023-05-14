@@ -21,9 +21,10 @@ import com.hxl.coinfuse.util.GlideFactory;
 import com.hxl.coinfuse.util.UiUtils;
 import com.hxl.domain.model.Coin;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class CoinViewHolder extends RecyclerView.ViewHolder implements Function<Coin, Void> {
+public class CoinViewHolder extends RecyclerView.ViewHolder implements Consumer<Coin> {
 
     private static final String TAG = "CoinViewHolder";
 
@@ -37,14 +38,13 @@ public class CoinViewHolder extends RecyclerView.ViewHolder implements Function<
     }
 
     @Override
-    public Void apply(Coin coin) {
+    public void accept(Coin coin) {
         binding.setName(coin.name);
         binding.setSymbol(coin.symbol);
         bindPrice(coin.priceUsd);
         bindChange(coin.changePercent24Hr);
         binding.setRank(String.valueOf(coin.rank));
         glide.load(coin.img).into(binding.imgCoin);
-        return null;
     }
 
     private void bindPrice(Double value) {

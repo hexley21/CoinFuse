@@ -1,4 +1,4 @@
-package com.hxl.coinfuse.util;
+package com.hxl.coinfuse.util.comparator;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;

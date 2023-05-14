@@ -16,11 +16,12 @@ import com.bumptech.glide.RequestManager;
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseAdapter;
 import com.hxl.coinfuse.databinding.ItemCoinSearchBinding;
-import com.hxl.coinfuse.util.CoinComparator;
+import com.hxl.coinfuse.util.comparator.CoinComparator;
 import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.coinfuse.util.GlideFactory;
 import com.hxl.domain.model.Coin;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinSearchViewHolder> {
@@ -43,7 +44,7 @@ public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinS
         return new CoinSearchViewHolder(binding);
     }
 
-    public static class CoinSearchViewHolder extends RecyclerView.ViewHolder implements Function<Coin, Void> {
+    public static class CoinSearchViewHolder extends RecyclerView.ViewHolder implements Consumer<Coin> {
         ItemCoinSearchBinding binding;
         RequestManager glide;
 
@@ -54,12 +55,11 @@ public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinS
         }
 
         @Override
-        public Void apply(Coin coin) {
+        public void accept(Coin coin) {
             binding.setName(coin.name);
             binding.setSymbol(coin.symbol);
             binding.setRank(coin.rank);
             glide.load(coin.img).into(binding.imgCoin);
-            return null;
         }
     }
 

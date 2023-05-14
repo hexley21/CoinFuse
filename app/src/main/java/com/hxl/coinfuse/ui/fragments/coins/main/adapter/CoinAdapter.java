@@ -8,12 +8,12 @@ import androidx.navigation.NavController;
 
 import com.hxl.coinfuse.base.BasePagingAdapter;
 import com.hxl.coinfuse.databinding.ItemCoinBinding;
-import com.hxl.coinfuse.util.CoinComparator;
+import com.hxl.coinfuse.util.comparator.CoinComparator;
 import com.hxl.domain.model.Coin;
 
 import java.util.Objects;
 
-public class CoinAdapter extends BasePagingAdapter<Coin ,CoinViewHolder> {
+public class CoinAdapter extends BasePagingAdapter<Coin, CoinViewHolder> {
 
     private NavController navController;
 

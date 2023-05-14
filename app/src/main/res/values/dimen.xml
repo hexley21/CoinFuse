@@ -23,6 +23,9 @@
     <dimen name="coin_search_item_height">48dp</dimen>
     <dimen name="coin_search_logo">36dp</dimen>
 
+    <!-- Exchange Item -->
+    <dimen name="exchange_item_height">52dp</dimen>
+
     <!-- Coin Details -->
     <dimen name="details_header_img_size">52dp</dimen>
     <dimen name="details_header_container_size">84dp</dimen>

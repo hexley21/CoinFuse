@@ -10,11 +10,11 @@ import com.hxl.presentation.coin.CoinSortBy;
 import com.hxl.presentation.coin.CoinComparatorFactory;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 
 @HiltViewModel
@@ -25,19 +25,19 @@ public class BookmarksViewModel extends ViewModel {
 
     public Single<List<Coin>> bookmarkedCoins(CoinSortBy coinSortBy, OrderBy orderBy) {
         return getBookmarkedCoins.invoke()
-                .map(x -> {
-                    x.sort(CoinComparatorFactory.createComparator(coinSortBy, orderBy));
-                    return x;
-                });
+                .map(x -> x.stream()
+                        .sorted(CoinComparatorFactory.createComparator(coinSortBy, orderBy))
+                        .collect(Collectors.toList())
+                );
     }
 
     public Single<List<Coin>> searchBookmarkedCoins(String query, CoinSortBy coinSortBy, OrderBy orderBy) {
         String q = query.toLowerCase();
         return searchBookmarkedCoins.invoke(q)
-                .map(x -> {
-                    x.sort(CoinComparatorFactory.createComparator(coinSortBy, orderBy));
-                    return x;
-                });
+                .map(x -> x.stream()
+                        .sorted(CoinComparatorFactory.createComparator(coinSortBy, orderBy))
+                        .collect(Collectors.toList())
+                );
     }
 
     @Inject

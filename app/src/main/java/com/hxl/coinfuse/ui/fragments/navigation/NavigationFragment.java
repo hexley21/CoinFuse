@@ -18,6 +18,7 @@ import com.hxl.coinfuse.databinding.FragmentNavigationBinding;
 public class NavigationFragment extends Fragment {
 
     public static final String coinArgKey = "coinId";
+    public static final String exchangeArgKey = "exchangeId";
     public static final String explorerArgKey = "explorerId";
     public static final String isTimeSortableArgKey = "isTimeSortable";
     public static final String coinSortCallbackArgKey = "coinSortCallback";
@@ -46,6 +47,9 @@ public class NavigationFragment extends Fragment {
                     return true;
                 case (R.id.menu_bookmarks):
                     navController.navigate(R.id.bookmarksFragment);
+                    return true;
+                case (R.id.menu_exchanges):
+                    navController.navigate(R.id.exchangeFragment);
                     return true;
             }
             return false;

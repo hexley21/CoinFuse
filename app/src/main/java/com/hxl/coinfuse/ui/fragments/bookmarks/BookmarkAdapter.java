@@ -9,7 +9,7 @@ import androidx.navigation.NavController;
 import com.hxl.coinfuse.base.BaseAdapter;
 import com.hxl.coinfuse.databinding.ItemCoinBinding;
 import com.hxl.coinfuse.ui.fragments.coins.main.adapter.CoinViewHolder;
-import com.hxl.coinfuse.util.CoinComparator;
+import com.hxl.coinfuse.util.comparator.CoinComparator;
 import com.hxl.domain.model.Coin;
 
 public class BookmarkAdapter extends BaseAdapter<Coin, CoinViewHolder> {

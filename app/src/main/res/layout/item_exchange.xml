@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="rank" type="String" />
+        <variable name="name" type="String" />
+        <variable name="price" type="String" />
+
+        <variable name="currency" type="String" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_view"
+        style="@style/Widget.Material3.CardView.Elevated"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/exchange_item_height"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
+        app:contentPaddingLeft="@dimen/default_padding"
+        app:contentPaddingRight="@dimen/default_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minEms="1"
+                android:text="@{rank}"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                tools:text="12" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center|start"
+                android:maxEms="10"
+                android:maxLines="1"
+                android:paddingStart="@dimen/default_padding"
+                android:paddingEnd="@dimen/default_padding"
+                android:scrollHorizontally="false"
+                android:text="@{name}"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                tools:text="Independent Reverse" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_price2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:maxEms="8"
+                android:minEms="2"
+                android:text='@{currency + price}'
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_change"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1,234" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:maxEms="8"
+                android:minEms="2"
+                android:paddingStart="@dimen/default_padding"
+                android:text='@{currency + price}'
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_change"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="$123,456M" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom|end"
+            android:background="?android:attr/listDivider" />
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

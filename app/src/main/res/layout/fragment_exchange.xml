@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="error_exchange_text" type="String"/>
+    </data>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl_exchanges"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/coin_search_bar_height"
+            app:layout_behavior="@string/searchbar_scrolling_view_behavior"
+            tools:ignore="PrivateResource">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_exchanges"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:itemCount="20"
+                tools:listitem="@layout/item_exchange" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <ImageView
+            android:id="@+id/icon_error_exchange"
+            android:layout_width="@dimen/error_icon_width"
+            android:layout_height="@dimen/error_icon_height"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:importantForAccessibility="no"
+            android:src="@drawable/bookmarks_outlined"
+            android:visibility="gone"
+            tools:visibility="invisible" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_error_exchange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/icon_error_exchange"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/error_icon_height"
+            android:gravity="center"
+            android:text="@{error_exchange_text}"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:visibility="gone"
+            tools:text="Error was caused because of.."
+            tools:visibility="invisible" />
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_padding"
+                android:layout_marginBottom="@dimen/default_padding_small"
+                android:orientation="horizontal"
+                app:layout_collapseMode="pin">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_exchange_sort"
+                    style="@style/Widget.Material3.Chip.Input.Icon.Elevated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="false"
+                    android:checked="false"
+                    android:elevation="0dp"
+                    android:text="@string/sort_by"
+                    app:closeIcon="@drawable/sort"
+                    tools:text="Sort by" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_exchange_sort_delete"
+                    style="@style/Widget.Material3.Chip.Input.Icon.Elevated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_padding_small"
+                    android:checkable="false"
+                    android:elevation="0dp"
+                    android:visibility="gone"
+                    app:checkedIconEnabled="false"
+                    app:textEndPadding="0dp"
+                    app:textStartPadding="4dp" />
+            </LinearLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
