@@ -52,11 +52,17 @@ public class DataTestConstants {
     public static int randomInt() {
         return random.nextInt();
     }
+    public static long randomLong() {
+        return random.nextLong();
+    }
     public static Double randomDouble() {
         return random.nextDouble();
     }
     public static float randomFloat() {
         return random.nextFloat();
+    }
+    public static boolean randomBoolean() {
+        return random.nextBoolean();
     }
 
 }
