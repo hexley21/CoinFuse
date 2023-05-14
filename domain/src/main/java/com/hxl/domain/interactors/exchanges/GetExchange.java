@@ -18,10 +18,6 @@ public class GetExchange {
         this.repository = repository;
     }
 
-    public Single<List<Exchange>> invoke() {
-        return repository.getExchanges();
-    }
-
     public Single<Exchange> invoke(String baseId) {
         return repository.getExchange(baseId);
     }
