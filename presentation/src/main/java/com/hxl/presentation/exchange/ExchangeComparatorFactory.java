@@ -45,7 +45,7 @@ public class ExchangeComparatorFactory {
             case VOLUME:
                 return comparingDouble(e -> e.volumeUsd == null ? Double.MIN_VALUE : e.volumeUsd);
             case TRADING_PAIRS:
-                return comparingDouble(e -> e.tradingPairs == null ? Double.MIN_VALUE : e.rank);
+                return comparingDouble(e -> e.tradingPairs == null ? Double.MIN_VALUE : e.tradingPairs);
             case SOCKET:
                 return comparing(e -> e.socket != null && !e.socket);
             case UPDATED:
