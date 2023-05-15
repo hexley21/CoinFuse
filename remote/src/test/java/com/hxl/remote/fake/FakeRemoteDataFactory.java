@@ -8,10 +8,12 @@ import static com.hxl.remote.fake.RemoteTestConstants.randomInt;
 import static com.hxl.remote.fake.RemoteTestConstants.randomLong;
 import static com.hxl.remote.fake.RemoteTestConstants.randomName;
 
+import com.hxl.domain.model.Trade;
 import com.hxl.remote.Response;
 import com.hxl.remote.coin.model.CoinDTO;
 import com.hxl.remote.coin.model.HistoryDTO;
 import com.hxl.remote.exchange.model.ExchangeDTO;
+import com.hxl.remote.exchange.model.TradeDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,10 +70,23 @@ public class FakeRemoteDataFactory {
         return new Response<>(getExchangeDTO(exchangeId), TIMESTAMP);
     }
 
+    public static Response<List<TradeDTO>> getFakeTradeResponse(int size) {
+        return new Response<>(getFakeTradeDTOs(size), TIMESTAMP);
+    }
+
     private static List<ExchangeDTO> getFakeExchangeDTOs(int size) {
         List<ExchangeDTO> fakeData = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             fakeData.add(getExchangeDTO());
+        }
+
+        return fakeData;
+    }
+
+    private static List<TradeDTO> getFakeTradeDTOs(int size) {
+        List<TradeDTO> fakeData = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            fakeData.add(getTradeDTO());
         }
 
         return fakeData;
@@ -114,5 +129,22 @@ public class FakeRemoteDataFactory {
 
     public static ExchangeDTO getExchangeDTO() {
         return getExchangeDTO(randomName());
+    }
+
+    public static TradeDTO getTradeDTO() {
+        return new TradeDTO(
+                randomName(),
+                randomInt(),
+                randomName(),
+                randomName(),
+                randomName(),
+                randomName(),
+                randomDouble(),
+                randomDouble(),
+                randomDouble(),
+                randomDouble(),
+                randomInt(),
+                randomLong()
+        );
     }
 }
