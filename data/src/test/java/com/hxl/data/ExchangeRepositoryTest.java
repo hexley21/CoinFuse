@@ -6,10 +6,12 @@ import static com.hxl.data.fakes.DataTestConstants.OFFSET;
 import static com.hxl.data.fakes.DataTestConstants.SIZE;
 import static com.hxl.data.fakes.FakeDataFactory.getExchange;
 import static com.hxl.data.fakes.FakeDataFactory.getFakeExchanges;
+import static com.hxl.data.fakes.FakeDataFactory.getFakeTrades;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
@@ -22,6 +24,7 @@ import com.hxl.data.source.exchange.ExchangeLocalSource;
 import com.hxl.data.source.exchange.ExchangeRemoteSource;
 import com.hxl.data.source.exchange.ExchangeSourceFactory;
 import com.hxl.domain.model.Exchange;
+import com.hxl.domain.model.Trade;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +32,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -157,6 +161,27 @@ public class ExchangeRepositoryTest {
     }
     // endregion
 
+    // region getTrades(Map<String, String> queryMap)
+    @Test
+    public void getTradesReturnsTradesFromRemote() {
+        // Arrange
+        List<Trade> fakeTrades = getFakeTrades(SIZE);
+        // Act
+        when(repository.getTrades(anyMap())).thenReturn(Single.just(fakeTrades));
+        when(sourceFactory.getRemote()).thenReturn(exchangeRemote);
+        // Assert
+        repository.getTrades(new HashMap<>()).test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.size() == SIZE);
+        verify(sourceFactory, times(1)).getRemote();
+        verify(sourceFactory, never()).getDataSource(true);
+        verify(sourceFactory, never()).getLocal();
+        verify(exchangeRemote, times(1)).getTrades(new HashMap<>());
+        verify(exchangeLocal, never()).getTrades(new HashMap<>());
+    }
+    // endregion
+
     // region insertExchange(List<Exchange> exchanges)
     @Test
     public void insertExchangeByListReturnsCompletableFromLocalSource() {
@@ -174,7 +199,6 @@ public class ExchangeRepositoryTest {
         verify(exchangeRemote, never()).insertExchange(fakeExchanges);
     }
     // endregion
-
 
     // region insertExchange(Exchange exchange)
     @Test

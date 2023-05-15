@@ -3,6 +3,7 @@ package com.hxl.fakes;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.domain.model.Exchange;
+import com.hxl.domain.model.Trade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,17 @@ public class FakeDomainFactory {
         return fakeExchanges;
     }
 
+    public static List<Trade> getFakeTrades(int size) {
+        List<Trade> fakeTrades = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            fakeTrades.add(
+                    getTrade()
+            );
+        }
+
+        return fakeTrades;
+    }
+
     public static Coin getCoin(String id) {
         return new Coin(
                 id,             // id
@@ -81,6 +93,23 @@ public class FakeDomainFactory {
     }
 
     private static final Random random = new Random();
+
+    public static Trade getTrade() {
+        return new Trade(
+                randomName(),
+                randomInt(),
+                randomName(),
+                randomName(),
+                randomName(),
+                randomName(),
+                randomDouble(),
+                randomDouble(),
+                randomDouble(),
+                randomDouble(),
+                randomInt(),
+                randomLong()
+        );
+    }
 
     private static String randomName() {
         return UUID.randomUUID().toString();

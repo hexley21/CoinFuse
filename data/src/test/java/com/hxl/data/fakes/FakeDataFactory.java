@@ -5,6 +5,7 @@ import static com.hxl.data.fakes.DataTestConstants.*;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.domain.model.Exchange;
+import com.hxl.domain.model.Trade;
 import com.hxl.domain.model.ValueAndTimestamp;
 
 import java.util.ArrayList;
@@ -77,6 +78,17 @@ public class FakeDataFactory {
         return fakeExchanges;
     }
 
+    public static List<Trade> getFakeTrades(int size) {
+        List<Trade> fakeTrades = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            fakeTrades.add(
+                    getTrade()
+            );
+        }
+
+        return fakeTrades;
+    }
+
     public static Coin getCoin(String id) {
         return new Coin(
                 id,             // id
@@ -116,5 +128,22 @@ public class FakeDataFactory {
 
     public static Exchange getExchange() {
         return getExchange(randomName());
+    }
+
+    public static Trade getTrade() {
+        return new Trade(
+                randomName(),
+                randomInt(),
+                randomName(),
+                randomName(),
+                randomName(),
+                randomName(),
+                randomDouble(),
+                randomDouble(),
+                randomDouble(),
+                randomDouble(),
+                randomInt(),
+                randomLong()
+        );
     }
 }
