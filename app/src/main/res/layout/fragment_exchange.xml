@@ -32,7 +32,7 @@
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:importantForAccessibility="no"
-            android:src="@drawable/bookmarks_outlined"
+            android:src="@drawable/error"
             android:visibility="gone"
             tools:visibility="invisible" />
 

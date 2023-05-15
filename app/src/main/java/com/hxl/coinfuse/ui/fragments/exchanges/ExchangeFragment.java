@@ -50,7 +50,7 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
     }
     // endregion
 
-    private final String TAG = "BookmarksFragment";
+    private final String TAG = "ExchangesFragment";
     private ExchangeAdapter exchangeAdapter;
     private NavController navController;
 
@@ -150,7 +150,7 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
             exchangeAdapter.setList(exchanges);
             setPbVisibilityErrorRefresh();
             if (exchanges.isEmpty()) {
-                visibilityBookmarkError(getResources().getString(R.string.error_no_bookmarks));
+                visibilityError(getResources().getString(R.string.error_no_data));
             }
 
             Log.d(TAG, "fetchExchanges: success");
@@ -161,19 +161,21 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
     private final Consumer<Throwable> exchangeErrorConsumer = e -> {
 //        binding.shimmerCoins.setVisibility(View.GONE);
         binding.srlExchanges.setRefreshing(false);
-        visibilityBookmarkError(e.getMessage());
+        visibilityError(e.getMessage());
         Log.e(TAG, "fetchExchanges: failed", e);
         EspressoIdlingResource.decrement();
     };
 
-    private void visibilityBookmarkError(String error) {
+    private void visibilityError(String error) {
 //        binding.shimmerCoins.setVisibility(View.GONE);
+        binding.rvExchanges.setVisibility(View.GONE);
         binding.textErrorExchange.setVisibility(View.VISIBLE);
         binding.iconErrorExchange.setVisibility(View.VISIBLE);
         binding.setErrorExchangeText(error);
     }
 
     private void setPbVisibilityErrorRefresh() {
+        binding.rvExchanges.setVisibility(View.VISIBLE);
         binding.textErrorExchange.setVisibility(View.GONE);
         binding.iconErrorExchange.setVisibility(View.GONE);
     }
