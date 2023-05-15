@@ -1,4 +1,4 @@
-package com.hxl.coinfuse.ui.dialogs.coins;
+package com.hxl.coinfuse.ui.dialogs;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,9 +8,9 @@ import androidx.annotation.NonNull;
 import com.hxl.presentation.OrderBy;
 import com.hxl.presentation.coin.CoinSortBy;
 
-public interface CoinSortCallback extends Parcelable {
+public interface SortCallback<T> extends Parcelable{
 
-    void apply(CoinSortBy coinSortBy, OrderBy orderBy);
+    void apply(T coinSortBy, OrderBy orderBy);
 
     @Override
     default int describeContents() {
