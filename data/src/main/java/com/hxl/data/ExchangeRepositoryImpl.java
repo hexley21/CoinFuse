@@ -38,7 +38,7 @@ public class ExchangeRepositoryImpl implements ExchangeRepository {
     public Single<List<Exchange>> getExchanges(int limit, int offset) {
         boolean isOnline = PingUtil.isOnline();
         Single<List<Exchange>> exchanges = sourceFactory.getDataSource(isOnline).getExchanges(limit, offset)
-                .subscribeOn(Schedulers.io());;
+                .subscribeOn(Schedulers.io());
         if (isOnline)
             return exchanges.flatMap(x -> insertExchange(x).toSingleDefault(x));
         return exchanges;
@@ -48,7 +48,7 @@ public class ExchangeRepositoryImpl implements ExchangeRepository {
     public Single<Exchange> getExchange(String exchangeId) {
         boolean isOnline = PingUtil.isOnline();
         Single<Exchange> exchange = sourceFactory.getDataSource(isOnline).getExchange(exchangeId)
-                .subscribeOn(Schedulers.io());;
+                .subscribeOn(Schedulers.io());
         if (isOnline)
             return exchange.flatMap(x -> insertExchange(x).toSingleDefault(x));
         return exchange;
