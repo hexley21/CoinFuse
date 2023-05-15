@@ -1,5 +1,9 @@
 package com.hxl.coinfuse.ui.fragments.exchanges;
 
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.orderByArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.sortByArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.sortCallbackArgKey;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentExchangeBinding;
+import com.hxl.coinfuse.ui.dialogs.SortCallback;
 import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.domain.model.Exchange;
 import com.hxl.presentation.OrderBy;
@@ -92,17 +97,15 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
             getExchanges();
         }
 
-//        binding.chipExchangeSort.setOnClickListener(v -> {
-//            Bundle bundle = new Bundle();
-//            bundle.putBoolean(isTimeSortableArgKey, true);
-//
-//            bundle.putParcelable(coinSortCallbackArgKey, (CoinSortCallback) this::fetchCoinsCallback);
-//
-//            bundle.putSerializable(sortByArgKey, finalSortBy);
-//            bundle.putSerializable(orderByArgKey, finalOrderBy);
-//
-//            navController.navigate(R.id.navigation_to_coinSortDialog, bundle);
-//        });
+        binding.chipExchangeSort.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(sortCallbackArgKey, (SortCallback<ExchangeSortBy>) this::fetchExchangesCallback);
+
+            bundle.putSerializable(sortByArgKey, finalSortBy);
+            bundle.putSerializable(orderByArgKey, finalOrderBy);
+
+            navController.navigate(R.id.navigation_to_exchangeSortDialog, bundle);
+        });
 
         loadingVisibility = View.GONE;
 
@@ -112,13 +115,23 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
         });
 
         binding.chipExchangeSortDelete.setOnClickListener(v -> {
-            finalOrderBy = OrderBy.DESC;
+            finalOrderBy = OrderBy.ASC;
             finalSortBy = ExchangeSortBy.RANK;
             getExchanges();
             chipVisibility = View.GONE;
             binding.chipExchangeSortDelete.setVisibility(View.GONE);
         });
 
+    }
+
+    private void fetchExchangesCallback(ExchangeSortBy sortBy, OrderBy orderBy) {
+        if ((finalSortBy != sortBy) || (finalOrderBy != orderBy)) {
+            chipVisibility = View.VISIBLE;
+            binding.chipExchangeSortDelete.setVisibility(View.VISIBLE);
+            finalSortBy = sortBy;
+            finalOrderBy = orderBy;
+            getExchanges();
+        }
     }
 
 

@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import com.hxl.presentation.OrderBy;
-import com.hxl.presentation.coin.CoinSortBy;
 
 public interface SortCallback<T> extends Parcelable{
 

@@ -54,6 +54,21 @@
                 app:argType="com.hxl.presentation.coin.CoinSortBy"
                 android:defaultValue="RANK" />
         </action>
+        <action
+            android:id="@+id/navigation_to_exchangeSortDialog"
+            app:destination="@+id/exchangeSortDialog">
+            <argument
+                android:name="sortCallback"
+                app:argType="com.hxl.coinfuse.ui.dialogs.SortCallback" />
+            <argument
+                android:name="orderBy"
+                app:argType="com.hxl.presentation.OrderBy"
+                android:defaultValue="DESC" />
+            <argument
+                android:name="sortBy"
+                app:argType="com.hxl.presentation.exchange.ExchangeSortBy"
+                android:defaultValue="RANK" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/coinDetailsFragment"
@@ -95,6 +110,23 @@
         <argument
             android:name="sortBy"
             app:argType="com.hxl.presentation.coin.CoinSortBy"
+            android:defaultValue="RANK" />
+    </dialog>
+    <dialog
+        android:id="@+id/exchangeSortDialog"
+        android:name="com.hxl.coinfuse.ui.dialogs.exchanges.ExchangeSortDialog"
+        android:label="ExchangeSortDialog"
+        tools:layout="@layout/dialog_exchange_sort">
+        <argument
+            android:name="sortCallback"
+            app:argType="com.hxl.coinfuse.ui.dialogs.SortCallback" />
+        <argument
+            android:name="orderBy"
+            app:argType="com.hxl.presentation.OrderBy"
+            android:defaultValue="DESC" />
+        <argument
+            android:name="sortBy"
+            app:argType="com.hxl.presentation.exchange.ExchangeSortBy"
             android:defaultValue="RANK" />
     </dialog>
 </navigation>

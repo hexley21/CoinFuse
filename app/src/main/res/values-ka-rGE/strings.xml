@@ -12,12 +12,16 @@
     <string name="sort_by_name">სახელით</string>
     <string name="sort_by_price">ფასით</string>
     <string name="sort_by_market">ბაზრის კაპ…</string>
-    <string name="sort_by_volume">ვოლუმით</string>
+    <string name="sort_by_volume">მოცულობით</string>
     <string name="sort_by_change">ცვლილებით</string>
     <string name="sort_by_time">დროით</string>
     <string name="apply">მიღება</string>
     <string name="sort_by_asc">ზრდადობით</string>
     <string name="sort_by_desc">კლებადობიით</string>
+    <string name="sort_by_total_volume_share">მთლიანი მოცულობის წილით</string>
+    <string name="sort_by_trading_pairs">გაცვლითი წყვილებით</string>
+    <string name="sort_by_socket">სოკეტით</string>
+    <string name="sort_by_updated">განახლებით</string>
     <string name="error_no_bookmarks">შენახულები არ არის</string>
     <string name="cd_img_walk_through">გზამკლევის სურათი</string>
 

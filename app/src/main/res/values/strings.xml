@@ -51,7 +51,12 @@
     <string name="add_to_bookmarks">Add to bookmarks</string>
     <string name="visit_explorer">Visit Explorer</string>
 
-    <!-- Coin Sort Dialog -->
+    <!-- Sort -->
+    <string name="apply">Apply</string>
+
+    <string name="sort_by_asc">Ascending</string>
+    <string name="sort_by_desc">Descending</string>
+        <!-- Coin Sort Dialog -->
     <string name="sort_by_rank">By Rank</string>
     <string name="sort_by_name">By Name</string>
     <string name="sort_by_price">By Price</string>
@@ -59,11 +64,11 @@
     <string name="sort_by_volume">By Volume</string>
     <string name="sort_by_change">By Change 24HR</string>
     <string name="sort_by_time">By Time</string>
-    <string name="apply">Apply</string>
-
-    <string name="sort_by_asc">Ascending</string>
-    <string name="sort_by_desc">Descending</string>
-
+        <!-- Exchange Sort Dialog -->
+    <string name="sort_by_total_volume_share">By Total volume share</string>
+    <string name="sort_by_trading_pairs">By Trading pairs</string>
+    <string name="sort_by_socket">By Socket</string>
+    <string name="sort_by_updated">By Update</string>
     <!-- Bookmarks -->
     <string name="error_no_bookmarks">There are no bookmarks</string>
 
