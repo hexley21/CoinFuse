@@ -13,7 +13,7 @@
             android:id="@+id/srl_exchanges"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/coin_search_bar_height"
+            android:layout_marginTop="64dp"
             app:layout_behavior="@string/searchbar_scrolling_view_behavior"
             tools:ignore="PrivateResource">
 
@@ -56,39 +56,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
+            <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/default_padding"
-                android:layout_marginBottom="@dimen/default_padding_small"
-                android:orientation="horizontal"
-                app:layout_collapseMode="pin">
+                app:layout_scrollFlags="scroll|snap"
+                android:layout_height="wrap_content">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_exchange_sort"
-                    style="@style/Widget.Material3.Chip.Input.Icon.Elevated"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:checkable="false"
-                    android:checked="false"
-                    android:elevation="0dp"
-                    android:text="@string/sort_by"
-                    app:closeIcon="@drawable/sort"
-                    tools:text="Sort by" />
+                    android:orientation="horizontal">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_exchange_sort_delete"
-                    style="@style/Widget.Material3.Chip.Input.Icon.Elevated"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/default_padding_small"
-                    android:checkable="false"
-                    android:elevation="0dp"
-                    android:visibility="gone"
-                    app:checkedIconEnabled="false"
-                    app:textEndPadding="0dp"
-                    app:textStartPadding="4dp" />
-            </LinearLayout>
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_exchange_sort"
+                        style="@style/Widget.Material3.Chip.Input.Icon.Elevated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="false"
+                        android:checked="false"
+                        android:text="@string/sort_by"
+                        app:closeIcon="@drawable/sort"
+                        tools:text="Sort by" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_exchange_sort_delete"
+                        style="@style/Widget.Material3.Chip.Input.Icon.Elevated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_padding_small"
+                        android:checkable="false"
+                        android:elevation="0dp"
+                        android:visibility="gone"
+                        app:checkedIconEnabled="false"
+                        app:textEndPadding="0dp"
+                        app:textStartPadding="4dp" />
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
