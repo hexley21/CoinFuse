@@ -3,9 +3,11 @@ package com.hxl.data;
 import com.hxl.data.util.PingUtil;
 import com.hxl.data.source.exchange.ExchangeSourceFactory;
 import com.hxl.domain.model.Exchange;
+import com.hxl.domain.model.Trade;
 import com.hxl.domain.repository.ExchangeRepository;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -50,6 +52,11 @@ public class ExchangeRepositoryImpl implements ExchangeRepository {
         if (isOnline)
             return exchange.flatMap(x -> insertExchange(x).toSingleDefault(x));
         return exchange;
+    }
+
+    @Override
+    public Single<List<Trade>> getTrades(Map<String, String> queryMap) {
+        return sourceFactory.getRemote().getTrades(queryMap);
     }
 
     @Override

@@ -3,8 +3,10 @@ package com.hxl.data.source.exchange;
 import com.hxl.data.repository.exchange.ExchangeDataSource;
 import com.hxl.data.repository.exchange.ExchangeRemote;
 import com.hxl.domain.model.Exchange;
+import com.hxl.domain.model.Trade;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -33,6 +35,11 @@ public class ExchangeRemoteSource implements ExchangeDataSource {
     @Override
     public Single<Exchange> getExchange(String exchangeId) {
         return remote.getExchange(exchangeId);
+    }
+
+    @Override
+    public Single<List<Trade>> getTrades(Map<String, String> queryMap) {
+        return remote.getTrades(queryMap);
     }
 
     @Override
