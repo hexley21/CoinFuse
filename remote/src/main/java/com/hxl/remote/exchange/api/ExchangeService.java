@@ -15,7 +15,7 @@ public interface ExchangeService {
     Single<Response<List<ExchangeDTO>>> getExchanges();
     @GET("exchanges/")
     Single<Response<List<ExchangeDTO>>> getExchanges(@Query("limit") int limit, @Query("offset") int offset);
-    @GET("assets/{id}")
-    Single<Response<ExchangeDTO>> getExchange(@Path("baseId") String id);
+    @GET("exchanges/{id}")
+    Single<Response<ExchangeDTO>> getExchange(@Path("id") String id);
 
 }
