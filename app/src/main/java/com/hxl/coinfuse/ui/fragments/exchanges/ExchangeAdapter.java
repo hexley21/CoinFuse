@@ -1,7 +1,10 @@
 package com.hxl.coinfuse.ui.fragments.exchanges;
 
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeUrlArgKey;
 import static com.hxl.coinfuse.util.NumberFormatUtil.formatBigDouble;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseAdapter;
 import com.hxl.coinfuse.databinding.ItemExchangeBinding;
 import com.hxl.coinfuse.util.EspressoIdlingResource;
@@ -45,6 +49,7 @@ public class ExchangeAdapter extends BaseAdapter<Exchange, ExchangeAdapter.Excha
     public void onBindViewHolder(@NonNull ExchangeViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         String exchangeId = getList().get(position).exchangeId;
+        String exchangeUrl = getList().get(position).exchangeUrl;
 
         EspressoIdlingResource.increment();
 
@@ -54,8 +59,17 @@ public class ExchangeAdapter extends BaseAdapter<Exchange, ExchangeAdapter.Excha
             return;
         }
 
-//        Bundle bundle = new Bundle();
-//        bundle.putString(exchangeArgKey, exchangeId);
+        Bundle bundle = new Bundle();
+        bundle.putString(exchangeArgKey, exchangeId);
+
+        holder.itemView.setOnClickListener(v ->
+                navController.navigate(R.id.navigation_to_ExchangeDetails, bundle));
+
+        holder.itemView.setOnLongClickListener(v -> {
+            bundle.putString(exchangeUrlArgKey, exchangeUrl);
+            navController.navigate(R.id.navigation_to_exchangeDialog, bundle);
+            return true;
+        });
 
         EspressoIdlingResource.decrement();
     }
