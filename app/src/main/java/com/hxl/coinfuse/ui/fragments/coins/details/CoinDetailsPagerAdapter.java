@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.hxl.coinfuse.ui.fragments.coins.details.exchanges.CoinExchangesFragment;
 import com.hxl.coinfuse.ui.fragments.coins.details.price.CoinPriceFragment;
 
 public class CoinDetailsPagerAdapter extends FragmentStateAdapter {
@@ -24,10 +25,14 @@ public class CoinDetailsPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         Bundle bundle = new Bundle();
         bundle.putString(coinArgKey, coinId);
-        CoinPriceFragment fragment = new CoinPriceFragment();
-        fragment.setArguments(bundle);
-
-        return fragment;
+        if (position == 0) {
+            CoinPriceFragment priceFragment = new CoinPriceFragment();
+            priceFragment.setArguments(bundle);
+            return priceFragment;
+        }
+        CoinExchangesFragment exchangesFragment = new CoinExchangesFragment();
+        exchangesFragment.setArguments(bundle);
+        return exchangesFragment;
     }
 
     @Override

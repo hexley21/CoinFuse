@@ -121,7 +121,6 @@
                     android:layout_height="1dp"
                     android:layout_below="@id/coin_details_tabs"
                     android:layout_gravity="bottom|end"
-                    android:layout_weight="1"
                     android:background="?android:attr/listDivider" />
 
             </RelativeLayout>
