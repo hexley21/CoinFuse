@@ -13,11 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseAdapter;
 import com.hxl.coinfuse.databinding.ItemExchangeBinding;
 import com.hxl.coinfuse.util.EspressoIdlingResource;
+import com.hxl.coinfuse.util.UiUtils;
 import com.hxl.coinfuse.util.comparator.ExchangeComparator;
+import com.hxl.data.util.PingUtil;
 import com.hxl.domain.model.Exchange;
 
 import java.util.function.Consumer;
@@ -30,7 +33,6 @@ public class ExchangeAdapter extends BaseAdapter<Exchange, ExchangeAdapter.Excha
         super(new ExchangeComparator());
     }
 
-
     public void setNavController(NavController navController) {
         this.navController = navController;
     }
@@ -39,9 +41,14 @@ public class ExchangeAdapter extends BaseAdapter<Exchange, ExchangeAdapter.Excha
         return navController;
     }
 
+    private Consumer<String> showSnackbar;
+
     @Override
     protected ExchangeViewHolder getViewHolder(ViewGroup parent, int viewType) {
         ItemExchangeBinding binding = ItemExchangeBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+
+        showSnackbar = message -> Snackbar.make(parent.getContext(), parent, message, Snackbar.LENGTH_LONG).show();
+
         return new ExchangeViewHolder(binding);
     }
 
@@ -62,23 +69,38 @@ public class ExchangeAdapter extends BaseAdapter<Exchange, ExchangeAdapter.Excha
         Bundle bundle = new Bundle();
         bundle.putString(exchangeArgKey, exchangeId);
 
-        holder.itemView.setOnClickListener(v -> {
-            assert navController.getCurrentDestination() != null;
-            if (navController.getCurrentDestination().getId() == R.id.navigationFragment) {
-                navController.navigate(R.id.navigation_to_ExchangeDetails, bundle);
-            }
-        });
+
+        holder.itemView.setOnClickListener(v ->
+                navigateToDetails(
+                        bundle,
+                        UiUtils.getString(holder.itemView.getContext(), R.string.error_no_internet))
+        );
 
         holder.itemView.setOnLongClickListener(v -> {
-            assert navController.getCurrentDestination() != null;
-            if (navController.getCurrentDestination().getId() == R.id.navigationFragment) {
-                bundle.putString(exchangeUrlArgKey, exchangeUrl);
-                navController.navigate(R.id.navigation_to_exchangeDialog, bundle);
-            }
-            return true;
+            bundle.putString(exchangeUrlArgKey, exchangeUrl);
+            return openDialog(bundle);
         });
 
         EspressoIdlingResource.decrement();
+    }
+
+    private void navigateToDetails(Bundle bundle, String message) {
+        assert navController.getCurrentDestination() != null;
+        if (navController.getCurrentDestination().getId() != R.id.navigationFragment) return;
+        if (!PingUtil.isOnline()) {
+            showSnackbar.accept(message);
+            return;
+        }
+
+        navController.navigate(R.id.navigation_to_ExchangeDetails, bundle);
+    }
+
+    private boolean openDialog(Bundle bundle) {
+        assert navController.getCurrentDestination() != null;
+        if (navController.getCurrentDestination().getId() == R.id.navigationFragment) return false;
+
+        navController.navigate(R.id.navigation_to_exchangeDialog, bundle);
+        return true;
     }
 
     static final class ExchangeViewHolder extends RecyclerView.ViewHolder implements Consumer<Exchange> {
