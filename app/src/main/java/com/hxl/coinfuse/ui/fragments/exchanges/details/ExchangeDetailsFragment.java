@@ -20,6 +20,7 @@ import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentExchangeDetailsBinding;
 import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.presentation.viewmodels.ExchangeDetailsViewModel;
+import com.hxl.remote.exchange.api.TradeQueryBuilder;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -39,6 +40,7 @@ public class ExchangeDetailsFragment extends BaseFragment<FragmentExchangeDetail
     private static final String TAG = "ExchangeDetails";
 
     private String exchangeId;
+    private final TradesAdapter tradesAdapter = new TradesAdapter(false);
 
 
     @Override
@@ -51,6 +53,7 @@ public class ExchangeDetailsFragment extends BaseFragment<FragmentExchangeDetail
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         super.onCreateView(savedInstanceState);
+        binding.rvExchangeTrades.setAdapter(tradesAdapter);
     }
 
     @Override
@@ -59,11 +62,12 @@ public class ExchangeDetailsFragment extends BaseFragment<FragmentExchangeDetail
         binding.exchangesTopAppbar.setNavigationOnClickListener(v ->
                 requireActivity().onBackPressed());
 
-        fetchExchange(exchangeId);
+        fetchExchange();
+        fetchTrades();
     }
 
 
-    private void fetchExchange(String exchangeId) {
+    private void fetchExchange() {
         EspressoIdlingResource.increment();
         vm.getExchange(exchangeId).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -85,6 +89,28 @@ public class ExchangeDetailsFragment extends BaseFragment<FragmentExchangeDetail
                         },
                         e -> {
                             Log.e(TAG, "fetchExchange: failed", e);
+                            EspressoIdlingResource.decrement();
+                        },
+                        compositeDisposable
+                );
+    }
+
+    private void fetchTrades() {
+        EspressoIdlingResource.increment();
+
+        TradeQueryBuilder queryBuilder = new TradeQueryBuilder();
+        queryBuilder.addExchangeId(exchangeId);
+
+        vm.getTrades(queryBuilder.build()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        trades -> {
+                            tradesAdapter.setList(trades);
+
+                            Log.d(TAG, "fetchTrades: succeed");
+                            EspressoIdlingResource.decrement();
+                        },
+                        e -> {
+                            Log.e(TAG, "fetchTrades: failed", e);
                             EspressoIdlingResource.decrement();
                         },
                         compositeDisposable
