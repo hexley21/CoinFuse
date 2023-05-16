@@ -69,6 +69,26 @@
                 app:argType="com.hxl.presentation.exchange.ExchangeSortBy"
                 android:defaultValue="RANK" />
         </action>
+        <action
+            android:id="@+id/navigation_to_ExchangeDetails"
+            app:destination="@id/exchangeDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+            <argument
+                android:name="exchangeId"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
+        <action
+            android:id="@+id/navigation_to_exchangeDialog"
+            app:destination="@id/exchangeDialog" >
+            <argument
+                android:name="exchangeUrl"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/coinDetailsFragment"
@@ -128,5 +148,25 @@
             android:name="sortBy"
             app:argType="com.hxl.presentation.exchange.ExchangeSortBy"
             android:defaultValue="RANK" />
+    </dialog>
+    <fragment
+        android:id="@+id/exchangeDetailsFragment"
+        android:name="com.hxl.coinfuse.ui.fragments.exchanges.details.ExchangeDetailsFragment"
+        android:label="ExchangeDetailsFragment"
+        tools:layout="@layout/fragment_exchange_details">
+        <argument
+            android:name="exchangeId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <dialog
+        android:id="@+id/exchangeDialog"
+        android:name="com.hxl.coinfuse.ui.dialogs.exchanges.ExchangeDialog"
+        android:label="ExchangeDialog"
+        tools:layout="@layout/dialog_exchange">
+        <argument
+            android:name="exchangeUrl"
+            app:argType="string"
+            app:nullable="true" />
     </dialog>
 </navigation>

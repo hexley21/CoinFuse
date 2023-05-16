@@ -15,11 +15,14 @@
     <string name="desc_explore">Price History, Markets &amp; Latest changes of every Crypto Currency.</string>
     <string name="desc_analyze">Data in easy and compact readable way &amp; share latest information with your friends.</string>
 
-    <!-- Navigation Fragment -->
+    <!-- Menu -->
+        <!-- Navigation Fragment -->
     <string name="menu_coins">Coins</string>
     <string name="menu_exchanges">Exchanges</string>
     <string name="menu_bookmarks">Bookmarks</string>
     <string name="menu_setting">Settings</string>
+        <!-- Exchange Details -->
+    <string name="menu_website">Website</string>
 
     <!-- Coins menu -->
     <string name="sort_by">Sort by</string>
@@ -50,6 +53,8 @@
     <string name="remove_from_bookmarks">Remove from bookmarks</string>
     <string name="add_to_bookmarks">Add to bookmarks</string>
     <string name="visit_explorer">Visit Explorer</string>
+    <!-- Exchange Dialog -->
+    <string name="visit_website">Visit Website</string>
 
     <!-- Sort -->
     <string name="apply">Apply</string>
@@ -69,6 +74,11 @@
     <string name="sort_by_trading_pairs">By Trading pairs</string>
     <string name="sort_by_socket">By Socket</string>
     <string name="sort_by_updated">By Update</string>
+
+    <!-- Exchange Details -->
+    <string name="exchange_pairs">%s trading pairs</string>
+    <string name="exchange_volume">Volume</string>
+
     <!-- Bookmarks -->
     <string name="error_no_bookmarks">There are no bookmarks</string>
 

@@ -16,7 +16,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.AsyncListDiffer;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hxl.coinfuse.R;
@@ -90,7 +89,6 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
         super.onViewCreated(view, savedInstanceState);
 
         RecyclerView rvExchanges = binding.rvExchanges;
-        rvExchanges.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvExchanges.setAdapter(exchangeAdapter);
 
         if (exchangeAdapter.getList().isEmpty()) {

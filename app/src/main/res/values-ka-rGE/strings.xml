@@ -15,6 +15,7 @@
     <string name="sort_by_volume">მოცულობით</string>
     <string name="sort_by_change">ცვლილებით</string>
     <string name="sort_by_time">დროით</string>
+    <string name="visit_website">ვებ-საიტი</string>
     <string name="apply">მიღება</string>
     <string name="sort_by_asc">ზრდადობით</string>
     <string name="sort_by_desc">კლებადობიით</string>
@@ -47,6 +48,9 @@
     <string name="visit_explorer">მკვლევართან გადასვლა</string>
     <string name="remove_from_bookmarks">შენახულებიდან ამოშლა</string>
     <string name="error_no_main_data">მონაცემები არ არის… \n გადატვირთედ გვერდი ან გადაუერთდით ინტერნეტს</string>
+    <string name="menu_website">ვებ-საიტი</string>
     <string name="sort_by">დალაგება</string>
+    <string name="exchange_pairs">%s გაცვლების წყვილი</string>
+    <string name="exchange_volume">მოცულობა</string>
 
 </resources>

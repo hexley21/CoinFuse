@@ -20,6 +20,7 @@ public class NavigationFragment extends Fragment {
     public static final String coinArgKey = "coinId";
     public static final String exchangeArgKey = "exchangeId";
     public static final String explorerArgKey = "explorerId";
+    public static final String exchangeUrlArgKey = "exchangeUrl";
     public static final String isTimeSortableArgKey = "isTimeSortable";
     public static final String sortCallbackArgKey = "sortCallback";
     public static final String orderByArgKey = "orderBy";
