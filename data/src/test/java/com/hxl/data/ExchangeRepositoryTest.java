@@ -168,7 +168,6 @@ public class ExchangeRepositoryTest {
         List<Trade> fakeTrades = getFakeTrades(SIZE);
         // Act
         when(repository.getTrades(anyMap())).thenReturn(Single.just(fakeTrades));
-        when(sourceFactory.getRemote()).thenReturn(exchangeRemote);
         // Assert
         repository.getTrades(new HashMap<>()).test()
                 .awaitCount(1)
