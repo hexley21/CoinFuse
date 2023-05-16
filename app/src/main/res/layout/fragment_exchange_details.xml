@@ -5,6 +5,8 @@
     <data>
         <variable name="pairs" type="String" />
         <variable name="volume" type="String" />
+
+        <variable name="currency" type="String" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -22,6 +24,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/exchanges_top_appbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll|snap"
@@ -62,6 +65,7 @@
                         android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
                         android:textColor="?attr/colorOnBackground"
                         android:textStyle="bold"
+                        android:text="@{currency + volume}"
                         tools:text="$123,456,789,123" />
                 </LinearLayout>
 

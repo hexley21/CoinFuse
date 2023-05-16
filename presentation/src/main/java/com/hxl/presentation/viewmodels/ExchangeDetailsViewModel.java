@@ -27,8 +27,8 @@ public class ExchangeDetailsViewModel extends ViewModel {
         this.getTrades = getTrades;
     }
 
-    public Single<Exchange> getExchange(String baseId) {
-        return getExchange.invoke(baseId);
+    public Single<Exchange> getExchange(String exchangeId) {
+        return getExchange.invoke(exchangeId);
     }
 
     public Single<List<Trade>> getTrades(Map<String, String> queryMap) {
