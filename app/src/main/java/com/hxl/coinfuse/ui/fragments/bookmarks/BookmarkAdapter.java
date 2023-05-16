@@ -37,9 +37,12 @@ public class BookmarkAdapter extends BaseAdapter<Coin, CoinViewHolder> {
     public void onBindViewHolder(@NonNull CoinViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         String coinId = getList().get(position).id;
+        String coinName = getList().get(position).name;
+        String coinSymbol = getList().get(position).symbol;
+        String coinImg = getList().get(position).img;
         String explorerId = getList().get(position).explorer;
 
-        CoinViewHolder.defaultOnBindViewHolder(holder, navController, coinId, explorerId);
+        CoinViewHolder.defaultOnBindViewHolder(holder, navController, coinId, coinName, coinSymbol, coinImg, explorerId);
     }
 
 }

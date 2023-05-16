@@ -4,6 +4,7 @@
     <string name="btn_get_started">დაწყება</string>
     <string name="tv_skip">გამოტოვება</string>
     <string name="hint_search">ქოინების ძიება</string>
+    <string name="coin_price_chart">ფასები</string>
     <string name="statistics">სტატისტიკა</string>
     <string name="tv_market_cap">საბაზრო კაპიტალი</string>
     <string name="error_no_internet">ინტერნეტი არ არის</string>
@@ -55,5 +56,6 @@
     <string name="exchange_volume">მოცულობა</string>
     <string name="exchange_section_price">ფასი</string>
     <string name="exchange_section_vol_24">მოცულობა 24-სთ</string>
+    <string name="coin_exchanges">გაცვლები</string>
 
 </resources>

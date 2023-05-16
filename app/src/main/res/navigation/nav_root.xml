@@ -32,7 +32,20 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" >
+            <argument android:name="coinId"
+                app:argType="string"
+                app:nullable="true" />
+            <argument android:name="coinName"
+                app:argType="string"
+                app:nullable="true" />
+            <argument android:name="coinSymbol"
+                app:argType="string"
+                app:nullable="true" />
+            <argument android:name="coinImg"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
         <action
             android:id="@+id/navigation_to_coinDialog"
             app:destination="@id/coinDialog" />
@@ -97,7 +110,19 @@
         tools:layout="@layout/fragment_coin_details" >
         <argument android:name="coinId"
             app:argType="string"
-            app:nullable="false" />
+            app:nullable="true" />
+        <argument
+            android:name="coinName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="coinSymbol"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="coinImg"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
     <dialog

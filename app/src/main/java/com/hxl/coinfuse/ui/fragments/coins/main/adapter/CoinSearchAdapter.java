@@ -1,6 +1,9 @@
 package com.hxl.coinfuse.ui.fragments.coins.main.adapter;
 
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinImgArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinNameArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinSymbolArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.explorerArgKey;
 
 import android.os.Bundle;
@@ -77,6 +80,9 @@ public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinS
         }
 
         holder.itemView.setOnClickListener(v -> {
+            bundle.putString(coinNameArgKey, getList().get(position).name);
+            bundle.putString(coinSymbolArgKey, getList().get(position).symbol);
+            bundle.putString(coinImgArgKey, getList().get(position).img);
             navController.navigate(R.id.navigation_to_coinDetails, bundle);
             insertSearchFunction.accept(bundle);
         });

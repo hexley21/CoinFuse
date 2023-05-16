@@ -18,6 +18,9 @@ import com.hxl.coinfuse.databinding.FragmentNavigationBinding;
 public class NavigationFragment extends Fragment {
 
     public static final String coinArgKey = "coinId";
+    public static final String coinNameArgKey = "coinName";
+    public static final String coinSymbolArgKey = "coinSymbol";
+    public static final String coinImgArgKey = "coinImg";
     public static final String exchangeArgKey = "exchangeId";
     public static final String explorerArgKey = "explorerId";
     public static final String exchangeUrlArgKey = "exchangeUrl";

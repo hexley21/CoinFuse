@@ -10,8 +10,24 @@ import java.util.Locale;
 
 public class DateAxisFormatter {
 
-    public static ValueFormatter longTime = new LongTime();
-    public static ValueFormatter shortTime = new ShortTime();
+    private static ValueFormatter longTime;
+    private static ValueFormatter shortTime;
+
+    public static ValueFormatter getLongTimeFormatter() {
+        if (longTime == null) {
+            longTime = new LongTime();
+        }
+
+        return longTime;
+    }
+
+    public static ValueFormatter getShortTimeFormatter() {
+        if (shortTime == null) {
+            shortTime = new ShortTime();
+        }
+
+        return shortTime;
+    }
 
     private static final class LongTime extends ValueFormatter {
         @Override

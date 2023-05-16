@@ -28,9 +28,17 @@
     <string name="sort_by">Sort by</string>
     <string name="hint_search">Search for a coin</string>
     <string name="search_history">Search history</string>
-    <string name="error_no_main_data">No data available…\n refresh this page or reconnect to the internet</string>
 
     <!-- Coin Details -->
+    <string name="coin_price_chart">Price Chart</string>
+    <string name="coin_exchanges">Exchanges</string>
+        <!-- Price Chart -->
+    <string name="statistics">Statistics</string>
+    <string name="tv_market_cap">Market Cap</string>
+    <string name="tv_volume_24h">Volume (24H)</string>
+    <string name="tv_supply">Supply</string>
+    <string name="tv_24h_high">24H High</string>
+    <string name="tv_24h_low">24H Low</string>
         <!-- Chips -->
     <string name="chip_24h" translatable="false">24H</string>
     <string name="chip_7d" translatable="false">7D</string>
@@ -39,15 +47,6 @@
     <string name="chip_2m" translatable="false">2M</string>
     <string name="chip_6m" translatable="false">6M</string>
     <string name="chip_1y" translatable="false">1Y</string>
-        <!-- Details -->
-    <string name="statistics">Statistics</string>
-    <string name="tv_market_cap">Market Cap</string>
-    <string name="tv_volume_24h">Volume (24H)</string>
-    <string name="tv_supply">Supply</string>
-    <string name="tv_24h_high">24H High</string>
-    <string name="tv_24h_low">24H Low</string>
-    <string name="error_no_internet">No internet connection</string>
-    <string name="error_no_data">No data available</string>
 
     <!-- Coin Dialog -->
     <string name="remove_from_bookmarks">Remove from bookmarks</string>
@@ -82,13 +81,16 @@
     <string name="exchange_section_price">Price</string>
     <string name="exchange_section_vol_24">Volume 24H</string>
 
-    <!-- Bookmarks -->
-    <string name="error_no_bookmarks">There are no bookmarks</string>
-
     <!-- General -->
     <string name="arrow_up" translatable="false">▴</string>
     <string name="arrow_down" translatable="false">▾</string>
 
     <!-- Content Description -->
     <string name="cd_img_walk_through">Walk-through Image</string>
+
+    <!-- Errors -->
+    <string name="error_no_internet">No internet connection</string>
+    <string name="error_no_data">No data available</string>
+    <string name="error_no_bookmarks">There are no bookmarks</string>
+    <string name="error_no_main_data">No data available…\n refresh this page or reconnect to the internet</string>
 </resources>

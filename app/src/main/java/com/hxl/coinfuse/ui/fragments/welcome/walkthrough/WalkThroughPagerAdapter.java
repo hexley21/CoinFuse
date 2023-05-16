@@ -10,8 +10,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class WalkThroughPagerAdapter extends FragmentStateAdapter {
 
-    public WalkThroughPagerAdapter(
-            Fragment fragment) {
+    public WalkThroughPagerAdapter(Fragment fragment) {
         super(fragment);
     }
 

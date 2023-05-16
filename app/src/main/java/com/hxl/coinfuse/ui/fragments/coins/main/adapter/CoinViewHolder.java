@@ -1,6 +1,9 @@
 package com.hxl.coinfuse.ui.fragments.coins.main.adapter;
 
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinImgArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinNameArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinSymbolArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.explorerArgKey;
 import static com.hxl.coinfuse.util.NumberFormatUtil.formatDouble;
 import static com.hxl.coinfuse.util.NumberFormatUtil.formatFloat;
@@ -77,7 +80,7 @@ public class CoinViewHolder extends RecyclerView.ViewHolder implements Consumer<
         }
     }
 
-    public static void defaultOnBindViewHolder(CoinViewHolder holder, NavController navController, String coinId, String explorerId) {
+    public static void defaultOnBindViewHolder(CoinViewHolder holder, NavController navController, String coinId, String coinName, String coinSymbol, String coinImg, String explorerId) {
         EspressoIdlingResource.increment();
 
         if (navController == null) {
@@ -92,6 +95,9 @@ public class CoinViewHolder extends RecyclerView.ViewHolder implements Consumer<
         holder.itemView.setOnClickListener(v -> {
             assert navController.getCurrentDestination() != null;
             if (navController.getCurrentDestination().getId() == R.id.navigationFragment) {
+                bundle.putString(coinNameArgKey, coinName);
+                bundle.putString(coinSymbolArgKey, coinSymbol);
+                bundle.putString(coinImgArgKey, coinImg);
                 navController.navigate(R.id.navigation_to_coinDetails, bundle);
             }
         });

@@ -35,8 +35,11 @@ public class CoinAdapter extends BasePagingAdapter<Coin, CoinViewHolder> {
     public void onBindViewHolder(@NonNull CoinViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         String coinId = Objects.requireNonNull(getItem(position)).id;
+        String coinName = Objects.requireNonNull(getItem(position)).name;
+        String coinSymbol = Objects.requireNonNull(getItem(position)).symbol;
+        String coinImg = Objects.requireNonNull(getItem(position)).img;
         String explorerId = Objects.requireNonNull(getItem(position)).explorer;
 
-        CoinViewHolder.defaultOnBindViewHolder(holder, navController, coinId, explorerId);
+        CoinViewHolder.defaultOnBindViewHolder(holder, navController, coinId, coinName, coinSymbol, coinImg, explorerId);
     }
 }
