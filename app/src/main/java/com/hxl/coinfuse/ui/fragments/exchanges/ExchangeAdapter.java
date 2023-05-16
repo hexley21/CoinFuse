@@ -62,12 +62,19 @@ public class ExchangeAdapter extends BaseAdapter<Exchange, ExchangeAdapter.Excha
         Bundle bundle = new Bundle();
         bundle.putString(exchangeArgKey, exchangeId);
 
-        holder.itemView.setOnClickListener(v ->
-                navController.navigate(R.id.navigation_to_ExchangeDetails, bundle));
+        holder.itemView.setOnClickListener(v -> {
+            assert navController.getCurrentDestination() != null;
+            if (navController.getCurrentDestination().getId() == R.id.navigationFragment) {
+                navController.navigate(R.id.navigation_to_ExchangeDetails, bundle);
+            }
+        });
 
         holder.itemView.setOnLongClickListener(v -> {
-            bundle.putString(exchangeUrlArgKey, exchangeUrl);
-            navController.navigate(R.id.navigation_to_exchangeDialog, bundle);
+            assert navController.getCurrentDestination() != null;
+            if (navController.getCurrentDestination().getId() == R.id.navigationFragment) {
+                bundle.putString(exchangeUrlArgKey, exchangeUrl);
+                navController.navigate(R.id.navigation_to_exchangeDialog, bundle);
+            }
             return true;
         });
 

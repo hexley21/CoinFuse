@@ -22,7 +22,6 @@ import com.hxl.coinfuse.util.UiUtils;
 import com.hxl.domain.model.Coin;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class CoinViewHolder extends RecyclerView.ViewHolder implements Consumer<Coin> {
 
@@ -90,11 +89,18 @@ public class CoinViewHolder extends RecyclerView.ViewHolder implements Consumer<
         Bundle bundle = new Bundle();
         bundle.putString(coinArgKey, coinId);
 
-        holder.itemView.setOnClickListener(v ->
-                navController.navigate(R.id.navigation_to_coinDetails, bundle));
+        holder.itemView.setOnClickListener(v -> {
+            assert navController.getCurrentDestination() != null;
+            if (navController.getCurrentDestination().getId() == R.id.navigationFragment) {
+                navController.navigate(R.id.navigation_to_coinDetails, bundle);
+            }
+        });
         holder.itemView.setOnLongClickListener(v -> {
-            bundle.putString(explorerArgKey, explorerId);
-            navController.navigate(R.id.navigation_to_coinDialog, bundle);
+            assert navController.getCurrentDestination() != null;
+            if (navController.getCurrentDestination().getId() == R.id.navigationFragment) {
+                bundle.putString(explorerArgKey, explorerId);
+                navController.navigate(R.id.navigation_to_coinDialog, bundle);
+            }
             return true;
         });
 
