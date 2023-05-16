@@ -8,20 +8,30 @@
 
         <variable name="currency" type="String" />
     </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?attr/colorSurface">
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl_exchange_details"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_exchange_trades"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_trade"/>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/exchange_details_header"
+            android:background="?attr/android:colorBackground">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/exchanges_top_appbar"
@@ -45,7 +55,7 @@
                 <LinearLayout
                     android:id="@+id/container_volume"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:orientation="vertical"
@@ -62,10 +72,10 @@
                         android:id="@+id/tv_exchange_volume_val"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@{currency + volume}"
                         android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
                         android:textColor="?attr/colorOnBackground"
                         android:textStyle="bold"
-                        android:text="@{currency + volume}"
                         tools:text="$123,456,789,123" />
                 </LinearLayout>
 

@@ -31,6 +31,9 @@
     <dimen name="details_header_container_size">84dp</dimen>
     <dimen name="graph_height">250dp</dimen>
 
+    <!-- Exchange Details -->
+    <dimen name="exchange_details_header">224dp</dimen>
+
     <!-- Icons -->
     <dimen name="error_icon_height">200dp</dimen>
     <dimen name="error_icon_width">82dp</dimen>
