@@ -78,6 +78,9 @@
     <!-- Exchange Details -->
     <string name="exchange_pairs">%s trading pairs</string>
     <string name="exchange_volume">Volume</string>
+    <string name="exchange_section_pairs">Pairs</string>
+    <string name="exchange_section_price">Price</string>
+    <string name="exchange_section_vol_24">Volume 24H</string>
 
     <!-- Bookmarks -->
     <string name="error_no_bookmarks">There are no bookmarks</string>

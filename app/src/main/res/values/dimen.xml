@@ -32,7 +32,7 @@
     <dimen name="graph_height">250dp</dimen>
 
     <!-- Exchange Details -->
-    <dimen name="exchange_details_header">224dp</dimen>
+    <dimen name="exchange_details_header">264dp</dimen>
 
     <!-- Icons -->
     <dimen name="error_icon_height">200dp</dimen>

@@ -25,12 +25,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_trade"/>
+                tools:listitem="@layout/item_trade" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/exchange_details_header"
+            android:layout_height="wrap_content"
             android:background="?attr/android:colorBackground">
 
             <com.google.android.material.appbar.MaterialToolbar
@@ -49,7 +49,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/default_padding"
+                android:paddingStart="@dimen/default_padding"
+                android:paddingTop="@dimen/default_padding"
+                android:paddingEnd="@dimen/default_padding"
+                android:paddingBottom="@dimen/default_padding_small"
                 app:layout_scrollFlags="scroll|snap">
 
                 <LinearLayout
@@ -59,7 +62,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:orientation="vertical"
-                    android:paddingBottom="@dimen/default_padding">
+                    android:paddingBottom="@dimen/default_padding_small">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_exchange_volume"
@@ -85,6 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/container_volume"
+                    android:layout_marginBottom="@dimen/default_padding_tiny"
                     android:checkable="false"
                     android:checked="false"
                     android:text="@string/sort_by"
@@ -108,6 +112,64 @@
                     tools:visibility="visible" />
 
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom|end"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="?attr/colorSurface"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_scrollFlags="scroll|snap"
+                android:paddingTop="@dimen/default_padding_small"
+                android:paddingBottom="@dimen/default_padding_small"
+                android:paddingEnd="@dimen/default_padding"
+                android:paddingStart="@dimen/default_padding">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|start"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/default_padding"
+                    android:paddingEnd="@dimen/default_padding"
+                    android:text="@string/exchange_section_pairs"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:maxEms="8"
+                    android:text="@string/exchange_section_price"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_vol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:minEms="4"
+                    android:paddingStart="@dimen/default_padding"
+                    android:text="@string/exchange_section_vol_24"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom|end"
+                android:layout_weight="1"
+                android:background="?android:attr/listDivider" />
 
         </com.google.android.material.appbar.AppBarLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
