@@ -3,12 +3,14 @@ package com.hxl.remote.coin;
 import com.hxl.data.repository.coin.CoinRemote;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
+import com.hxl.domain.model.Trade;
 import com.hxl.remote.coin.api.CoinService;
 import com.hxl.remote.coin.mapper.CoinPriceHistoryDTOMapper;
 import com.hxl.remote.coin.model.CoinDTO;
 import com.hxl.remote.coin.mapper.CoinDTOMapper;
 import com.hxl.remote.coin.model.HistoryDTO;
 import com.hxl.remote.Response;
+import com.hxl.remote.exchange.mapper.TradeDTOMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,6 +67,22 @@ public class CoinRemoteImpl implements CoinRemote {
         return coinService.getCoinHistory(id, interval.param)
                 .subscribeOn(Schedulers.io())
                 .map(this::mapHistoryFromDto);
+    }
+
+    @Override
+    public Single<List<Trade>> getTradesByCoin(String id) {
+        return coinService.getTradesByCoin(id)
+                .subscribeOn(Schedulers.io())
+                .map(x -> x.data.stream()
+                        .map(TradeDTOMapper::mapFromDto).collect(Collectors.toList()));
+    }
+
+    @Override
+    public Single<List<Trade>> getTradesByCoin(String id, int limit, int offset) {
+        return coinService.getTradesByCoin(id, limit, offset)
+                .subscribeOn(Schedulers.io())
+                .map(x -> x.data.stream()
+                        .map(TradeDTOMapper::mapFromDto).collect(Collectors.toList()));
     }
 
     private List<Coin> mapCoinFromDto(Response<List<CoinDTO>> response) {

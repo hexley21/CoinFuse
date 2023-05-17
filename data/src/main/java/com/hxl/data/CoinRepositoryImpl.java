@@ -2,8 +2,10 @@ package com.hxl.data;
 
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
+import com.hxl.data.util.PingUtil;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
+import com.hxl.domain.model.Trade;
 import com.hxl.domain.repository.CoinRepository;
 
 import java.io.IOException;
@@ -168,15 +170,17 @@ public class CoinRepositoryImpl implements CoinRepository {
         return remoteSource.getCoinPriceHistory(id, interval);
     }
 
-    public boolean isOnline() {
-        Runtime runtime = Runtime.getRuntime();
-        try {
-            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-            int exitValue = ipProcess.waitFor();
-            return (exitValue == 0);
-        }
-        catch (IOException | InterruptedException ignored) { }
+    @Override
+    public Single<List<Trade>> getTradesByCoin(String id) {
+        return remoteSource.getTradesByCoin(id);
+    }
 
-        return false;
+    @Override
+    public Single<List<Trade>> getTradesByCoin(String id, int limit, int offset) {
+        return remoteSource.getTradesByCoin(id, limit, offset);
+    }
+
+    public boolean isOnline() {
+        return PingUtil.isOnline();
     }
 }
