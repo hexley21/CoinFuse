@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.viewbinding.ViewBinding;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 
@@ -45,5 +47,9 @@ public abstract class BaseFragment<VB extends ViewBinding, VM extends ViewModel>
     }
 
     protected void onCreateView(Bundle savedInstanceState){}
+
+    protected void showSnackBar(String message) {
+        Snackbar.make(requireContext(), binding.getRoot(), message, Snackbar.LENGTH_LONG).show();
+    }
 
 }
