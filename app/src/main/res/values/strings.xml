@@ -77,9 +77,10 @@
     <!-- Exchange Details -->
     <string name="exchange_pairs">%s trading pairs</string>
     <string name="exchange_volume">Volume</string>
-    <string name="exchange_section_pairs">Pairs</string>
-    <string name="exchange_section_price">Price</string>
-    <string name="exchange_section_vol_24">Volume 24H</string>
+    <string name="exchange_section_exc">EXC</string>
+    <string name="exchange_section_pairs">PAIR</string>
+    <string name="exchange_section_price">PRICE</string>
+    <string name="exchange_section_vol_24">VOL 24H</string>
 
     <!-- General -->
     <string name="arrow_up" translatable="false">▴</string>

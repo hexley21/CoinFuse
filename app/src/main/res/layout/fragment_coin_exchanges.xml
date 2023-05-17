@@ -25,15 +25,34 @@
                 android:paddingStart="@dimen/default_padding">
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_exchange"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="8"
+                    android:ellipsize="end"
+                    android:gravity="center|start"
+                    android:maxLines="2"
+                    android:scrollHorizontally="false"
+                    android:text="@string/exchange_section_exc"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                    app:autoSizeMinTextSize="10sp"
+                    app:autoSizeTextType="uniform"
+                    app:lineHeight="14sp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:ellipsize="end"
                     android:gravity="center|start"
                     android:maxLines="1"
                     android:paddingStart="@dimen/default_padding"
                     android:paddingEnd="@dimen/default_padding"
+                    android:scrollHorizontally="false"
                     android:text="@string/exchange_section_pairs"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                    app:lineHeight="14sp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_price"
@@ -41,18 +60,25 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:maxEms="8"
+                    android:minEms="4"
                     android:text="@string/exchange_section_price"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                    app:autoSizeMinTextSize="10sp"
+                    app:autoSizeTextType="uniform" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_vol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
+                    android:maxEms="8"
                     android:minEms="4"
                     android:paddingStart="@dimen/default_padding"
                     android:text="@string/exchange_section_vol_24"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                    app:autoSizeMinTextSize="10sp"
+                    app:autoSizeTextType="uniform" />
+
             </LinearLayout>
 
             <View

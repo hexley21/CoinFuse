@@ -24,7 +24,7 @@
     <string name="sort_by_trading_pairs">გაცვლითი წყვილებით</string>
     <string name="sort_by_socket">სოკეტით</string>
     <string name="sort_by_updated">განახლებით</string>
-    <string name="exchange_section_pairs">წყვილები</string>
+    <string name="exchange_section_exc">გაცვლა</string>
     <string name="error_no_bookmarks">შენახულები არ არის</string>
     <string name="cd_img_walk_through">გზამკლევის სურათი</string>
 
@@ -54,8 +54,9 @@
     <string name="sort_by">დალაგება</string>
     <string name="exchange_pairs">%s გაცვლების წყვილი</string>
     <string name="exchange_volume">მოცულობა</string>
+    <string name="exchange_section_pairs">წყვილი</string>
     <string name="exchange_section_price">ფასი</string>
-    <string name="exchange_section_vol_24">მოცულობა 24-სთ</string>
+    <string name="exchange_section_vol_24">მოც 24ს</string>
     <string name="coin_exchanges">გაცვლები</string>
 
 </resources>

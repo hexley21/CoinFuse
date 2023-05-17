@@ -64,16 +64,15 @@ public class ExchangeDetailsFragment extends BaseFragment<FragmentExchangeDetail
 
         vm.getCurrentExchange().observe(requireActivity(), exchangeObserver);
         vm.getCurrentTrades().observe(requireActivity(), tradesObserver);
-
-        fetchExchange();
-        fetchTrades();
-
-        binding.rvExchangeTrades.setAdapter(tradesAdapter);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.rvExchangeTrades.setAdapter(tradesAdapter);
+
+        fetchExchange();
+        fetchTrades();
 
         binding.exchangesTopAppbar.setNavigationOnClickListener(v ->
                 requireActivity().onBackPressed());
@@ -122,7 +121,8 @@ public class ExchangeDetailsFragment extends BaseFragment<FragmentExchangeDetail
         TradeQueryBuilder queryBuilder = new TradeQueryBuilder();
         queryBuilder.addExchangeId(exchangeId);
 
-        vm.fetchTrades(queryBuilder.build()).observeOn(AndroidSchedulers.mainThread())
+        vm.fetchTrades(queryBuilder.build())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         trades -> {
                             binding.srlExchangeDetails.setRefreshing(false);

@@ -1,4 +1,4 @@
-package com.hxl.coinfuse.ui.fragments.coins.details.graph;
+package com.hxl.coinfuse.ui.fragments.coins.details.price.graph;
 
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
