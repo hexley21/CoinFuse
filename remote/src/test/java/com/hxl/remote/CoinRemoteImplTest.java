@@ -1,8 +1,17 @@
 package com.hxl.remote;
 
+import static com.hxl.remote.fake.FakeRemoteDataFactory.getFakeTradeResponse;
 import static com.hxl.remote.fake.FakeRemoteDataFactory.getHistoryResponse;
-import static com.hxl.remote.fake.RemoteTestConstants.*;
+import static com.hxl.remote.fake.RemoteTestConstants.ASSET_URL;
+import static com.hxl.remote.fake.RemoteTestConstants.ID;
+import static com.hxl.remote.fake.RemoteTestConstants.KEY;
+import static com.hxl.remote.fake.RemoteTestConstants.KEY_RESPONSE_SIZE;
+import static com.hxl.remote.fake.RemoteTestConstants.LIMIT;
+import static com.hxl.remote.fake.RemoteTestConstants.OFFSET;
+import static com.hxl.remote.fake.RemoteTestConstants.SIZE;
+import static com.hxl.remote.fake.RemoteTestConstants.TIMESTAMP;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.spy;
@@ -12,12 +21,13 @@ import static org.mockito.Mockito.when;
 
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
-import com.hxl.remote.coin.api.CoinService;
 import com.hxl.remote.coin.CoinRemoteImpl;
-import com.hxl.remote.fake.FakeRemoteDataFactory;
-import com.hxl.remote.coin.model.CoinDTO;
+import com.hxl.remote.coin.api.CoinService;
 import com.hxl.remote.coin.mapper.CoinDTOMapper;
+import com.hxl.remote.coin.model.CoinDTO;
 import com.hxl.remote.coin.model.HistoryDTO;
+import com.hxl.remote.exchange.model.TradeDTO;
+import com.hxl.remote.fake.FakeRemoteDataFactory;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -114,8 +124,8 @@ public class CoinRemoteImplTest {
     public void getCoinHistoryReturnsResponseFromRemote() {
         // Arrange
         Single<Response<List<HistoryDTO>>> response = Single.just(getHistoryResponse(SIZE));
-        when(coinService.getCoinHistory(anyString(), anyString())).thenReturn(response);
         // Act
+        when(coinService.getCoinHistory(anyString(), anyString())).thenReturn(response);
         Single<List<CoinPriceHistory>> history = coinSource.getCoinPriceHistory(ID, CoinPriceHistory.Interval.D1);
         // Assert
         history.test()
@@ -124,5 +134,31 @@ public class CoinRemoteImplTest {
                 .assertValue(r -> r.size() == SIZE);
 
         verify(coinService).getCoinHistory(ID, CoinPriceHistory.Interval.D1.param);
+    }
+
+    @Test
+    public void getTradesByIdReturnsResponseFromRemote() {
+        // Arrange
+        Response<List<TradeDTO>> response = getFakeTradeResponse(SIZE);
+        // Act
+        when(coinService.getTradesByCoin(anyString())).thenReturn(Single.just(response));
+        // Assert
+        coinSource.getTradesByCoin(ID).test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.size() == SIZE);
+    }
+
+    @Test
+    public void getTradesByCoinByIdAndLimitAndOffsetReturnsResponseFromRemote() {
+        // Arrange
+        Response<List<TradeDTO>> response = getFakeTradeResponse(SIZE);
+        // Act
+        when(coinService.getTradesByCoin(anyString(), anyInt(), anyInt())).thenReturn(Single.just(response));
+        // Assert
+        coinSource.getTradesByCoin(ID, LIMIT, OFFSET).test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.size() == SIZE);
     }
 }

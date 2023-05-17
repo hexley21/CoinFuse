@@ -10,6 +10,7 @@ import static com.hxl.data.fakes.FakeDataFactory.getCoin;
 import static com.hxl.data.fakes.FakeDataFactory.getFakeCoins;
 import static com.hxl.data.fakes.FakeDataFactory.getFakePriceHistory;
 import static com.hxl.data.fakes.FakeDataFactory.getFakeSearchQueries;
+import static com.hxl.data.fakes.FakeDataFactory.getFakeTrades;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
@@ -24,6 +25,7 @@ import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
+import com.hxl.domain.model.Trade;
 import com.hxl.domain.model.ValueAndTimestamp;
 
 import org.junit.Before;
@@ -593,5 +595,35 @@ public class CoinRepositoryImplTest {
         verify(repository, times(1)).getCoinPriceHistory(ID, CoinPriceHistory.Interval.D1);
     }
     // endregion
+
+    // region getTradesByCoin(String id);
+    @Test
+    public void getTradesByCoinIdReturnsTradesFromRemote() {
+        // Arrange
+        List<Trade> trades = getFakeTrades(SIZE);
+        // Act
+        when(remoteSource.getTradesByCoin(anyString())).thenReturn(Single.just(trades));
+        //Assert
+        repository.getTradesByCoin(ID).test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.size() == SIZE);
+    }
+    // endregion
+
+    // region getTradesByCoin(String id, int limit, int offset);
+    @Test
+    public void getTradesByCoinIdAndLimitAndOffsetReturnsTradesFromRemote() {
+        // Arrange
+        List<Trade> trades = getFakeTrades(SIZE);
+        // Act
+        when(remoteSource.getTradesByCoin(anyString(), anyInt(), anyInt())).thenReturn(Single.just(trades));
+        //Assert
+        repository.getTradesByCoin(ID, LIMIT, OFFSET).test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.size() == SIZE);
+    }
+    //endregion
 
 }
