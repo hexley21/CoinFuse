@@ -8,7 +8,6 @@ import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.domain.model.Trade;
 import com.hxl.domain.repository.CoinRepository;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;

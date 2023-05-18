@@ -33,7 +33,7 @@ public final class CoinComparatorFactory {
             case TIMESTAMP:
                 return comparingLong(c -> -c.timestamp);
         }
-        return comparingInt(c -> c.rank);
+        return comparingInt(c -> -c.rank);
     }
 
     private static Comparator<Coin> sortByAsc(CoinSortBy coinSortBy) {
