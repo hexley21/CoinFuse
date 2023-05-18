@@ -5,7 +5,7 @@ import java.util.Map;
 
 public final class TradeQueryBuilder {
 
-    public final Map<String, String> querryMap = new HashMap<>();
+    private final Map<String, String> querryMap = new HashMap<>();
 
     public TradeQueryBuilder addExchangeId(String exchangeId) {
         if (exchangeId != null) {

@@ -16,8 +16,8 @@ public class GetExchange {
         this.repository = repository;
     }
 
-    public Single<Exchange> invoke(String baseId) {
-        return repository.getExchange(baseId);
+    public Single<Exchange> invoke(String exchangeId) {
+        return repository.getExchange(exchangeId);
     }
 
 }

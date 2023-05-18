@@ -30,6 +30,11 @@ public class ExchangesViewModel extends ViewModel {
 
     private StateLiveData<List<Exchange>> currentExchanges;
 
+    @Inject
+    public ExchangesViewModel(GetExchanges getExchanges) {
+        this.getExchanges = getExchanges;
+    }
+
     public StateLiveData<List<Exchange>> getCurrentExchanges() {
         if (currentExchanges == null) {
             currentExchanges = new StateLiveData<>();
@@ -38,10 +43,7 @@ public class ExchangesViewModel extends ViewModel {
         return currentExchanges;
     }
 
-    @Inject
-    public ExchangesViewModel(GetExchanges getExchanges) {
-        this.getExchanges = getExchanges;
-    }
+
 
     public void fetchExchanges(ExchangeSortBy sortBy, OrderBy orderBy) {
         getExchanges.invoke()

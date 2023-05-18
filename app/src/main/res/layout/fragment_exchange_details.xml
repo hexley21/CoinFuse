@@ -7,26 +7,71 @@
         <variable name="volume" type="String" />
 
         <variable name="currency" type="String" />
+
+        <variable name="error_text" type="String" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorSurface">
-
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/srl_exchange_details"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_exchange_trades"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/srl_exchange_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_trade" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_exchange_trades"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_trade" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <ImageView
+                android:id="@+id/icon_trades_wifi_off"
+                android:layout_width="@dimen/error_icon_width"
+                android:layout_height="@dimen/error_icon_width"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:importantForAccessibility="no"
+                android:src="@drawable/wifi_off"
+                android:visibility="gone"
+                tools:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/icon_error_trades"
+                android:layout_width="@dimen/error_icon_width"
+                android:layout_height="@dimen/error_icon_width"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:importantForAccessibility="no"
+                android:src="@drawable/error"
+                android:visibility="gone"
+                tools:visibility="invisible" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/error_trades_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="bottom|center"
+                android:paddingTop="@dimen/error_icon_height"
+                android:text="@{error_text}"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                android:visibility="gone"
+                tools:text="Error was caused because of.."
+                tools:visibility="invisible" />
+        </RelativeLayout>
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -104,7 +149,6 @@
                     android:layout_marginStart="@dimen/default_padding_small"
                     android:layout_toEndOf="@id/chip_exchange_sort"
                     android:checkable="false"
-                    android:elevation="0dp"
                     android:visibility="gone"
                     app:checkedIconEnabled="false"
                     app:textEndPadding="0dp"
@@ -170,6 +214,14 @@
                 android:layout_gravity="bottom|end"
                 android:layout_weight="1"
                 android:background="?android:attr/listDivider" />
+
+            <include
+                android:id="@+id/shimmer_trades"
+                layout="@layout/shimmer_trades_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                tools:visibility="gone" />
 
         </com.google.android.material.appbar.AppBarLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

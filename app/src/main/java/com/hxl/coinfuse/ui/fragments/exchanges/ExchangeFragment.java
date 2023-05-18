@@ -74,6 +74,7 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
             if (exchanges.getState() == DataState.SUCCESS) {
                 if (exchanges.getData().isEmpty()) {
                     showError(new IllegalStateException(UiUtils.getString(requireContext(), R.string.error_no_data)));
+                    hidePageLoading();
                     return;
                 }
                 exchangeAdapter.setList(exchanges.getData());
@@ -146,6 +147,7 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
         vm.fetchExchanges(finalSortBy, finalOrderBy);
     }
 
+    // region visibility management
     private void hidePageLoading() {
         binding.shimmerExchanges.setVisibility(View.GONE);
         binding.srlExchanges.setVisibility(View.VISIBLE);
@@ -166,11 +168,12 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
 
         binding.textErrorExchange.setVisibility(View.VISIBLE);
         if (e instanceof UnknownHostException) {
+            binding.iconErrorExchange.setVisibility(View.GONE);
             binding.iconErrorWifiExchange.setVisibility(View.VISIBLE);
             binding.setErrorText(UiUtils.getString(requireContext(), R.string.error_no_internet));
             return;
         }
-
+        binding.iconErrorWifiExchange.setVisibility(View.GONE);
         binding.iconErrorExchange.setVisibility(View.VISIBLE);
         binding.setErrorText(e.getMessage());
 
@@ -181,18 +184,5 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
         binding.iconErrorWifiExchange.setVisibility(View.GONE);
         binding.textErrorExchange.setVisibility(View.GONE);
     }
-
-//    private void visibilityError(String error) {
-//        binding.shimmerCoins.setVisibility(View.GONE);
-//        binding.rvExchanges.setVisibility(View.GONE);
-//        binding.textErrorExchange.setVisibility(View.VISIBLE);
-//        binding.iconErrorExchange.setVisibility(View.VISIBLE);
-//        binding.setErrorExchangeText(error);
-//    }
-//
-//    private void setPbVisibilityErrorRefresh() {
-//        binding.rvExchanges.setVisibility(View.VISIBLE);
-//        binding.textErrorExchange.setVisibility(View.GONE);
-//        binding.iconErrorExchange.setVisibility(View.GONE);
-//    }
+    // endregion
 }

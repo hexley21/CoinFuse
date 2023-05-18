@@ -93,6 +93,21 @@
                 android:name="exchangeId"
                 app:argType="string"
                 app:nullable="true" />
+            <argument
+                android:name="exchangeName"
+                app:argType="string"
+                app:nullable="true" />
+            <argument
+                android:name="exchangeVolume"
+                app:argType="string"
+                app:nullable="true" />
+            <argument
+                android:name="exchangePairs"
+                app:argType="integer" />
+            <argument
+                android:name="exchangeUrl"
+                app:argType="string"
+                app:nullable="true" />
         </action>
         <action
             android:id="@+id/navigation_to_exchangeDialog"
@@ -181,6 +196,21 @@
         tools:layout="@layout/fragment_exchange_details">
         <argument
             android:name="exchangeId"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="exchangeName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="exchangeVolume"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="exchangePairs"
+            app:argType="integer" />
+        <argument
+            android:name="exchangeUrl"
             app:argType="string"
             app:nullable="true" />
     </fragment>

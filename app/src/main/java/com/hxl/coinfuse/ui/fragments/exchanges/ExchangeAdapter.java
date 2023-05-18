@@ -1,8 +1,12 @@
 package com.hxl.coinfuse.ui.fragments.exchanges;
 
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeNameArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangePairsArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeUrlArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeVolumeArgKey;
 import static com.hxl.coinfuse.util.NumberFormatUtil.formatBigDouble;
+import static com.hxl.coinfuse.util.NumberFormatUtil.formatDouble;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -48,8 +52,11 @@ public class ExchangeAdapter extends BaseAdapter<Exchange, ExchangeAdapter.Excha
     @Override
     public void onBindViewHolder(@NonNull ExchangeViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        String exchangeId = getList().get(position).exchangeId;
-        String exchangeUrl = getList().get(position).exchangeUrl;
+        final String exchangeId = getList().get(position).exchangeId;
+        final String exchangeUrl = getList().get(position).exchangeUrl;
+        final String exchangeName = getList().get(position).name;
+        final String exchangeVolume = formatDouble(getList().get(position).volumeUsd);
+        final Integer exchangePairs = getList().get(position).tradingPairs;
 
         if (navController == null) {
             Log.e(TAG, "onBindViewHolder: ", new NullPointerException("NavController was null"));
@@ -58,16 +65,17 @@ public class ExchangeAdapter extends BaseAdapter<Exchange, ExchangeAdapter.Excha
 
         Bundle bundle = new Bundle();
         bundle.putString(exchangeArgKey, exchangeId);
+        bundle.putString(exchangeUrlArgKey, exchangeUrl);
 
-
-        holder.itemView.setOnClickListener(v ->
-                navigateToDetails(bundle)
+        holder.itemView.setOnClickListener(v -> {
+                    bundle.putString(exchangeNameArgKey, exchangeName);
+                    bundle.putString(exchangeVolumeArgKey, exchangeVolume);
+                    bundle.putInt(exchangePairsArgKey, exchangePairs);
+                    navigateToDetails(bundle);
+                }
         );
 
-        holder.itemView.setOnLongClickListener(v -> {
-            bundle.putString(exchangeUrlArgKey, exchangeUrl);
-            return openDialog(bundle);
-        });
+        holder.itemView.setOnLongClickListener(v -> openDialog(bundle));
 
         EspressoIdlingResource.decrement();
     }

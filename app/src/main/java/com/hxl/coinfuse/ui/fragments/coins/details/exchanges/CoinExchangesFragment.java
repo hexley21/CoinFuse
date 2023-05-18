@@ -53,6 +53,11 @@ public class CoinExchangesFragment extends BaseFragment<FragmentCoinExchangesBin
             if (exchanges.getState() == DataState.LOADING) {
                 return;
             } else if (exchanges.getState() == DataState.SUCCESS) {
+                if (exchanges.getData().isEmpty()) {
+                    showError(new IllegalStateException(UiUtils.getString(requireContext(), R.string.error_no_data)));
+                    hidePageLoading();
+                    return;
+                }
                 tradesAdapter.setList(exchanges.getData());
                 hideError();
             } else if (exchanges.getState() == DataState.ERROR) {
@@ -72,18 +77,14 @@ public class CoinExchangesFragment extends BaseFragment<FragmentCoinExchangesBin
 
         binding.srlCoinExchanges.setOnRefreshListener(() -> vm.fetchTrades(coinId));
 
-        binding.iconError.setOnClickListener(v -> {
+        final View.OnClickListener onErrorClick = v -> {
             binding.srlCoinExchanges.setRefreshing(true);
             vm.fetchTrades(coinId);
-        });
-        binding.iconWifiOff.setOnClickListener(v -> {
-            binding.srlCoinExchanges.setRefreshing(true);
-            vm.fetchTrades(coinId);
-        });
-        binding.errorText.setOnClickListener(v -> {
-            binding.srlCoinExchanges.setRefreshing(true);
-            vm.fetchTrades(coinId);
-        });
+        };
+
+        binding.iconError.setOnClickListener(onErrorClick);
+        binding.iconWifiOff.setOnClickListener(onErrorClick);
+        binding.errorText.setOnClickListener(onErrorClick);
     }
 
 
@@ -94,6 +95,8 @@ public class CoinExchangesFragment extends BaseFragment<FragmentCoinExchangesBin
     }
 
     private void showError(Throwable e) {
+        binding.srlCoinExchanges.setRefreshing(false);
+
         if (tradesAdapter.getItemCount() > 0) {
             if (e instanceof UnknownHostException) {
                 showSnackBar(UiUtils.getString(requireContext(), R.string.error_no_internet));
@@ -106,9 +109,11 @@ public class CoinExchangesFragment extends BaseFragment<FragmentCoinExchangesBin
         binding.errorText.setVisibility(View.VISIBLE);
         if (e instanceof UnknownHostException) {
             binding.setErrorText(UiUtils.getString(requireContext(), R.string.error_no_internet));
+            binding.iconError.setVisibility(View.GONE);
             binding.iconWifiOff.setVisibility(View.VISIBLE);
             return;
         }
+        binding.iconWifiOff.setVisibility(View.GONE);
         binding.setErrorText(e.getMessage());
         binding.iconError.setVisibility(View.VISIBLE);
     }
