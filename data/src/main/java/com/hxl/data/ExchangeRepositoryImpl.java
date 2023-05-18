@@ -6,6 +6,7 @@ import com.hxl.domain.model.Exchange;
 import com.hxl.domain.model.Trade;
 import com.hxl.domain.repository.ExchangeRepository;
 
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,12 @@ public class ExchangeRepositoryImpl implements ExchangeRepository {
                 .subscribeOn(Schedulers.io());
         if (isOnline)
             return exchanges.flatMap(x -> insertExchange(x).toSingleDefault(x));
-        return exchanges;
+        return exchanges.map(ex -> {
+            if (ex.isEmpty()) {
+                throw new UnknownHostException("No data downloaded from the remote");
+            }
+            return ex;
+        });
     }
 
     @Override
@@ -41,7 +47,12 @@ public class ExchangeRepositoryImpl implements ExchangeRepository {
                 .subscribeOn(Schedulers.io());
         if (isOnline)
             return exchanges.flatMap(x -> insertExchange(x).toSingleDefault(x));
-        return exchanges;
+        return exchanges.map(ex -> {
+            if (ex.isEmpty()) {
+                throw new UnknownHostException("No data downloaded from the remote");
+            }
+            return ex;
+        });
     }
 
     @Override
