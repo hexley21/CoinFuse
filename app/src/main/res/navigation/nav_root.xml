@@ -76,7 +76,7 @@
             <argument
                 android:name="orderBy"
                 app:argType="com.hxl.presentation.OrderBy"
-                android:defaultValue="DESC" />
+                android:defaultValue="ASC" />
             <argument
                 android:name="sortBy"
                 app:argType="com.hxl.presentation.exchange.ExchangeSortBy"
@@ -168,7 +168,7 @@
         <argument
             android:name="orderBy"
             app:argType="com.hxl.presentation.OrderBy"
-            android:defaultValue="DESC" />
+            android:defaultValue="ASC" />
         <argument
             android:name="sortBy"
             app:argType="com.hxl.presentation.exchange.ExchangeSortBy"

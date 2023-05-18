@@ -57,7 +57,6 @@ public class CoinExchangesFragment extends BaseFragment<FragmentCoinExchangesBin
                 hideError();
             } else if (exchanges.getState() == DataState.ERROR) {
                 showError(exchanges.getError());
-                binding.shimmerCoinExchanges.setVisibility(View.GONE);
             }
             hidePageLoading();
         });
@@ -104,7 +103,6 @@ public class CoinExchangesFragment extends BaseFragment<FragmentCoinExchangesBin
             return;
         }
 
-        binding.rvCoinExchanges.setVisibility(View.GONE);
         binding.errorText.setVisibility(View.VISIBLE);
         if (e instanceof UnknownHostException) {
             binding.setErrorText(UiUtils.getString(requireContext(), R.string.error_no_internet));
@@ -119,7 +117,6 @@ public class CoinExchangesFragment extends BaseFragment<FragmentCoinExchangesBin
         binding.iconError.setVisibility(View.GONE);
         binding.iconWifiOff.setVisibility(View.GONE);
         binding.errorText.setVisibility(View.GONE);
-        binding.rvCoinExchanges.setVisibility(View.VISIBLE);
     }
 
 }

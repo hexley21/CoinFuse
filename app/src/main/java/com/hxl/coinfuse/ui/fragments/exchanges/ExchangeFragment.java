@@ -5,7 +5,6 @@ import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.sortBy
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.sortCallbackArgKey;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,24 +14,21 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.AsyncListDiffer;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentExchangeBinding;
 import com.hxl.coinfuse.ui.dialogs.SortCallback;
-import com.hxl.coinfuse.util.EspressoIdlingResource;
-import com.hxl.domain.model.Exchange;
+import com.hxl.coinfuse.util.UiUtils;
+import com.hxl.data.util.PingUtil;
 import com.hxl.presentation.OrderBy;
 import com.hxl.presentation.exchange.ExchangeSortBy;
+import com.hxl.presentation.livedata.DataState;
 import com.hxl.presentation.viewmodels.ExchangesViewModel;
 
-import java.util.List;
+import java.net.UnknownHostException;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.functions.Consumer;
 
 @AndroidEntryPoint
 public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, ExchangesViewModel> {
@@ -49,50 +45,52 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
     }
     // endregion
 
-    private final String TAG = "ExchangesFragment";
     private ExchangeAdapter exchangeAdapter;
     private NavController navController;
 
     private ExchangeSortBy finalSortBy = ExchangeSortBy.RANK;
     private OrderBy finalOrderBy = OrderBy.ASC;
 
-    private int loadingVisibility = View.VISIBLE;
     private int chipVisibility = View.GONE;
-
-
-    private final AsyncListDiffer.ListListener<Exchange> onDataChange = (old, cur) -> {
-//        binding.shimmerCoins.setVisibility(View.GONE);
-        binding.srlExchanges.setRefreshing(false);
-        binding.rvExchanges.scrollToPosition(0);
-    };
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         exchangeAdapter = new ExchangeAdapter();
-        exchangeAdapter.addOnDataChangeListener(onDataChange);
+        exchangeAdapter.addOnDataChangeListener((old, cur) -> binding.rvExchanges.scrollToPosition(0));
     }
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
-//        binding.shimmerCoins.setVisibility(loadingVisibility);
         binding.chipExchangeSortDelete.setVisibility(chipVisibility);
+        binding.rvExchanges.setAdapter(exchangeAdapter);
+
         if (exchangeAdapter.getNavController() == null) {
             navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
             exchangeAdapter.setNavController(navController);
         }
+
+        vm.getCurrentExchanges().observe(requireActivity(), exchanges -> {
+            if (exchanges.getState() == DataState.SUCCESS) {
+                if (exchanges.getData().isEmpty()) {
+                    showError(new IllegalStateException(UiUtils.getString(requireContext(), R.string.error_no_data)));
+                    return;
+                }
+                exchangeAdapter.setList(exchanges.getData());
+                hideError();
+            } else if (exchanges.getState() == DataState.ERROR) {
+                showError(exchanges.getError());
+            }
+            hidePageLoading();
+        });
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView rvExchanges = binding.rvExchanges;
-        rvExchanges.setAdapter(exchangeAdapter);
-
         if (exchangeAdapter.getList().isEmpty()) {
-            getExchanges();
+            fetchExchanges();
         }
 
         binding.chipExchangeSort.setOnClickListener(v -> {
@@ -105,21 +103,33 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
             navController.navigate(R.id.navigation_to_exchangeSortDialog, bundle);
         });
 
-        loadingVisibility = View.GONE;
-
-        binding.srlExchanges.setOnRefreshListener(() -> {
-            setPbVisibilityErrorRefresh();
-            getExchanges();
-        });
-
         binding.chipExchangeSortDelete.setOnClickListener(v -> {
             finalOrderBy = OrderBy.ASC;
             finalSortBy = ExchangeSortBy.RANK;
-            getExchanges();
+            fetchExchanges();
             chipVisibility = View.GONE;
             binding.chipExchangeSortDelete.setVisibility(View.GONE);
         });
 
+        binding.srlExchanges.setOnRefreshListener(() -> {
+            if (!PingUtil.isOnline()) {
+                showSnackBar(UiUtils.getString(requireContext(), R.string.error_no_internet));
+            }
+            fetchExchanges();
+        });
+
+        binding.textErrorExchange.setOnClickListener(v -> {
+            fetchExchanges();
+            binding.srlExchanges.setRefreshing(true);
+        });
+        binding.iconErrorExchange.setOnClickListener(v -> {
+            fetchExchanges();
+            binding.srlExchanges.setRefreshing(true);
+        });
+        binding.iconErrorWifiExchange.setOnClickListener(v -> {
+            fetchExchanges();
+            binding.srlExchanges.setRefreshing(true);
+        });
     }
 
     private void fetchExchangesCallback(ExchangeSortBy sortBy, OrderBy orderBy) {
@@ -128,53 +138,61 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
             binding.chipExchangeSortDelete.setVisibility(View.VISIBLE);
             finalSortBy = sortBy;
             finalOrderBy = orderBy;
-            getExchanges();
+            fetchExchanges();
         }
     }
 
-
-    private void getExchanges() {
-        EspressoIdlingResource.increment();
-        vm.getExchanges(finalSortBy, finalOrderBy)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        exchangeConsumer,
-                        exchangeErrorConsumer,
-                        compositeDisposable
-                );
+    private void fetchExchanges() {
+        vm.fetchExchanges(finalSortBy, finalOrderBy);
     }
 
-    private final Consumer<List<Exchange>> exchangeConsumer = exchanges -> {
-            exchangeAdapter.setList(exchanges);
-            setPbVisibilityErrorRefresh();
-            if (exchanges.isEmpty()) {
-                visibilityError(getResources().getString(R.string.error_no_data));
-            }
-
-            Log.d(TAG, "fetchExchanges: success");
-            EspressoIdlingResource.decrement();
-        };
-
-
-    private final Consumer<Throwable> exchangeErrorConsumer = e -> {
-//        binding.shimmerCoins.setVisibility(View.GONE);
+    private void hidePageLoading() {
+        binding.shimmerExchanges.setVisibility(View.GONE);
+        binding.srlExchanges.setVisibility(View.VISIBLE);
         binding.srlExchanges.setRefreshing(false);
-        visibilityError(e.getMessage());
-        Log.e(TAG, "fetchExchanges: failed", e);
-        EspressoIdlingResource.decrement();
-    };
+    }
 
-    private void visibilityError(String error) {
-//        binding.shimmerCoins.setVisibility(View.GONE);
-        binding.rvExchanges.setVisibility(View.GONE);
+    private void showError(Throwable e) {
+        binding.srlExchanges.setRefreshing(false);
+
+        if (exchangeAdapter.getItemCount() > 0) {
+            if (e instanceof UnknownHostException) {
+                showSnackBar(UiUtils.getString(requireContext(), R.string.error_no_internet));
+                return;
+            }
+            showSnackBar(e.getMessage());
+            return;
+        }
+
         binding.textErrorExchange.setVisibility(View.VISIBLE);
+        if (e instanceof UnknownHostException) {
+            binding.iconErrorWifiExchange.setVisibility(View.VISIBLE);
+            binding.setErrorText(UiUtils.getString(requireContext(), R.string.error_no_internet));
+            return;
+        }
+
         binding.iconErrorExchange.setVisibility(View.VISIBLE);
-        binding.setErrorExchangeText(error);
+        binding.setErrorText(e.getMessage());
+
     }
 
-    private void setPbVisibilityErrorRefresh() {
-        binding.rvExchanges.setVisibility(View.VISIBLE);
-        binding.textErrorExchange.setVisibility(View.GONE);
+    private void hideError() {
         binding.iconErrorExchange.setVisibility(View.GONE);
+        binding.iconErrorWifiExchange.setVisibility(View.GONE);
+        binding.textErrorExchange.setVisibility(View.GONE);
     }
+
+//    private void visibilityError(String error) {
+//        binding.shimmerCoins.setVisibility(View.GONE);
+//        binding.rvExchanges.setVisibility(View.GONE);
+//        binding.textErrorExchange.setVisibility(View.VISIBLE);
+//        binding.iconErrorExchange.setVisibility(View.VISIBLE);
+//        binding.setErrorExchangeText(error);
+//    }
+//
+//    private void setPbVisibilityErrorRefresh() {
+//        binding.rvExchanges.setVisibility(View.VISIBLE);
+//        binding.textErrorExchange.setVisibility(View.GONE);
+//        binding.iconErrorExchange.setVisibility(View.GONE);
+//    }
 }

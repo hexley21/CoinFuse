@@ -43,16 +43,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ellipsize="end"
                 android:gravity="center|start"
                 android:maxEms="10"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:paddingStart="@dimen/default_padding"
                 android:paddingEnd="@dimen/default_padding"
-                android:scrollHorizontally="false"
                 android:text="@{name}"
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                tools:text="Independent Reverse" />
+                tools:text="Exchange platform" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_price2"
@@ -62,9 +60,6 @@
                 android:maxEms="8"
                 android:text='@{pairs}'
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tv_change"
-                app:layout_constraintTop_toTopOf="parent"
                 tools:text="1,234" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -77,9 +72,6 @@
                 android:paddingStart="@dimen/default_padding"
                 android:text='@{currency + price}'
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tv_change"
-                app:layout_constraintTop_toTopOf="parent"
                 tools:text="$123,456M" />
 
         </LinearLayout>
