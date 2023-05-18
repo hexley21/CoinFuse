@@ -151,6 +151,13 @@ public class CoinPriceFragment extends BaseFragment<FragmentCoinPriceChartBindin
         });
 
         binding.srlCoinPrice.setOnRefreshListener(this::bind);
+
+        binding.iconGraphWifiOff.setOnClickListener(v -> {
+            vm.fetchPriceHistory(coinId, finalInterval);
+            binding.srlCoinPrice.setRefreshing(true);
+        });
+        binding.iconGraphError.setOnClickListener(v -> vm.fetchPriceHistory(coinId, finalInterval));
+        binding.graphErrorText.setOnClickListener(v -> vm.fetchPriceHistory(coinId, finalInterval));
     }
 
     private void bind() {
@@ -237,11 +244,13 @@ public class CoinPriceFragment extends BaseFragment<FragmentCoinPriceChartBindin
     private void hideGraphLoading() {
         binding.priceGraph.setVisibility(View.VISIBLE);
         binding.pbGraph.setVisibility(View.GONE);
+        binding.srlCoinPrice.setRefreshing(false);
     }
 
     private void showGraphError(Throwable e) {
         binding.priceGraph.setVisibility(View.INVISIBLE);
         binding.pbGraph.setVisibility(View.GONE);
+        binding.srlCoinPrice.setRefreshing(false);
 
         binding.graphErrorText.setVisibility(View.VISIBLE);
 
@@ -252,6 +261,8 @@ public class CoinPriceFragment extends BaseFragment<FragmentCoinPriceChartBindin
         }
         binding.iconGraphError.setVisibility(View.VISIBLE);
         binding.setGraphError(e.getMessage());
+
+
     }
 
     private void hideGraphError() {
