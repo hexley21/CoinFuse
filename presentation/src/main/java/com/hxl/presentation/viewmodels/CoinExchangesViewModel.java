@@ -1,44 +1,59 @@
 package com.hxl.presentation.viewmodels;
 
-import androidx.lifecycle.MutableLiveData;
+import android.util.Log;
+
 import androidx.lifecycle.ViewModel;
 
 import com.hxl.domain.interactors.coins.GetTradesByCoin;
 import com.hxl.domain.model.Trade;
+import com.hxl.presentation.livedata.StateLiveData;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 @HiltViewModel
 public class CoinExchangesViewModel extends ViewModel {
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private static final String TAG = "CoinExchangesViewModel";
 
     private final GetTradesByCoin getTradesByCoin;
     
-    private MutableLiveData<List<Trade>> currentTrades;
+    private StateLiveData<List<Trade>> currentTrades;
 
     @Inject
     public CoinExchangesViewModel(GetTradesByCoin getTradesByCoin) {
         this.getTradesByCoin = getTradesByCoin;
     }
 
-    public MutableLiveData<List<Trade>> getCurrentTrades() {
+    public StateLiveData<List<Trade>> getCurrentTrades() {
         if (currentTrades == null) {
-            currentTrades = new MutableLiveData<>();
+            currentTrades = new StateLiveData<>();
         }
 
         return currentTrades;
     }
 
-    public Single<List<Trade>> fetchTrades(String id) {
-        return getTradesByCoin.invoke(id);
-    }
-
-    public Single<List<Trade>> fetchTrades(String id, int limit, int offset) {
-        return getTradesByCoin.invoke(id, limit, offset);
+    public void fetchTrades(String id) {
+        getCurrentTrades().setLoading();
+        getTradesByCoin.invoke(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        trades -> {
+                            getCurrentTrades().setSuccess(trades);
+                            Log.d(TAG, "fetchTrades: success");
+                        },
+                        e -> {
+                            getCurrentTrades().setError(e);
+                            Log.e(TAG, "fetchTrades: failed", e);
+                        },
+                        compositeDisposable
+                );
     }
 
 }
