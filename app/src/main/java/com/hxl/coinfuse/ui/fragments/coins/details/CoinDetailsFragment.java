@@ -6,7 +6,6 @@ import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinNa
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinSymbolArgKey;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +17,12 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentCoinDetailsBinding;
-import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.coinfuse.util.GlideFactory;
 import com.hxl.coinfuse.util.UiUtils;
+import com.hxl.presentation.livedata.DataState;
 import com.hxl.presentation.viewmodels.CoinDetailsViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 @AndroidEntryPoint
 public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding, CoinDetailsViewModel> {
@@ -38,8 +36,8 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
     protected CoinDetailsViewModel setViewModel() {
         return new ViewModelProvider(this).get(CoinDetailsViewModel.class);
     }
-    private static final String TAG = "CoinDetailsFragment";
     private String coinId;
+    private boolean hasClickListener = false;
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
@@ -49,7 +47,23 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
         binding.setName(getArguments().getString(coinNameArgKey));
         binding.setSymbol(getArguments().getString(coinSymbolArgKey));
         GlideFactory.createGlide(requireContext()).load(getArguments().getString(coinImgArgKey)).into(binding.imgDetailCoin);
-        isCoinBookmarked();
+
+        vm.getCurrentBookmarkState().observe(requireActivity(), bool -> {
+            if (bool.getState() == DataState.SUCCESS) {
+                binding.cbBookmark.setChecked(bool.getData());
+
+                if (!hasClickListener) {
+                    binding.cbBookmark.setOnCheckedChangeListener((v, isChecked) -> {
+                        if (isChecked)
+                            bookmarkCoin();
+                        else
+                            unBookmarkCoin();
+                    });
+
+                    hasClickListener = true;
+                }
+            }
+        });
 
         binding.coinDetailsPager.setAdapter(new CoinDetailsPagerAdapter(this, coinId));
     }
@@ -57,78 +71,33 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
     @Override
     public void onViewCreated(@androidx.annotation.NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        fetchBookmarkState();
+
         binding.detailsTopAppBar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
-        new TabLayoutMediator(binding.coinDetailsTabs, binding.coinDetailsPager, true, true, (tab, position) -> {
-            if (position == 0) {
-                tab.setText(UiUtils.getString(requireContext(), R.string.coin_price_chart));
-            }
-            else tab.setText(UiUtils.getString(requireContext(), R.string.coin_exchanges));
-        }).attach();
 
+        new TabLayoutMediator(
+                binding.coinDetailsTabs,
+                binding.coinDetailsPager,
+                true,
+                true,
+                (tab, position) -> {
+                    if (position == 0) {
+                        tab.setText(UiUtils.getString(requireContext(), R.string.coin_price_chart));
+                    }
+                    else tab.setText(UiUtils.getString(requireContext(), R.string.coin_exchanges));
+                }).attach();
     }
 
-    public void setBookmarkListener() {
-        binding.cbBookmark.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                bookmarkCoin();
-            }
-            else {
-                unBookmarkCoin();
-            }
-        });
-    }
-
-
-    private void isCoinBookmarked() {
-        EspressoIdlingResource.increment();
-
-        vm.isCoinBookmarked(coinId)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        aBoolean -> {
-                            binding.cbBookmark.setChecked(aBoolean);
-                            setBookmarkListener();
-                            Log.d(TAG, "isCoinBookmarked.onSuccess: bookmark state was checked successfully");
-                            EspressoIdlingResource.decrement();
-                        },
-                        e -> {
-                            setBookmarkListener();
-                            Log.e(TAG, String.format("isCoinBookmarked.onError: %s couldn't be checked", coinId), e);
-                            EspressoIdlingResource.decrement();
-                        },
-                        compositeDisposable
-                );
+    private void fetchBookmarkState() {
+        vm.fetchBookmarkState(coinId);
     }
 
     private void bookmarkCoin() {
-        EspressoIdlingResource.increment();
-        vm.bookmarkCoin(coinId).subscribe(
-                () -> {
-                    Log.d(TAG, String.format("bookmarkCoin.onComplete: %s was bookmarked", coinId));
-                    EspressoIdlingResource.decrement();
-                },
-                e -> {
-                    Log.e(TAG, String.format("bookmarkCoin.onComplete: %s couldn't be bookmarked", coinId), e);
-                    EspressoIdlingResource.decrement();
-                },
-                compositeDisposable
-        );
+        vm.bookmarkCoin(coinId);
     }
 
     private void unBookmarkCoin() {
-        EspressoIdlingResource.increment();
-
-        vm.unBookmarkCoin(coinId).subscribe(
-                () -> {
-                    Log.d(TAG, String.format("unBookmarkCoin.onComplete: %s was un-bookmarked", coinId));
-                    EspressoIdlingResource.decrement();
-                },
-                e -> {
-                    Log.e(TAG, String.format("unBookmarkCoin.onComplete: %s couldn't be un-bookmarked", coinId), e);
-                    EspressoIdlingResource.decrement();
-                },
-                compositeDisposable
-        );
+        vm.unBookmarkCoin(coinId);
     }
 
 }

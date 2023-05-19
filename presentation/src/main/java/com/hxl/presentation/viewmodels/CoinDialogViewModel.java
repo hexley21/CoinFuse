@@ -1,5 +1,6 @@
 package com.hxl.presentation.viewmodels;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.hxl.domain.interactors.coins.BookmarkCoin;
@@ -15,9 +16,16 @@ import io.reactivex.rxjava3.core.Single;
 @HiltViewModel
 public class CoinDialogViewModel extends ViewModel {
 
-    private final IsCoinBookmarked isCoinBookmarked;
-    private final BookmarkCoin bookmarkCoin;
-    private final UnBookmarkCoin unBookmarkCoin;
+    @NonNull private final IsCoinBookmarked isCoinBookmarked;
+    @NonNull private final BookmarkCoin bookmarkCoin;
+    @NonNull private final UnBookmarkCoin unBookmarkCoin;
+
+    @Inject
+    public CoinDialogViewModel(@NonNull IsCoinBookmarked isCoinBookmarked, @NonNull BookmarkCoin bookmarkCoin, @NonNull UnBookmarkCoin unBookmarkCoin) {
+        this.isCoinBookmarked = isCoinBookmarked;
+        this.bookmarkCoin = bookmarkCoin;
+        this.unBookmarkCoin = unBookmarkCoin;
+    }
 
     public Single<Boolean> isCoinBookmarked(String id) {
         return isCoinBookmarked.invoke(id);
@@ -31,10 +39,5 @@ public class CoinDialogViewModel extends ViewModel {
         return unBookmarkCoin.invoke(id);
     }
 
-    @Inject
-    public CoinDialogViewModel(IsCoinBookmarked isCoinBookmarked, BookmarkCoin bookmarkCoin, UnBookmarkCoin unBookmarkCoin) {
-        this.isCoinBookmarked = isCoinBookmarked;
-        this.bookmarkCoin = bookmarkCoin;
-        this.unBookmarkCoin = unBookmarkCoin;
-    }
+
 }

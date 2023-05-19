@@ -2,6 +2,7 @@ package com.hxl.presentation.viewmodels;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.hxl.domain.interactors.coins.GetTradesByCoin;
@@ -14,7 +15,6 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 @HiltViewModel
@@ -22,12 +22,12 @@ public class CoinExchangesViewModel extends ViewModel {
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private static final String TAG = "CoinExchangesViewModel";
 
-    private final GetTradesByCoin getTradesByCoin;
+    @NonNull private final GetTradesByCoin getTradesByCoin;
     
     private StateLiveData<List<Trade>> currentTrades;
 
     @Inject
-    public CoinExchangesViewModel(GetTradesByCoin getTradesByCoin) {
+    public CoinExchangesViewModel(@NonNull GetTradesByCoin getTradesByCoin) {
         this.getTradesByCoin = getTradesByCoin;
     }
 
@@ -54,6 +54,13 @@ public class CoinExchangesViewModel extends ViewModel {
                         },
                         compositeDisposable
                 );
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        compositeDisposable.dispose();
+        Log.d(TAG, "onCleared: CompositeDisposable was disposed");
     }
 
 }

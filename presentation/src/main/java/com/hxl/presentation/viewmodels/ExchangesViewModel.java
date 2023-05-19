@@ -2,6 +2,7 @@ package com.hxl.presentation.viewmodels;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.hxl.domain.interactors.exchanges.GetExchanges;
@@ -26,12 +27,12 @@ public class ExchangesViewModel extends ViewModel {
 
     private final String TAG = "ExchangesViewModel";
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private final GetExchanges getExchanges;
+    @NonNull private final GetExchanges getExchanges;
 
     private StateLiveData<List<Exchange>> currentExchanges;
 
     @Inject
-    public ExchangesViewModel(GetExchanges getExchanges) {
+    public ExchangesViewModel(@NonNull GetExchanges getExchanges) {
         this.getExchanges = getExchanges;
     }
 
@@ -68,5 +69,6 @@ public class ExchangesViewModel extends ViewModel {
     protected void onCleared() {
         super.onCleared();
         compositeDisposable.dispose();
+        Log.d(TAG, "onCleared: CompositeDisposable was disposed");
     }
 }

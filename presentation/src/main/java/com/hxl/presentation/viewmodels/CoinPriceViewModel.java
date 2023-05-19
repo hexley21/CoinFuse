@@ -2,6 +2,7 @@ package com.hxl.presentation.viewmodels;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.hxl.domain.interactors.coins.GetCoin;
@@ -24,14 +25,14 @@ public class CoinPriceViewModel extends ViewModel {
     private static final String TAG = "CoinPriceViewModel";
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    private final GetCoin getCoin;
-    private final GetCoinPriceHistory getCoinPriceHistory;
+    @NonNull private final GetCoin getCoin;
+    @NonNull private final GetCoinPriceHistory getCoinPriceHistory;
 
     private StateLiveData<Coin> currentCoin;
     private StateLiveData<List<CoinPriceHistory>> currentCoinPriceHistory;
 
     @Inject
-    public CoinPriceViewModel(GetCoin getCoin, GetCoinPriceHistory getCoinPriceHistory) {
+    public CoinPriceViewModel(@NonNull GetCoin getCoin, @NonNull GetCoinPriceHistory getCoinPriceHistory) {
         this.getCoin = getCoin;
         this.getCoinPriceHistory = getCoinPriceHistory;
     }
@@ -90,5 +91,6 @@ public class CoinPriceViewModel extends ViewModel {
     protected void onCleared() {
         super.onCleared();
         compositeDisposable.dispose();
+        Log.d(TAG, "onCleared: CompositeDisposable was disposed");
     }
 }
