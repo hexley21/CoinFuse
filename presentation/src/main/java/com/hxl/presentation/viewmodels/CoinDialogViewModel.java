@@ -64,7 +64,6 @@ public class CoinDialogViewModel extends ViewModel {
         deleteCoinSearchQuery.invoke(query)
                 .subscribe(
                         () -> {
-                            Thread.sleep(1000);
                             getCurrentDeleteState().setSuccess(null);
                             Log.d(TAG, "getDeleteCoinSearchQuery: success");
                         },
