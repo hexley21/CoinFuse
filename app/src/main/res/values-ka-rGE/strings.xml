@@ -58,5 +58,6 @@
     <string name="exchange_section_price">ფასი</string>
     <string name="exchange_section_vol_24">მოც 24ს</string>
     <string name="coin_exchanges">გაცვლები</string>
+    <string name="error_something">რაღაც არასწორად წავიდა… \\n გადატვირთეთ გვერდი</string>
 
 </resources>

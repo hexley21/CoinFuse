@@ -8,6 +8,7 @@ import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.domain.model.Trade;
 import com.hxl.domain.repository.CoinRepository;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -27,50 +28,54 @@ public class CoinRepositoryImpl implements CoinRepository {
     }
     @Override
     public Single<List<Coin>> getCoins() {
-        if (isOnline()) {
-            return remoteSource.getCoins()
-                    .flatMap(x -> saveCoins(x).toSingleDefault(x));
-        }
-        return localSource.getCoins();
+        return remoteSource.getCoins()
+                .flatMap(x -> saveCoins(x).toSingleDefault(x))
+                .onErrorResumeWith(localSource.getCoins())
+                .map(x -> {
+                    if (x.isEmpty())
+                        throw new UnknownHostException("No cached data, connect to the internet");
+                    return x;
+                });
     }
 
     @Override
     public Single<List<Coin>> getCoins(int limit, int offset) {
-        if (isOnline()) {
-            return remoteSource.getCoins(limit, offset)
-                    .flatMap(x -> saveCoins(x).toSingleDefault(x));
-        }
-        return localSource.getCoins(limit, offset);
+        return remoteSource.getCoins(limit, offset)
+                    .flatMap(x -> saveCoins(x).toSingleDefault(x))
+                    .onErrorResumeWith(localSource.getCoins(limit, offset))
+                    .map(x -> {
+                        if (x.isEmpty())
+                            throw new UnknownHostException("No cached data, connect to the internet");
+                        return x;
+                    });
     }
 
     @Override
     public Single<List<Coin>> getCoins(List<String> ids) {
         if (!ids.isEmpty()) {
-            if (isOnline()) {
-                return remoteSource.getCoins(ids)
-                        .flatMap(x -> saveCoins(x).toSingleDefault(x));
-            }
-            return localSource.getCoins(ids);
+            return remoteSource.getCoins(ids)
+                    .flatMap(x -> saveCoins(x).toSingleDefault(x))
+                    .onErrorResumeWith(localSource.getCoins(ids));
         }
         return Single.just(new ArrayList<>());
     }
 
     @Override
     public Single<List<Coin>> searchCoins(String key) {
-        if (isOnline()) {
-            return remoteSource.searchCoins(key)
-                    .flatMap(x -> saveCoins(x).toSingleDefault(x));
-        }
-        return localSource.searchCoins(key);
+        return remoteSource.searchCoins(key)
+                .flatMap(x -> saveCoins(x).toSingleDefault(x))
+                .onErrorResumeWith(localSource.searchCoins(key));
     }
 
     @Override
     public Single<Coin> getCoin(String id) {
-        if (isOnline()) {
-            return remoteSource.getCoin(id)
-                    .flatMap(x -> saveCoin(x).toSingleDefault(x));
-        }
-        return localSource.getCoin(id);
+        return remoteSource.getCoin(id)
+                .flatMap(x -> saveCoin(x).toSingleDefault(x))
+                .onErrorResumeWith(localSource.getCoin(id)).map(x -> {
+                    if (x == null)
+                        throw new UnknownHostException("No cached data, connect to the internet");
+                    return x;
+                });
     }
 
     @Override

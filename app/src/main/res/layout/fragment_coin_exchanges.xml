@@ -92,12 +92,12 @@
             android:background="?android:attr/listDivider" />
 
         <include
-            android:layout_below="@id/divider"
             android:id="@+id/shimmer_coin_exchanges"
             layout="@layout/shimmer_coin_details_exchanges"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:visibility="gone" />
+            android:layout_below="@id/divider"
+            tools:visibility="visible" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/srl_coin_exchanges"

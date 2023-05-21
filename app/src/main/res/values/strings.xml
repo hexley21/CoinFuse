@@ -94,4 +94,5 @@
     <string name="error_no_data">No data available</string>
     <string name="error_no_bookmarks">There are no bookmarks</string>
     <string name="error_no_main_data">No data available…\n refresh this page or reconnect to the internet</string>
+    <string name="error_something">Something went wrong… \n refresh the page</string>
 </resources>
