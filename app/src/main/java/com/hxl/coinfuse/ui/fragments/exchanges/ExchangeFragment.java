@@ -20,7 +20,7 @@ import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentExchangeBinding;
 import com.hxl.coinfuse.ui.dialogs.SortCallback;
 import com.hxl.coinfuse.util.UiUtils;
-import com.hxl.data.util.PingUtil;
+import com.hxl.coinfuse.util.PingUtil;
 import com.hxl.presentation.OrderBy;
 import com.hxl.presentation.exchange.ExchangeSortBy;
 import com.hxl.presentation.livedata.DataState;
@@ -47,6 +47,7 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
 
     private ExchangeAdapter exchangeAdapter;
     private NavController navController;
+    private boolean hasLoaded = false;
 
     private ExchangeSortBy finalSortBy = ExchangeSortBy.RANK;
     private OrderBy finalOrderBy = OrderBy.ASC;
@@ -62,6 +63,7 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
+        initPage();
         binding.chipExchangeSortDelete.setVisibility(chipVisibility);
         binding.rvExchanges.setAdapter(exchangeAdapter);
 
@@ -70,20 +72,22 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
             exchangeAdapter.setNavController(navController);
         }
 
-        vm.getCurrentExchanges().observe(requireActivity(), exchanges -> {
-            if (exchanges.getState() == DataState.SUCCESS) {
-                if (exchanges.getData().isEmpty()) {
-                    showError(new IllegalStateException(UiUtils.getString(requireContext(), R.string.error_no_data)));
-                    hidePageLoading();
-                    return;
+        if (!vm.getCurrentExchanges().hasObservers()) {
+            vm.getCurrentExchanges().observe(requireActivity(), exchanges -> {
+                if (exchanges.getState() == DataState.SUCCESS) {
+                    if (exchanges.getData().isEmpty()) {
+                        showError(new IllegalStateException(UiUtils.getString(requireContext(), R.string.error_no_data)));
+                        hidePageLoading();
+                        return;
+                    }
+                    exchangeAdapter.setList(exchanges.getData());
+                    hideError();
+                } else if (exchanges.getState() == DataState.ERROR) {
+                    showError(exchanges.getError());
                 }
-                exchangeAdapter.setList(exchanges.getData());
-                hideError();
-            } else if (exchanges.getState() == DataState.ERROR) {
-                showError(exchanges.getError());
-            }
-            hidePageLoading();
-        });
+                hidePageLoading();
+            });
+        }
     }
 
     @Override
@@ -148,10 +152,20 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
     }
 
     // region visibility management
+    private void initPage() {
+        if (!hasLoaded) {
+            binding.srlExchanges.setVisibility(View.GONE);
+            binding.shimmerExchanges.setVisibility(View.VISIBLE);
+            return;
+        }
+        binding.shimmerExchanges.setVisibility(View.GONE);
+        binding.srlExchanges.setVisibility(View.VISIBLE);
+    }
     private void hidePageLoading() {
         binding.shimmerExchanges.setVisibility(View.GONE);
         binding.srlExchanges.setVisibility(View.VISIBLE);
         binding.srlExchanges.setRefreshing(false);
+        hasLoaded = true;
     }
 
     private void showError(Throwable e) {

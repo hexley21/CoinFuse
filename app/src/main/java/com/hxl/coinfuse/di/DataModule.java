@@ -10,9 +10,6 @@ import com.hxl.data.repository.coin.CoinRemote;
 import com.hxl.data.repository.exchange.ExchangeLocal;
 import com.hxl.data.repository.exchange.ExchangeRemote;
 import com.hxl.data.repository.pref.PreferenceLocal;
-import com.hxl.data.source.exchange.ExchangeLocalSource;
-import com.hxl.data.source.exchange.ExchangeRemoteSource;
-import com.hxl.data.source.exchange.ExchangeSourceFactory;
 import com.hxl.domain.repository.CoinRepository;
 import com.hxl.domain.repository.ExchangeRepository;
 import com.hxl.domain.repository.PreferenceRepository;
@@ -90,17 +87,8 @@ public class DataModule {
 
     @Provides
     @Singleton
-    ExchangeSourceFactory provideExchangeSourceFactory(ExchangeRemote remote, ExchangeLocal local) {
-        return new ExchangeSourceFactory(
-                new ExchangeRemoteSource(remote),
-                new ExchangeLocalSource(local)
-        );
-    }
-
-    @Provides
-    @Singleton
-    ExchangeRepository provideExchangeRepository(ExchangeSourceFactory sourceFactory) {
-        return new ExchangeRepositoryImpl(sourceFactory);
+    ExchangeRepository provideExchangeRepository(ExchangeRemote remote, ExchangeLocal local) {
+        return new ExchangeRepositoryImpl(remote, local);
     }
 
     // endregion

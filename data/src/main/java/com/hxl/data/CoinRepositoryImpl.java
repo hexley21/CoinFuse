@@ -2,7 +2,6 @@ package com.hxl.data;
 
 import com.hxl.data.repository.coin.CoinLocal;
 import com.hxl.data.repository.coin.CoinRemote;
-import com.hxl.data.util.PingUtil;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.domain.model.Trade;
@@ -105,7 +104,6 @@ public class CoinRepositoryImpl implements CoinRepository {
 
     @Override
     public Single<List<Coin>> getBookmarkedCoins() {
-        if (isOnline()) {
             return localSource.getBookmarkedCoinIds()
                     .flatMap(b -> {
                         if (b.isEmpty()) {
@@ -120,10 +118,9 @@ public class CoinRepositoryImpl implements CoinRepository {
                                         c.timestamp = b.get(ids.indexOf(c.id)).timestamp;
                                     }
                                     return x;
-                                });
+                                })
+                                .onErrorResumeWith(localSource.getBookmarkedCoins());
                     });
-        }
-        return localSource.getBookmarkedCoins();
     }
 
     @Override
@@ -182,9 +179,5 @@ public class CoinRepositoryImpl implements CoinRepository {
     @Override
     public Single<List<Trade>> getTradesByCoin(String id, int limit, int offset) {
         return remoteSource.getTradesByCoin(id, limit, offset);
-    }
-
-    public boolean isOnline() {
-        return PingUtil.isOnline();
     }
 }

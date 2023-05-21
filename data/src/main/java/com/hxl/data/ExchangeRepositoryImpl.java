@@ -1,7 +1,7 @@
 package com.hxl.data;
 
-import com.hxl.data.util.PingUtil;
-import com.hxl.data.source.exchange.ExchangeSourceFactory;
+import com.hxl.data.repository.exchange.ExchangeLocal;
+import com.hxl.data.repository.exchange.ExchangeRemote;
 import com.hxl.domain.model.Exchange;
 import com.hxl.domain.model.Trade;
 import com.hxl.domain.repository.ExchangeRepository;
@@ -14,77 +14,74 @@ import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ExchangeRepositoryImpl implements ExchangeRepository {
 
-    private final ExchangeSourceFactory sourceFactory;
+    private final ExchangeRemote remote;
+    private final ExchangeLocal local;
 
     @Inject
-    public ExchangeRepositoryImpl(ExchangeSourceFactory sourceFactory) {
-        this.sourceFactory = sourceFactory;
+    public ExchangeRepositoryImpl(ExchangeRemote exchangeRemote, ExchangeLocal exchangeLocal) {
+        this.remote = exchangeRemote;
+        this.local = exchangeLocal;
     }
 
     @Override
     public Single<List<Exchange>> getExchanges() {
-        boolean isOnline = PingUtil.isOnline();
-        Single<List<Exchange>> exchanges = sourceFactory.getDataSource(isOnline).getExchanges()
-                .subscribeOn(Schedulers.io());
-        if (isOnline)
-            return exchanges.flatMap(x -> insertExchange(x).toSingleDefault(x));
-        return exchanges.map(ex -> {
-            if (ex.isEmpty()) {
-                throw new UnknownHostException("No data downloaded from the remote");
-            }
-            return ex;
-        });
+        return remote.getExchanges()
+                .flatMap(x -> insertExchange(x).toSingleDefault(x))
+                .onErrorResumeWith(local.getExchanges())
+                .map(ex -> {
+                    if (ex.isEmpty()) {
+                        throw new UnknownHostException("No cached data, connect to the internet");
+                        }
+                        return ex;
+                    });
     }
 
     @Override
     public Single<List<Exchange>> getExchanges(int limit, int offset) {
-        boolean isOnline = PingUtil.isOnline();
-        Single<List<Exchange>> exchanges = sourceFactory.getDataSource(isOnline).getExchanges(limit, offset)
-                .subscribeOn(Schedulers.io());
-        if (isOnline)
-            return exchanges.flatMap(x -> insertExchange(x).toSingleDefault(x));
-        return exchanges.map(ex -> {
-            if (ex.isEmpty()) {
-                throw new UnknownHostException("No data downloaded from the remote");
-            }
-            return ex;
-        });
+        return remote.getExchanges(limit, offset)
+                .flatMap(x -> insertExchange(x).toSingleDefault(x))
+                .onErrorResumeWith(local.getExchanges(limit, offset))
+                .map(ex -> {
+                    if (ex.isEmpty()) {
+                        throw new UnknownHostException("No cached data, connect to the internet");
+                    }
+                    return ex;
+                });
     }
 
     @Override
     public Single<Exchange> getExchange(String exchangeId) {
-        boolean isOnline = PingUtil.isOnline();
-        Single<Exchange> exchange = sourceFactory.getDataSource(isOnline).getExchange(exchangeId)
-                .subscribeOn(Schedulers.io());
-        if (isOnline)
-            return exchange.flatMap(x -> insertExchange(x).toSingleDefault(x));
-        return exchange;
+        return remote.getExchange(exchangeId)
+                .flatMap(x -> insertExchange(x).toSingleDefault(x))
+                .onErrorResumeWith(local.getExchange(exchangeId))
+                .map(ex -> {
+                    if (ex == null) {
+                        throw new UnknownHostException("No cached data, connect to the internet");
+                    }
+                    return ex;
+                });
     }
 
     @Override
     public Single<List<Trade>> getTrades(Map<String, String> queryMap) {
-        return sourceFactory.getRemote().getTrades(queryMap);
+        return remote.getTrades(queryMap);
     }
 
     @Override
     public Completable insertExchange(List<Exchange> exchanges) {
-        return sourceFactory.getLocal().insertExchange(exchanges)
-                .subscribeOn(Schedulers.io());
+        return local.insertExchange(exchanges.toArray(new Exchange[0]));
     }
 
     @Override
     public Completable insertExchange(Exchange exchange) {
-        return sourceFactory.getLocal().insertExchange(exchange)
-                .subscribeOn(Schedulers.io());
+        return local.insertExchange(exchange);
     }
 
     @Override
     public Completable eraseExchanges() {
-        return sourceFactory.getLocal().eraseExchanges()
-                .subscribeOn(Schedulers.io());
+        return local.eraseExchanges();
     }
 }

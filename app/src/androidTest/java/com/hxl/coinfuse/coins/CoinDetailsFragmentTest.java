@@ -98,7 +98,7 @@ public class CoinDetailsFragmentTest {
         @Provides
         @Singleton
         ExchangeRepository provideExchangeRepository(ExchangeRemote remote, ExchangeLocal local) {
-            return new ExchangeRepositoryImpl(null);
+            return new ExchangeRepositoryImpl(null, null);
         }
 
         // endregion

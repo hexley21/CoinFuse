@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ExchangeRemoteImpl implements ExchangeRemote {
     private final ExchangeService exchangeService;
@@ -23,6 +24,7 @@ public class ExchangeRemoteImpl implements ExchangeRemote {
     @Override
     public Single<List<Exchange>> getExchanges() {
         return exchangeService.getExchanges()
+                .subscribeOn(Schedulers.io())
                 .map(x -> x.data.stream()
                         .map(ExchangeDTOMapper::mapFromDTO)
                         .collect(Collectors.toList()));
@@ -31,6 +33,7 @@ public class ExchangeRemoteImpl implements ExchangeRemote {
     @Override
     public Single<List<Exchange>> getExchanges(int limit, int offset) {
         return exchangeService.getExchanges(limit, offset)
+                .subscribeOn(Schedulers.io())
                 .map(x -> x.data.stream()
                         .map(ExchangeDTOMapper::mapFromDTO)
                         .collect(Collectors.toList()));
@@ -39,12 +42,14 @@ public class ExchangeRemoteImpl implements ExchangeRemote {
     @Override
     public Single<Exchange> getExchange(String exchangeId) {
         return exchangeService.getExchange(exchangeId)
+                .subscribeOn(Schedulers.io())
                 .map(x -> ExchangeDTOMapper.mapFromDTO(x.data));
     }
 
     @Override
     public Single<List<Trade>> getTrades(Map<String, String> queryMap) {
         return exchangeService.getTrades(queryMap)
+                .subscribeOn(Schedulers.io())
                 .map(x -> x.data.stream()
                         .map(TradeDTOMapper::mapFromDto)
                         .collect(Collectors.toList()));

@@ -1,4 +1,4 @@
-package com.hxl.data.util;
+package com.hxl.coinfuse.util;
 
 import java.io.IOException;
 
