@@ -27,6 +27,11 @@ import com.hxl.presentation.viewmodels.ExchangeDetailsViewModel;
 import com.hxl.remote.exchange.api.TradeQueryBuilder;
 
 import java.net.UnknownHostException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -63,6 +68,12 @@ public class ExchangeDetailsFragment extends BaseFragment<FragmentExchangeDetail
                 binding.exchangesTopAppbar.setTitle(exchange.getData().name);
                 binding.setPairs(String.valueOf(exchange.getData().tradingPairs));
                 binding.setVolume(formatDouble(exchange.getData().volumeUsd));
+
+                // Set fetch timestamp
+                Instant instant = Instant.ofEpochMilli(exchange.getData().updated);
+                LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm, dd MMM yyyy", Locale.getDefault());
+                binding.setUpdated(localDateTime.format(formatter));
             } else if (exchange.getState() == DataState.ERROR) {
                 showSnackBar(exchange.getError().getMessage());
             }

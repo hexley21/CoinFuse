@@ -118,7 +118,7 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
 
         binding.srlExchanges.setOnRefreshListener(() -> {
             if (!PingUtil.isOnline()) {
-                showSnackBar(UiUtils.getString(requireContext(), R.string.error_no_internet));
+                showSnackBar(UiUtils.getString(requireContext(), R.string.error_no_main_data));
             }
             fetchExchanges();
         });
