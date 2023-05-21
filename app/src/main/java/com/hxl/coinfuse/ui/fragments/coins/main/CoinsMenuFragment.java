@@ -3,6 +3,8 @@ package com.hxl.coinfuse.ui.fragments.coins.main;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinArgKey;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,12 +85,11 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
                     coinMenuAdapter.addLoadStateListener(loadStates -> {
                         if (loadStates.getRefresh() instanceof LoadState.NotLoading) {
                             hidePageLoading();
-                            hideError();
+                            hidePageError();
                         } else if (loadStates.getRefresh() instanceof LoadState.Error) {
-                            showError(((LoadState.Error) loadStates.getRefresh()).getError());
+                            showPageError(((LoadState.Error) loadStates.getRefresh()).getError());
                             hidePageLoading();
                         }
-
                         return null;
                     });
                 } else if (coins.getState() == DataState.ERROR) {
@@ -107,7 +108,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
             });
         }
 
-        if (!vm.getCurrentCoinSearch().hasObservers()) {
+        if (!vm.getCurrentCoinsSearchHistory().hasObservers()) {
             vm.getCurrentCoinsSearchHistory().observe(requireActivity(), searchHistory -> {
                 if (searchHistory.getState() == DataState.SUCCESS) {
                     searchHistoryCoinsAdapter.setList(searchHistory.getData());
@@ -151,9 +152,19 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
         binding.iconCoinNoWifi.setOnClickListener(errorClick);
         binding.iconCoinError.setOnClickListener(errorClick);
 
-        binding.searchView.getEditText().setOnEditorActionListener((v, actionId, event) -> {
-            vm.fetchCoinSearch(v.getText().toString());
-            return false;
+        binding.searchView.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    vm.fetchCoinSearch(s.toString());
+                } else clearSearchRvData();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
         });
 
         final ImageButton searchClearBtn = binding.searchView.findViewById(com.google.android.material.R.id.search_view_clear_button);
@@ -191,7 +202,6 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
     }
 
     // region visibility management
-
     private void initPage() {
         if (!hasLoaded) {
             binding.srlCoins.setVisibility(View.GONE);
@@ -209,7 +219,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
         hasLoaded = true;
     }
 
-    private void showError(Throwable e) {
+    private void showPageError(Throwable e) {
         binding.srlCoins.setVisibility(View.VISIBLE);
         binding.shimmerCoins.setVisibility(View.GONE);
         binding.srlCoins.setRefreshing(false);
@@ -230,10 +240,9 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
         binding.iconCoinNoWifi.setVisibility(View.GONE);
         binding.iconCoinError.setVisibility(View.VISIBLE);
         binding.setCoinError(e.getMessage());
-
     }
 
-    private void hideError() {
+    private void hidePageError() {
         binding.iconCoinError.setVisibility(View.GONE);
         binding.iconCoinNoWifi.setVisibility(View.GONE);
         binding.textCoinError.setVisibility(View.GONE);

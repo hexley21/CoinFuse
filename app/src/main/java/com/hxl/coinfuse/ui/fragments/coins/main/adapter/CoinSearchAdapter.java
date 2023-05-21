@@ -28,12 +28,12 @@ import java.util.function.Consumer;
 
 public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinSearchViewHolder> {
     private static final String TAG = "CoinSearchAdapter";
-    private final Consumer<Bundle> insertSearchFunction;
+    private final Consumer<Bundle> insertSearchCallback;
     private NavController navController;
 
-    public CoinSearchAdapter(Consumer<Bundle> insertSearchFunction) {
+    public CoinSearchAdapter(Consumer<Bundle> insertSearchCallback) {
         super(new CoinComparator());
-        this.insertSearchFunction = insertSearchFunction;
+        this.insertSearchCallback = insertSearchCallback;
     }
 
     public void setNavController(NavController navController) {
@@ -84,7 +84,7 @@ public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinS
             bundle.putString(coinSymbolArgKey, getList().get(position).symbol);
             bundle.putString(coinImgArgKey, getList().get(position).img);
             navController.navigate(R.id.navigation_to_coinDetails, bundle);
-            insertSearchFunction.accept(bundle);
+            insertSearchCallback.accept(bundle);
         });
         holder.itemView.setOnLongClickListener(v -> {
             bundle.putString(explorerArgKey, getList().get(position).explorer);

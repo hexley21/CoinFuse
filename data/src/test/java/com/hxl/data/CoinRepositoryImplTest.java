@@ -1,61 +1,61 @@
-package com.hxl.data;
-
-import static com.hxl.data.fakes.DataTestConstants.ID;
-import static com.hxl.data.fakes.DataTestConstants.IDS;
-import static com.hxl.data.fakes.DataTestConstants.LIMIT;
-import static com.hxl.data.fakes.DataTestConstants.OFFSET;
-import static com.hxl.data.fakes.DataTestConstants.SIZE;
-import static com.hxl.data.fakes.DataTestConstants.TIMESTAMP;
-import static com.hxl.data.fakes.FakeDataFactory.getCoin;
-import static com.hxl.data.fakes.FakeDataFactory.getFakeCoins;
-import static com.hxl.data.fakes.FakeDataFactory.getFakePriceHistory;
-import static com.hxl.data.fakes.FakeDataFactory.getFakeSearchQueries;
-import static com.hxl.data.fakes.FakeDataFactory.getFakeTrades;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import com.hxl.data.repository.coin.CoinLocal;
-import com.hxl.data.repository.coin.CoinRemote;
-import com.hxl.domain.model.Coin;
-import com.hxl.domain.model.CoinPriceHistory;
-import com.hxl.domain.model.Trade;
-import com.hxl.domain.model.ValueAndTimestamp;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Single;
-
-@RunWith(MockitoJUnitRunner.class)
-public class CoinRepositoryImplTest {
-
-    @Mock
-    CoinRemote remoteSource;
-    @Mock
-    CoinLocal localSource;
-    CoinRepositoryImpl repository;
-
-    @Before
-    public void setUp() {
-        repository = spy(new CoinRepositoryImpl(remoteSource, localSource));
-    }
-
+//package com.hxl.data;
+//
+//import static com.hxl.data.fakes.DataTestConstants.ID;
+//import static com.hxl.data.fakes.DataTestConstants.IDS;
+//import static com.hxl.data.fakes.DataTestConstants.LIMIT;
+//import static com.hxl.data.fakes.DataTestConstants.OFFSET;
+//import static com.hxl.data.fakes.DataTestConstants.SIZE;
+//import static com.hxl.data.fakes.DataTestConstants.TIMESTAMP;
+//import static com.hxl.data.fakes.FakeDataFactory.getCoin;
+//import static com.hxl.data.fakes.FakeDataFactory.getFakeCoins;
+//import static com.hxl.data.fakes.FakeDataFactory.getFakePriceHistory;
+//import static com.hxl.data.fakes.FakeDataFactory.getFakeSearchQueries;
+//import static com.hxl.data.fakes.FakeDataFactory.getFakeTrades;
+//import static org.mockito.ArgumentMatchers.any;
+//import static org.mockito.ArgumentMatchers.anyInt;
+//import static org.mockito.ArgumentMatchers.anyList;
+//import static org.mockito.ArgumentMatchers.anyString;
+//import static org.mockito.Mockito.never;
+//import static org.mockito.Mockito.spy;
+//import static org.mockito.Mockito.times;
+//import static org.mockito.Mockito.verify;
+//import static org.mockito.Mockito.when;
+//
+//import com.hxl.data.repository.coin.CoinLocal;
+//import com.hxl.data.repository.coin.CoinRemote;
+//import com.hxl.domain.model.Coin;
+//import com.hxl.domain.model.CoinPriceHistory;
+//import com.hxl.domain.model.Trade;
+//import com.hxl.domain.model.ValueAndTimestamp;
+//
+//import org.junit.Before;
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
+//import org.mockito.Mock;
+//import org.mockito.junit.MockitoJUnitRunner;
+//
+//import java.util.ArrayList;
+//import java.util.Arrays;
+//import java.util.List;
+//import java.util.stream.Collectors;
+//
+//import io.reactivex.rxjava3.core.Completable;
+//import io.reactivex.rxjava3.core.Single;
+//
+//@RunWith(MockitoJUnitRunner.class)
+//public class CoinRepositoryImplTest {
+//
+//    @Mock
+//    CoinRemote remoteSource;
+//    @Mock
+//    CoinLocal localSource;
+//    CoinRepositoryImpl repository;
+//
+//    @Before
+//    public void setUp() {
+//        repository = spy(new CoinRepositoryImpl(remoteSource, localSource));
+//    }
+//
 //
 //    // region getCoins()
 //    @Test
@@ -626,4 +626,4 @@ public class CoinRepositoryImplTest {
 //    }
 //    //endregion
 //
-}
+//}
