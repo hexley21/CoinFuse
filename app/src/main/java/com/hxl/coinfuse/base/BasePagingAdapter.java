@@ -7,9 +7,9 @@ import androidx.paging.PagingDataAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.function.Function;
+import java.util.function.Consumer;
 
-public abstract class BasePagingAdapter<T, VH extends RecyclerView.ViewHolder & Function<T, Void>> extends PagingDataAdapter<T, VH> {
+public abstract class BasePagingAdapter<T, VH extends RecyclerView.ViewHolder & Consumer<T>> extends PagingDataAdapter<T, VH> {
 
     public BasePagingAdapter(@NonNull DiffUtil.ItemCallback<T> diffCallback) {
         super(diffCallback);
@@ -24,7 +24,7 @@ public abstract class BasePagingAdapter<T, VH extends RecyclerView.ViewHolder & 
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-        holder.apply(getItem(position));
+        holder.accept(getItem(position));
     }
 
 }

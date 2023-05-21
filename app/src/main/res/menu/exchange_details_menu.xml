@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_exchange_website"
+        android:enabled="true"
+        android:icon="@drawable/language"
+        app:showAsAction="ifRoom"
+        android:title="@string/menu_website" />
+</menu>

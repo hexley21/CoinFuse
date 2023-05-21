@@ -11,13 +11,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include
+            android:id="@+id/shimmer_coins"
+            layout="@layout/shimmer_coin_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/coin_search_bar_height"
+            tools:visibility="gone" />
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/srl_coins"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/coin_search_bar_height"
+            android:visibility="gone"
             app:layout_behavior="@string/searchbar_scrolling_view_behavior"
-            tools:ignore="PrivateResource">
+            tools:ignore="PrivateResource"
+            tools:visibility="visible">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_coins"
@@ -29,15 +39,16 @@
                 tools:listitem="@layout/item_coin" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-
-        <include
-            android:id="@+id/shimmer_coins"
-            layout="@layout/shimmer_coin_menu"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/coin_search_bar_height"
+        <ImageView
+            android:id="@+id/icon_coin_no_wifi"
+            android:layout_width="@dimen/error_icon_width"
+            android:layout_height="@dimen/error_icon_height"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:src="@drawable/wifi_off"
             android:visibility="gone"
-            tools:visibility="gone" />
+            tools:visibility="invisible"
+            android:importantForAccessibility="no" />
 
         <ImageView
             android:id="@+id/icon_coin_error"

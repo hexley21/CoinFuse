@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hxl.coinfuse.util.EspressoIdlingResource;
 
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.Consumer;
 
-public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder & Function<T, Void>> extends RecyclerView.Adapter<VH> {
+public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder & Consumer<T>> extends RecyclerView.Adapter<VH> {
 
     protected final AsyncListDiffer<T> differ;
 
@@ -44,7 +44,7 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder & Functi
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
         // binder
-        holder.apply(getList().get(position));
+        holder.accept(getList().get(position));
     }
 
     @Override

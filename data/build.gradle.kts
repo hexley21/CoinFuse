@@ -8,6 +8,7 @@ java {
 }
 
 dependencies {
+    implementation(Deps.Java.javaxInject)
     // Module
     implementation(project(Modules.domain))
     // Reactive

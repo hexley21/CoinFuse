@@ -3,6 +3,8 @@ package com.hxl.coinfuse.ui.fragments.coins.main;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinArgKey;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +18,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.paging.LoadState;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.search.SearchView;
 import com.hxl.coinfuse.R;
@@ -25,14 +25,15 @@ import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentCoinMenuBinding;
 import com.hxl.coinfuse.ui.fragments.coins.main.adapter.CoinAdapter;
 import com.hxl.coinfuse.ui.fragments.coins.main.adapter.CoinSearchAdapter;
-import com.hxl.coinfuse.util.EspressoIdlingResource;
+import com.hxl.coinfuse.util.UiUtils;
+import com.hxl.presentation.livedata.DataState;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.function.Function;
+import java.util.function.Consumer;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 @AndroidEntryPoint
 public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, CoinsMenuViewModel> {
@@ -48,34 +49,27 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
 
     private static final String TAG = "CoinsMenuFragment";
 
-
-    private final Function<Bundle, Void> insertSearchFunction = bundle -> {
-        insertSearchQuery(bundle.getString(coinArgKey));
-        return null;
-    };
+    private final Consumer<Bundle> insertSearchFunction = bundle -> vm.insertCoinSearchQuery(bundle.getString(coinArgKey));
     
     private CoinAdapter coinMenuAdapter;
     private CoinSearchAdapter coinSearchAdapter;
     private CoinSearchAdapter searchHistoryCoinsAdapter;
-    private SwipeRefreshLayout refreshLayout;
-    private View loadingView;
     private OnBackPressedCallback callback;
     private NavController navController;
-    private int pbVisibility = View.VISIBLE;
+    private boolean hasLoaded = false;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         coinMenuAdapter = new CoinAdapter();
         coinSearchAdapter = new CoinSearchAdapter(insertSearchFunction);
-        searchHistoryCoinsAdapter =  new CoinSearchAdapter(insertSearchFunction);
+        searchHistoryCoinsAdapter =  new CoinSearchAdapter(insertSearchFunction, () -> vm.fetchCoinSearchHistory());
     }
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
-        refreshLayout = binding.srlCoins;
-        loadingView = binding.shimmerCoins;
-        loadingView.setVisibility(pbVisibility);
+        initPage();
 
         if (navController == null) {
             navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
@@ -83,49 +77,95 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
             coinSearchAdapter.setNavController(navController);
             searchHistoryCoinsAdapter.setNavController(navController);
         }
+
+        if (!vm.getCurrentCoins().hasObservers()) {
+            vm.getCurrentCoins().observe(requireActivity(), coins -> {
+                if (coins.getState() == DataState.SUCCESS) {
+                    coinMenuAdapter.submitData(getLifecycle(), coins.getData());
+                    coinMenuAdapter.addLoadStateListener(loadStates -> {
+                        if (loadStates.getRefresh() instanceof LoadState.NotLoading) {
+                            hidePageLoading();
+                            hidePageError();
+                        } else if (loadStates.getRefresh() instanceof LoadState.Error) {
+                            showPageError(((LoadState.Error) loadStates.getRefresh()).getError());
+                            hidePageLoading();
+                        }
+                        return null;
+                    });
+                } else if (coins.getState() == DataState.ERROR) {
+                    showSnackBar(UiUtils.getString(requireContext(), R.string.error_something));
+                }
+            });
+        }
+
+        if (!vm.getCurrentCoinSearch().hasObservers()) {
+            vm.getCurrentCoinSearch().observe(requireActivity(), search -> {
+                if (search.getState() == DataState.SUCCESS) {
+                    coinSearchAdapter.setList(search.getData());
+                } else if (search.getState() == DataState.ERROR) {
+                    showSnackBar(search.getError().getMessage());
+                }
+            });
+        }
+
+        if (!vm.getCurrentCoinsSearchHistory().hasObservers()) {
+            vm.getCurrentCoinsSearchHistory().observe(requireActivity(), searchHistory -> {
+                if (searchHistory.getState() == DataState.SUCCESS) {
+                    searchHistoryCoinsAdapter.setList(searchHistory.getData());
+                } else if (searchHistory.getState() == DataState.ERROR) {
+                    showSnackBar(searchHistory.getError().getMessage());
+                }
+            });
+        }
+
         callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 binding.searchView.hide();
             }
         };
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        RecyclerView coinsRv = binding.rvCoins;
-        RecyclerView searchRv = binding.rvCoinSearch;
-        RecyclerView historyRv = binding.rvCoinHistory;
+        binding.rvCoins.setAdapter(coinMenuAdapter);
+        binding.rvCoinSearch.setAdapter(coinSearchAdapter);
+        binding.rvCoinHistory.setAdapter(searchHistoryCoinsAdapter);
 
-        coinsRv.setAdapter(coinMenuAdapter);
-        searchRv.setAdapter(coinSearchAdapter);
-        historyRv.setAdapter(searchHistoryCoinsAdapter);
+        if (coinMenuAdapter.getItemCount() == 0)
+            vm.pageCoins();
 
-        coinMenuAdapter.addLoadStateListener(combinedLoadStates -> {
-            if (combinedLoadStates.getRefresh() instanceof LoadState.NotLoading) {
-                loadingView.setVisibility(View.GONE);
-                refreshLayout.setRefreshing(false);
-            }
-            return null;
-        });
-
-        if (coinMenuAdapter.getItemCount() == 0) {
-            updateCoins();
-        }
-        getSearchHistory();
-        pbVisibility = View.GONE;
-
-        binding.searchView.getEditText().setOnEditorActionListener((v, actionId, event) -> {
-            searchCoins(v.getText().toString());
-            return false;
-        });
         binding.srlCoins.setOnRefreshListener(() -> {
-            compositeDisposable.clear();
-            setVisibilityErrorRefresh();
-            updateCoins();
+            vm.clearCompositeDisposable();
+            vm.pageCoins();
         });
 
-        ImageButton searchClearBtn = binding.searchView.findViewById(com.google.android.material.R.id.search_view_clear_button);
+        final View.OnClickListener errorClick = v -> {
+            vm.pageCoins();
+            binding.srlCoins.setRefreshing(true);
+        };
+
+        binding.textCoinError.setOnClickListener(errorClick);
+        binding.iconCoinNoWifi.setOnClickListener(errorClick);
+        binding.iconCoinError.setOnClickListener(errorClick);
+
+        binding.searchView.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    vm.fetchCoinSearch(s.toString());
+                } else clearSearchRvData();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        final ImageButton searchClearBtn = binding.searchView.findViewById(com.google.android.material.R.id.search_view_clear_button);
         searchClearBtn.setOnClickListener(l -> {
             binding.searchView.clearText();
             binding.searchView.clearFocusAndHideKeyboard();
@@ -152,84 +192,60 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
             requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
             Log.d(TAG, "onResume: back callback - added");
         }
+
+        vm.fetchCoinSearchHistory();
     }
 
-    private void updateCoins() {
-        vm.coinStream.observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                pagingData -> coinMenuAdapter.submitData(getLifecycle(), pagingData),
-                e -> {
-                    Log.e(TAG, "updateCoins: failed", e);
-
-                    loadingView.setVisibility(View.GONE);
-                    refreshLayout.setRefreshing(false);
-
-                    visibilityCoinError(e.getMessage());
-                },
-                () -> {},
-                compositeDisposable
-        );
-    }
-
-    private void searchCoins(String query) {
-        EspressoIdlingResource.increment();
-        vm.searchCoins(query)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        coins -> {
-                            coinSearchAdapter.setList(coins);
-
-                            EspressoIdlingResource.decrement();
-                        },
-                        e -> {
-                            Log.e(TAG, e.getMessage(), e);
-
-                            EspressoIdlingResource.decrement();
-                        },
-                        compositeDisposable
-                );
-    }
-
-    private void getSearchHistory() {
-        EspressoIdlingResource.increment();
-        vm.getCoinsBySearchHistory()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        coins -> {
-                            searchHistoryCoinsAdapter.setList(coins);
-                            EspressoIdlingResource.decrement();
-                        },
-                        e -> {
-                            Log.e(TAG, e.getMessage(), e);
-
-                            EspressoIdlingResource.decrement();
-                        },
-                        compositeDisposable
-                );
-    }
-
-    private void insertSearchQuery(String query) {
-        vm.insertCoinSearchQuery(query)
-                .subscribe(
-                        () -> Log.d(TAG, "insertSearchQuery: was successful"),
-                        e -> Log.e(TAG, "insertSearchQuery: failed", e),
-                        compositeDisposable
-                );
-    }
 
     private void clearSearchRvData() {
         coinSearchAdapter.setList(new ArrayList<>());
     }
 
-    private void visibilityCoinError(String error) {
+    // region visibility management
+    private void initPage() {
+        if (!hasLoaded) {
+            binding.srlCoins.setVisibility(View.GONE);
+            binding.shimmerCoins.setVisibility(View.VISIBLE);
+            return;
+        }
+        binding.srlCoins.setVisibility(View.VISIBLE);
         binding.shimmerCoins.setVisibility(View.GONE);
-        binding.textCoinError.setVisibility(View.VISIBLE);
-        binding.iconCoinError.setVisibility(View.VISIBLE);
-        binding.setCoinError(error);
+
+    }
+    private void hidePageLoading() {
+        binding.srlCoins.setVisibility(View.VISIBLE);
+        binding.shimmerCoins.setVisibility(View.GONE);
+        binding.srlCoins.setRefreshing(false);
+        hasLoaded = true;
     }
 
-    private void setVisibilityErrorRefresh() {
-        binding.textCoinError.setVisibility(View.GONE);
-        binding.iconCoinError.setVisibility(View.GONE);
+    private void showPageError(Throwable e) {
+        binding.srlCoins.setVisibility(View.VISIBLE);
+        binding.shimmerCoins.setVisibility(View.GONE);
+        binding.srlCoins.setRefreshing(false);
+
+        if (coinMenuAdapter.getItemCount() > 0) {
+
+            showSnackBar(e.getMessage());
+            return;
+        }
+
+        binding.textCoinError.setVisibility(View.VISIBLE);
+        if (e instanceof UnknownHostException) {
+            binding.iconCoinError.setVisibility(View.GONE);
+            binding.iconCoinNoWifi.setVisibility(View.VISIBLE);
+            binding.setCoinError(UiUtils.getString(requireContext(), R.string.error_no_main_data));
+            return;
+        }
+        binding.iconCoinNoWifi.setVisibility(View.GONE);
+        binding.iconCoinError.setVisibility(View.VISIBLE);
+        binding.setCoinError(e.getMessage());
     }
+
+    private void hidePageError() {
+        binding.iconCoinError.setVisibility(View.GONE);
+        binding.iconCoinNoWifi.setVisibility(View.GONE);
+        binding.textCoinError.setVisibility(View.GONE);
+    }
+    // endregion
 }

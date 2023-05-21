@@ -40,10 +40,16 @@ public class LocalTestConstants {
     public static int randomInt() {
         return random.nextInt();
     }
+    public static long randomLong() {
+        return random.nextLong();
+    }
     public static Double randomDouble() {
         return random.nextDouble();
     }
     public static Float randomFloat() {
         return random.nextFloat();
+    }
+    public static boolean randomBoolean() {
+        return random.nextBoolean();
     }
 }

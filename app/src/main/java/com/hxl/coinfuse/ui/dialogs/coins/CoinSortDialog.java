@@ -1,6 +1,6 @@
 package com.hxl.coinfuse.ui.dialogs.coins;
 
-import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinSortCallbackArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.sortCallbackArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.isTimeSortableArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.orderByArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.sortByArgKey;
@@ -15,6 +15,7 @@ import androidx.appcompat.widget.AppCompatRadioButton;
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseDialog;
 import com.hxl.coinfuse.databinding.DialogCoinSortBinding;
+import com.hxl.coinfuse.ui.dialogs.SortCallback;
 import com.hxl.coinfuse.util.UiUtils;
 import com.hxl.presentation.OrderBy;
 import com.hxl.presentation.coin.CoinSortBy;
@@ -32,13 +33,13 @@ public class CoinSortDialog extends BaseDialog<DialogCoinSortBinding> {
     protected void onCreateView(Bundle savedInstanceState) {
         assert getArguments() != null;
         boolean isTimeSortable = getArguments().getBoolean(isTimeSortableArgKey);
-        CoinSortCallback serializableFunction = getArguments().getParcelable(coinSortCallbackArgKey);
+        SortCallback<CoinSortBy> serializableFunction = getArguments().getParcelable(sortCallbackArgKey);
         finalCoinSortBy = (CoinSortBy) getArguments().getSerializable(sortByArgKey);
         finalOrderBy = (OrderBy) getArguments().getSerializable(orderByArgKey);
         bind(isTimeSortable, serializableFunction);
     }
 
-    private void bind(boolean isTimeSortable, CoinSortCallback function) {
+    private void bind(boolean isTimeSortable, SortCallback<CoinSortBy> function) {
         if (!isTimeSortable) {
             binding.dialogCoinSortTime.setVisibility(View.GONE);
         }

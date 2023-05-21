@@ -4,6 +4,7 @@
     <string name="btn_get_started">დაწყება</string>
     <string name="tv_skip">გამოტოვება</string>
     <string name="hint_search">ქოინების ძიება</string>
+    <string name="coin_price_chart">ფასები</string>
     <string name="statistics">სტატისტიკა</string>
     <string name="tv_market_cap">საბაზრო კაპიტალი</string>
     <string name="error_no_internet">ინტერნეტი არ არის</string>
@@ -12,12 +13,18 @@
     <string name="sort_by_name">სახელით</string>
     <string name="sort_by_price">ფასით</string>
     <string name="sort_by_market">ბაზრის კაპ…</string>
-    <string name="sort_by_volume">ვოლუმით</string>
+    <string name="sort_by_volume">მოცულობით</string>
     <string name="sort_by_change">ცვლილებით</string>
     <string name="sort_by_time">დროით</string>
+    <string name="visit_website">ვებ-საიტი</string>
     <string name="apply">მიღება</string>
     <string name="sort_by_asc">ზრდადობით</string>
     <string name="sort_by_desc">კლებადობიით</string>
+    <string name="sort_by_total_volume_share">მთლიანი მოცულობის წილით</string>
+    <string name="sort_by_trading_pairs">გაცვლითი წყვილებით</string>
+    <string name="sort_by_socket">სოკეტით</string>
+    <string name="sort_by_updated">განახლებით</string>
+    <string name="exchange_section_exc">გაცვლა</string>
     <string name="error_no_bookmarks">შენახულები არ არის</string>
     <string name="cd_img_walk_through">გზამკლევის სურათი</string>
 
@@ -43,6 +50,15 @@
     <string name="visit_explorer">მკვლევართან გადასვლა</string>
     <string name="remove_from_bookmarks">შენახულებიდან ამოშლა</string>
     <string name="error_no_main_data">მონაცემები არ არის… \n გადატვირთედ გვერდი ან გადაუერთდით ინტერნეტს</string>
+    <string name="menu_website">ვებ-საიტი</string>
     <string name="sort_by">დალაგება</string>
+    <string name="exchange_pairs">%s გაცვლების წყვილი</string>
+    <string name="exchange_volume">მოცულობა</string>
+    <string name="exchange_section_pairs">წყვილი</string>
+    <string name="exchange_section_price">ფასი</string>
+    <string name="exchange_section_vol_24">მოც 24ს</string>
+    <string name="coin_exchanges">გაცვლები</string>
+    <string name="error_something">რაღაც არასწორად წავიდა… \\n გადატვირთეთ გვერდი</string>
+    <string name="remove_from_history">ძიების ისტორიიდან ამოშლა</string>
 
 </resources>

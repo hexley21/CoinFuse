@@ -18,9 +18,19 @@ import com.hxl.coinfuse.databinding.FragmentNavigationBinding;
 public class NavigationFragment extends Fragment {
 
     public static final String coinArgKey = "coinId";
+    public static final String coinNameArgKey = "coinName";
+    public static final String coinSymbolArgKey = "coinSymbol";
+    public static final String coinImgArgKey = "coinImg";
+    public static final String exchangeArgKey = "exchangeId";
     public static final String explorerArgKey = "explorerId";
+    public static final String searchQuery = "searchQuery";
+    public static final String exchangeUrlArgKey = "exchangeUrl";
+    public static final String exchangeNameArgKey = "exchangeName";
+    public static final String exchangeVolumeArgKey = "exchangeVolume";
+    public static final String exchangePairsArgKey = "exchangePairs";
     public static final String isTimeSortableArgKey = "isTimeSortable";
-    public static final String coinSortCallbackArgKey = "coinSortCallback";
+    public static final String sortCallbackArgKey = "sortCallback";
+    public static final String historyCallbackArgKey = "historyCallback";
     public static final String orderByArgKey = "orderBy";
     public static final String sortByArgKey = "sortBy";
     FragmentNavigationBinding binding;
@@ -46,6 +56,9 @@ public class NavigationFragment extends Fragment {
                     return true;
                 case (R.id.menu_bookmarks):
                     navController.navigate(R.id.bookmarksFragment);
+                    return true;
+                case (R.id.menu_exchanges):
+                    navController.navigate(R.id.exchangeFragment);
                     return true;
             }
             return false;

@@ -2,6 +2,7 @@ package com.hxl.data.repository.coin;
 
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
+import com.hxl.domain.model.Trade;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface CoinRemote {
     Single<Coin> getCoin(String id);
 
     Single<List<CoinPriceHistory>> getCoinPriceHistory(String id, CoinPriceHistory.Interval interval);
+    Single<List<Trade>> getTradesByCoin(String id);
+    Single<List<Trade>> getTradesByCoin(String id, int limit, int offset);
 }

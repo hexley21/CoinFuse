@@ -2,7 +2,8 @@ package com.hxl.fakes;
 
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
-import com.hxl.domain.model.ValueAndTimestamp;
+import com.hxl.domain.model.Exchange;
+import com.hxl.domain.model.Trade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,18 +33,26 @@ public class FakeDomainFactory {
         return fakeCoinPriceHistory;
     }
 
-    public static List<ValueAndTimestamp<String>> getFakeSearchQueries(int size) {
-        List<ValueAndTimestamp<String>> fakeSearchQueries = new ArrayList<>();
+    public static List<Exchange> getFakeExchanges(int size) {
+        List<Exchange> fakeExchanges = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            fakeSearchQueries.add(
-                    new ValueAndTimestamp<>(
-                            randomName(),
-                            randomLong()
-                    )
+            fakeExchanges.add(
+                    getExchange()
             );
         }
 
-        return fakeSearchQueries;
+        return fakeExchanges;
+    }
+
+    public static List<Trade> getFakeTrades(int size) {
+        List<Trade> fakeTrades = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            fakeTrades.add(
+                    getTrade()
+            );
+        }
+
+        return fakeTrades;
     }
 
     public static Coin getCoin(String id) {
@@ -69,7 +78,38 @@ public class FakeDomainFactory {
         return getCoin(randomName());
     }
 
+    public static Exchange getExchange() {
+        return new Exchange(
+                randomName(),
+                randomName(),
+                randomInt(),
+                randomDouble(),
+                randomDouble(),
+                randomInt(),
+                randomBoolean(),
+                randomName(),
+                randomLong()
+        );
+    }
+
     private static final Random random = new Random();
+
+    public static Trade getTrade() {
+        return new Trade(
+                randomName(),
+                randomInt(),
+                randomName(),
+                randomName(),
+                randomName(),
+                randomName(),
+                randomDouble(),
+                randomDouble(),
+                randomDouble(),
+                randomDouble(),
+                randomInt(),
+                randomLong()
+        );
+    }
 
     private static String randomName() {
         return UUID.randomUUID().toString();
@@ -85,5 +125,8 @@ public class FakeDomainFactory {
     }
     private static float randomFloat() {
         return random.nextFloat();
+    }
+    private static boolean randomBoolean() {
+        return random.nextBoolean();
     }
 }

@@ -15,19 +15,30 @@
     <string name="desc_explore">Price History, Markets &amp; Latest changes of every Crypto Currency.</string>
     <string name="desc_analyze">Data in easy and compact readable way &amp; share latest information with your friends.</string>
 
-    <!-- Navigation Fragment -->
+    <!-- Menu -->
+        <!-- Navigation Fragment -->
     <string name="menu_coins">Coins</string>
     <string name="menu_exchanges">Exchanges</string>
     <string name="menu_bookmarks">Bookmarks</string>
     <string name="menu_setting">Settings</string>
+        <!-- Exchange Details -->
+    <string name="menu_website">Website</string>
 
     <!-- Coins menu -->
     <string name="sort_by">Sort by</string>
     <string name="hint_search">Search for a coin</string>
     <string name="search_history">Search history</string>
-    <string name="error_no_main_data">No data available…\n refresh this page or reconnect to the internet</string>
 
     <!-- Coin Details -->
+    <string name="coin_price_chart">Price Chart</string>
+    <string name="coin_exchanges">Exchanges</string>
+        <!-- Price Chart -->
+    <string name="statistics">Statistics</string>
+    <string name="tv_market_cap">Market Cap</string>
+    <string name="tv_volume_24h">Volume (24H)</string>
+    <string name="tv_supply">Supply</string>
+    <string name="tv_24h_high">24H High</string>
+    <string name="tv_24h_low">24H Low</string>
         <!-- Chips -->
     <string name="chip_24h" translatable="false">24H</string>
     <string name="chip_7d" translatable="false">7D</string>
@@ -36,22 +47,21 @@
     <string name="chip_2m" translatable="false">2M</string>
     <string name="chip_6m" translatable="false">6M</string>
     <string name="chip_1y" translatable="false">1Y</string>
-        <!-- Details -->
-    <string name="statistics">Statistics</string>
-    <string name="tv_market_cap">Market Cap</string>
-    <string name="tv_volume_24h">Volume (24H)</string>
-    <string name="tv_supply">Supply</string>
-    <string name="tv_24h_high">24H High</string>
-    <string name="tv_24h_low">24H Low</string>
-    <string name="error_no_internet">No internet connection</string>
-    <string name="error_no_data">No data available</string>
 
     <!-- Coin Dialog -->
     <string name="remove_from_bookmarks">Remove from bookmarks</string>
     <string name="add_to_bookmarks">Add to bookmarks</string>
     <string name="visit_explorer">Visit Explorer</string>
+    <string name="remove_from_history">Remove from search history</string>
+    <!-- Exchange Dialog -->
+    <string name="visit_website">Visit Website</string>
 
-    <!-- Coin Sort Dialog -->
+    <!-- Sort -->
+    <string name="apply">Apply</string>
+
+    <string name="sort_by_asc">Ascending</string>
+    <string name="sort_by_desc">Descending</string>
+        <!-- Coin Sort Dialog -->
     <string name="sort_by_rank">By Rank</string>
     <string name="sort_by_name">By Name</string>
     <string name="sort_by_price">By Price</string>
@@ -59,13 +69,19 @@
     <string name="sort_by_volume">By Volume</string>
     <string name="sort_by_change">By Change 24HR</string>
     <string name="sort_by_time">By Time</string>
-    <string name="apply">Apply</string>
+        <!-- Exchange Sort Dialog -->
+    <string name="sort_by_total_volume_share">By Total volume share</string>
+    <string name="sort_by_trading_pairs">By Trading pairs</string>
+    <string name="sort_by_socket">By Socket</string>
+    <string name="sort_by_updated">By Update</string>
 
-    <string name="sort_by_asc">Ascending</string>
-    <string name="sort_by_desc">Descending</string>
-
-    <!-- Bookmarks -->
-    <string name="error_no_bookmarks">There are no bookmarks</string>
+    <!-- Exchange Details -->
+    <string name="exchange_pairs">%s trading pairs</string>
+    <string name="exchange_volume">Volume</string>
+    <string name="exchange_section_exc">EXC</string>
+    <string name="exchange_section_pairs">PAIR</string>
+    <string name="exchange_section_price">PRICE</string>
+    <string name="exchange_section_vol_24">VOL 24H</string>
 
     <!-- General -->
     <string name="arrow_up" translatable="false">▴</string>
@@ -73,4 +89,11 @@
 
     <!-- Content Description -->
     <string name="cd_img_walk_through">Walk-through Image</string>
+
+    <!-- Errors -->
+    <string name="error_no_internet">No internet connection</string>
+    <string name="error_no_data">No data available</string>
+    <string name="error_no_bookmarks">There are no bookmarks</string>
+    <string name="error_no_main_data">No data available…\n refresh this page or reconnect to the internet</string>
+    <string name="error_something">Something went wrong… \n refresh the page</string>
 </resources>

@@ -10,6 +10,7 @@ import com.hxl.domain.model.Coin;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 
 public class CoinPagingSource extends RxPagingSource<Integer, Coin> {
@@ -57,6 +58,7 @@ public class CoinPagingSource extends RxPagingSource<Integer, Coin> {
         }
 
         return getCoins.invoke(AMOUNT, nextPageNumber)
+                .observeOn(AndroidSchedulers.mainThread())
                 .map(this::toLoadResult)
                 .onErrorReturn(LoadResult.Error::new);
     }

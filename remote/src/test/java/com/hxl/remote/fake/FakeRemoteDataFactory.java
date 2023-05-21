@@ -1,13 +1,22 @@
 package com.hxl.remote.fake;
 
-import com.hxl.remote.model.CoinDTO;
-import com.hxl.remote.model.HistoryDTO;
-import com.hxl.remote.model.Response;
+import static com.hxl.remote.fake.RemoteTestConstants.TIMESTAMP;
+import static com.hxl.remote.fake.RemoteTestConstants.randomBoolean;
+import static com.hxl.remote.fake.RemoteTestConstants.randomDouble;
+import static com.hxl.remote.fake.RemoteTestConstants.randomFloat;
+import static com.hxl.remote.fake.RemoteTestConstants.randomInt;
+import static com.hxl.remote.fake.RemoteTestConstants.randomLong;
+import static com.hxl.remote.fake.RemoteTestConstants.randomName;
+
+import com.hxl.domain.model.Trade;
+import com.hxl.remote.Response;
+import com.hxl.remote.coin.model.CoinDTO;
+import com.hxl.remote.coin.model.HistoryDTO;
+import com.hxl.remote.exchange.model.ExchangeDTO;
+import com.hxl.remote.exchange.model.TradeDTO;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.hxl.remote.fake.RemoteTestConstants.*;
 
 public class FakeRemoteDataFactory {
 
@@ -53,6 +62,36 @@ public class FakeRemoteDataFactory {
         return fakeData;
     }
 
+    public static Response<List<ExchangeDTO>> getFakeExchangeResponse(int size) {
+        return new Response<>(getFakeExchangeDTOs(size), TIMESTAMP);
+    }
+
+    public static Response<ExchangeDTO> getFakeExchangeResponse(String exchangeId) {
+        return new Response<>(getExchangeDTO(exchangeId), TIMESTAMP);
+    }
+
+    public static Response<List<TradeDTO>> getFakeTradeResponse(int size) {
+        return new Response<>(getFakeTradeDTOs(size), TIMESTAMP);
+    }
+
+    private static List<ExchangeDTO> getFakeExchangeDTOs(int size) {
+        List<ExchangeDTO> fakeData = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            fakeData.add(getExchangeDTO());
+        }
+
+        return fakeData;
+    }
+
+    private static List<TradeDTO> getFakeTradeDTOs(int size) {
+        List<TradeDTO> fakeData = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            fakeData.add(getTradeDTO());
+        }
+
+        return fakeData;
+    }
+
     private static CoinDTO getCoinDTO(String id) {
         return new CoinDTO(
                 id,             //  id
@@ -74,4 +113,38 @@ public class FakeRemoteDataFactory {
         return getCoinDTO(randomName());
     }
 
+    public static ExchangeDTO getExchangeDTO(String exchangeId) {
+        return new ExchangeDTO(
+                exchangeId,
+                randomName(),
+                randomInt(),
+                randomDouble(),
+                randomDouble(),
+                randomInt(),
+                randomBoolean(),
+                randomName(),
+                randomLong()
+        );
+    }
+
+    public static ExchangeDTO getExchangeDTO() {
+        return getExchangeDTO(randomName());
+    }
+
+    public static TradeDTO getTradeDTO() {
+        return new TradeDTO(
+                randomName(),
+                randomInt(),
+                randomName(),
+                randomName(),
+                randomName(),
+                randomName(),
+                randomDouble(),
+                randomDouble(),
+                randomDouble(),
+                randomDouble(),
+                randomInt(),
+                randomLong()
+        );
+    }
 }

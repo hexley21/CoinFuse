@@ -1,9 +1,10 @@
 package com.hxl.coinfuse.di;
 
 import com.hxl.coinfuse.BuildConfig;
-import com.hxl.remote.api.CoinService;
-import com.hxl.remote.api.ServiceFactory;
-import com.hxl.remote.mapper.CoinDTOMapper;
+import com.hxl.remote.coin.api.CoinService;
+import com.hxl.remote.ServiceFactory;
+import com.hxl.remote.coin.mapper.CoinDTOMapper;
+import com.hxl.remote.exchange.api.ExchangeService;
 
 import javax.inject.Singleton;
 
@@ -20,6 +21,12 @@ public class RemoteModule {
     @Singleton
     public CoinService provideCoinService() {
         return new ServiceFactory().createCoin(BuildConfig.DEBUG, BuildConfig.API_URL);
+    }
+
+    @Provides
+    @Singleton
+    public ExchangeService provideExchangeService() {
+        return new ServiceFactory().createExchange(BuildConfig.DEBUG, BuildConfig.API_URL);
     }
 
     @Provides

@@ -20,11 +20,19 @@ import com.hxl.coinfuse.conf.fake.di.FakeCoinRepository;
 import com.hxl.coinfuse.di.DataModule;
 import com.hxl.coinfuse.ui.fragments.coins.details.CoinDetailsFragment;
 import com.hxl.coinfuse.util.EspressoIdlingResource;
+import com.hxl.data.ExchangeRepositoryImpl;
 import com.hxl.data.PreferenceRepositoryImpl;
+import com.hxl.data.repository.exchange.ExchangeLocal;
+import com.hxl.data.repository.exchange.ExchangeRemote;
 import com.hxl.data.repository.pref.PreferenceLocal;
 import com.hxl.domain.repository.CoinRepository;
+import com.hxl.domain.repository.ExchangeRepository;
 import com.hxl.domain.repository.PreferenceRepository;
+import com.hxl.local.ExchangeLocalImpl;
 import com.hxl.local.PreferenceLocalImpl;
+import com.hxl.local.exchange.dao.ExchangeDao;
+import com.hxl.remote.exchange.ExchangeRemoteImpl;
+import com.hxl.remote.exchange.api.ExchangeService;
 
 import org.junit.After;
 import org.junit.Before;
@@ -72,6 +80,28 @@ public class CoinDetailsFragmentTest {
         public CoinRepository provideCoinRepository() {
             return new FakeCoinRepository();
         }
+
+
+        // region Exchanges
+        @Provides
+        @Singleton
+        ExchangeRemote provideExchangeRemoteSource(ExchangeService service) {
+            return new ExchangeRemoteImpl(service);
+        }
+
+        @Provides
+        @Singleton
+        ExchangeLocal provideExchangeLocalSource(ExchangeDao dao) {
+            return new ExchangeLocalImpl(dao);
+        }
+
+        @Provides
+        @Singleton
+        ExchangeRepository provideExchangeRepository(ExchangeRemote remote, ExchangeLocal local) {
+            return new ExchangeRepositoryImpl(null, null);
+        }
+
+        // endregion
     }
 
     @Rule

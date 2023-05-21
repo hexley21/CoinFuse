@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+        <RelativeLayout
+            android:id="@+id/standard_bottom_sheet"
+            style="@style/Widget.Material3.BottomSheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+                android:id="@+id/drag_handle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <RadioGroup
+                android:id="@+id/rg_sort_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/drag_handle">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/dialog_exchange_sort_rank"
+                    style="@style/CF_DialogItem.Sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/sort_by_rank"
+                    app:drawableStartCompat="@drawable/star" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/dialog_exchange_sort_name"
+                    style="@style/CF_DialogItem.Sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sort_by_name"
+                    app:drawableStartCompat="@drawable/sort_by_alpha" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/dialog_exchange_sort_volume"
+                    style="@style/CF_DialogItem.Sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sort_by_volume"
+                    app:drawableStartCompat="@drawable/equalizer" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/dialog_exchange_sort_total_volume"
+                    style="@style/CF_DialogItem.Sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sort_by_total_volume_share"
+                    app:drawableStartCompat="@drawable/account_balance" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/dialog_exchange_sort_pairs"
+                    style="@style/CF_DialogItem.Sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sort_by_trading_pairs"
+                    app:drawableStartCompat="@drawable/swap_horiz" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/dialog_exchange_sort_socket"
+                    style="@style/CF_DialogItem.Sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sort_by_socket"
+                    app:drawableStartCompat="@drawable/dns" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/dialog_exchange_sort_update"
+                    style="@style/CF_DialogItem.Sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sort_by_updated"
+                    app:drawableStartCompat="@drawable/deployed_code_update" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rg_sort_type"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/sort_apply"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_padding"
+                    android:layout_marginEnd="@dimen/default_padding"
+                    android:layout_marginBottom="@dimen/default_padding"
+                    android:layout_weight="1"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:text="@string/apply"
+                    android:textColor="?attr/colorOnPrimary" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_order_by"
+                    style="@style/Widget.Material3.Chip.Assist.Elevated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/default_padding"
+                    android:checkable="true"
+                    android:text="@string/sort_by_desc"
+                    app:chipBackgroundColor="?attr/colorSecondaryContainer"
+                    app:chipIcon="@drawable/arrow_downward" />
+            </LinearLayout>
+
+        </RelativeLayout>
+</layout>

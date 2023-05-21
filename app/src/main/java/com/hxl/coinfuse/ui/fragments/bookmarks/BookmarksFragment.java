@@ -1,6 +1,6 @@
 package com.hxl.coinfuse.ui.fragments.bookmarks;
 
-import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinSortCallbackArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.sortCallbackArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.isTimeSortableArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.orderByArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.sortByArgKey;
@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentBookmarksBinding;
-import com.hxl.coinfuse.ui.dialogs.coins.CoinSortCallback;
+import com.hxl.coinfuse.ui.dialogs.SortCallback;
 import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.domain.model.Coin;
 import com.hxl.presentation.OrderBy;
@@ -103,7 +103,7 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
             Bundle bundle = new Bundle();
             bundle.putBoolean(isTimeSortableArgKey, true);
 
-            bundle.putParcelable(coinSortCallbackArgKey, (CoinSortCallback) this::fetchCoinsCallback);
+            bundle.putParcelable(sortCallbackArgKey, (SortCallback<CoinSortBy>) this::fetchCoinsCallback);
 
             bundle.putSerializable(sortByArgKey, finalSortBy);
             bundle.putSerializable(orderByArgKey, finalOrderBy);

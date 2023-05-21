@@ -13,8 +13,7 @@
             android:id="@+id/srl_coin_bookmarks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/coin_appbar_height"
-            app:layout_behavior="@string/searchbar_scrolling_view_behavior"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:ignore="PrivateResource">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -63,7 +62,8 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="?attr/android:colorBackground">
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|snap"
@@ -104,11 +104,12 @@
                         app:textStartPadding="4dp" />
                 </LinearLayout>
 
-                <Toolbar
+                <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/android:colorBackground"
                     android:contentInsetStart="0dp"
+                    app:contentInsetEndWithActions="0dp"
                     app:layout_collapseMode="pin">
 
                     <androidx.appcompat.widget.SearchView
@@ -120,7 +121,7 @@
                         app:queryBackground="@android:color/transparent"
                         app:queryHint='@string/hint_search'
                         app:submitBackground="@android:color/transparent" />
-                </Toolbar>
+                </androidx.appcompat.widget.Toolbar>
 
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>

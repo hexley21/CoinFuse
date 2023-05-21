@@ -2,6 +2,7 @@ package com.hxl.domain.repository;
 
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
+import com.hxl.domain.model.Trade;
 import com.hxl.domain.model.ValueAndTimestamp;
 
 import java.util.List;
@@ -34,4 +35,6 @@ public interface CoinRepository {
 
     // Remote
     Single<List<CoinPriceHistory>> getCoinPriceHistory(String id, CoinPriceHistory.Interval interval);
+    Single<List<Trade>> getTradesByCoin(String id);
+    Single<List<Trade>> getTradesByCoin(String id, int limit, int offset);
 }

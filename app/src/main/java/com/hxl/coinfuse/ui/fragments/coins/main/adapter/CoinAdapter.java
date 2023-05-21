@@ -8,12 +8,12 @@ import androidx.navigation.NavController;
 
 import com.hxl.coinfuse.base.BasePagingAdapter;
 import com.hxl.coinfuse.databinding.ItemCoinBinding;
-import com.hxl.coinfuse.util.CoinComparator;
+import com.hxl.coinfuse.util.comparator.CoinComparator;
 import com.hxl.domain.model.Coin;
 
 import java.util.Objects;
 
-public class CoinAdapter extends BasePagingAdapter<Coin ,CoinViewHolder> {
+public class CoinAdapter extends BasePagingAdapter<Coin, CoinViewHolder> {
 
     private NavController navController;
 
@@ -35,8 +35,11 @@ public class CoinAdapter extends BasePagingAdapter<Coin ,CoinViewHolder> {
     public void onBindViewHolder(@NonNull CoinViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         String coinId = Objects.requireNonNull(getItem(position)).id;
+        String coinName = Objects.requireNonNull(getItem(position)).name;
+        String coinSymbol = Objects.requireNonNull(getItem(position)).symbol;
+        String coinImg = Objects.requireNonNull(getItem(position)).img;
         String explorerId = Objects.requireNonNull(getItem(position)).explorer;
 
-        CoinViewHolder.defaultOnBindViewHolder(holder, navController, coinId, explorerId);
+        CoinViewHolder.defaultOnBindViewHolder(holder, navController, coinId, coinName, coinSymbol, coinImg, explorerId);
     }
 }

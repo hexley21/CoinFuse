@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView android:id="@+id/card_view"
+    style="@style/Widget.Material3.CardView.Elevated"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/exchange_item_height"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="0dp"
+    app:contentPaddingLeft="@dimen/default_padding"
+    app:contentPaddingRight="@dimen/default_padding"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="18dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="@dimen/default_padding"
+            app:cardBackgroundColor="?attr/colorSecondaryVariant" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="112dp"
+            android:layout_height="22dp"
+            app:cardBackgroundColor="?attr/colorSecondaryVariant" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="44dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="@dimen/default_padding"
+            app:cardBackgroundColor="?attr/colorSecondaryVariant" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="78dp"
+            android:layout_height="22dp"
+            android:paddingStart="@dimen/default_padding"
+            app:cardBackgroundColor="?attr/colorSecondaryVariant" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom|end"
+        android:background="?android:attr/listDivider" />
+</com.google.android.material.card.MaterialCardView>
