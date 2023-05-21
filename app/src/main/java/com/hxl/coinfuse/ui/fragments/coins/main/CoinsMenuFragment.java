@@ -64,7 +64,7 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
 
         coinMenuAdapter = new CoinAdapter();
         coinSearchAdapter = new CoinSearchAdapter(insertSearchFunction);
-        searchHistoryCoinsAdapter =  new CoinSearchAdapter(insertSearchFunction);
+        searchHistoryCoinsAdapter =  new CoinSearchAdapter(insertSearchFunction, () -> vm.fetchCoinSearchHistory());
     }
 
     @Override
@@ -136,8 +136,6 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
         if (coinMenuAdapter.getItemCount() == 0)
             vm.pageCoins();
 
-        vm.fetchCoinSearchHistory();
-
         binding.srlCoins.setOnRefreshListener(() -> {
             vm.clearCompositeDisposable();
             vm.pageCoins();
@@ -194,6 +192,8 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
             requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
             Log.d(TAG, "onResume: back callback - added");
         }
+
+        vm.fetchCoinSearchHistory();
     }
 
 

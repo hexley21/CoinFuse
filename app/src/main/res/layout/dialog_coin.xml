@@ -35,5 +35,15 @@
                 app:drawableStartCompat="@drawable/language"
                 tools:text="Visit Explorer" />
 
+            <TextView
+                android:id="@+id/dialog_coin_delete_search"
+                style="@style/CF_DialogItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dialog_coin_explorer"
+                android:text="@string/remove_from_history"
+                app:drawableStartCompat="@drawable/delete"
+                tools:text="Visit Explorer" />
+
         </RelativeLayout>
 </layout>

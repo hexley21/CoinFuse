@@ -7,6 +7,7 @@ import static com.hxl.presentation.fakes.PresentationTestConstants.ID;
 import androidx.lifecycle.ViewModel;
 
 import com.hxl.domain.interactors.coins.BookmarkCoin;
+import com.hxl.domain.interactors.coins.DeleteCoinSearchQuery;
 import com.hxl.domain.interactors.coins.IsCoinBookmarked;
 import com.hxl.domain.interactors.coins.UnBookmarkCoin;
 
@@ -28,6 +29,8 @@ public class CoinDialogViewModelTest extends ViewModel {
     private BookmarkCoin bookmarkCoin;
     @Mock
     private UnBookmarkCoin unBookmarkCoin;
+    @Mock
+    private DeleteCoinSearchQuery deleteCoinSearchQuery;
     @InjectMocks
     private CoinDialogViewModel viewModel;
 

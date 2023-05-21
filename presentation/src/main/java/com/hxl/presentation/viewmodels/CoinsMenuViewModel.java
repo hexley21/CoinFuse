@@ -8,7 +8,6 @@ import androidx.paging.PagingConfig;
 import androidx.paging.PagingData;
 import androidx.paging.rxjava3.PagingRx;
 
-import com.hxl.domain.interactors.coins.DeleteCoinSearchQuery;
 import com.hxl.domain.interactors.coins.GetCoins;
 import com.hxl.domain.interactors.coins.GetCoinsBySearchHistory;
 import com.hxl.domain.interactors.coins.InsertCoinSearchQuery;
@@ -36,7 +35,6 @@ public class CoinsMenuViewModel extends ViewModel {
     @NotNull private final SearchCoins searchCoins;
     @NotNull private final GetCoinsBySearchHistory coinsBySearchHistory;
     @NotNull private final InsertCoinSearchQuery insertCoinSearchQuery;
-    @NotNull private final DeleteCoinSearchQuery deleteCoinSearchQuery;
     @NotNull public Flowable<PagingData<Coin>> coinStream;
 
     private StateLiveData<PagingData<Coin>> currentCoins;
@@ -126,16 +124,6 @@ public class CoinsMenuViewModel extends ViewModel {
                         compositeDisposable
                 );
     }
-
-    public void deleteCoinSearchQuery(String query) {
-        deleteCoinSearchQuery.invoke(query)
-                .subscribe(
-                        () -> Log.d(TAG, "clearCoinSearchQuery: success"),
-                        e -> Log.e(TAG, "clearCoinSearchQuery: failed", e),
-                        compositeDisposable
-                );
-    }
-
     public void clearCompositeDisposable() {
         compositeDisposable.clear();
     }
@@ -144,13 +132,11 @@ public class CoinsMenuViewModel extends ViewModel {
             @NotNull GetCoins getCoins,
             @NotNull SearchCoins searchCoins,
             @NotNull GetCoinsBySearchHistory coinsBySearchHistory,
-            @NotNull InsertCoinSearchQuery insertCoinSearchQuery,
-            @NotNull DeleteCoinSearchQuery deleteCoinSearchQuery
+            @NotNull InsertCoinSearchQuery insertCoinSearchQuery
     ) {
         this.searchCoins = searchCoins;
         this.coinsBySearchHistory = coinsBySearchHistory;
         this.insertCoinSearchQuery = insertCoinSearchQuery;
-        this.deleteCoinSearchQuery = deleteCoinSearchQuery;
 
         final Pager<Integer, Coin> pager = new Pager<>(
                 new PagingConfig(CoinPagingSource.AMOUNT),

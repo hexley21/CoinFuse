@@ -2,9 +2,10 @@ package com.hxl.coinfuse.ui.dialogs.coins;
 
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.explorerArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.historyCallbackArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.searchQuery;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,15 +13,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseDialog;
 import com.hxl.coinfuse.databinding.DialogCoinBinding;
+import com.hxl.coinfuse.ui.dialogs.HistoryCallback;
 import com.hxl.coinfuse.util.EspressoIdlingResource;
+import com.hxl.coinfuse.util.UiUtils;
+import com.hxl.presentation.livedata.DataState;
 import com.hxl.presentation.viewmodels.CoinDialogViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -47,14 +51,44 @@ public class CoinDialog extends BaseDialog<DialogCoinBinding> {
         assert getArguments() != null;
         String coinId = getArguments().getString(coinArgKey);
         String explorerUrl = getArguments().getString(explorerArgKey);
+        String query = getArguments().getString(searchQuery);
+        HistoryCallback callback = getArguments().getParcelable(historyCallbackArgKey);
         initBookmark(coinId);
         initExplorer(explorerUrl);
+        initSearchRemove(query, callback);
+
     }
 
     private void setDrawableCompat(TextView textView, int drawableId) {
-        Drawable drawable = ContextCompat.getDrawable(requireContext(), drawableId);
-        textView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+        textView.setCompoundDrawablesWithIntrinsicBounds(
+                UiUtils.getDrawable(requireContext(), drawableId),
+                null,
+                null,
+                null
+        );
     }
+
+    private void initSearchRemove(String query, HistoryCallback callback) {
+        if (query != null) {
+            vm.getCurrentDeleteState().observe(requireActivity(), delete -> {
+                if (delete.getState() == DataState.SUCCESS) {
+                    assert callback != null;
+                    callback.invoke();
+                }
+                else if (delete.getState() == DataState.ERROR) {
+                    Toast.makeText(requireContext(), delete.getError().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+            binding.dialogCoinDeleteSearch.setOnClickListener(v -> {
+                vm.deleteSearchQuery(query);
+                dismiss();
+            });
+            return;
+        }
+        binding.dialogCoinDeleteSearch.setVisibility(View.GONE);
+    }
+
 
     private void initExplorer(String explorerUrl) {
         if (explorerUrl == null || explorerUrl.isEmpty()) {

@@ -5,6 +5,8 @@ import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinIm
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinNameArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinSymbolArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.explorerArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.historyCallbackArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.searchQuery;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -19,9 +21,10 @@ import com.bumptech.glide.RequestManager;
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseAdapter;
 import com.hxl.coinfuse.databinding.ItemCoinSearchBinding;
-import com.hxl.coinfuse.util.comparator.CoinComparator;
+import com.hxl.coinfuse.ui.dialogs.HistoryCallback;
 import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.coinfuse.util.GlideFactory;
+import com.hxl.coinfuse.util.comparator.CoinComparator;
 import com.hxl.domain.model.Coin;
 
 import java.util.function.Consumer;
@@ -29,11 +32,19 @@ import java.util.function.Consumer;
 public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinSearchViewHolder> {
     private static final String TAG = "CoinSearchAdapter";
     private final Consumer<Bundle> insertSearchCallback;
+    private final Runnable fetchHistory;
     private NavController navController;
 
     public CoinSearchAdapter(Consumer<Bundle> insertSearchCallback) {
         super(new CoinComparator());
         this.insertSearchCallback = insertSearchCallback;
+        this.fetchHistory = null;
+    }
+
+    public CoinSearchAdapter(Consumer<Bundle> insertSearchCallback, Runnable fetchHistory) {
+        super(new CoinComparator());
+        this.insertSearchCallback = insertSearchCallback;
+        this.fetchHistory = fetchHistory;
     }
 
     public void setNavController(NavController navController) {
@@ -88,8 +99,13 @@ public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinS
         });
         holder.itemView.setOnLongClickListener(v -> {
             bundle.putString(explorerArgKey, getList().get(position).explorer);
+            if (fetchHistory != null) {
+                bundle.putString(searchQuery, getList().get(position).id);
+                bundle.putParcelable(historyCallbackArgKey, (HistoryCallback) fetchHistory::run);
+            }
             navController.navigate(R.id.navigation_to_coinDialog, bundle);
             return false;
         });
     }
+
 }

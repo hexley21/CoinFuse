@@ -48,7 +48,17 @@
         </action>
         <action
             android:id="@+id/navigation_to_coinDialog"
-            app:destination="@id/coinDialog" />
+            app:destination="@id/coinDialog" >
+            <argument android:name="coinId"
+                app:argType="string"
+                app:nullable="false"/>
+            <argument android:name="explorerId"
+                app:argType="string"
+                app:nullable="true"/>
+            <argument android:name="searchQuery"
+                app:argType="string"
+                app:nullable="true"/>
+        </action>
         <action
             android:id="@+id/navigation_to_coinSortDialog"
             app:destination="@id/coinSortDialog" >
@@ -66,6 +76,8 @@
                 android:name="sortBy"
                 app:argType="com.hxl.presentation.coin.CoinSortBy"
                 android:defaultValue="RANK" />
+            <argument android:name="historyCallback"
+                app:argType="com.hxl.coinfuse.ui.dialogs.HistoryCallback" />
         </action>
         <action
             android:id="@+id/navigation_to_exchangeSortDialog"
@@ -149,6 +161,9 @@
             app:argType="string"
             app:nullable="false"/>
         <argument android:name="explorerId"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument android:name="searchQuery"
             app:argType="string"
             app:nullable="true"/>
     </dialog>

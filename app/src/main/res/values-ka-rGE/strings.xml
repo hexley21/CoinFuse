@@ -59,5 +59,6 @@
     <string name="exchange_section_vol_24">მოც 24ს</string>
     <string name="coin_exchanges">გაცვლები</string>
     <string name="error_something">რაღაც არასწორად წავიდა… \\n გადატვირთეთ გვერდი</string>
+    <string name="remove_from_history">ძიების ისტორიიდან ამოშლა</string>
 
 </resources>
