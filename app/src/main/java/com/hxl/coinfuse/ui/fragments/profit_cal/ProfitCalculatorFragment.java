@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.search.SearchBar;
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentProfitCalculatorBinding;
@@ -40,6 +41,7 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
     }
 
     private static final String TAG = "ProfitCalculatorFr";
+
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
@@ -111,13 +113,15 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
             Bundle bundle = new Bundle();
             bundle.putParcelable(consumerArgKey, (ParcelableConsumer<Coin>) coin -> {
                 if (coin == null) {
-                    binding.searchBar.setText("");
+                    ((SearchBar) requireActivity().findViewById(R.id.search_bar)).setText("");
+//                    binding.searchBar.setText("");
                     binding.tfProfitBuy.getEditText().setText("");
                     binding.tfProfitSell.getEditText().setText("");
                     vm.setBuyPriceField(null);
                     vm.setSellPriceField(null);
                     return;
                 }
+                ((SearchBar) requireActivity().findViewById(R.id.search_bar)).setText(coin.name);
                 binding.searchBar.setText(coin.name);
                 binding.tfProfitBuy.getEditText().setText(coin.priceUsd.toString());
                 binding.tfProfitSell.getEditText().setText(coin.priceUsd.toString());
@@ -181,7 +185,11 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-
-        outState.putString("searchTitle", binding.searchBar.getText() == null ? "" : binding.searchBar.getText().toString());
+        try {
+            outState.putString("searchTitle", binding.searchBar.getText() == null ? "" : binding.searchBar.getText().toString());
+        }
+        catch (Exception e) {
+            Log.e(TAG, "onSaveInstanceState: failed " + e.getMessage());
+        }
     }
 }

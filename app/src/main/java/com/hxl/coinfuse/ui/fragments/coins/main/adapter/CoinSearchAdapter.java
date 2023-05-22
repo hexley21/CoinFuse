@@ -96,7 +96,6 @@ public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinS
         bundle.putString(coinArgKey, getList().get(position).id);
 
         if (navController == null) {
-            Log.e(TAG, "onBindViewHolder: ", new NullPointerException("NavController was null"));
             if (onEndCallBack != null) {
                 holder.itemView.setOnClickListener(v -> onEndCallBack.accept(getList().get(position)));
             }

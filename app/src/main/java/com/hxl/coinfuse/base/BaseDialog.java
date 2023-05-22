@@ -1,5 +1,6 @@
 package com.hxl.coinfuse.base;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 public abstract class BaseDialog<VB extends ViewBinding> extends BottomSheetDialogFragment {
 
     protected VB binding;
+    private Integer defaultOrientation;
     protected CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     protected abstract VB setViewBinding(LayoutInflater inflater, ViewGroup container);
@@ -28,4 +30,19 @@ public abstract class BaseDialog<VB extends ViewBinding> extends BottomSheetDial
     }
 
     protected void onCreateView(Bundle savedInstanceState){}
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (defaultOrientation == null) {
+            defaultOrientation = requireActivity().getRequestedOrientation();
+        }
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        requireActivity().setRequestedOrientation(defaultOrientation);
+    }
 }

@@ -36,8 +36,10 @@ public class ProfitCalculatorDialog extends BaseDialog<DialogProfitCoinSearchBin
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         vm = new ViewModelProvider(this).get(ProfitCalculatorDialogViewModel.class);
-        assert getArguments() != null;
-        callback = getArguments().getParcelable(consumerArgKey);
+        if (callback == null) {
+            assert getArguments() != null;
+            callback = getArguments().getParcelable(consumerArgKey);
+        }
         assert callback != null;
         coinSearchAdapter = new CoinSearchAdapter();
         coinSearchAdapter.setOnEndCallBack(coin -> {
