@@ -1,8 +1,10 @@
 package com.hxl.presentation.viewmodels;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelKt;
 import androidx.paging.Pager;
 import androidx.paging.PagingConfig;
 import androidx.paging.PagingData;
@@ -127,6 +129,7 @@ public class CoinsMenuViewModel extends ViewModel {
     public void clearCompositeDisposable() {
         compositeDisposable.clear();
     }
+    @SuppressLint("UnsafeOptInUsageWarning")
     @Inject
     public CoinsMenuViewModel(
             @NotNull GetCoins getCoins,
@@ -142,8 +145,7 @@ public class CoinsMenuViewModel extends ViewModel {
                 new PagingConfig(CoinPagingSource.AMOUNT),
                 () -> new CoinPagingSource(getCoins));
 
-        coinStream = PagingRx.getFlowable(pager);
-
+        coinStream = PagingRx.cachedIn(PagingRx.getFlowable(pager), ViewModelKt.getViewModelScope(this));
     }
 
     @Override
