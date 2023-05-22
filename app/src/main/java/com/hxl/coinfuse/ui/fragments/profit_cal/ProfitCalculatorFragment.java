@@ -95,6 +95,12 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
         assert binding.tfProfitExFee.getEditText() != null;
         assert binding.tfProfitBuy.getEditText() != null;
 
+        binding.tfProfitBuy.getEditText().setText(vm.getBuyPriceField() == null ? "" : vm.getBuyPriceField().toString());
+        binding.tfProfitInvestment.getEditText().setText(vm.getInvestmentField() == null ? "" : vm.getInvestmentField().toString());
+        binding.tfProfitSell.getEditText().setText(vm.getSellPriceField() == null ? "" : vm.getSellPriceField().toString());
+        binding.tfProfitInFee.getEditText().setText(vm.getInvestmentFeeField() == null ? "" : vm.getInvestmentFeeField().toString());
+        binding.tfProfitExFee.getEditText().setText(vm.getExitFeeField() == null ? "" : vm.getExitFeeField().toString());
+
         binding.profitToolbar.setNavigationOnClickListener(v -> {
             binding.tfProfitBuy.getEditText().setText("");
             binding.tfProfitInvestment.getEditText().setText("");
@@ -116,7 +122,6 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
         binding.tfProfitInFee.addOnEndIconChangedListener((textInputLayout, previousIcon) -> vm.setInvestmentFeeField(0.0D));
         binding.tfProfitExFee.addOnEndIconChangedListener((textInputLayout, previousIcon) -> vm.setExitFeeField(0.0D));
     }
-
 
     private TextWatcher createTextWatcher(Consumer<Double> val) {
         return new TextWatcher() {

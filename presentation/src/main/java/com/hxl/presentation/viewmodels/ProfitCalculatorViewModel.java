@@ -41,6 +41,26 @@ public class ProfitCalculatorViewModel extends ViewModel {
     private Double investmentFee;
     private Double exitFee;
 
+    public Double getBuyPriceField() {
+        return buyPrice;
+    }
+
+    public Double getInvestmentField() {
+        return investment;
+    }
+
+    public Double getSellPriceField() {
+        return sellPrice;
+    }
+
+    public Double getInvestmentFeeField() {
+        return investmentFee;
+    }
+
+    public Double getExitFeeField() {
+        return exitFee;
+    }
+
     public void setBuyPriceField(Double buyPrice) {
         this.buyPrice = buyPrice;
         calculateProfit();
@@ -151,11 +171,11 @@ public class ProfitCalculatorViewModel extends ViewModel {
     }
 
     public void clearEverything() {
-        buyPrice = 0.0D;
-        investment = 0.0D;
-        sellPrice = 0.0D;
-        investmentFee = 0.0D;
-        exitFee = 0.0D;
+        buyPrice = null;
+        investment = null;
+        sellPrice = null;
+        investmentFee = null;
+        exitFee = null;
         setProfit(0.0D);
         setInvestment(0.0D);
         setExit(0.0D);
