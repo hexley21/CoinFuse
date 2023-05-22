@@ -60,6 +60,9 @@ public class NavigationFragment extends Fragment {
                 case (R.id.menu_exchanges):
                     navController.navigate(R.id.exchangeFragment);
                     return true;
+                case (R.id.menu_profit_calculator):
+                    navController.navigate(R.id.profitCalculatorFragment);
+                    return true;
             }
             return false;
         });

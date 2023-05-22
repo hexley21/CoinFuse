@@ -19,6 +19,7 @@
         <!-- Navigation Fragment -->
     <string name="menu_coins">Coins</string>
     <string name="menu_exchanges">Exchanges</string>
+    <string name="menu_profit">Profit</string>
     <string name="menu_bookmarks">Bookmarks</string>
     <string name="menu_setting">Settings</string>
         <!-- Exchange Details -->
@@ -82,6 +83,20 @@
     <string name="exchange_section_pairs">PAIR</string>
     <string name="exchange_section_price">PRICE</string>
     <string name="exchange_section_vol_24">VOL 24H</string>
+
+    <!-- Profit Calculator -->
+    <string name="profit_calculator_title">Profit Calculator</string>
+    <string name="tf_coin_label">Coin</string>
+    <string name="tf_buy_label">Buy Price</string>
+    <string name="tf_sell_label">Sell Price</string>
+    <string name="tf_investment_label">Investment</string>
+    <string name="tf_in_fee_label">Investment Fee</string>
+    <string name="tf_ex_fee_label">Exit Fee</string>
+    <string name="tf_number_hint" translatable="false">0</string>
+    <string name="profit">Profit</string>
+    <string name="profit_n_loss">Profit/Loss</string>
+    <string name="profit_investment_total">Total Investment</string>
+    <string name="profit_exit_total">Total Exit</string>
 
     <!-- General -->
     <string name="arrow_up" translatable="false">▴</string>

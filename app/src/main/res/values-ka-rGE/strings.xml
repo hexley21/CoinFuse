@@ -7,6 +7,12 @@
     <string name="coin_price_chart">ფასები</string>
     <string name="statistics">სტატისტიკა</string>
     <string name="tv_market_cap">საბაზრო კაპიტალი</string>
+    <string name="tf_coin_label">ქოინი</string>
+    <string name="tf_buy_label">ყიდვის ფასი</string>
+    <string name="tf_sell_label">გაყიდვის ფასი</string>
+    <string name="tf_investment_label">ინვესტიცია</string>
+    <string name="tf_in_fee_label">ინვესტირების საკომისიო</string>
+    <string name="tf_ex_fee_label">გამოსვლის საკომისიო</string>
     <string name="error_no_internet">ინტერნეტი არ არის</string>
     <string name="add_to_bookmarks">შენახულებში დამატება</string>
     <string name="sort_by_rank">რანგით</string>
@@ -26,6 +32,8 @@
     <string name="sort_by_updated">განახლებით</string>
     <string name="exchange_section_exc">გაცვლა</string>
     <string name="error_no_bookmarks">შენახულები არ არის</string>
+    <string name="profit_calculator_title">მოგების კალკულატორი</string>
+    <string name="profit">მოგება</string>
     <string name="cd_img_walk_through">გზამკლევის სურათი</string>
 
     <!-- Walkthrough -->
@@ -39,6 +47,7 @@
     <string name="desc_analyze">მოწოდებული მონაცემები მარტივ და კომპაქტურ ინტერფეისში, ასევე გაუზიარეთ მეგობრებს.</string>
     <string name="menu_coins">ქოინები</string>
     <string name="menu_setting">პარამეტრები</string>
+    <string name="menu_profit">მოგება</string>
     <string name="menu_bookmarks">შენახულები</string>
     <string name="menu_exchanges">გაცვლები</string>
     <string name="tv_supply">მარაგი</string>
@@ -60,5 +69,8 @@
     <string name="coin_exchanges">გაცვლები</string>
     <string name="error_something">რაღაც არასწორად წავიდა… \\n გადატვირთეთ გვერდი</string>
     <string name="remove_from_history">ძიების ისტორიიდან ამოშლა</string>
+    <string name="profit_n_loss">მოგება/წაგება</string>
+    <string name="profit_investment_total">ჯამური ინვესტიცია</string>
+    <string name="profit_exit_total">ჯამური გამოსვლა</string>
 
 </resources>

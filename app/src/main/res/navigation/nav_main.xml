@@ -20,4 +20,9 @@
         android:name="com.hxl.coinfuse.ui.fragments.exchanges.ExchangeFragment"
         android:label="ExchangeFragment"
         tools:layout="@layout/fragment_exchange"/>
+    <fragment
+        android:id="@+id/profitCalculatorFragment"
+        android:name="com.hxl.coinfuse.ui.fragments.profit_cal.ProfitCalculatorFragment"
+        android:label="ProfitCalculatorFragment"
+        tools:layout="@layout/fragment_profit_calculator"/>
 </navigation>
