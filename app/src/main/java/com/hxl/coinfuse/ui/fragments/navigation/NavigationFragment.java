@@ -30,7 +30,8 @@ public class NavigationFragment extends Fragment {
     public static final String exchangePairsArgKey = "exchangePairs";
     public static final String isTimeSortableArgKey = "isTimeSortable";
     public static final String sortCallbackArgKey = "sortCallback";
-    public static final String historyCallbackArgKey = "historyCallback";
+    public static final String dialogCallbackArgKey = "dialogCallback";
+    public static final String consumerArgKey = "consumer";
     public static final String orderByArgKey = "orderBy";
     public static final String sortByArgKey = "sortBy";
     FragmentNavigationBinding binding;

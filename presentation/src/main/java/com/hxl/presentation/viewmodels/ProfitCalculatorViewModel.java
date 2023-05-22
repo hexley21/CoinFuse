@@ -23,14 +23,10 @@ public class ProfitCalculatorViewModel extends ViewModel {
 
     private static final String TAG = "ProfitCalculatorVM";
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-    @NonNull private final SearchCoins searchCoins;
 
     @Inject
-    public ProfitCalculatorViewModel(@NonNull SearchCoins searchCoins){
-        this.searchCoins = searchCoins;
-    }
+    public ProfitCalculatorViewModel(){ }
 
-    private StateLiveData<List<Coin>> currentSearch;
     private MutableLiveData<Double> currentProfit;
     private MutableLiveData<Double> currentInvestment;
     private MutableLiveData<Double> currentExit;
@@ -86,14 +82,6 @@ public class ProfitCalculatorViewModel extends ViewModel {
         calculateProfit();
     }
 
-    public StateLiveData<List<Coin>> getCurrentSearch() {
-        if (currentSearch == null) {
-            currentSearch = new StateLiveData<>();
-        }
-
-        return currentSearch;
-    }
-
     public MutableLiveData<Double> getCurrentProfit() {
         if (currentProfit == null) {
             currentProfit = new MutableLiveData<>();
@@ -116,23 +104,6 @@ public class ProfitCalculatorViewModel extends ViewModel {
         }
 
         return currentExit;
-    }
-
-    public void fetchSearch(String query) {
-        getCurrentSearch().setLoading();
-        searchCoins.invoke(query)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        search -> {
-                            getCurrentSearch().setSuccess(search);
-                            Log.d(TAG, "fetchSearch: success");
-                        },
-                         e -> {
-                            getCurrentSearch().setError(e);
-                             Log.e(TAG, "fetchSearch: failed", e);
-                         },
-                        compositeDisposable
-                );
     }
 
     public void setProfit(double val) {

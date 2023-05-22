@@ -34,6 +34,7 @@
     <string name="error_no_bookmarks">შენახულები არ არის</string>
     <string name="profit_calculator_title">მოგების კალკულატორი</string>
     <string name="profit">მოგება</string>
+    <string name="none">არცერთი</string>
     <string name="cd_img_walk_through">გზამკლევის სურათი</string>
 
     <!-- Walkthrough -->

@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-public interface HistoryCallback extends Parcelable {
+public interface DialogCallback extends Parcelable {
 
     void invoke();
 

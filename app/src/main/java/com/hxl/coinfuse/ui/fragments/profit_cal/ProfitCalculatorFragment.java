@@ -1,5 +1,8 @@
 package com.hxl.coinfuse.ui.fragments.profit_cal;
 
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.consumerArgKey;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,11 +13,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.Navigation;
 
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentProfitCalculatorBinding;
+import com.hxl.coinfuse.ui.dialogs.ParcelableConsumer;
 import com.hxl.coinfuse.util.UiUtils;
+import com.hxl.domain.model.Coin;
 import com.hxl.presentation.viewmodels.ProfitCalculatorViewModel;
 
 import java.util.function.Consumer;
@@ -85,6 +91,7 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -94,6 +101,24 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
         assert binding.tfProfitInFee.getEditText() != null;
         assert binding.tfProfitExFee.getEditText() != null;
         assert binding.tfProfitBuy.getEditText() != null;
+
+        binding.searchBar.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(consumerArgKey, (ParcelableConsumer<Coin>) coin -> {
+                if (coin == null) {
+                    binding.searchBar.setText("");
+                    binding.tfProfitBuy.getEditText().setText("");
+                    binding.tfProfitSell.getEditText().setText("");
+                    vm.setBuyPriceField(null);
+                    vm.setSellPriceField(null);
+                    return;
+                }
+                binding.searchBar.setText(coin.name);
+                binding.tfProfitBuy.getEditText().setText(coin.priceUsd.toString());
+                binding.tfProfitSell.getEditText().setText(coin.priceUsd.toString());
+            });
+            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main).navigate(R.id.navigation_to_profitCalculatorDialog, bundle);
+        });
 
         binding.tfProfitBuy.getEditText().setText(vm.getBuyPriceField() == null ? "" : vm.getBuyPriceField().toString());
         binding.tfProfitInvestment.getEditText().setText(vm.getInvestmentField() == null ? "" : vm.getInvestmentField().toString());

@@ -101,6 +101,7 @@
     <!-- General -->
     <string name="arrow_up" translatable="false">▴</string>
     <string name="arrow_down" translatable="false">▾</string>
+    <string name="none">None</string>
 
     <!-- Content Description -->
     <string name="cd_img_walk_through">Walk-through Image</string>
