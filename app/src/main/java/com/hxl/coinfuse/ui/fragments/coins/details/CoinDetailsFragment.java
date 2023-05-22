@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.hxl.coinfuse.R;
@@ -33,9 +32,10 @@ public class CoinDetailsFragment extends BaseFragment<FragmentCoinDetailsBinding
     }
 
     @Override
-    protected CoinDetailsViewModel setViewModel() {
-        return new ViewModelProvider(this).get(CoinDetailsViewModel.class);
+    protected Class<CoinDetailsViewModel> setViewModelClass() {
+        return CoinDetailsViewModel.class;
     }
+
     private String coinId;
     private boolean hasClickListener = false;
 

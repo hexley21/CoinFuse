@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseFragment;
@@ -43,9 +42,10 @@ public class ExchangeDetailsFragment extends BaseFragment<FragmentExchangeDetail
     }
 
     @Override
-    protected ExchangeDetailsViewModel setViewModel() {
-        return new ViewModelProvider(this).get(ExchangeDetailsViewModel.class);
+    protected Class<ExchangeDetailsViewModel> setViewModelClass() {
+        return ExchangeDetailsViewModel.class;
     }
+
 
     private String exchangeId;
     private final TradesAdapter tradesAdapter = new TradesAdapter(false);

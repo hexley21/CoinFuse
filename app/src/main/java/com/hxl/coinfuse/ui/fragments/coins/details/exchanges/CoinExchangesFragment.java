@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseFragment;
@@ -31,9 +30,10 @@ public class CoinExchangesFragment extends BaseFragment<FragmentCoinExchangesBin
     }
 
     @Override
-    protected CoinExchangesViewModel setViewModel() {
-        return new ViewModelProvider(this).get(CoinExchangesViewModel.class);
+    protected Class<CoinExchangesViewModel> setViewModelClass() {
+        return CoinExchangesViewModel.class;
     }
+
 
     private final TradesAdapter tradesAdapter = new TradesAdapter(true);
     private String coinId;

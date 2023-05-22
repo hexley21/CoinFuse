@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.hxl.coinfuse.R;
@@ -29,8 +28,8 @@ public class WelcomeFragment extends BaseFragment<FragmentWelcomeBinding, Welcom
     }
 
     @Override
-    protected WelcomeViewModel setViewModel() {
-        return new ViewModelProvider(this).get(WelcomeViewModel.class);
+    protected Class<WelcomeViewModel> setViewModelClass() {
+        return WelcomeViewModel.class;
     }
 
     @Override

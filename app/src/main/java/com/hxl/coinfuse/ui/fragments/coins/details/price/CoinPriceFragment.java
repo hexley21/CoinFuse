@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
@@ -44,9 +43,10 @@ public class CoinPriceFragment extends BaseFragment<FragmentCoinPriceChartBindin
     }
 
     @Override
-    protected CoinPriceViewModel setViewModel() {
-        return new ViewModelProvider(this).get(CoinPriceViewModel.class);
+    protected Class<CoinPriceViewModel> setViewModelClass() {
+        return CoinPriceViewModel.class;
     }
+
     private String coinId;
     private LineChartUtil chartUtil;
     private CoinPriceHistory.Interval finalInterval = CoinPriceHistory.Interval.D1;
