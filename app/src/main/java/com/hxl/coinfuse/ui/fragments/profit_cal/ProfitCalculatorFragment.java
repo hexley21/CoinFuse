@@ -44,6 +44,11 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         super.onCreateView(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            binding.searchBar.setText(savedInstanceState.getString("searchTitle"));
+        }
+
         binding.setCurrency("$");
         if (!vm.getCurrentProfit().hasObservers()) {
             vm.getCurrentProfit().observe(requireActivity(), val -> {
@@ -127,6 +132,7 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
         binding.tfProfitExFee.getEditText().setText(vm.getExitFeeField() == null ? "" : vm.getExitFeeField().toString());
 
         binding.profitToolbar.setNavigationOnClickListener(v -> {
+            binding.searchBar.setText("");
             binding.tfProfitBuy.getEditText().setText("");
             binding.tfProfitInvestment.getEditText().setText("");
             binding.tfProfitSell.getEditText().setText("");
@@ -172,4 +178,10 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
         };
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString("searchTitle", binding.searchBar.getText() == null ? "" : binding.searchBar.getText().toString());
+    }
 }

@@ -1,28 +1,14 @@
 package com.hxl.presentation.viewmodels;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import com.hxl.domain.interactors.coins.SearchCoins;
-import com.hxl.domain.model.Coin;
-import com.hxl.presentation.livedata.StateLiveData;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 @HiltViewModel
 public class ProfitCalculatorViewModel extends ViewModel {
-
-    private static final String TAG = "ProfitCalculatorVM";
-    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
     public ProfitCalculatorViewModel(){ }
@@ -152,11 +138,4 @@ public class ProfitCalculatorViewModel extends ViewModel {
         setExit(0.0D);
     }
 
-
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        compositeDisposable.dispose();
-        Log.d(TAG, "onCleared: CompositeDisposable was disposed");
-    }
 }
