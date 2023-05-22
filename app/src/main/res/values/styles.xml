@@ -26,6 +26,14 @@
         </item>
     </style>
 
+    <style name="CF_SearchBar.Profit" parent="Widget.Material3.SearchBar">
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearance.Material3.Corner.ExtraSmall
+        </item>
+        <item name="strokeColor">?attr/colorOutline</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
     <style name="CF_SearchView" parent="Widget.AppCompat.SearchView">
         <item name="android:textColorHint">?attr/colorOnSurface</item>
     </style>

@@ -14,7 +14,6 @@ import android.widget.ImageButton;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.paging.LoadState;
@@ -43,8 +42,8 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
     }
 
     @Override
-    protected CoinsMenuViewModel setViewModel() {
-        return new ViewModelProvider(this).get(CoinsMenuViewModel.class);
+    protected Class<CoinsMenuViewModel> setViewModelClass() {
+        return CoinsMenuViewModel.class;
     }
 
     private static final String TAG = "CoinsMenuFragment";

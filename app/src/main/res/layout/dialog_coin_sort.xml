@@ -14,99 +14,109 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <RadioGroup
-                android:id="@+id/rg_sort_type"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/drag_handle">
-
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/dialog_coin_sort_rank"
-                    style="@style/CF_DialogItem.Sort"
+                android:layout_height="match_parent"
+                android:layout_below="@id/drag_handle" >
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="@string/sort_by_rank"
-                    app:drawableStartCompat="@drawable/star" />
+                    android:layout_height="wrap_content">
+                    <RadioGroup
+                        android:id="@+id/rg_sort_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/dialog_coin_sort_name"
-                    style="@style/CF_DialogItem.Sort"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sort_by_name"
-                    app:drawableStartCompat="@drawable/sort_by_alpha" />
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/dialog_coin_sort_rank"
+                            style="@style/CF_DialogItem.Sort"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/sort_by_rank"
+                            app:drawableStartCompat="@drawable/star" />
 
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/dialog_coin_sort_price"
-                    style="@style/CF_DialogItem.Sort"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sort_by_price"
-                    app:drawableStartCompat="@drawable/payments" />
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/dialog_coin_sort_name"
+                            style="@style/CF_DialogItem.Sort"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sort_by_name"
+                            app:drawableStartCompat="@drawable/sort_by_alpha" />
 
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/dialog_coin_sort_market"
-                    style="@style/CF_DialogItem.Sort"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sort_by_market"
-                    app:drawableStartCompat="@drawable/account_balance" />
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/dialog_coin_sort_price"
+                            style="@style/CF_DialogItem.Sort"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sort_by_price"
+                            app:drawableStartCompat="@drawable/payments" />
 
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/dialog_coin_sort_volume"
-                    style="@style/CF_DialogItem.Sort"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sort_by_volume"
-                    app:drawableStartCompat="@drawable/equalizer" />
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/dialog_coin_sort_market"
+                            style="@style/CF_DialogItem.Sort"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sort_by_market"
+                            app:drawableStartCompat="@drawable/account_balance" />
 
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/dialog_coin_sort_change"
-                    style="@style/CF_DialogItem.Sort"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sort_by_change"
-                    app:drawableStartCompat="@drawable/percent" />
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/dialog_coin_sort_volume"
+                            style="@style/CF_DialogItem.Sort"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sort_by_volume"
+                            app:drawableStartCompat="@drawable/equalizer" />
 
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/dialog_coin_sort_time"
-                    style="@style/CF_DialogItem.Sort"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sort_by_time"
-                    app:drawableStartCompat="@drawable/schedule" />
-            </RadioGroup>
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/dialog_coin_sort_change"
+                            style="@style/CF_DialogItem.Sort"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sort_by_change"
+                            app:drawableStartCompat="@drawable/percent" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rg_sort_type"
-                android:orientation="horizontal">
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/dialog_coin_sort_time"
+                            style="@style/CF_DialogItem.Sort"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sort_by_time"
+                            app:drawableStartCompat="@drawable/schedule" />
+                    </RadioGroup>
 
-                <Button
-                    android:id="@+id/sort_apply"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/default_padding"
-                    android:layout_marginEnd="@dimen/default_padding"
-                    android:layout_marginBottom="@dimen/default_padding"
-                    android:layout_weight="1"
-                    android:backgroundTint="?attr/colorPrimary"
-                    android:text="@string/apply"
-                    android:textColor="?attr/colorOnPrimary" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_order_by"
-                    style="@style/Widget.Material3.Chip.Assist.Elevated"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/default_padding"
-                    android:checkable="true"
-                    android:text="@string/sort_by_desc"
-                    app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                    app:chipIcon="@drawable/arrow_downward" />
-            </LinearLayout>
+                        <Button
+                            android:id="@+id/sort_apply"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/default_padding"
+                            android:layout_marginEnd="@dimen/default_padding"
+                            android:layout_marginBottom="@dimen/default_padding"
+                            android:layout_weight="1"
+                            android:backgroundTint="?attr/colorPrimary"
+                            android:text="@string/apply"
+                            android:textColor="?attr/colorOnPrimary" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_order_by"
+                            style="@style/Widget.Material3.Chip.Assist.Elevated"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/default_padding"
+                            android:checkable="true"
+                            android:text="@string/sort_by_desc"
+                            app:chipBackgroundColor="?attr/colorSecondaryContainer"
+                            app:chipIcon="@drawable/arrow_downward" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+
 
         </RelativeLayout>
 </layout>

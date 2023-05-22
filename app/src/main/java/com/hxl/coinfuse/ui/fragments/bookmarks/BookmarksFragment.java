@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.AsyncListDiffer;
@@ -47,9 +46,10 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
     }
 
     @Override
-    protected BookmarksViewModel setViewModel() {
-        return new ViewModelProvider(this).get(BookmarksViewModel.class);
+    protected Class<BookmarksViewModel> setViewModelClass() {
+        return BookmarksViewModel.class;
     }
+
     // endregion
 
     private final String TAG = "BookmarksFragment";

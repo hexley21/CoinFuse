@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewbinding.ViewBinding;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -22,12 +23,12 @@ public abstract class BaseFragment<VB extends ViewBinding, VM extends ViewModel>
     protected CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     protected abstract VB setViewBinding(LayoutInflater inflater, ViewGroup container);
-    protected abstract VM setViewModel();
+    protected abstract Class<VM> setViewModelClass();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = setViewBinding(inflater, container);
-        vm = setViewModel();
+        vm = new ViewModelProvider(this).get(setViewModelClass());
         onCreateView(savedInstanceState);
         return binding.getRoot();
     }

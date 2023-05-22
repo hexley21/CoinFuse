@@ -5,7 +5,7 @@ import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinIm
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinNameArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinSymbolArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.explorerArgKey;
-import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.historyCallbackArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.dialogCallbackArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.searchQuery;
 
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import com.bumptech.glide.RequestManager;
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseAdapter;
 import com.hxl.coinfuse.databinding.ItemCoinSearchBinding;
-import com.hxl.coinfuse.ui.dialogs.HistoryCallback;
+import com.hxl.coinfuse.ui.dialogs.DialogCallback;
 import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.coinfuse.util.GlideFactory;
 import com.hxl.coinfuse.util.comparator.CoinComparator;
@@ -32,13 +32,20 @@ import java.util.function.Consumer;
 public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinSearchViewHolder> {
     private static final String TAG = "CoinSearchAdapter";
     private final Consumer<Bundle> insertSearchCallback;
+    private Consumer<Coin> onEndCallBack;
     private final Runnable fetchHistory;
     private NavController navController;
+
+    public CoinSearchAdapter() {
+        super(new CoinComparator());
+        this.insertSearchCallback = null;
+        fetchHistory = null;
+    }
 
     public CoinSearchAdapter(Consumer<Bundle> insertSearchCallback) {
         super(new CoinComparator());
         this.insertSearchCallback = insertSearchCallback;
-        this.fetchHistory = null;
+        fetchHistory = null;
     }
 
     public CoinSearchAdapter(Consumer<Bundle> insertSearchCallback, Runnable fetchHistory) {
@@ -49,6 +56,10 @@ public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinS
 
     public void setNavController(NavController navController) {
         this.navController = navController;
+    }
+
+    public void setOnEndCallBack(Consumer<Coin> consumer) {
+        this.onEndCallBack = consumer;
     }
 
     @Override
@@ -85,23 +96,29 @@ public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinS
         bundle.putString(coinArgKey, getList().get(position).id);
 
         if (navController == null) {
-            Log.e(TAG, "onBindViewHolder: ", new NullPointerException("NavController was null"));
+            if (onEndCallBack != null) {
+                holder.itemView.setOnClickListener(v -> onEndCallBack.accept(getList().get(position)));
+            }
             EspressoIdlingResource.decrement();
             return;
         }
 
         holder.itemView.setOnClickListener(v -> {
-            bundle.putString(coinNameArgKey, getList().get(position).name);
-            bundle.putString(coinSymbolArgKey, getList().get(position).symbol);
-            bundle.putString(coinImgArgKey, getList().get(position).img);
-            navController.navigate(R.id.navigation_to_coinDetails, bundle);
-            insertSearchCallback.accept(bundle);
+            if (insertSearchCallback != null) {
+                bundle.putString(coinNameArgKey, getList().get(position).name);
+                bundle.putString(coinSymbolArgKey, getList().get(position).symbol);
+                bundle.putString(coinImgArgKey, getList().get(position).img);
+                navController.navigate(R.id.navigation_to_coinDetails, bundle);
+                insertSearchCallback.accept(bundle);
+            }
+            else Log.d(TAG, "onBindViewHolder: not navigated to coin details, insertSearchCallback was null");
+            if (onEndCallBack != null) onEndCallBack.accept(getList().get(position));
         });
         holder.itemView.setOnLongClickListener(v -> {
             bundle.putString(explorerArgKey, getList().get(position).explorer);
             if (fetchHistory != null) {
                 bundle.putString(searchQuery, getList().get(position).id);
-                bundle.putParcelable(historyCallbackArgKey, (HistoryCallback) fetchHistory::run);
+                bundle.putParcelable(dialogCallbackArgKey, (DialogCallback) fetchHistory::run);
             }
             navController.navigate(R.id.navigation_to_coinDialog, bundle);
             return false;

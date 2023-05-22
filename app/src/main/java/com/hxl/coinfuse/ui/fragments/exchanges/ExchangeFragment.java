@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -40,9 +39,10 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
     }
 
     @Override
-    protected ExchangesViewModel setViewModel() {
-        return new ViewModelProvider(this).get(ExchangesViewModel.class);
+    protected Class<ExchangesViewModel> setViewModelClass() {
+        return ExchangesViewModel.class;
     }
+
     // endregion
 
     private ExchangeAdapter exchangeAdapter;

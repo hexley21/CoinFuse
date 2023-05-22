@@ -2,7 +2,7 @@ package com.hxl.coinfuse.ui.dialogs.coins;
 
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.explorerArgKey;
-import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.historyCallbackArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.dialogCallbackArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.searchQuery;
 
 import android.content.Intent;
@@ -21,7 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseDialog;
 import com.hxl.coinfuse.databinding.DialogCoinBinding;
-import com.hxl.coinfuse.ui.dialogs.HistoryCallback;
+import com.hxl.coinfuse.ui.dialogs.DialogCallback;
 import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.coinfuse.util.UiUtils;
 import com.hxl.presentation.livedata.DataState;
@@ -52,7 +52,7 @@ public class CoinDialog extends BaseDialog<DialogCoinBinding> {
         String coinId = getArguments().getString(coinArgKey);
         String explorerUrl = getArguments().getString(explorerArgKey);
         String query = getArguments().getString(searchQuery);
-        HistoryCallback callback = getArguments().getParcelable(historyCallbackArgKey);
+        DialogCallback callback = getArguments().getParcelable(dialogCallbackArgKey);
         initBookmark(coinId);
         initExplorer(explorerUrl);
         initSearchRemove(query, callback);
@@ -68,7 +68,7 @@ public class CoinDialog extends BaseDialog<DialogCoinBinding> {
         );
     }
 
-    private void initSearchRemove(String query, HistoryCallback callback) {
+    private void initSearchRemove(String query, DialogCallback callback) {
         if (query != null) {
             vm.getCurrentDeleteState().observe(requireActivity(), delete -> {
                 if (delete.getState() == DataState.SUCCESS) {
