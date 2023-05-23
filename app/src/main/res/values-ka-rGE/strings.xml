@@ -98,5 +98,20 @@
     <string name="clear_history_fail">ძებნის ისტორიის წაშლა ვერ მოხერხდა</string>
     <string name="clear_cache_fail">აპლიკაციის ქეშის წაშლა ვერ მოხერხდა</string>
     <string name="clear_storage_fail">აპლიკაციის მონაცემების წაშლა ვერ მოხერხდა</string>
+    <string name="positive_btn">კი</string>
+    <string name="negative_btn">არა</string>
+    <string name="preference_theme_title">დიზანინის შეცვლა</string>
+    <string name="preference_theme_language">ენის შეცვლა</string>
+
+    <string-array name="theme_choice">
+        <item>ღია</item>
+        <item>მუქი</item>
+        <item>სისტემური</item>
+    </string-array>
+
+    <string-array name="language_choice">
+        <item>ინგლისური</item>
+        <item>ქართული</item>
+    </string-array>
 
 </resources>

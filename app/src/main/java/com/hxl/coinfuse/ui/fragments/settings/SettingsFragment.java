@@ -1,5 +1,8 @@
 package com.hxl.coinfuse.ui.fragments.settings;
 
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.checkedItemArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.consumerArgKey;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +11,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.hxl.coinfuse.BuildConfig;
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentSettingsBinding;
+import com.hxl.coinfuse.ui.dialogs.ParcelableConsumer;
 import com.hxl.coinfuse.util.UiUtils;
+import com.hxl.domain.model.PrefKeys;
 import com.hxl.presentation.viewmodels.SettingsViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -30,53 +37,18 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding, Sett
         return SettingsViewModel.class;
     }
 
+    private NavController navController;
+
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         super.onCreateView(savedInstanceState);
 
-        if (!vm.getCurrentEraseCache().hasObservers()) {
-            vm.getCurrentEraseCache().observe(requireActivity(), state -> {
-                if (state) {
-                    showSnackBar(UiUtils.getString(requireContext(), R.string.clear_cache_success));
-                    return;
-                }
-                showSnackBar(UiUtils.getString(requireContext(), R.string.clear_cache_fail));
-            });
-        }
-
-        if (!vm.getCurrentEraseBookmarks().hasObservers()) {
-            vm.getCurrentEraseBookmarks().observe(requireActivity(), state -> {
-                if (state) {
-                    showSnackBar(UiUtils.getString(requireContext(), R.string.clear_bookmarks_success));
-                    return;
-                }
-                showSnackBar(UiUtils.getString(requireContext(), R.string.clear_bookmarks_fail));
-            });
-        }
-
-        if (!vm.getCurrentEraseSearchHistory().hasObservers()) {
-            vm.getCurrentEraseSearchHistory().observe(requireActivity(), state -> {
-                if (state) {
-                    showSnackBar(UiUtils.getString(requireContext(), R.string.clear_history_success));
-                    return;
-                }
-                showSnackBar(UiUtils.getString(requireContext(), R.string.clear_history_fail));
-            });
-        }
-
-        if (!vm.getCurrentEraseStorage().hasObservers()) {
-            vm.getCurrentEraseStorage().observe(requireActivity(), state -> {
-                if (state) {
-                    showSnackBar(UiUtils.getString(requireContext(), R.string.clear_storage_success));
-                    return;
-                }
-                showSnackBar(UiUtils.getString(requireContext(), R.string.clear_storage_fail));
-            });
+        if (navController == null) {
+            navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
         }
 
         binding.setTheme(getThemeString(vm.getTheme()));
-        binding.setLanguage(vm.getLanguage());
-        binding.setCurrency(vm.getCurrency());
+        binding.setLanguage(vm.getLanguage().toUpperCase());
         binding.setVersion(BuildConfig.VERSION_NAME);
     }
 
@@ -84,10 +56,55 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding, Sett
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.tvClearBookmarks.setOnClickListener(v -> vm.eraseBookmarks());
-        binding.tvClearSearch.setOnClickListener(v -> vm.eraseCoinSearchHistory());
-        binding.tvClearCache.setOnClickListener(v -> vm.eraseCache());
-        binding.tvClearStorage.setOnClickListener(v -> vm.eraseStorage());
+        binding.prefTheme.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt(checkedItemArgKey, vm.getTheme());
+            bundle.putParcelable(consumerArgKey, (ParcelableConsumer<Integer>) this::changeTheme);
+
+            navController.navigate(R.id.navigation_to_themeDialog, bundle);
+        });
+
+        binding.prefLanguage.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            if (!vm.getLanguage().equals(PrefKeys.LANGUAGE.def)) {
+                bundle.putInt(checkedItemArgKey, 1);
+            }
+            else bundle.putInt(checkedItemArgKey, 0);
+
+            bundle.putParcelable(consumerArgKey, (ParcelableConsumer<Integer>) val ->
+                    changeLanguage(UiUtils.getStringArray(requireContext(), R.array.language_save)[val])
+            );
+
+            navController.navigate(R.id.navigation_to_languageDialog, bundle);
+        });
+
+        binding.tvClearBookmarks.setOnClickListener(v -> vm.eraseBookmarks(
+                () -> showSnackBar(UiUtils.getString(requireContext(), R.string.clear_bookmarks_success)),
+                () -> showSnackBar(UiUtils.getString(requireContext(), R.string.clear_bookmarks_fail))
+        ));
+        binding.tvClearSearch.setOnClickListener(v -> vm.eraseCoinSearchHistory(
+                () -> showSnackBar(UiUtils.getString(requireContext(), R.string.clear_history_success)),
+                () -> showSnackBar(UiUtils.getString(requireContext(), R.string.clear_history_fail))
+        ));
+        binding.tvClearCache.setOnClickListener(v -> vm.eraseCache(
+                () -> showSnackBar(UiUtils.getString(requireContext(), R.string.clear_cache_success)),
+                () -> showSnackBar(UiUtils.getString(requireContext(), R.string.clear_cache_fail))
+        ));
+        binding.tvClearStorage.setOnClickListener(v -> {vm.eraseStorage(
+                () -> showSnackBar(UiUtils.getString(requireContext(), R.string.clear_storage_success)),
+                () -> showSnackBar(UiUtils.getString(requireContext(), R.string.clear_storage_fail))
+            );
+        });
+    }
+
+    private void changeTheme(int mode) {
+        vm.saveTheme(mode);
+        requireActivity().recreate();
+    }
+
+    private void changeLanguage(String lang) {
+        vm.saveLanguage(lang);
+        requireActivity().recreate();
     }
 
     private String getThemeString(int theme) {

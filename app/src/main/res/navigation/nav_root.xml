@@ -132,6 +132,12 @@
         <action
             android:id="@+id/navigation_to_profitCalculatorDialog"
             app:destination="@id/profitCalculatorDialog" />
+        <action
+            android:id="@+id/navigation_to_themeDialog"
+            app:destination="@id/themeDialog" />
+        <action
+            android:id="@+id/navigation_to_languageDialog"
+            app:destination="@id/languageDialog" />
     </fragment>
     <fragment
         android:id="@+id/coinDetailsFragment"
@@ -246,6 +252,34 @@
         android:id="@+id/profitCalculatorDialog"
         android:name="com.hxl.coinfuse.ui.dialogs.profit.ProfitCalculatorDialog"
         android:label="ProfitCalculatorDialog" >
+        <argument
+            android:name="consumer"
+            app:argType="com.hxl.coinfuse.ui.dialogs.ParcelableConsumer"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </dialog>
+    <dialog
+        android:id="@+id/themeDialog"
+        android:name="com.hxl.coinfuse.ui.dialogs.settings.ThemeDialog"
+        android:label="ThemeDialog" >
+        <argument
+            android:name="checkedItem"
+            app:argType="integer"
+            android:defaultValue="2" />
+        <argument
+            android:name="consumer"
+            app:argType="com.hxl.coinfuse.ui.dialogs.ParcelableConsumer"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </dialog>
+    <dialog
+        android:id="@+id/languageDialog"
+        android:name="com.hxl.coinfuse.ui.dialogs.settings.LanguageDialog"
+        android:label="LanguageDialog" >
+        <argument
+            android:name="checkedItem"
+            app:argType="integer"
+            android:defaultValue="0" />
         <argument
             android:name="consumer"
             app:argType="com.hxl.coinfuse.ui.dialogs.ParcelableConsumer"

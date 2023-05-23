@@ -57,6 +57,10 @@
     <!-- Exchange Dialog -->
     <string name="visit_website">Visit Website</string>
 
+    <!-- Settings Dialog -->
+    <string name="preference_theme_title">Set Theme</string>
+    <string name="preference_theme_language">Set Language</string>
+
     <!-- Sort -->
     <string name="apply">Apply</string>
 
@@ -102,7 +106,6 @@
     <string name="settings_preferences">Preferences</string>
         <string name="pref_theme">Theme</string>
         <string name="pref_language">Language</string>
-        <string name="pref_currency">Currency</string>
     <string name="settings_storage">Storage</string>
         <string name="storage_clear_cache">Clear Cache</string>
         <string name="storage_clear_bookmarks">Clear Bookmarks</string>
@@ -126,10 +129,30 @@
     <string name="clear_history_fail">Search history erased was failed</string>
     <string name="clear_cache_fail">App cache clear was failed</string>
     <string name="clear_storage_fail">App storage clear was failed</string>
+    <string-array name="theme_choice">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>System</item>
+    </string-array>
+    <integer-array name="theme_save">
+        <item>1</item>
+        <item>2</item>
+        <item>-1</item>
+    </integer-array>
+    <string-array name="language_choice">
+        <item>English</item>
+        <item>Georgian</item>
+    </string-array>
+    <string-array name="language_save">
+        <item>en</item>
+        <item>ka</item>
+    </string-array>
     <!-- General -->
     <string name="arrow_up" translatable="false">▴</string>
     <string name="arrow_down" translatable="false">▾</string>
     <string name="none">None</string>
+    <string name="positive_btn">OK</string>
+    <string name="negative_btn">Cancel</string>
 
     <!-- Content Description -->
     <string name="cd_img_walk_through">Walk-through Image</string>
