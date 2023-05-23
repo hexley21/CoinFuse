@@ -27,5 +27,7 @@ public interface CoinLocal {
     Completable insertCoinSearchQuery(String query);
     Completable insertCoinSearchQuery(String... query);
     Completable deleteCoinSearchQuery(String query);
-    Completable deleteCoinSearchHistory();
+    Completable eraseCoinSearchHistory();
+    Completable eraseBookmarks();
+    Completable eraseCoinCache();
 }

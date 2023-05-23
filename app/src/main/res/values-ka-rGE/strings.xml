@@ -34,6 +34,19 @@
     <string name="error_no_bookmarks">შენახულები არ არის</string>
     <string name="profit_calculator_title">მოგების კალკულატორი</string>
     <string name="profit">მოგება</string>
+    <string name="settings_preferences">პარამეტრები</string>
+    <string name="pref_theme">დიზაინი</string>
+    <string name="pref_language">ენა</string>
+    <string name="pref_currency">ვალუტა</string>
+    <string name="settings_storage">მონაცემები</string>
+    <string name="storage_clear">მონაცემების წაშლა</string>
+    <string name="storage_clear_bookmarks">შენახულების წაშლა</string>
+    <string name="storage_clear_history">ძებნის ისტორიის წაშლა</string>
+    <string name="settings_info">ინფორმაცია</string>
+    <string name="info_about">ჩვენს შესახებ</string>
+    <string name="info_contact">კონტაქტი</string>
+    <string name="info_os">ოფენ-სორსი</string>
+    <string name="info_version">აპლიკაციის ვერსია</string>
     <string name="none">არცერთი</string>
     <string name="cd_img_walk_through">გზამკლევის სურათი</string>
 

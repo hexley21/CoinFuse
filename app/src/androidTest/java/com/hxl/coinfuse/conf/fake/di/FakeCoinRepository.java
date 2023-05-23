@@ -96,7 +96,7 @@ public class FakeCoinRepository implements CoinRepository {
     }
 
     @Override
-    public Completable deleteCoinSearchHistory() {
+    public Completable eraseCoinSearchHistory() {
         return null;
     }
 

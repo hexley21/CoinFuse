@@ -131,8 +131,20 @@ public class CoinLocalImpl implements CoinLocal {
     }
 
     @Override
-    public Completable deleteCoinSearchHistory() {
+    public Completable eraseCoinSearchHistory() {
         return searchHistoryDao.deleteCoinSearchHistory()
+                .subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Completable eraseBookmarks() {
+        return bookmarkDao.clearBookmarks()
+                .subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Completable eraseCoinCache() {
+        return coinDao.clearCoins()
                 .subscribeOn(Schedulers.io());
     }
 
@@ -149,4 +161,9 @@ public class CoinLocalImpl implements CoinLocal {
         return Arrays.stream(coins).map(CoinEntityMapper::mapToEntity).toArray(CoinEntity[]::new);
     }
 
+    /* TODO: add tests for
+        eraseCoinSearchHistory
+        eraseBookmarks
+        eraseCoinCache
+     */
 }

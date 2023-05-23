@@ -162,8 +162,18 @@ public class CoinRepositoryImpl implements CoinRepository {
     }
 
     @Override
-    public Completable deleteCoinSearchHistory() {
-        return localSource.deleteCoinSearchHistory();
+    public Completable eraseCoinSearchHistory() {
+        return localSource.eraseCoinSearchHistory();
+    }
+
+    @Override
+    public Completable eraseBookmarks() {
+        return localSource.eraseBookmarks();
+    }
+
+    @Override
+    public Completable eraseCoinCache() {
+        return localSource.eraseCoinCache();
     }
 
     @Override

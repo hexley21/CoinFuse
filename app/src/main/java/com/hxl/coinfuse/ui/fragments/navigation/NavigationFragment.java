@@ -64,6 +64,9 @@ public class NavigationFragment extends Fragment {
                 case (R.id.menu_profit_calculator):
                     navController.navigate(R.id.profitCalculatorFragment);
                     return true;
+                case (R.id.menu_settings):
+                    navController.navigate(R.id.settingsFragment);
+                    return true;
             }
             return false;
         });

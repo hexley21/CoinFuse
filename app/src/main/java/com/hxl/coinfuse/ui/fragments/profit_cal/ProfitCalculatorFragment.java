@@ -121,7 +121,6 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
                     vm.setSellPriceField(null);
                     return;
                 }
-                ((SearchBar) requireActivity().findViewById(R.id.search_bar)).setText(coin.name);
                 binding.searchBar.setText(coin.name);
                 binding.tfProfitBuy.getEditText().setText(coin.priceUsd.toString());
                 binding.tfProfitSell.getEditText().setText(coin.priceUsd.toString());

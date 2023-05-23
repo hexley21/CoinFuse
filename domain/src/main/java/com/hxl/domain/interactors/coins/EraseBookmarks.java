@@ -6,16 +6,18 @@ import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Completable;
 
-public class DeleteCoinSearchHistory {
+public class EraseBookmarks {
 
     private final CoinRepository repository;
 
     @Inject
-    public DeleteCoinSearchHistory(CoinRepository repository) {
+    public EraseBookmarks(CoinRepository repository) {
         this.repository = repository;
     }
 
     public Completable invoke() {
-        return repository.deleteCoinSearchHistory();
+        return repository.eraseBookmarks();
     }
+
+    // TODO: add unit tests
 }

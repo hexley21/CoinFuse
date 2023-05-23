@@ -8,13 +8,14 @@ import com.hxl.domain.interactors.coins.SearchCoins;
 import com.hxl.domain.model.Coin;
 import com.hxl.presentation.livedata.StateLiveData;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 @HiltViewModel
@@ -22,10 +23,10 @@ public class ProfitCalculatorDialogViewModel extends ViewModel {
 
     private static final String TAG = "ProfitCalculatorDialVM";
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-    @NonNull private final SearchCoins searchCoins;
+    @NotNull private final SearchCoins searchCoins;
 
     @Inject
-    public ProfitCalculatorDialogViewModel(SearchCoins searchCoins) {
+    public ProfitCalculatorDialogViewModel(@NotNull SearchCoins searchCoins) {
         this.searchCoins = searchCoins;
     }
 
