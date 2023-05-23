@@ -33,7 +33,11 @@ public abstract class BasePopUpDialog extends AppCompatDialogFragment {
         return new MaterialAlertDialogBuilder(requireContext())
                 .setTitle(setTitle())
                 .setSingleChoiceItems(setChoice(), checkedItem, (dialog, which) -> checkedItem = which)
-                .setPositiveButton(UiUtils.getString(requireContext(), R.string.positive_btn), (dialog, which) -> positiveListener(checkedItem))
+                .setPositiveButton(UiUtils.getString(requireContext(), R.string.positive_btn), (dialog, which) -> {
+                    if (setCheckedItem() != checkedItem) {
+                        positiveListener(checkedItem);
+                    }
+                })
                 .setNegativeButton(UiUtils.getString(requireContext(), R.string.negative_btn), (dialog, which) -> dismiss())
                 .create();
     }
