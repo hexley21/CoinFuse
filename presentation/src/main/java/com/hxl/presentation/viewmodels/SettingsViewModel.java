@@ -1,5 +1,8 @@
 package com.hxl.presentation.viewmodels;
 
+import android.util.Log;
+
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.hxl.domain.interactors.coins.EraseBookmarks;
@@ -12,16 +15,22 @@ import com.hxl.domain.interactors.prefs.GetTheme;
 import com.hxl.domain.interactors.prefs.SaveCurrency;
 import com.hxl.domain.interactors.prefs.SaveLanguage;
 import com.hxl.domain.interactors.prefs.SaveTheme;
+import com.hxl.domain.model.PrefKeys;
 
 import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 @HiltViewModel
 public class SettingsViewModel extends ViewModel {
+
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private static final String TAG = "SettingsViewModel";
 
     @NotNull private final GetCurrency getCurrency;
     @NotNull private final GetLanguage getLanguage;
@@ -48,6 +57,49 @@ public class SettingsViewModel extends ViewModel {
         this.eraseCoinCache = eraseCoinCache;
     }
 
+    private MutableLiveData<Boolean> currentEraseCache;
+    private MutableLiveData<Boolean> currentEraseBookmarks;
+    private MutableLiveData<Boolean> currentEraseSearchHistory;
+    private MutableLiveData<Boolean> currentEraseStorage;
+
+    private Completable eraseCacheCompletable() {
+        return eraseCoinCache.invoke()
+                .concatWith(eraseExchange.invoke())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public MutableLiveData<Boolean> getCurrentEraseCache() {
+        if (currentEraseCache == null) {
+            currentEraseCache = new MutableLiveData<>();
+        }
+
+        return currentEraseCache;
+    }
+
+    public MutableLiveData<Boolean> getCurrentEraseBookmarks() {
+        if (currentEraseBookmarks == null) {
+            currentEraseBookmarks = new MutableLiveData<>();
+        }
+
+        return currentEraseBookmarks;
+    }
+
+    public MutableLiveData<Boolean> getCurrentEraseSearchHistory() {
+        if (currentEraseSearchHistory == null) {
+            currentEraseSearchHistory = new MutableLiveData<>();
+        }
+
+        return currentEraseSearchHistory;
+    }
+
+    public MutableLiveData<Boolean> getCurrentEraseStorage() {
+        if (currentEraseStorage == null) {
+            currentEraseStorage = new MutableLiveData<>();
+        }
+
+        return currentEraseStorage;
+    }
+
     public String getCurrency() {
         return getCurrency.invoke();
     }
@@ -72,20 +124,78 @@ public class SettingsViewModel extends ViewModel {
         saveTheme.invoke(theme);
     }
 
-    public Completable getEraseExchange() {
-        return eraseExchange.invoke();
+
+    public void eraseCoinSearchHistory() {
+        eraseCoinSearchHistory.invoke()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> {
+                            getCurrentEraseSearchHistory().setValue(true);
+                            Log.d(TAG, "eraseBookmarks: success");
+                        },
+                        e -> {
+                            getCurrentEraseSearchHistory().setValue(false);
+                            Log.e(TAG, "eraseBookmarks: failed", e);
+                        },
+                        compositeDisposable
+                );
     }
 
-    public Completable getEraseCoinSearchHistory() {
-        return eraseCoinSearchHistory.invoke();
+    public void eraseBookmarks() {
+        eraseBookmarks.invoke()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> {
+                            getCurrentEraseBookmarks().setValue(true);
+                            Log.d(TAG, "eraseBookmarks: success");
+                        },
+                        e -> {
+                            getCurrentEraseBookmarks().setValue(true);
+                            Log.e(TAG, "eraseBookmarks: failed", e);
+                        },
+                        compositeDisposable
+                );
     }
 
-    public Completable getEraseBookmarks() {
-        return eraseBookmarks.invoke();
+    public void eraseCache() {
+        eraseCacheCompletable().subscribe(
+                        () -> {
+                            getCurrentEraseCache().setValue(true);
+                            Log.d(TAG, "eraseCache: success");
+                        },
+                        e -> {
+                            getCurrentEraseCache().setValue(false);
+                            Log.e(TAG, "eraseCache: failed", e);
+                        },
+                        compositeDisposable
+                );
     }
 
-    public Completable getEraseCoinCache() {
-        return eraseCoinCache.invoke();
+    public void eraseStorage() {
+        eraseBookmarks.invoke()
+                .concatWith(eraseCoinSearchHistory.invoke())
+                .concatWith(eraseCacheCompletable())
+                .subscribe(
+                        () -> {
+                            getCurrentEraseStorage().setValue(true);
+                            Log.d(TAG, "eraseStorage: success");
+                        },
+                        e -> {
+                            getCurrentEraseStorage().setValue(false);
+                            Log.e(TAG, "eraseStorage: failed", e);
+                        },
+                        compositeDisposable
+                );
+        saveTheme(PrefKeys.THEME.def);
+        saveCurrency(PrefKeys.CURRENCY.def);
+        saveLanguage(PrefKeys.LANGUAGE.def);
     }
 
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        compositeDisposable.dispose();
+        Log.d(TAG, "onCleared: CompositeDisposable was cleared");
+    }
 }

@@ -2,8 +2,11 @@ package com.hxl.coinfuse.ui.fragments.settings;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.hxl.coinfuse.BuildConfig;
@@ -31,10 +34,60 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding, Sett
     protected void onCreateView(Bundle savedInstanceState) {
         super.onCreateView(savedInstanceState);
 
+        if (!vm.getCurrentEraseCache().hasObservers()) {
+            vm.getCurrentEraseCache().observe(requireActivity(), state -> {
+                if (state) {
+                    showSnackBar(UiUtils.getString(requireContext(), R.string.clear_cache_success));
+                    return;
+                }
+                showSnackBar(UiUtils.getString(requireContext(), R.string.clear_cache_fail));
+            });
+        }
+
+        if (!vm.getCurrentEraseBookmarks().hasObservers()) {
+            vm.getCurrentEraseBookmarks().observe(requireActivity(), state -> {
+                if (state) {
+                    showSnackBar(UiUtils.getString(requireContext(), R.string.clear_bookmarks_success));
+                    return;
+                }
+                showSnackBar(UiUtils.getString(requireContext(), R.string.clear_bookmarks_fail));
+            });
+        }
+
+        if (!vm.getCurrentEraseSearchHistory().hasObservers()) {
+            vm.getCurrentEraseSearchHistory().observe(requireActivity(), state -> {
+                if (state) {
+                    showSnackBar(UiUtils.getString(requireContext(), R.string.clear_history_success));
+                    return;
+                }
+                showSnackBar(UiUtils.getString(requireContext(), R.string.clear_history_fail));
+            });
+        }
+
+        if (!vm.getCurrentEraseStorage().hasObservers()) {
+            vm.getCurrentEraseStorage().observe(requireActivity(), state -> {
+                if (state) {
+                    showSnackBar(UiUtils.getString(requireContext(), R.string.clear_storage_success));
+                    return;
+                }
+                showSnackBar(UiUtils.getString(requireContext(), R.string.clear_storage_fail));
+            });
+        }
+
         binding.setTheme(getThemeString(vm.getTheme()));
         binding.setLanguage(vm.getLanguage());
         binding.setCurrency(vm.getCurrency());
         binding.setVersion(BuildConfig.VERSION_NAME);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        binding.tvClearBookmarks.setOnClickListener(v -> vm.eraseBookmarks());
+        binding.tvClearSearch.setOnClickListener(v -> vm.eraseCoinSearchHistory());
+        binding.tvClearCache.setOnClickListener(v -> vm.eraseCache());
+        binding.tvClearStorage.setOnClickListener(v -> vm.eraseStorage());
     }
 
     private String getThemeString(int theme) {

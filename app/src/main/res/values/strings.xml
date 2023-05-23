@@ -104,9 +104,10 @@
         <string name="pref_language">Language</string>
         <string name="pref_currency">Currency</string>
     <string name="settings_storage">Storage</string>
-        <string name="storage_clear">Clear Storage</string>
+        <string name="storage_clear_cache">Clear Cache</string>
         <string name="storage_clear_bookmarks">Clear Bookmarks</string>
         <string name="storage_clear_history">Clear Search History</string>
+        <string name="storage_clear_storage">Clear Storage</string>
     <string name="settings_info">Info</string>
         <string name="info_about">About us</string>
         <string name="info_contact">Contact</string>
@@ -117,6 +118,14 @@
         <string name="theme_dark">Dark</string>
         <string name="theme_light">Light</string>
         <string name="theme_system">System</string>
+    <string name="clear_bookmarks_success">Bookmarks were erased successfully</string>
+    <string name="clear_history_success">Search history was erased successfully</string>
+    <string name="clear_cache_success">App cache was cleared successfully</string>
+    <string name="clear_storage_success">App storage was cleared successfully</string>
+    <string name="clear_bookmarks_fail">Bookmarks erase was failed</string>
+    <string name="clear_history_fail">Search history erased was failed</string>
+    <string name="clear_cache_fail">App cache clear was failed</string>
+    <string name="clear_storage_fail">App storage clear was failed</string>
     <!-- General -->
     <string name="arrow_up" translatable="false">▴</string>
     <string name="arrow_down" translatable="false">▾</string>

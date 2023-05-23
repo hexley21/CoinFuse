@@ -6,6 +6,7 @@ import static com.hxl.coinfuse.conf.fake.FakeDataFactory.getFakeHistory;
 
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
+import com.hxl.domain.model.Trade;
 import com.hxl.domain.repository.CoinRepository;
 
 import java.util.List;
@@ -101,7 +102,27 @@ public class FakeCoinRepository implements CoinRepository {
     }
 
     @Override
+    public Completable eraseBookmarks() {
+        return null;
+    }
+
+    @Override
+    public Completable eraseCoinCache() {
+        return null;
+    }
+
+    @Override
     public Single<List<CoinPriceHistory>> getCoinPriceHistory(String id, CoinPriceHistory.Interval interval) {
         return Single.just(getFakeHistory(SIZE));
+    }
+
+    @Override
+    public Single<List<Trade>> getTradesByCoin(String id) {
+        return null;
+    }
+
+    @Override
+    public Single<List<Trade>> getTradesByCoin(String id, int limit, int offset) {
+        return null;
     }
 }
