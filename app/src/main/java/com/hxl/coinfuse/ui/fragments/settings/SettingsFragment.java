@@ -90,11 +90,10 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding, Sett
                 () -> showSnackBar(UiUtils.getString(requireContext(), R.string.clear_cache_success)),
                 () -> showSnackBar(UiUtils.getString(requireContext(), R.string.clear_cache_fail))
         ));
-        binding.tvClearStorage.setOnClickListener(v -> {vm.eraseStorage(
+        binding.tvClearStorage.setOnClickListener(v -> vm.eraseStorage(
                 () -> showSnackBar(UiUtils.getString(requireContext(), R.string.clear_storage_success)),
                 () -> showSnackBar(UiUtils.getString(requireContext(), R.string.clear_storage_fail))
-            );
-        });
+            ));
     }
 
     private void changeTheme(int mode) {
