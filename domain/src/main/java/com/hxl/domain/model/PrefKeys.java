@@ -4,7 +4,6 @@ public final class PrefKeys<T> {
 
     public static PrefKeys<Boolean> WELCOME = new PrefKeys<>("welcome", true);
     public static PrefKeys<Integer> THEME = new PrefKeys<>("theme", -1);
-    public static PrefKeys<String> CURRENCY = new PrefKeys<>("currency", "united-states-dollar");
     public static PrefKeys<String> LANGUAGE = new PrefKeys<>("language", "en");
 
     public String key;

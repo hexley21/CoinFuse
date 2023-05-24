@@ -4,7 +4,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.hxl.domain.interactors.coins.DeleteCoinSearchHistory;
+import com.hxl.domain.interactors.coins.EraseCoinSearchHistory;
 import com.hxl.domain.repository.CoinRepository;
 
 import org.junit.Test;
@@ -16,18 +16,18 @@ import org.mockito.junit.MockitoJUnitRunner;
 import io.reactivex.rxjava3.core.Completable;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DeleteCoinSearchHistoryTest {
+public class EraseCoinSearchHistoryTest {
 
     @Mock
     private CoinRepository repository;
 
     @InjectMocks
-    private DeleteCoinSearchHistory interactor;
+    private EraseCoinSearchHistory interactor;
 
     @Test
     public void invokeDeletesCoinSearchHistoryFromRepository() {
         // Arrange
-        when(repository.deleteCoinSearchHistory()).thenReturn(Completable.complete());
+        when(repository.eraseCoinSearchHistory()).thenReturn(Completable.complete());
         // Act
         Completable deleteSearchHistory = interactor.invoke();
         // Assert
@@ -36,6 +36,6 @@ public class DeleteCoinSearchHistoryTest {
                 .assertComplete()
                 .assertNoErrors();
 
-        verify(repository, times(1)).deleteCoinSearchHistory();
+        verify(repository, times(1)).eraseCoinSearchHistory();
     }
 }

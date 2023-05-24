@@ -25,4 +25,8 @@
         android:name="com.hxl.coinfuse.ui.fragments.profit_cal.ProfitCalculatorFragment"
         android:label="ProfitCalculatorFragment"
         tools:layout="@layout/fragment_profit_calculator"/>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.hxl.coinfuse.ui.fragments.settings.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

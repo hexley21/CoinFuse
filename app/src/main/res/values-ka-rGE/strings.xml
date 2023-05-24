@@ -34,6 +34,18 @@
     <string name="error_no_bookmarks">შენახულები არ არის</string>
     <string name="profit_calculator_title">მოგების კალკულატორი</string>
     <string name="profit">მოგება</string>
+    <string name="settings_preferences">პარამეტრები</string>
+    <string name="pref_theme">დიზაინი</string>
+    <string name="pref_language">ენა</string>
+    <string name="settings_storage">მონაცემები</string>
+    <string name="storage_clear_bookmarks">შენახულების წაშლა</string>
+    <string name="storage_clear_history">ძებნის ისტორიის წაშლა</string>
+    <string name="settings_info">ინფორმაცია</string>
+    <string name="info_about">ჩვენს შესახებ</string>
+    <string name="info_contact">კონტაქტი</string>
+    <string name="info_os">ოფენ-სორსი</string>
+    <string name="info_version">აპლიკაციის ვერსია</string>
+    <string name="clear_bookmarks_success">შენახულები წაშლილია</string>
     <string name="none">არცერთი</string>
     <string name="cd_img_walk_through">გზამკლევის სურათი</string>
 
@@ -73,5 +85,32 @@
     <string name="profit_n_loss">მოგება/წაგება</string>
     <string name="profit_investment_total">ჯამური ინვესტიცია</string>
     <string name="profit_exit_total">ჯამური გამოსვლა</string>
+    <string name="theme_dark">მუქი</string>
+    <string name="theme_light">ღია</string>
+    <string name="theme_system">სისტემის</string>
+    <string name="storage_clear_cache">ქეშის წაშლა</string>
+    <string name="storage_clear_storage">მონაცემების წაშლა</string>
+    <string name="clear_history_success">ძებნის ისტორია წაშლილია</string>
+    <string name="clear_cache_success">აპლიკაციის ქეში წაშლილია</string>
+    <string name="clear_storage_success">აპლიკაციის მონაცემები წაშლილია</string>
+    <string name="clear_bookmarks_fail">შენახულები წაშლა ვერ მოხერხდა</string>
+    <string name="clear_history_fail">ძებნის ისტორიის წაშლა ვერ მოხერხდა</string>
+    <string name="clear_cache_fail">აპლიკაციის ქეშის წაშლა ვერ მოხერხდა</string>
+    <string name="clear_storage_fail">აპლიკაციის მონაცემების წაშლა ვერ მოხერხდა</string>
+    <string name="positive_btn">კი</string>
+    <string name="negative_btn">არა</string>
+    <string name="preference_theme_title">დიზანინის შეცვლა</string>
+    <string name="preference_theme_language">ენის შეცვლა</string>
+
+    <string-array name="theme_choice">
+        <item>ღია</item>
+        <item>მუქი</item>
+        <item>სისტემური</item>
+    </string-array>
+
+    <string-array name="language_choice">
+        <item>ინგლისური</item>
+        <item>ქართული</item>
+    </string-array>
 
 </resources>

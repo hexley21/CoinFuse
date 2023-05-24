@@ -408,7 +408,7 @@ public class CoinLocalImplTest {
         // Act
         Completable insertSearch = coinSearchDao.insertCoinSearchQuery(fakeSearchEntities);
         Single<List<CoinSearchEntity>> searchEntities = coinSearchDao.getCoinSearchHistory();
-        Completable deleteSearch = coinSource.deleteCoinSearchHistory();
+        Completable deleteSearch = coinSource.eraseCoinSearchHistory();
         // Assert
         insertSearch.test()
                 .awaitCount(1)

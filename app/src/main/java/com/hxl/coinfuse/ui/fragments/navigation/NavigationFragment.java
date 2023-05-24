@@ -31,6 +31,7 @@ public class NavigationFragment extends Fragment {
     public static final String isTimeSortableArgKey = "isTimeSortable";
     public static final String sortCallbackArgKey = "sortCallback";
     public static final String dialogCallbackArgKey = "dialogCallback";
+    public static final String checkedItemArgKey = "checkedItem";
     public static final String consumerArgKey = "consumer";
     public static final String orderByArgKey = "orderBy";
     public static final String sortByArgKey = "sortBy";
@@ -63,6 +64,9 @@ public class NavigationFragment extends Fragment {
                     return true;
                 case (R.id.menu_profit_calculator):
                     navController.navigate(R.id.profitCalculatorFragment);
+                    return true;
+                case (R.id.menu_settings):
+                    navController.navigate(R.id.settingsFragment);
                     return true;
             }
             return false;

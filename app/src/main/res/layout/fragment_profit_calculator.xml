@@ -148,7 +148,8 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tf_container"
@@ -171,8 +172,8 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:text="@string/profit"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
+                        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                        android:textColor="?attr/colorOnSurface" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/profit_result_label"
@@ -182,8 +183,8 @@
                         android:layout_alignParentStart="true"
                         android:layout_marginTop="@dimen/default_padding"
                         android:text="@string/profit_n_loss"
-                        android:textColor="?attr/colorOnSurfaceVariant"
-                        android:textAppearance="@style/TextAppearance.Material3.LabelMedium" />
+                        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                        android:textColor="?attr/colorOnSurfaceVariant" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/profit_result"
@@ -218,10 +219,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/default_padding"
+                                android:maxLines="1"
                                 android:text="@string/profit_investment_total"
                                 android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
-                                android:textColor="?attr/colorOnSurfaceVariant"
-                                android:maxLines="1" />
+                                android:textColor="?attr/colorOnSurfaceVariant" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:id="@+id/profit_investment"
@@ -259,14 +260,14 @@
                                 android:text="@{currency + exit}"
                                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                                 android:textColor="?attr/colorOnSurface"
+                                app:autoSizeMinTextSize="16sp"
                                 app:autoSizeTextType="uniform"
-                                tools:text="$123,456.78"
-                                app:autoSizeMinTextSize="16sp" />
+                                tools:text="$123,456.78" />
                         </LinearLayout>
                     </LinearLayout>
 
                 </RelativeLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
         </RelativeLayout>
     </ScrollView>
