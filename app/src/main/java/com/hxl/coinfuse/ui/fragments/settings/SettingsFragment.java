@@ -94,6 +94,8 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding, Sett
                 () -> showSnackBar(UiUtils.getString(requireContext(), R.string.clear_storage_success)),
                 () -> showSnackBar(UiUtils.getString(requireContext(), R.string.clear_storage_fail))
             ));
+
+        binding.tvAboutUs.setOnClickListener(v -> navController.navigate(R.id.navigation_to_aboutUsFragment));
     }
 
     private void changeTheme(int mode) {

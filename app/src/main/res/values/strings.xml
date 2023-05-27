@@ -157,6 +157,23 @@
     <!-- Content Description -->
     <string name="cd_img_walk_through">Walk-through Image</string>
 
+    <!-- About us -->
+    <string name="paragraph_project">About Project</string>
+    <string name="info_project">
+        Welcome to %s, the ultimate destination for tracking cryptocurrency
+        market capitalization. We are passionate about providing you with real-time data and
+        comprehensive insights into the world of cryptocurrencies. \n\n
+        At %s, we understand the rapidly
+        evolving nature of the crypto market and the need for reliable information to make informed
+        decisions. Our app aims to simplify the complex world of cryptocurrencies, offering you a
+        user-friendly interface to explore and analyze the market.
+    </string>
+    <string name="visit_github_page">Open Source and Available on GitHub</string>
+    <string name="contact_developer">Contact developer</string>
+    <string name="abt_rights" translatable="false">All Rights Reserved</string>
+    <string name="github_repo" translatable="false">github.com/hexley21/CoinFuse</string>
+    <string name="developer" translatable="false">a.kupreishvili.21@gmail.com</string>
+
     <!-- Errors -->
     <string name="error_no_internet">No internet connection</string>
     <string name="error_no_data">No data available</string>
