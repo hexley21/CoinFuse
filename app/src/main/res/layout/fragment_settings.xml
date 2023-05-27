@@ -235,6 +235,7 @@
                             android:textStyle="bold" />
 
                         <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_contact"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"

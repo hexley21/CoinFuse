@@ -96,6 +96,7 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding, Sett
             ));
 
         binding.tvAboutUs.setOnClickListener(v -> navController.navigate(R.id.navigation_to_aboutUsFragment));
+        binding.tvContact.setOnClickListener(v -> navController.navigate(R.id.navigation_to_contactFragment));
     }
 
     private void changeTheme(int mode) {

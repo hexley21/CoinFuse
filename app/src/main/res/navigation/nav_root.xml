@@ -92,6 +92,9 @@
         <action
             android:id="@+id/navigation_to_aboutUsFragment"
             app:destination="@id/aboutUsFragment" />
+        <action
+            android:id="@+id/navigation_to_contactFragment"
+            app:destination="@id/contactFragment" />
     </fragment>
     <fragment
         android:id="@+id/coinDetailsFragment"
@@ -244,4 +247,8 @@
         android:id="@+id/aboutUsFragment"
         android:name="com.hxl.coinfuse.ui.fragments.settings.pages.AboutUsFragment"
         android:label="AboutUsFragment" />
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="com.hxl.coinfuse.ui.fragments.settings.pages.ContactFragment"
+        android:label="ContactFragment" />
 </navigation>

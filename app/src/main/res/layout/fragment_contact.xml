@@ -2,10 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="5dp">
-    <data>
-        <variable name="year" type="String" />
-    </data>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,7 +16,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="@string/paragraph_project"
+                android:text="@string/info_contact"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="24sp" />
 
@@ -30,8 +26,8 @@
                 android:layout_marginBottom="20dp"
                 android:elegantTextHeight="true"
                 android:textColor="?attr/colorOnBackground"
-                android:text="@{@string/info_project(@string/app_name, @string/app_name)}"
-                tools:text="@string/info_project"
+                android:text="@{@string/contact_content(@string/app_name, @string/app_name)}"
+                tools:text="@string/contact_content"
                 android:textSize="16sp" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -82,15 +78,6 @@
                 android:textColor="?attr/colorSecondary"
                 android:textIsSelectable="true"
                 android:textSize="16sp" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:text='@{"@" + year + " " + @string/app_name + " " + @string/abt_rights}'
-                tools:text="%@2072 AppName All rights reserved"
-                android:textAlignment="center"
-                android:textColor="?attr/colorPrimary" />
         </LinearLayout>
     </ScrollView>
 
