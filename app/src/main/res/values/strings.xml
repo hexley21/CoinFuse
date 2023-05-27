@@ -129,6 +129,7 @@
     <string name="clear_history_fail">Search history erased was failed</string>
     <string name="clear_cache_fail">App cache clear was failed</string>
     <string name="clear_storage_fail">App storage clear was failed</string>
+    <string name="privacy_policy_link" translatable="false">https://sites.google.com/view/privacy-policy-coinfuse</string>
     <string-array name="theme_choice">
         <item>Light</item>
         <item>Dark</item>
