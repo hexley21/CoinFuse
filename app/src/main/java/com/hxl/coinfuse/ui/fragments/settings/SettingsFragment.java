@@ -3,6 +3,7 @@ package com.hxl.coinfuse.ui.fragments.settings;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.checkedItemArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.consumerArgKey;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -101,6 +102,24 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding, Sett
         binding.tvPrivacyPolicy.setOnClickListener(v ->
                 requireActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(UiUtils.getString(requireContext(), R.string.privacy_policy_link))))
         );
+
+        binding.tvRateApp.setOnClickListener(v -> {
+                    try {
+                        startActivity(
+                                new Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse(String.format("market://details?id=%s", requireActivity().getPackageName()))
+                                )
+                        );
+                    } catch (ActivityNotFoundException e) {
+                        startActivity(
+                                new Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse(String.format("http://play.google.com/store/apps/details?id=%s", requireActivity().getPackageName()))
+                                )
+                        );
+                    }
+                });
     }
 
     private void changeTheme(int mode) {
