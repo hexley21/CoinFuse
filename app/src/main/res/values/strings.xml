@@ -149,6 +149,52 @@
         <item>en</item>
         <item>ka</item>
     </string-array>
+
+    <!-- Credits -->
+    <string-array name="credit_titles">
+        <item>ongakuer - CircleIndicator</item>
+        <item>bumptech - glide</item>
+        <item>airbnb - lottie</item>
+        <item>PhilJay - MPAndroidChart</item>
+        <item>facebook - shimmer-android</item>
+        <item>ReactiveX - RxJava</item>
+        <item>square - retrofit</item>
+        <item>square - okhttp</item>
+        <item>google - dagger</item>
+        <item>mockito - mockito</item>
+        <item>robolectric - robolectric</item>
+        <item>google - Material icons</item>
+    </string-array>
+
+    <string-array name="credit_descriptions">
+        <item>A lightweight indicator like in nexus 5 launcher. (Apache-2.0 license)</item>
+        <item>An image loading and caching library for Android focused on smooth scrolling. (Apache-2.0 license)</item>
+        <item>Render After Effects animations natively on Android and iOS, Web, and React Native. (Apache-2.0 license)</item>
+        <item>A powerful 🚀 Android chart view / graph view library, supporting line- bar- pie- radar- bubble- and candlestick charts as well as scaling, panning and animations. (Apache-2.0 license)</item>
+        <item>An easy, flexible way to add a shimmering effect to any view in an Android app. (BSD license)</item>
+        <item>RxJava – Reactive Extensions for the JVM – a library for composing asynchronous and event-based programs using observable sequences for the Java VM. (Apache-2.0 license)</item>
+        <item>A type-safe HTTP client for Android and the JVM. (Apache-2.0 license)</item>
+        <item>Square’s meticulous HTTP client for the JVM, Android, and GraalVM. (Apache-2.0 license)</item>
+        <item>A fast dependency injector for Android and Java. (Apache-2.0 license)</item>
+        <item>Most popular Mocking framework for unit tests written in Java. (MIT license)</item>
+        <item>Android Unit Testing Framework. (MIT license)</item>
+        <item>Material Design Icons\' growing icon collection allows designers and developers targeting various platforms. (Apache-2.0 / Ubuntu font license)</item>
+    </string-array>
+    <string-array name="credit_links">
+        <item>https://github.com/ongakuer/CircleIndicator</item>
+        <item>https://github.com/bumptech/glide</item>
+        <item>https://github.com/airbnb/lottie-android</item>
+        <item>https://github.com/PhilJay/MPAndroidChart</item>
+        <item>https://github.com/facebook/shimmer-android</item>
+        <item>https://github.com/ReactiveX/RxJava</item>
+        <item>https://github.com/square/retrofit</item>
+        <item>https://github.com/square/okhttp</item>
+        <item>https://github.com/google/dagger</item>
+        <item>https://github.com/mockito/mockito</item>
+        <item>https://github.com/robolectric/robolectric</item>
+        <item>https://fonts.google.com/icons</item>
+    </string-array>
+
     <!-- General -->
     <string name="arrow_up" translatable="false">▴</string>
     <string name="arrow_down" translatable="false">▾</string>

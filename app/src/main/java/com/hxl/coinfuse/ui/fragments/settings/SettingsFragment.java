@@ -103,6 +103,9 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding, Sett
                 requireActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(UiUtils.getString(requireContext(), R.string.privacy_policy_link))))
         );
 
+        binding.tvCredits.setOnClickListener(v ->
+                navController.navigate(R.id.navigation_to_creditsFragment));
+
         binding.tvRateApp.setOnClickListener(v -> {
                     try {
                         startActivity(
