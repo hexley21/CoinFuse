@@ -64,7 +64,10 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding, Sett
             bundle.putInt(checkedItemArgKey, vm.getTheme());
             bundle.putParcelable(consumerArgKey, (ParcelableConsumer<Integer>) this::changeTheme);
 
-            navController.navigate(R.id.navigation_to_themeDialog, bundle);
+            assert navController.getCurrentDestination() != null;
+            if (navController.getCurrentDestination().getId() == R.id.navigationFragment) {
+                navController.navigate(R.id.navigation_to_themeDialog, bundle);
+            }
         });
 
         binding.prefLanguage.setOnClickListener(v -> {
@@ -77,7 +80,10 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding, Sett
                     changeLanguage(UiUtils.getStringArray(requireContext(), R.array.language_save)[val])
             );
 
-            navController.navigate(R.id.navigation_to_languageDialog, bundle);
+            assert navController.getCurrentDestination() != null;
+            if (navController.getCurrentDestination().getId() == R.id.navigationFragment) {
+                navController.navigate(R.id.navigation_to_languageDialog, bundle);
+            }
         });
 
         binding.tvClearBookmarks.setOnClickListener(v -> vm.eraseBookmarks(
@@ -107,22 +113,22 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding, Sett
                 navController.navigate(R.id.navigation_to_creditsFragment));
 
         binding.tvRateApp.setOnClickListener(v -> {
-                    try {
-                        startActivity(
-                                new Intent(
-                                        Intent.ACTION_VIEW,
-                                        Uri.parse(String.format("market://details?id=%s", requireActivity().getPackageName()))
-                                )
-                        );
-                    } catch (ActivityNotFoundException e) {
-                        startActivity(
-                                new Intent(
-                                        Intent.ACTION_VIEW,
-                                        Uri.parse(String.format("http://play.google.com/store/apps/details?id=%s", requireActivity().getPackageName()))
-                                )
-                        );
-                    }
-                });
+            try {
+                startActivity(
+                        new Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(String.format("market://details?id=%s", requireActivity().getPackageName()))
+                        )
+                );
+            } catch (ActivityNotFoundException e) {
+                startActivity(
+                        new Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(String.format("http://play.google.com/store/apps/details?id=%s", requireActivity().getPackageName()))
+                        )
+                );
+            }
+        });
     }
 
     private void changeTheme(int mode) {
