@@ -224,6 +224,7 @@
                         android:orientation="vertical">
 
                         <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_about_us"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
@@ -234,6 +235,7 @@
                             android:textStyle="bold" />
 
                         <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_contact"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
@@ -244,6 +246,7 @@
                             android:textStyle="bold" />
 
                         <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_privacy_policy"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
@@ -254,11 +257,23 @@
                             android:textStyle="bold" />
 
                         <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_credits"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
                             android:padding="@dimen/default_padding_small"
                             android:text="@string/info_credits"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                            android:textColor="?attr/colorOnBackground"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_rate_app"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:padding="@dimen/default_padding_small"
+                            android:text="@string/rate_app"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:textColor="?attr/colorOnBackground"
                             android:textStyle="bold" />

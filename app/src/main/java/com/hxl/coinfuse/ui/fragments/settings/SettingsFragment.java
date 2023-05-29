@@ -3,6 +3,9 @@ package com.hxl.coinfuse.ui.fragments.settings;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.checkedItemArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.consumerArgKey;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,8 +71,7 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding, Sett
             Bundle bundle = new Bundle();
             if (!vm.getLanguage().equals(PrefKeys.LANGUAGE.def)) {
                 bundle.putInt(checkedItemArgKey, 1);
-            }
-            else bundle.putInt(checkedItemArgKey, 0);
+            } else bundle.putInt(checkedItemArgKey, 0);
 
             bundle.putParcelable(consumerArgKey, (ParcelableConsumer<Integer>) val ->
                     changeLanguage(UiUtils.getStringArray(requireContext(), R.array.language_save)[val])
@@ -93,7 +95,34 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding, Sett
         binding.tvClearStorage.setOnClickListener(v -> vm.eraseStorage(
                 () -> showSnackBar(UiUtils.getString(requireContext(), R.string.clear_storage_success)),
                 () -> showSnackBar(UiUtils.getString(requireContext(), R.string.clear_storage_fail))
-            ));
+        ));
+
+        binding.tvAboutUs.setOnClickListener(v -> navController.navigate(R.id.navigation_to_aboutUsFragment));
+        binding.tvContact.setOnClickListener(v -> navController.navigate(R.id.navigation_to_contactFragment));
+        binding.tvPrivacyPolicy.setOnClickListener(v ->
+                requireActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(UiUtils.getString(requireContext(), R.string.privacy_policy_link))))
+        );
+
+        binding.tvCredits.setOnClickListener(v ->
+                navController.navigate(R.id.navigation_to_creditsFragment));
+
+        binding.tvRateApp.setOnClickListener(v -> {
+                    try {
+                        startActivity(
+                                new Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse(String.format("market://details?id=%s", requireActivity().getPackageName()))
+                                )
+                        );
+                    } catch (ActivityNotFoundException e) {
+                        startActivity(
+                                new Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse(String.format("http://play.google.com/store/apps/details?id=%s", requireActivity().getPackageName()))
+                                )
+                        );
+                    }
+                });
     }
 
     private void changeTheme(int mode) {

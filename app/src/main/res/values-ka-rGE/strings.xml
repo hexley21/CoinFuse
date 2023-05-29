@@ -46,6 +46,7 @@
     <string name="info_os">ოფენ-სორსი</string>
     <string name="info_version">აპლიკაციის ვერსია</string>
     <string name="clear_bookmarks_success">შენახულები წაშლილია</string>
+    <string name="rate_app">აპლიკაციის შეფასება</string>
     <string name="none">არცერთი</string>
     <string name="cd_img_walk_through">გზამკლევის სურათი</string>
 
@@ -112,5 +113,26 @@
         <item>ინგლისური</item>
         <item>ქართული</item>
     </string-array>
+
+    <!-- About usd -->
+    <string name="paragraph_project">პროექტის შესახებ</string>
+    <string name="info_project">
+        მოგესალმებით %s-ში, კრიპტოვალუტების ბაზარის კაპიტალიზაციის მონიტორინგის პროგრამაში.
+        ჩვენ გთავაზობთ მონაცემებს რეალურ დროში და მათი დეტალური სტატისტიკა და განხილვა.
+        \n\n%s-ში ჩვენ კარგად გვესმის კრიპტო ბაზრის განვითარებადი ბუნება.
+        ჩვენი აპლიკაცია მიზნად ისახავს კრიპტოვალუტების რთული სამყაროს გამარტივებას.
+    </string>
+    <string name="visit_github_page">Open Source და ხელმისაწვდომია  GitHub-ზე</string>
+    <string name="contact_developer">დაუკავშირდით დეველოპერს</string>
+
+    <!-- Contact -->
+    <string name="contact_content">
+        ჩვენ ვაფასებთ თქვენს გამოხმაურებას და ვცდილობთ მუდმივად გავაუმჯობესოთ ჩვენი აპლიკაცია.
+        თუ თქვენ გაქვთ რაიმე შეკითხვები, შემოთავაზებები, ან შეგექმნათ რაიმე პრობლემა %s-ის გამოყენებისას,
+        გთხოვთ, ნუ მოგერიდებათ დაგვიკავშირდით ქვემოთ მოცემულ ელფოსტაზე ან github issue-ში.
+        ჩვენ აქ ვართ დაგეხმაროთ და მოგაწოდოთ მომხმარებლის საუკეთესო შესაძლო გამოცდილება.
+        \n\nგმადლობთ, რომ აირჩიეთ %s.
+    </string>
+
 
 </resources>

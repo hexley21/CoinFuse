@@ -89,6 +89,27 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
+        <action
+            android:id="@+id/navigation_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
+        <action
+            android:id="@+id/navigation_to_contactFragment"
+            app:destination="@id/contactFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
+        <action
+            android:id="@+id/navigation_to_creditsFragment"
+            app:destination="@id/creditsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
     </fragment>
     <fragment
         android:id="@+id/coinDetailsFragment"
@@ -237,4 +258,16 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </dialog>
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.hxl.coinfuse.ui.fragments.settings.pages.AboutUsFragment"
+        android:label="AboutUsFragment" />
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="com.hxl.coinfuse.ui.fragments.settings.pages.ContactFragment"
+        android:label="ContactFragment" />
+    <fragment
+        android:id="@+id/creditsFragment"
+        android:name="com.hxl.coinfuse.ui.fragments.settings.pages.CreditsFragment"
+        android:label="CreditsFragment" />
 </navigation>
