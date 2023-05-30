@@ -161,9 +161,4 @@ public class CoinLocalImpl implements CoinLocal {
         return Arrays.stream(coins).map(CoinEntityMapper::mapToEntity).toArray(CoinEntity[]::new);
     }
 
-    /* TODO: add tests for
-        eraseCoinSearchHistory
-        eraseBookmarks
-        eraseCoinCache
-     */
 }

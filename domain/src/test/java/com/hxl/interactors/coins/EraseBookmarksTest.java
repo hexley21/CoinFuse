@@ -11,8 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import javax.inject.Inject;
-
 import io.reactivex.rxjava3.core.Completable;
 
 @RunWith(MockitoJUnitRunner.class)
