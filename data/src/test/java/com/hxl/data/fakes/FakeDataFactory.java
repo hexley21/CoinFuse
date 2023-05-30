@@ -14,6 +14,11 @@ import java.util.List;
 
 public class FakeDataFactory {
 
+
+    public static <T> List<T> emptyList() {
+        return new ArrayList<>();
+    }
+
     public static List<Coin> getFakeCoins(int size) {
         List<Coin> fakeCoins = new ArrayList<>();
         for (int i = 0; i < size; i++) {

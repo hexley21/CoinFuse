@@ -6,6 +6,7 @@ import static com.hxl.data.fakes.DataTestConstants.LIMIT;
 import static com.hxl.data.fakes.DataTestConstants.OFFSET;
 import static com.hxl.data.fakes.DataTestConstants.SIZE;
 import static com.hxl.data.fakes.DataTestConstants.TIMESTAMP;
+import static com.hxl.data.fakes.FakeDataFactory.emptyList;
 import static com.hxl.data.fakes.FakeDataFactory.getCoin;
 import static com.hxl.data.fakes.FakeDataFactory.getFakeCoins;
 import static com.hxl.data.fakes.FakeDataFactory.getFakePriceHistory;
@@ -52,10 +53,6 @@ public class CoinRepositoryImplTest {
     @InjectMocks
     private CoinRepositoryImpl repository;
     private final UnknownHostException unknownHostException = new UnknownHostException("No internet connection");
-
-    private static <T> List<T> emptyList() {
-        return new ArrayList<>();
-    }
 
     // region getCoins()
     @Test

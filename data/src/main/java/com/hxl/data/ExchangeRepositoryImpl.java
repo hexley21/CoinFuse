@@ -32,11 +32,10 @@ public class ExchangeRepositoryImpl implements ExchangeRepository {
                 .flatMap(x -> insertExchange(x).toSingleDefault(x))
                 .onErrorResumeWith(local.getExchanges())
                 .map(ex -> {
-                    if (ex.isEmpty()) {
+                    if (ex.isEmpty())
                         throw new UnknownHostException("No cached data, connect to the internet");
-                        }
-                        return ex;
-                    });
+                    return ex;
+                });
     }
 
     @Override
@@ -70,13 +69,11 @@ public class ExchangeRepositoryImpl implements ExchangeRepository {
         return remote.getTrades(queryMap);
     }
 
-    @Override
-    public Completable insertExchange(List<Exchange> exchanges) {
+    private Completable insertExchange(List<Exchange> exchanges) {
         return local.insertExchange(exchanges.toArray(new Exchange[0]));
     }
 
-    @Override
-    public Completable insertExchange(Exchange exchange) {
+    private Completable insertExchange(Exchange exchange) {
         return local.insertExchange(exchange);
     }
 
