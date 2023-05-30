@@ -20,6 +20,7 @@ import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentProfitCalculatorBinding;
 import com.hxl.coinfuse.ui.dialogs.ParcelableConsumer;
+import com.hxl.coinfuse.util.NumberFormatUtil;
 import com.hxl.coinfuse.util.UiUtils;
 import com.hxl.domain.model.Coin;
 import com.hxl.presentation.viewmodels.ProfitCalculatorViewModel;
@@ -54,21 +55,26 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
         binding.setCurrency("$");
         if (!vm.getCurrentProfit().hasObservers()) {
             vm.getCurrentProfit().observe(requireActivity(), val -> {
-                binding.setProfit(val);
+                binding.setProfit(NumberFormatUtil.formatDouble(val));
+                binding.setChange(NumberFormatUtil.formatDouble(vm.getChange() * 100.0D));
+
                 if (val > 0) {
                     binding.profitResult.setTextColor(UiUtils.getColor(requireContext(), R.attr.growth));
+                    binding.profitChange.setTextColor(UiUtils.getColor(requireContext(), R.attr.growth));
                 }
                 else if (val < 0){
                     binding.profitResult.setTextColor(UiUtils.getColor(requireContext(), com.google.android.material.R.attr.colorError));
+                    binding.profitChange.setTextColor(UiUtils.getColor(requireContext(), com.google.android.material.R.attr.colorError));
                 }
                 else {
                     binding.profitResult.setTextColor(UiUtils.getColor(requireContext(), com.google.android.material.R.attr.colorOnSurface));
+                    binding.profitChange.setTextColor(UiUtils.getColor(requireContext(), com.google.android.material.R.attr.colorOnSurface));
                 }
             });
         }
         if (!vm.getCurrentInvestment().hasObservers()) {
             vm.getCurrentInvestment().observe(requireActivity(), val -> {
-                binding.setInvestment(val);
+                binding.setInvestment(NumberFormatUtil.formatDouble(val));
                 if (val > 0) {
                     binding.profitInvestment.setTextColor(UiUtils.getColor(requireContext(), R.attr.growth));
                 }
@@ -84,7 +90,7 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
 
         if (!vm.getCurrentExit().hasObservers()) {
             vm.getCurrentExit().observe(requireActivity(), val -> {
-                binding.setExit(val);
+                binding.setExit(NumberFormatUtil.formatDouble(val));
                 if (val > 0) {
                     binding.profitExit.setTextColor(UiUtils.getColor(requireContext(), R.attr.growth));
                 }

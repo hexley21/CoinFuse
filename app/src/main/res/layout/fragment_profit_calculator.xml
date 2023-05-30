@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="profit" type="double" />
-        <variable name="investment" type="double" />
-        <variable name="exit" type="double" />
+        <variable name="profit" type="String" />
+        <variable name="investment" type="String" />
+        <variable name="exit" type="String" />
+        <variable name="change" type="String" />
 
         <variable name="currency" type="String" />
     </data>
@@ -199,6 +200,21 @@
                         app:autoSizeMinTextSize="16sp"
                         app:autoSizeTextType="uniform"
                         tools:text="$123,456.78" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/profit_change"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/profit_result_label"
+                        android:layout_marginStart="@dimen/default_padding_small"
+                        android:layout_toEndOf="@id/profit_result"
+                        android:maxLines="1"
+                        android:text="@{change + '%'}"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                        android:textColor="?attr/colorOnSurface"
+                        app:autoSizeMinTextSize="16sp"
+                        app:autoSizeTextType="uniform"
+                        tools:text="123,45%%" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

@@ -22,6 +22,7 @@ public class ProfitCalculatorViewModel extends ViewModel {
     private Double sellPrice;
     private Double investmentFee;
     private Double exitFee;
+    private Double change = 0.0D;
 
     public Double getBuyPriceField() {
         return buyPrice;
@@ -41,6 +42,9 @@ public class ProfitCalculatorViewModel extends ViewModel {
 
     public Double getExitFeeField() {
         return exitFee;
+    }
+    public Double getChange() {
+        return change;
     }
 
     public void setBuyPriceField(Double buyPrice) {
@@ -68,9 +72,14 @@ public class ProfitCalculatorViewModel extends ViewModel {
         calculateProfit();
     }
 
+    public void setChange(Double change) {
+        this.change = change;
+    }
+
     public MutableLiveData<Double> getCurrentProfit() {
         if (currentProfit == null) {
             currentProfit = new MutableLiveData<>();
+            currentProfit.setValue(0.0D);
         }
 
         return currentProfit;
@@ -79,6 +88,7 @@ public class ProfitCalculatorViewModel extends ViewModel {
     public MutableLiveData<Double> getCurrentInvestment() {
         if (currentInvestment == null) {
             currentInvestment = new MutableLiveData<>();
+            currentInvestment.setValue(0.0D);
         }
 
         return currentInvestment;
@@ -87,6 +97,7 @@ public class ProfitCalculatorViewModel extends ViewModel {
     public MutableLiveData<Double> getCurrentExit() {
         if (currentExit == null) {
             currentExit = new MutableLiveData<>();
+            currentExit.setValue(0.0D);
         }
 
         return currentExit;
@@ -122,9 +133,11 @@ public class ProfitCalculatorViewModel extends ViewModel {
 
         final double profit = ((sellPrice - buyPrice) * (investment / buyPrice)) - (nnInvestmentFee + nnExitFee);
 
+        setChange(profit / investment);
         setProfit(profit);
         setInvestment(investment + nnInvestmentFee);
         setExit(investment + nnInvestmentFee + profit);
+
     }
 
     public void clearEverything() {
@@ -133,6 +146,7 @@ public class ProfitCalculatorViewModel extends ViewModel {
         sellPrice = null;
         investmentFee = null;
         exitFee = null;
+        change = 0.0D;
         setProfit(0.0D);
         setInvestment(0.0D);
         setExit(0.0D);
