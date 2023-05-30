@@ -104,10 +104,21 @@ public class CoinPriceFragment extends BaseFragment<FragmentCoinPriceChartBindin
 
                 chartUtil.setData(entries);
 
+                final float dayLow = binding.priceGraph.getYChartMin();
+                final float dayHigh = binding.priceGraph.getYChartMax();
+
                 if (finalInterval == CoinPriceHistory.Interval.D1) {
                     binding.containerDayVals.setVisibility(View.VISIBLE);
-                    binding.setDayLow(formatFloat(binding.priceGraph.getYChartMin()));
-                    binding.setDayHigh(formatFloat(binding.priceGraph.getYChartMax()));
+
+                    if (dayLow < 1.0f)
+                        binding.setDayLow(formatDoubleDetailed((double) dayLow));
+                    else
+                        binding.setDayLow(formatFloat(dayLow));
+
+                    if (dayHigh < 1.0f)
+                        binding.setDayHigh(formatDoubleDetailed((double) dayHigh));
+                    else
+                        binding.setDayHigh(formatFloat(dayHigh));
                 }
 
                 hideGraphLoading();
