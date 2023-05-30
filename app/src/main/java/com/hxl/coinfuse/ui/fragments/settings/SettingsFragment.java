@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 
 import com.hxl.coinfuse.BuildConfig;
@@ -64,10 +65,7 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding, Sett
             bundle.putInt(checkedItemArgKey, vm.getTheme());
             bundle.putParcelable(consumerArgKey, (ParcelableConsumer<Integer>) this::changeTheme);
 
-            assert navController.getCurrentDestination() != null;
-            if (navController.getCurrentDestination().getId() == R.id.navigationFragment) {
-                navController.navigate(R.id.navigation_to_themeDialog, bundle);
-            }
+            safeNavigate(R.id.navigation_to_themeDialog, bundle);
         });
 
         binding.prefLanguage.setOnClickListener(v -> {
@@ -80,10 +78,8 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding, Sett
                     changeLanguage(UiUtils.getStringArray(requireContext(), R.array.language_save)[val])
             );
 
-            assert navController.getCurrentDestination() != null;
-            if (navController.getCurrentDestination().getId() == R.id.navigationFragment) {
-                navController.navigate(R.id.navigation_to_languageDialog, bundle);
-            }
+            safeNavigate(R.id.navigation_to_languageDialog, bundle);
+
         });
 
         binding.tvClearBookmarks.setOnClickListener(v -> vm.eraseBookmarks(
@@ -103,14 +99,13 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding, Sett
                 () -> showSnackBar(UiUtils.getString(requireContext(), R.string.clear_storage_fail))
         ));
 
-        binding.tvAboutUs.setOnClickListener(v -> navController.navigate(R.id.navigation_to_aboutUsFragment));
-        binding.tvContact.setOnClickListener(v -> navController.navigate(R.id.navigation_to_contactFragment));
+        binding.tvAboutUs.setOnClickListener(v -> safeNavigate(R.id.navigation_to_aboutUsFragment));
+        binding.tvContact.setOnClickListener(v -> safeNavigate(R.id.navigation_to_contactFragment));
         binding.tvPrivacyPolicy.setOnClickListener(v ->
                 requireActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(UiUtils.getString(requireContext(), R.string.privacy_policy_link))))
         );
 
-        binding.tvCredits.setOnClickListener(v ->
-                navController.navigate(R.id.navigation_to_creditsFragment));
+        binding.tvCredits.setOnClickListener(v -> safeNavigate(R.id.navigation_to_creditsFragment));
 
         binding.tvRateApp.setOnClickListener(v -> {
             try {
@@ -139,6 +134,19 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding, Sett
     private void changeLanguage(String lang) {
         vm.saveLanguage(lang);
         requireActivity().recreate();
+    }
+
+    private void safeNavigate(int navId) {
+        safeNavigate(navId, new Bundle());
+    }
+
+    private void safeNavigate(int navId, Bundle bundle) {
+        final NavDestination navDestination = navController.getCurrentDestination();
+        assert navDestination != null;
+
+        if (navDestination.getId() == R.id.navigationFragment) {
+            navController.navigate(navId, bundle);
+        }
     }
 
     private String getThemeString(int theme) {

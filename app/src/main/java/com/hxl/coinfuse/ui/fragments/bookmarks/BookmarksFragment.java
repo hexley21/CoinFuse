@@ -110,7 +110,10 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
 
             binding.searchBarCoinBookmarks.clearFocus();
 
-            navController.navigate(R.id.navigation_to_coinSortDialog, bundle);
+            assert navController.getCurrentDestination() != null;
+            if (navController.getCurrentDestination().getId() == R.id.navigationFragment) {
+                navController.navigate(R.id.navigation_to_coinSortDialog, bundle);
+            }
         });
 
         loadingVisibility = View.GONE;
