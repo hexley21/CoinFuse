@@ -51,12 +51,11 @@ public class CoinRepositoryImpl implements CoinRepository {
 
     @Override
     public Single<List<Coin>> getCoins(List<String> ids) {
-        if (!ids.isEmpty()) {
-            return remoteSource.getCoins(ids)
-                    .flatMap(x -> saveCoins(x).toSingleDefault(x))
-                    .onErrorResumeWith(localSource.getCoins(ids));
-        }
-        return Single.just(new ArrayList<>());
+        if (ids.isEmpty())
+            return Single.just(new ArrayList<>());
+        return remoteSource.getCoins(ids)
+                .flatMap(x -> saveCoins(x).toSingleDefault(x))
+                .onErrorResumeWith(localSource.getCoins(ids));
     }
 
     @Override
@@ -70,20 +69,14 @@ public class CoinRepositoryImpl implements CoinRepository {
     public Single<Coin> getCoin(String id) {
         return remoteSource.getCoin(id)
                 .flatMap(x -> saveCoin(x).toSingleDefault(x))
-                .onErrorResumeWith(localSource.getCoin(id)).map(x -> {
-                    if (x == null)
-                        throw new UnknownHostException("No cached data, connect to the internet");
-                    return x;
-                });
+                .onErrorResumeWith(localSource.getCoin(id));
     }
 
-    @Override
-    public Completable saveCoins(List<Coin> coins) {
+    private Completable saveCoins(List<Coin> coins) {
         return localSource.saveCoins(coins.toArray(new Coin[0]));
     }
 
-    @Override
-    public Completable saveCoin(Coin coin) {
+    private Completable saveCoin(Coin coin) {
         return localSource.saveCoins(coin);
     }
 
@@ -106,9 +99,8 @@ public class CoinRepositoryImpl implements CoinRepository {
     public Single<List<Coin>> getBookmarkedCoins() {
             return localSource.getBookmarkedCoinIds()
                     .flatMap(b -> {
-                        if (b.isEmpty()) {
+                        if (b.isEmpty())
                             return Single.just(new ArrayList<>());
-                        }
 
                         List<String> ids = b.stream().map(x -> x.value).collect(Collectors.toList());
                         return remoteSource.getCoins(ids)

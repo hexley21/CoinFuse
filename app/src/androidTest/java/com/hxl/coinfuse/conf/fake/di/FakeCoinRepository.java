@@ -42,16 +42,6 @@ public class FakeCoinRepository implements CoinRepository {
     }
 
     @Override
-    public Completable saveCoins(List<Coin> coins) {
-        return Completable.complete();
-    }
-
-    @Override
-    public Completable saveCoin(Coin coin) {
-        return Completable.complete();
-    }
-
-    @Override
     public Completable bookmarkCoin(String id) {
         return Completable.complete();
     }
