@@ -3,7 +3,7 @@ package com.hxl.coinfuse.ui.dialogs.coins;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.explorerArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.dialogCallbackArgKey;
-import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.searchQuery;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.searchQueryArgKey;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -50,7 +50,7 @@ public class CoinDialog extends BaseDialog<DialogCoinBinding> {
         assert getArguments() != null;
         String coinId = getArguments().getString(coinArgKey);
         String explorerUrl = getArguments().getString(explorerArgKey);
-        String query = getArguments().getString(searchQuery);
+        String query = getArguments().getString(searchQueryArgKey);
         DialogCallback callback = getArguments().getParcelable(dialogCallbackArgKey);
         initBookmark(coinId);
         initExplorer(explorerUrl);

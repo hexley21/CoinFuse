@@ -14,6 +14,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinNameArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinSymbolArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.explorerArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.searchQueryArgKey;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -26,7 +28,7 @@ import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.app.MainActivity;
@@ -42,7 +44,7 @@ import dagger.hilt.android.testing.HiltAndroidRule;
 import dagger.hilt.android.testing.HiltAndroidTest;
 
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@MediumTest
 @HiltAndroidTest
 public class NavigationTest {
 
@@ -52,8 +54,8 @@ public class NavigationTest {
     @Rule(order = 1)
     public ActivityScenarioRule<MainActivity> scenarioRule = new ActivityScenarioRule<>(MainActivity.class);
 
-    NavController rootNavController;
-    NavController mainNavController;
+    private NavController rootNavController;
+    private NavController mainNavController;
 
     @Before
     public void setUp() {
@@ -69,7 +71,7 @@ public class NavigationTest {
 
     @Test
     @SuppressWarnings("ConstantConditions")
-    public void testAppNavigation() {
+    public void testCoinNavigation() {
         // App starts with welcome fragment
         assertEquals(rootNavController.getCurrentDestination().getId(), R.id.welcomeFragment);
 
@@ -84,7 +86,20 @@ public class NavigationTest {
         assertRootNav(R.id.coinDetailsFragment, coinArgKey, coinNameArgKey, coinSymbolArgKey, coinSymbolArgKey);
         assertMainNav(R.id.coinsMenuFragment);
 
+        // Coin-details: Coin-prices <-> Coin-exchanges
+        onView(withId(R.id.coin_details_pager)).perform(ViewActions.slowSwipeLeft());
+        onView(withId(R.id.coin_details_pager)).perform(ViewActions.swipeRight());
         // Coin-menu <- Coin-details
+        pressBack();
+        assertRootNav(R.id.navigationFragment);
+        assertMainNav(R.id.coinsMenuFragment);
+
+        // Coin-menu -> Coin-dialog
+        onView(withId(R.id.rv_coins)).perform(actionOnItemAtPosition(0, ViewActions.longClick()));
+        assertRootNav(R.id.coinDialog, coinArgKey, explorerArgKey);
+        assertMainNav(R.id.coinsMenuFragment);
+
+        // Coin-menu <- Coin-dialog
         pressBack();
         assertRootNav(R.id.navigationFragment);
         assertMainNav(R.id.coinsMenuFragment);
@@ -106,6 +121,16 @@ public class NavigationTest {
         assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsMenuFragment);
         onView(withId(R.id.search_view)).check(matches(isDisplayed()));
 
+        // Coin-menu(search) -> Coin-dialog
+        onView(withId(R.id.rv_coin_search)).perform(actionOnItemAtPosition(0, ViewActions.longClick()));
+        assertRootNav(R.id.coinDialog, coinArgKey, explorerArgKey);
+        assertMainNav(R.id.coinsMenuFragment);
+
+        // Coin-menu(search) <- Coin-dialog
+        pressBack();
+        assertRootNav(R.id.navigationFragment);
+        assertMainNav(R.id.coinsMenuFragment);
+
         // Coin-menu(search-history) -> Coin-details
         onView(withId(com.google.android.material.R.id.search_view_clear_button)).perform(click());
         onView(withId(R.id.rv_coin_history)).perform(actionOnItemAtPosition(0, ViewActions.click()));
@@ -115,6 +140,16 @@ public class NavigationTest {
 
         // Coin-menu(search-history) <- Coin-details
         pressBack();
+        assertRootNav(R.id.navigationFragment);
+        assertMainNav(R.id.coinsMenuFragment);
+
+        // Coin-menu(search-history) -> Coin-dialog
+        onView(withId(R.id.rv_coin_history)).perform(actionOnItemAtPosition(0, ViewActions.longClick()));
+        assertRootNav(R.id.coinDialog, coinArgKey, explorerArgKey, searchQueryArgKey);
+        assertMainNav(R.id.coinsMenuFragment);
+
+        // Coin-menu(search-history) <- Coin-dialog(remove-history)
+        onView(withId(R.id.dialog_coin_delete_search)).perform(ViewActions.click());
         assertRootNav(R.id.navigationFragment);
         assertMainNav(R.id.coinsMenuFragment);
 

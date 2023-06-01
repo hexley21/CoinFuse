@@ -6,7 +6,7 @@ import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinNa
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinSymbolArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.explorerArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.dialogCallbackArgKey;
-import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.searchQuery;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.searchQueryArgKey;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -113,7 +113,7 @@ public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinS
         holder.itemView.setOnLongClickListener(v -> {
             bundle.putString(explorerArgKey, getList().get(position).explorer);
             if (fetchHistory != null) {
-                bundle.putString(searchQuery, getList().get(position).id);
+                bundle.putString(searchQueryArgKey, getList().get(position).id);
                 bundle.putParcelable(dialogCallbackArgKey, (DialogCallback) fetchHistory::run);
             }
             navController.navigate(R.id.navigation_to_coinDialog, bundle);
