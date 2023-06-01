@@ -4,7 +4,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static com.hxl.coinfuse.util.HiltFragmentScenario.launchFragmentInHiltContainer;
+import static com.hxl.coinfuse.conf.HiltFragmentScenario.launchFragmentInHiltContainer;
 import static org.hamcrest.CoreMatchers.not;
 
 import androidx.test.espresso.action.ViewActions;

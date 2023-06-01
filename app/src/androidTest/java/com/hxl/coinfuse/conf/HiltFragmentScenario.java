@@ -1,4 +1,4 @@
-package com.hxl.coinfuse.util;
+package com.hxl.coinfuse.conf;
 
 import android.content.ComponentName;
 import android.content.Intent;

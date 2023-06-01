@@ -22,7 +22,6 @@ import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseAdapter;
 import com.hxl.coinfuse.databinding.ItemCoinSearchBinding;
 import com.hxl.coinfuse.ui.dialogs.DialogCallback;
-import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.coinfuse.util.GlideFactory;
 import com.hxl.coinfuse.util.comparator.CoinComparator;
 import com.hxl.domain.model.Coin;
@@ -90,8 +89,6 @@ public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinS
     @Override
     public void onBindViewHolder(@NonNull CoinSearchViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        EspressoIdlingResource.increment();
-
         Bundle bundle = new Bundle();
         bundle.putString(coinArgKey, getList().get(position).id);
 
@@ -99,7 +96,6 @@ public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinS
             if (onEndCallBack != null) {
                 holder.itemView.setOnClickListener(v -> onEndCallBack.accept(getList().get(position)));
             }
-            EspressoIdlingResource.decrement();
             return;
         }
 

@@ -12,7 +12,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static com.hxl.coinfuse.util.HiltFragmentScenario.launchFragmentInHiltContainer;
+import static com.hxl.coinfuse.conf.HiltFragmentScenario.launchFragmentInHiltContainer;
 import static org.hamcrest.CoreMatchers.not;
 
 import android.view.KeyEvent;

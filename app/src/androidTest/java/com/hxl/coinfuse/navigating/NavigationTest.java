@@ -12,6 +12,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinNameArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinSymbolArgKey;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -71,25 +73,23 @@ public class NavigationTest {
         // App starts with welcome fragment
         assertEquals(rootNavController.getCurrentDestination().getId(), R.id.welcomeFragment);
 
-        // Welcome fragment opens coins-menu inside navigation fragment
+        // Welcome -> Navigation(CoinsMenu)
         onView(withId(R.id.tv_skip)).perform(ViewActions.click());
         scenarioRule.getScenario().onActivity(activity -> mainNavController = Navigation.findNavController(activity.findViewById(R.id.fragment_main_container)));
-        assertEquals(rootNavController.getCurrentDestination().getId(), R.id.navigationFragment);
-        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsMenuFragment);
+        assertRootNav(R.id.navigationFragment);
+        assertMainNav(R.id.coinsMenuFragment);
 
-        // Coins-menu's main recycler-view's item opens coin-details
+        // Coin-menu -> Coin-details
         onView(withId(R.id.rv_coins)).perform(actionOnItemAtPosition(0, ViewActions.click()));
-        assertEquals(rootNavController.getCurrentDestination().getId(), R.id.coinDetailsFragment);
-        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsMenuFragment);
-        assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getString(coinArgKey));
+        assertRootNav(R.id.coinDetailsFragment, coinArgKey, coinNameArgKey, coinSymbolArgKey, coinSymbolArgKey);
+        assertMainNav(R.id.coinsMenuFragment);
 
-
-        // Coin-details goes back to coins-menu fragment
+        // Coin-menu <- Coin-details
         pressBack();
-        assertEquals(rootNavController.getCurrentDestination().getId(), R.id.navigationFragment);
-        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsMenuFragment);
+        assertRootNav(R.id.navigationFragment);
+        assertMainNav(R.id.coinsMenuFragment);
 
-        // Coins-menu opens coin-details through search view
+        // Coins-menu(search) -> Coin-details
         onView(withId(R.id.search_bar)).perform(click());
         onView(withId(R.id.search_view)).check(matches(isDisplayed()));
 
@@ -97,37 +97,65 @@ public class NavigationTest {
                 .perform(typeText("bitcoin"), pressKey(KeyEvent.KEYCODE_ENTER));
         onView(withId(R.id.rv_coin_search)).perform(actionOnItemAtPosition(0, ViewActions.click()));
 
-        assertEquals(rootNavController.getCurrentDestination().getId(), R.id.coinDetailsFragment);
-        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsMenuFragment);
-        assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getString("coin"));
+        assertRootNav(R.id.coinDetailsFragment, coinArgKey, coinNameArgKey, coinSymbolArgKey, coinSymbolArgKey);
+        assertMainNav(R.id.coinsMenuFragment);
 
-        // Coin-details goes back to coins-menu on back-press
+        // Coin-menu(search) <- Coin-details
         pressBack();
-        assertEquals(rootNavController.getCurrentDestination().getId(), R.id.navigationFragment);
+        assertRootNav(R.id.navigationFragment);
         assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsMenuFragment);
         onView(withId(R.id.search_view)).check(matches(isDisplayed()));
 
-        // Coins-menu opens coin-details through search view's search history
+        // Coin-menu(search-history) -> Coin-details
         onView(withId(com.google.android.material.R.id.search_view_clear_button)).perform(click());
         onView(withId(R.id.rv_coin_history)).perform(actionOnItemAtPosition(0, ViewActions.click()));
 
-        assertEquals(rootNavController.getCurrentDestination().getId(), R.id.coinDetailsFragment);
-        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsMenuFragment);
-        assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getString("coin"));
+        assertRootNav(R.id.coinDetailsFragment, coinArgKey, coinNameArgKey, coinSymbolArgKey, coinSymbolArgKey);
+        assertMainNav(R.id.coinsMenuFragment);
 
-        // Coin-details goes back to coins-menu on back-press
+        // Coin-menu(search-history) <- Coin-details
         pressBack();
-        assertEquals(rootNavController.getCurrentDestination().getId(), R.id.navigationFragment);
-        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsMenuFragment);
+        assertRootNav(R.id.navigationFragment);
+        assertMainNav(R.id.coinsMenuFragment);
 
-        // Coins menu fragment closes searchView on search-view back-button press
+        // Coin-menu closes search view
         onView(withId(R.id.search_view)).check(matches(isDisplayed()));
         onView(withContentDescription(com.google.android.material.R.string.searchview_navigation_content_description)).perform(click());
-        assertEquals(rootNavController.getCurrentDestination().getId(), R.id.navigationFragment);
-        assertEquals(mainNavController.getCurrentDestination().getId(), R.id.coinsMenuFragment);
+        assertRootNav(R.id.navigationFragment);
+        assertMainNav(R.id.coinsMenuFragment);
 
-        // navigation fragment closes app on back press and invokes activity recreation
+        // App closes
         pressBackUnconditionally();
         assertEquals(Lifecycle.State.CREATED, scenarioRule.getScenario().getState());
+    }
+
+    private void assertMainNav(int id) {
+        assert mainNavController.getCurrentDestination() != null;
+        assertEquals(mainNavController.getCurrentDestination().getId(), id);
+    }
+
+    private void assertMainNav(int id, String... bundleId) {
+        assertMainNav(id);
+        assert mainNavController.getCurrentBackStackEntry() != null;
+        assert mainNavController.getCurrentBackStackEntry().getArguments() != null;
+
+        for (String i: bundleId) {
+            assertNotNull(mainNavController.getCurrentBackStackEntry().getArguments().getString(i));
+        }
+    }
+
+    private void assertRootNav(int id) {
+        assert rootNavController.getCurrentDestination() != null;
+        assertEquals(rootNavController.getCurrentDestination().getId(), id);
+    }
+
+    private void assertRootNav(int id, String... bundleId) {
+        assertRootNav(id);
+        assert rootNavController.getCurrentBackStackEntry() != null;
+        assert rootNavController.getCurrentBackStackEntry().getArguments() != null;
+
+        for (String i: bundleId) {
+            assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getString(i));
+        }
     }
 }

@@ -22,7 +22,6 @@ import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseDialog;
 import com.hxl.coinfuse.databinding.DialogCoinBinding;
 import com.hxl.coinfuse.ui.dialogs.DialogCallback;
-import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.coinfuse.util.UiUtils;
 import com.hxl.presentation.livedata.DataState;
 import com.hxl.presentation.viewmodels.CoinDialogViewModel;
@@ -102,7 +101,6 @@ public class CoinDialog extends BaseDialog<DialogCoinBinding> {
     }
 
     private void initBookmark(String coinId) {
-        EspressoIdlingResource.increment();
         vm.isCoinBookmarked(coinId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -116,18 +114,13 @@ public class CoinDialog extends BaseDialog<DialogCoinBinding> {
                             }
                             binding.dialogCoinBookmark.setOnClickListener(v -> bookmarkAction(coinId));
 
-                            EspressoIdlingResource.decrement();
                             Log.d(TAG, "initBookmark: successful");},
-                        e -> {
-                            EspressoIdlingResource.decrement();
-                            Log.e(TAG, "initBookmark: failed", e);
-                            },
+                        e -> Log.e(TAG, "initBookmark: failed", e),
                         compositeDisposable
                 );
     }
 
     private void bookmarkAction(String coinId) {
-        EspressoIdlingResource.increment();
         vm.isCoinBookmarked(coinId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -143,12 +136,8 @@ public class CoinDialog extends BaseDialog<DialogCoinBinding> {
                                 vm.bookmarkCoin(coinId).subscribe();
                             }
 
-                            EspressoIdlingResource.decrement();
                             Log.d(TAG, "bookmarkAction: successful");},
-                        e -> {
-                            EspressoIdlingResource.decrement();
-                            Log.e(TAG, "bookmarkAction: failed", e);
-                            },
+                        e -> Log.e(TAG, "bookmarkAction: failed", e),
                         compositeDisposable
                 );
     }

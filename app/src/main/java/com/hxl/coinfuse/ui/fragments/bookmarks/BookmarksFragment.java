@@ -24,7 +24,6 @@ import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentBookmarksBinding;
 import com.hxl.coinfuse.ui.dialogs.SortCallback;
-import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.domain.model.Coin;
 import com.hxl.presentation.OrderBy;
 import com.hxl.presentation.coin.CoinSortBy;
@@ -154,7 +153,6 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
     }
 
     private void getCoins() {
-        EspressoIdlingResource.increment();
         vm.bookmarkedCoins(finalSortBy, finalOrderBy)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -165,7 +163,6 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
     }
 
     private void getCoinsByQuery(String query) {
-        EspressoIdlingResource.increment();
         vm.searchBookmarkedCoins(query, finalSortBy, finalOrderBy)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -200,7 +197,6 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
             }
 
             Log.d(TAG, "fetchBookmarkedCoins: success");
-            EspressoIdlingResource.decrement();
         };
 
 
@@ -209,7 +205,6 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
         binding.srlCoinBookmarks.setRefreshing(false);
         visibilityBookmarkError(e.getMessage());
         Log.e(TAG, "fetchBookmarkedCoins: failed", e);
-        EspressoIdlingResource.decrement();
     };
 
     private void visibilityBookmarkError(String error) {

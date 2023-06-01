@@ -5,7 +5,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.hxl.coinfuse.conf.fake.FakeDataFactory.COIN;
-import static com.hxl.coinfuse.util.HiltFragmentScenario.launchFragmentInHiltContainer;
+import static com.hxl.coinfuse.conf.HiltFragmentScenario.launchFragmentInHiltContainer;
 import static com.hxl.coinfuse.util.NumberFormatUtil.formatDoubleDetailed;
 import static com.hxl.coinfuse.util.NumberFormatUtil.formatFloat;
 
