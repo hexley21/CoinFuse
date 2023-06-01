@@ -24,6 +24,7 @@ import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentBookmarksBinding;
 import com.hxl.coinfuse.ui.dialogs.SortCallback;
+import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.domain.model.Coin;
 import com.hxl.presentation.OrderBy;
 import com.hxl.presentation.coin.CoinSortBy;
@@ -63,9 +64,11 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
 
 
     private final AsyncListDiffer.ListListener<Coin> onDataChange = (old, cur) -> {
+        EspressoIdlingResource.increment();
         binding.shimmerCoins.setVisibility(View.GONE);
         binding.srlCoinBookmarks.setRefreshing(false);
         binding.rvCoinBookmarks.scrollToPosition(0);
+        EspressoIdlingResource.decrement();
     };
 
 

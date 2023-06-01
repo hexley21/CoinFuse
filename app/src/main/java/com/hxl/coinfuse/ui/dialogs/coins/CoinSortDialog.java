@@ -79,7 +79,7 @@ public class CoinSortDialog extends BaseDialog<DialogCoinSortBinding> {
         registerListener(binding.dialogCoinSortChange, CoinSortBy.CHANGE);
         registerListener(binding.dialogCoinSortTime, CoinSortBy.TIMESTAMP);
 
-        binding.sortApply.setOnClickListener(v -> {
+        binding.sortCoinApply.setOnClickListener(v -> {
             dismiss();
             assert getArguments() != null;
             CoinSortBy oldSort = (CoinSortBy) getArguments().getSerializable(sortByArgKey);

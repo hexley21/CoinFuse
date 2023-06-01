@@ -21,6 +21,7 @@ import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchan
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeUrlArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeVolumeArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.explorerArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.isTimeSortableArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.orderByArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.searchQueryArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.sortByArgKey;
@@ -44,12 +45,15 @@ import androidx.test.filters.SmallTest;
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.app.MainActivity;
 import com.hxl.coinfuse.util.EspressoIdlingResource;
+import com.hxl.domain.interactors.coins.BookmarkCoin;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import javax.inject.Inject;
 
 import dagger.hilt.android.testing.HiltAndroidRule;
 import dagger.hilt.android.testing.HiltAndroidTest;
@@ -64,6 +68,9 @@ public class NavigationTest {
 
     @Rule(order = 1)
     public ActivityScenarioRule<MainActivity> scenarioRule = new ActivityScenarioRule<>(MainActivity.class);
+
+    @Inject
+    public BookmarkCoin bookmarkCoin;
 
     private NavController rootNavController;
     private NavController mainNavController;
@@ -233,6 +240,46 @@ public class NavigationTest {
         assertRootNav(R.id.navigationFragment);
 
     }
+
+    @Test
+    @SmallTest
+    @SuppressWarnings("ConstantConditions")
+    public void testBookmarksNavigation() {
+        bookmarkCoin.invoke("bitcoin").test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertComplete();
+
+        startTest();
+        onView(withId(R.id.menu_bookmarks)).perform(click());
+        assertMainNav(R.id.bookmarksFragment);
+        assertRootNav(R.id.navigationFragment);
+
+        // Bookmarks -> Coin-details
+        onView(withId(R.id.rv_coin_bookmarks)).perform(actionOnItemAtPosition(0, click()));
+        assertMainNav(R.id.bookmarksFragment);
+        assertRootNav(R.id.coinDetailsFragment, coinArgKey, coinNameArgKey, coinSymbolArgKey, coinSymbolArgKey);
+
+        // Bookmarks <- Coin-details
+        pressBack();
+        assertMainNav(R.id.bookmarksFragment);
+        assertRootNav(R.id.navigationFragment);
+
+        // Bookmarks -> Sort-dialog
+        onView(withId(R.id.chip_coin_bookmark_sort)).perform(click());
+        assertMainNav(R.id.bookmarksFragment);
+        assertRootNav(R.id.coinSortDialog);
+        assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getParcelable(sortCallbackArgKey));
+        assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getSerializable(orderByArgKey));
+        assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getSerializable(sortByArgKey));
+
+        // Bookmarks <- Sort-dialog
+        onView(withId(R.id.sort_coin_apply)).perform(click());
+        assertMainNav(R.id.bookmarksFragment);
+        assertRootNav(R.id.navigationFragment);
+    }
+
+
 
     private void startTest() {
         assert rootNavController.getCurrentDestination() != null;
