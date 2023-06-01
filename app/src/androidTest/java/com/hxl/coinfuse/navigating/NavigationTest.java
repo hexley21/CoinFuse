@@ -15,6 +15,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinNameArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinSymbolArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.consumerArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeNameArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeUrlArgKey;
@@ -36,7 +37,9 @@ import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
 
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.app.MainActivity;
@@ -52,7 +55,7 @@ import dagger.hilt.android.testing.HiltAndroidRule;
 import dagger.hilt.android.testing.HiltAndroidTest;
 
 @RunWith(AndroidJUnit4.class)
-@MediumTest
+@LargeTest
 @HiltAndroidTest
 public class NavigationTest {
 
@@ -78,14 +81,10 @@ public class NavigationTest {
     }
 
     @Test
+    @MediumTest
     @SuppressWarnings("ConstantConditions")
     public void testCoinNavigation() {
-        // App starts with welcome fragment
-        assertEquals(rootNavController.getCurrentDestination().getId(), R.id.welcomeFragment);
-
-        // Welcome -> Navigation(CoinsMenu)
-        onView(withId(R.id.tv_skip)).perform(ViewActions.click());
-        scenarioRule.getScenario().onActivity(activity -> mainNavController = Navigation.findNavController(activity.findViewById(R.id.fragment_main_container)));
+        startTest();
         assertRootNav(R.id.navigationFragment);
         assertMainNav(R.id.coinsMenuFragment);
 
@@ -173,14 +172,10 @@ public class NavigationTest {
     }
 
     @Test
+    @SmallTest
     @SuppressWarnings("ConstantConditions")
     public void testExchangesNavigation() {
-        // App starts with welcome fragment
-        assertEquals(rootNavController.getCurrentDestination().getId(), R.id.welcomeFragment);
-
-        // Welcome -> Navigation(exchanges)
-        onView(withId(R.id.tv_skip)).perform(click());
-        scenarioRule.getScenario().onActivity(activity -> mainNavController = Navigation.findNavController(activity.findViewById(R.id.fragment_main_container)));
+        startTest();
         onView(withId(R.id.menu_exchanges)).perform(ViewActions.click());
         assertMainNav(R.id.exchangeFragment);
 
@@ -216,6 +211,37 @@ public class NavigationTest {
         pressBack();
         assertMainNav(R.id.exchangeFragment);
         assertRootNav(R.id.navigationFragment);
+    }
+
+    @Test
+    @SmallTest
+    @SuppressWarnings("ConstantConditions")
+    public void testProfitCalculatorNavigation() {
+        startTest();
+        onView(withId(R.id.menu_profit_calculator)).perform(ViewActions.click());
+        assertMainNav(R.id.profitCalculatorFragment);
+
+        // Profit-calculator -> Coin-search
+        onView(withId(R.id.profit_search_bar)).perform(click());
+        assertMainNav(R.id.profitCalculatorFragment);
+        assertRootNav(R.id.profitCalculatorDialog);
+        assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getParcelable(consumerArgKey));
+
+        // Profit-calculator <- Coin-search
+        onView(withId(R.id.rv_profit_search)).perform(actionOnItemAtPosition(0, click()));
+        assertMainNav(R.id.profitCalculatorFragment);
+        assertRootNav(R.id.navigationFragment);
+
+    }
+
+    private void startTest() {
+        assert rootNavController.getCurrentDestination() != null;
+        // App starts with welcome fragment
+        assertEquals(rootNavController.getCurrentDestination().getId(), R.id.welcomeFragment);
+
+        // Welcome -> Navigation(exchanges)
+        onView(withId(R.id.tv_skip)).perform(click());
+        scenarioRule.getScenario().onActivity(activity -> mainNavController = Navigation.findNavController(activity.findViewById(R.id.fragment_main_container)));
     }
 
     private void assertMainNav(int id) {

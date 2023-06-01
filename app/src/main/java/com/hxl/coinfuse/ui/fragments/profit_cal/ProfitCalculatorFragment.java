@@ -49,7 +49,7 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
         super.onCreateView(savedInstanceState);
 
         if (savedInstanceState != null) {
-            binding.searchBar.setText(savedInstanceState.getString("searchTitle"));
+            binding.profitSearchBar.setText(savedInstanceState.getString("searchTitle"));
         }
 
         binding.setCurrency("$");
@@ -115,19 +115,19 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
         assert binding.tfProfitExFee.getEditText() != null;
         assert binding.tfProfitBuy.getEditText() != null;
 
-        binding.searchBar.setOnClickListener(v -> {
+        binding.profitSearchBar.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putParcelable(consumerArgKey, (ParcelableConsumer<Coin>) coin -> {
                 if (coin == null) {
                     ((SearchBar) requireActivity().findViewById(R.id.search_bar)).setText("");
-//                    binding.searchBar.setText("");
+//                    binding.profitSearchBar.setText("");
                     binding.tfProfitBuy.getEditText().setText("");
                     binding.tfProfitSell.getEditText().setText("");
                     vm.setBuyPriceField(null);
                     vm.setSellPriceField(null);
                     return;
                 }
-                binding.searchBar.setText(coin.name);
+                binding.profitSearchBar.setText(coin.name);
                 binding.tfProfitBuy.getEditText().setText(coin.priceUsd.toString());
                 binding.tfProfitSell.getEditText().setText(coin.priceUsd.toString());
             });
@@ -141,7 +141,7 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
         binding.tfProfitExFee.getEditText().setText(vm.getExitFeeField() == null ? "" : vm.getExitFeeField().toString());
 
         binding.profitToolbar.setNavigationOnClickListener(v -> {
-            binding.searchBar.setText("");
+            binding.profitSearchBar.setText("");
             binding.tfProfitBuy.getEditText().setText("");
             binding.tfProfitInvestment.getEditText().setText("");
             binding.tfProfitSell.getEditText().setText("");
@@ -191,7 +191,7 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         try {
-            outState.putString("searchTitle", binding.searchBar.getText() == null ? "" : binding.searchBar.getText().toString());
+            outState.putString("searchTitle", binding.profitSearchBar.getText() == null ? "" : binding.profitSearchBar.getText().toString());
         }
         catch (Exception e) {
             Log.e(TAG, "onSaveInstanceState: failed " + e.getMessage());
