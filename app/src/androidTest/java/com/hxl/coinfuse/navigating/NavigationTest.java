@@ -21,7 +21,6 @@ import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchan
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeUrlArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeVolumeArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.explorerArgKey;
-import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.isTimeSortableArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.orderByArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.searchQueryArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.sortByArgKey;
@@ -279,7 +278,67 @@ public class NavigationTest {
         assertRootNav(R.id.navigationFragment);
     }
 
+    @Test
+    @MediumTest
+    @SuppressWarnings("ConstantConditions")
+    public void testSettingsFragmentNavigation() {
+        startTest();
+        onView(withId(R.id.menu_settings)).perform(click());
+        assertMainNav(R.id.settingsFragment);
+        assertRootNav(R.id.navigationFragment);
 
+        // Settings -> Theme-dialog
+        onView(withId(R.id.pref_theme)).perform(click());
+        assertMainNav(R.id.settingsFragment);
+        assertRootNav(R.id.themeDialog);
+        assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getParcelable(consumerArgKey));
+
+        // Settings <- Theme-dialog
+        pressBack();
+        assertMainNav(R.id.settingsFragment);
+        assertRootNav(R.id.navigationFragment);
+
+        // Settings -> Language-dialog
+        onView(withId(R.id.pref_language)).perform(click());
+        assertMainNav(R.id.settingsFragment);
+        assertRootNav(R.id.languageDialog);
+        assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getParcelable(consumerArgKey));
+
+        // Settings <- Language-dialog
+        pressBack();
+        assertMainNav(R.id.settingsFragment);
+        assertRootNav(R.id.navigationFragment);
+
+        // Settings -> About-us fragment
+        onView(withId(R.id.tv_about_us)).perform(click());
+        assertMainNav(R.id.settingsFragment);
+        assertRootNav(R.id.aboutUsFragment);
+
+        // Settings <- About-us fragment
+        pressBack();
+        assertMainNav(R.id.settingsFragment);
+        assertRootNav(R.id.navigationFragment);
+
+        // Settings -> Contact-fragment
+        onView(withId(R.id.tv_contact)).perform(click());
+        assertMainNav(R.id.settingsFragment);
+        assertRootNav(R.id.contactFragment);
+
+        // Settings <- Contact-fragment
+        pressBack();
+        assertMainNav(R.id.settingsFragment);
+        assertRootNav(R.id.navigationFragment);
+
+        // Settings -> Credits-fragment
+        onView(withId(R.id.tv_credits)).perform(click());
+        assertMainNav(R.id.settingsFragment);
+        assertRootNav(R.id.creditsFragment);
+
+        // Settings <- Contact-fragment
+        pressBack();
+        assertMainNav(R.id.settingsFragment);
+        assertRootNav(R.id.navigationFragment);
+    }
 
     private void startTest() {
         assert rootNavController.getCurrentDestination() != null;
