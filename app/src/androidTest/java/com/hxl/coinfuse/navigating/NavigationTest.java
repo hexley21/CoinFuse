@@ -4,6 +4,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.Espresso.pressBackUnconditionally;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.longClick;
 import static androidx.test.espresso.action.ViewActions.pressKey;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -14,8 +15,15 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinNameArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.coinSymbolArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeNameArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeUrlArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.exchangeVolumeArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.explorerArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.orderByArgKey;
 import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.searchQueryArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.sortByArgKey;
+import static com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment.sortCallbackArgKey;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -95,7 +103,7 @@ public class NavigationTest {
         assertMainNav(R.id.coinsMenuFragment);
 
         // Coin-menu -> Coin-dialog
-        onView(withId(R.id.rv_coins)).perform(actionOnItemAtPosition(0, ViewActions.longClick()));
+        onView(withId(R.id.rv_coins)).perform(actionOnItemAtPosition(0, longClick()));
         assertRootNav(R.id.coinDialog, coinArgKey, explorerArgKey);
         assertMainNav(R.id.coinsMenuFragment);
 
@@ -122,7 +130,7 @@ public class NavigationTest {
         onView(withId(R.id.search_view)).check(matches(isDisplayed()));
 
         // Coin-menu(search) -> Coin-dialog
-        onView(withId(R.id.rv_coin_search)).perform(actionOnItemAtPosition(0, ViewActions.longClick()));
+        onView(withId(R.id.rv_coin_search)).perform(actionOnItemAtPosition(0, longClick()));
         assertRootNav(R.id.coinDialog, coinArgKey, explorerArgKey);
         assertMainNav(R.id.coinsMenuFragment);
 
@@ -144,7 +152,7 @@ public class NavigationTest {
         assertMainNav(R.id.coinsMenuFragment);
 
         // Coin-menu(search-history) -> Coin-dialog
-        onView(withId(R.id.rv_coin_history)).perform(actionOnItemAtPosition(0, ViewActions.longClick()));
+        onView(withId(R.id.rv_coin_history)).perform(actionOnItemAtPosition(0, longClick()));
         assertRootNav(R.id.coinDialog, coinArgKey, explorerArgKey, searchQueryArgKey);
         assertMainNav(R.id.coinsMenuFragment);
 
@@ -164,19 +172,55 @@ public class NavigationTest {
         assertEquals(Lifecycle.State.CREATED, scenarioRule.getScenario().getState());
     }
 
+    @Test
+    @SuppressWarnings("ConstantConditions")
+    public void testExchangesNavigation() {
+        // App starts with welcome fragment
+        assertEquals(rootNavController.getCurrentDestination().getId(), R.id.welcomeFragment);
+
+        // Welcome -> Navigation(exchanges)
+        onView(withId(R.id.tv_skip)).perform(click());
+        scenarioRule.getScenario().onActivity(activity -> mainNavController = Navigation.findNavController(activity.findViewById(R.id.fragment_main_container)));
+        onView(withId(R.id.menu_exchanges)).perform(ViewActions.click());
+        assertMainNav(R.id.exchangeFragment);
+
+        // Exchange-menu -> Exchange-details
+        onView(withId(R.id.rv_exchanges)).perform(actionOnItemAtPosition(0, click()));
+        assertRootNav(R.id.exchangeDetailsFragment, exchangeArgKey, exchangeNameArgKey, exchangeVolumeArgKey, exchangeUrlArgKey);
+        assertMainNav(R.id.exchangeFragment);
+
+        // Exchange-menu <- Exchange-details
+        pressBack();
+        assertMainNav(R.id.exchangeFragment);
+        assertRootNav(R.id.navigationFragment);
+
+        // Exchange-menu -> Exchange-dialog
+        onView(withId(R.id.rv_exchanges)).perform(actionOnItemAtPosition(0, longClick()));
+        assertMainNav(R.id.exchangeFragment);
+        assertRootNav(R.id.exchangeDialog, exchangeArgKey, exchangeUrlArgKey);
+
+        // Exchange-menu <- Exchange-dialog
+        pressBack();
+        assertMainNav(R.id.exchangeFragment);
+        assertRootNav(R.id.navigationFragment);
+
+        // Exchange-menu -> Exchange-dialog(sort)
+        onView(withId(R.id.chip_exchange_sort)).perform(click());
+        assertMainNav(R.id.exchangeFragment);
+        assertRootNav(R.id.exchangeSortDialog);
+        assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getParcelable(sortCallbackArgKey));
+        assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getSerializable(orderByArgKey));
+        assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getSerializable(sortByArgKey));
+
+        // Exchange-menu <- Exchange-dialog(sort)
+        pressBack();
+        assertMainNav(R.id.exchangeFragment);
+        assertRootNav(R.id.navigationFragment);
+    }
+
     private void assertMainNav(int id) {
         assert mainNavController.getCurrentDestination() != null;
         assertEquals(mainNavController.getCurrentDestination().getId(), id);
-    }
-
-    private void assertMainNav(int id, String... bundleId) {
-        assertMainNav(id);
-        assert mainNavController.getCurrentBackStackEntry() != null;
-        assert mainNavController.getCurrentBackStackEntry().getArguments() != null;
-
-        for (String i: bundleId) {
-            assertNotNull(mainNavController.getCurrentBackStackEntry().getArguments().getString(i));
-        }
     }
 
     private void assertRootNav(int id) {
@@ -193,4 +237,5 @@ public class NavigationTest {
             assertNotNull(rootNavController.getCurrentBackStackEntry().getArguments().getString(i));
         }
     }
+
 }

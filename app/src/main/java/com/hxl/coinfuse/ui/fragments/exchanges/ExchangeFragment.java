@@ -18,6 +18,7 @@ import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentExchangeBinding;
 import com.hxl.coinfuse.ui.dialogs.SortCallback;
+import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.coinfuse.util.UiUtils;
 import com.hxl.coinfuse.util.PingUtil;
 import com.hxl.presentation.OrderBy;
@@ -74,6 +75,8 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
 
         if (!vm.getCurrentExchanges().hasObservers()) {
             vm.getCurrentExchanges().observe(requireActivity(), exchanges -> {
+//                if (exchanges.getState() == DataState.LOADING) {
+//                    return;
                 if (exchanges.getState() == DataState.SUCCESS) {
                     if (exchanges.getData().isEmpty()) {
                         showError(new IllegalStateException(UiUtils.getString(requireContext(), R.string.error_no_data)));
@@ -154,6 +157,7 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
     // region visibility management
     private void initPage() {
         if (!hasLoaded) {
+            EspressoIdlingResource.increment();
             binding.srlExchanges.setVisibility(View.GONE);
             binding.shimmerExchanges.setVisibility(View.VISIBLE);
             return;
@@ -166,6 +170,7 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
         binding.srlExchanges.setVisibility(View.VISIBLE);
         binding.srlExchanges.setRefreshing(false);
         hasLoaded = true;
+        EspressoIdlingResource.decrement();
     }
 
     private void showError(Throwable e) {
@@ -190,6 +195,7 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
         binding.iconErrorWifiExchange.setVisibility(View.GONE);
         binding.iconErrorExchange.setVisibility(View.VISIBLE);
         binding.setErrorText(e.getMessage());
+        EspressoIdlingResource.decrement();
 
     }
 

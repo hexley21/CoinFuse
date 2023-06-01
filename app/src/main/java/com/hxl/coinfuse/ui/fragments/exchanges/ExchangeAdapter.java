@@ -87,7 +87,7 @@ public class ExchangeAdapter extends BaseAdapter<Exchange, ExchangeAdapter.Excha
 
     private boolean openDialog(Bundle bundle) {
         assert navController.getCurrentDestination() != null;
-        if (navController.getCurrentDestination().getId() == R.id.navigationFragment) return false;
+        if (navController.getCurrentDestination().getId() != R.id.navigationFragment) return false;
 
         navController.navigate(R.id.navigation_to_exchangeDialog, bundle);
         return true;
