@@ -101,22 +101,28 @@ public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinS
 
         holder.itemView.setOnClickListener(v -> {
             if (insertSearchCallback != null) {
-                bundle.putString(coinNameArgKey, getList().get(position).name);
-                bundle.putString(coinSymbolArgKey, getList().get(position).symbol);
-                bundle.putString(coinImgArgKey, getList().get(position).img);
-                navController.navigate(R.id.navigation_to_coinDetails, bundle);
-                insertSearchCallback.accept(bundle);
+                assert navController.getCurrentDestination() != null;
+                if (navController.getCurrentDestination().getId() == R.id.navigationFragment) {
+                    bundle.putString(coinNameArgKey, getList().get(position).name);
+                    bundle.putString(coinSymbolArgKey, getList().get(position).symbol);
+                    bundle.putString(coinImgArgKey, getList().get(position).img);
+                    navController.navigate(R.id.navigation_to_coinDetails, bundle);
+                    insertSearchCallback.accept(bundle);
+                }
             }
             else Log.d(TAG, "onBindViewHolder: not navigated to coin details, insertSearchCallback was null");
             if (onEndCallBack != null) onEndCallBack.accept(getList().get(position));
         });
         holder.itemView.setOnLongClickListener(v -> {
-            bundle.putString(explorerArgKey, getList().get(position).explorer);
-            if (fetchHistory != null) {
-                bundle.putString(searchQueryArgKey, getList().get(position).id);
-                bundle.putParcelable(dialogCallbackArgKey, (DialogCallback) fetchHistory::run);
+            assert navController.getCurrentDestination() != null;
+            if (navController.getCurrentDestination().getId() == R.id.navigationFragment) {
+                bundle.putString(explorerArgKey, getList().get(position).explorer);
+                if (fetchHistory != null) {
+                    bundle.putString(searchQueryArgKey, getList().get(position).id);
+                    bundle.putParcelable(dialogCallbackArgKey, (DialogCallback) fetchHistory::run);
+                }
+                navController.navigate(R.id.navigation_to_coinDialog, bundle);
             }
-            navController.navigate(R.id.navigation_to_coinDialog, bundle);
             return false;
         });
     }

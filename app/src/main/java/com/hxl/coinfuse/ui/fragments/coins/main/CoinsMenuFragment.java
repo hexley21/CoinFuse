@@ -58,6 +58,18 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
     private NavController navController;
     private boolean hasLoaded = false;
 
+    public void setNavController(NavController navController) {
+        this.navController = navController;
+    }
+
+    private NavController getNavController() {
+        if (navController == null) {
+            setNavController(Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main));
+        }
+
+        return navController;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,14 +82,6 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         initPage();
-
-        if (navController == null) {
-            navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
-            coinMenuAdapter.setNavController(navController);
-            coinSearchAdapter.setNavController(navController);
-            searchHistoryCoinsAdapter.setNavController(navController);
-        }
-
         if (!vm.getCurrentCoins().hasObservers()) {
             vm.getCurrentCoins().observe(requireActivity(), coins -> {
                 if (coins.getState() == DataState.SUCCESS) {
@@ -220,6 +224,10 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
         if (!hasLoaded) {
             binding.srlCoins.setVisibility(View.GONE);
             binding.shimmerCoins.setVisibility(View.VISIBLE);
+
+            coinMenuAdapter.setNavController(getNavController());
+            coinSearchAdapter.setNavController(getNavController());
+            searchHistoryCoinsAdapter.setNavController(getNavController());
             return;
         }
         binding.srlCoins.setVisibility(View.VISIBLE);

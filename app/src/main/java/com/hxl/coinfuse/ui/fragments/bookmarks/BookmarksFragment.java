@@ -34,10 +34,13 @@ import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.functions.Consumer;
 
 @AndroidEntryPoint
 public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, BookmarksViewModel> {
+
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     // region binding & view-model
     @Override
@@ -220,5 +223,19 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
     private void setPbVisibilityErrorRefresh() {
         binding.textErrorCoinBookmark.setVisibility(View.GONE);
         binding.iconErrorCoinBookmarks.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        compositeDisposable.clear();
+        Log.d(TAG, "onDestroyView: CompositeDisposable was cleared");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        compositeDisposable.dispose();
+        Log.d(TAG, "onDestroy: CompositeDisposable was disposed");
     }
 }

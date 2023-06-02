@@ -118,7 +118,7 @@ dependencies {
     androidTestImplementation(Deps.Test.extJunit)
     androidTestImplementation(Deps.Test.testRunner)
     androidTestUtil(Deps.Test.orchestrator)
-    androidTestImplementation(Deps.Test.mockito)
+    androidTestImplementation(Deps.Test.mockitoAndroid)
     androidTestImplementation(Deps.Test.hilt)
     androidTestAnnotationProcessor(Deps.Test.hiltCompiler)
     // UI test
