@@ -20,6 +20,7 @@ import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentCoinPriceChartBinding;
 import com.hxl.coinfuse.ui.fragments.coins.details.price.graph.DateAxisFormatter;
 import com.hxl.coinfuse.ui.fragments.coins.details.price.graph.LineChartUtil;
+import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.coinfuse.util.UiUtils;
 import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.presentation.livedata.DataState;
@@ -172,6 +173,7 @@ public class CoinPriceFragment extends BaseFragment<FragmentCoinPriceChartBindin
     }
 
     private void bind() {
+        EspressoIdlingResource.increment();
         vm.fetchCoin(coinId);
         chartUtil.drawLineGraph();
 
@@ -236,12 +238,14 @@ public class CoinPriceFragment extends BaseFragment<FragmentCoinPriceChartBindin
 
     // region visibility management
     private void hidePageLoading() {
+        EspressoIdlingResource.decrement();
         binding.srlCoinPrice.setRefreshing(false);
         binding.shimmerCoinPrices.setVisibility(View.GONE);
         binding.srlCoinPrice.setVisibility(View.VISIBLE);
     }
 
     private void showGraphLoading() {
+        EspressoIdlingResource.increment();
         binding.iconGraphWifiOff.setVisibility(View.GONE);
         binding.iconGraphError.setVisibility(View.GONE);
         binding.graphErrorText.setVisibility(View.GONE);
@@ -253,12 +257,14 @@ public class CoinPriceFragment extends BaseFragment<FragmentCoinPriceChartBindin
     }
 
     private void hideGraphLoading() {
+        EspressoIdlingResource.decrement();
         binding.priceGraph.setVisibility(View.VISIBLE);
         binding.pbGraph.setVisibility(View.GONE);
         binding.srlCoinPrice.setRefreshing(false);
     }
 
     private void showGraphError(Throwable e) {
+        EspressoIdlingResource.decrement();
         binding.priceGraph.setVisibility(View.INVISIBLE);
         binding.pbGraph.setVisibility(View.GONE);
         binding.srlCoinPrice.setRefreshing(false);
@@ -277,6 +283,7 @@ public class CoinPriceFragment extends BaseFragment<FragmentCoinPriceChartBindin
     }
 
     private void hideGraphError() {
+        EspressoIdlingResource.decrement();
         binding.iconGraphError.setVisibility(View.GONE);
         binding.iconGraphWifiOff.setVisibility(View.GONE);
         binding.graphErrorText.setVisibility(View.GONE);
