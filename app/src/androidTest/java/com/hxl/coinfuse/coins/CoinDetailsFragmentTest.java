@@ -32,9 +32,9 @@ import org.junit.runner.RunWith;
 import dagger.hilt.android.testing.HiltAndroidRule;
 import dagger.hilt.android.testing.HiltAndroidTest;
 
-@RunWith(AndroidJUnit4.class)
 @SmallTest
 @HiltAndroidTest
+@RunWith(AndroidJUnit4.class)
 public class CoinDetailsFragmentTest {
 
     @Rule

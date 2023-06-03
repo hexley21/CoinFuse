@@ -57,9 +57,9 @@ import javax.inject.Inject;
 import dagger.hilt.android.testing.HiltAndroidRule;
 import dagger.hilt.android.testing.HiltAndroidTest;
 
-@RunWith(AndroidJUnit4.class)
 @LargeTest
 @HiltAndroidTest
+@RunWith(AndroidJUnit4.class)
 public class NavigationTest {
 
     @Rule(order = 0)

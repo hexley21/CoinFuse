@@ -47,9 +47,9 @@ import javax.inject.Inject;
 import dagger.hilt.android.testing.HiltAndroidRule;
 import dagger.hilt.android.testing.HiltAndroidTest;
 
-@RunWith(AndroidJUnit4.class)
 @SmallTest
 @HiltAndroidTest
+@RunWith(AndroidJUnit4.class)
 public class CoinsMenuFragmentTest {
 
     @Rule
@@ -70,6 +70,7 @@ public class CoinsMenuFragmentTest {
     }
 
     @Test
+    @SmallTest
     public void fragmentBehavesAsExpected() {
         insertCoinSearchQuery.invoke("bitcoin").test()
                 .awaitCount(1)

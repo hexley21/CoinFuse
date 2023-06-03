@@ -55,6 +55,18 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
 
     private int chipVisibility = View.GONE;
 
+    public void setNavController(NavController navController) {
+        this.navController = navController;
+    }
+
+    private NavController getNavController() {
+        if (navController == null) {
+            navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
+        }
+
+        return navController;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,15 +80,8 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
         binding.chipExchangeSortDelete.setVisibility(chipVisibility);
         binding.rvExchanges.setAdapter(exchangeAdapter);
 
-        if (exchangeAdapter.getNavController() == null) {
-            navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
-            exchangeAdapter.setNavController(navController);
-        }
-
         if (!vm.getCurrentExchanges().hasObservers()) {
             vm.getCurrentExchanges().observe(requireActivity(), exchanges -> {
-//                if (exchanges.getState() == DataState.LOADING) {
-//                    return;
                 if (exchanges.getState() == DataState.SUCCESS) {
                     if (exchanges.getData().isEmpty()) {
                         showError(new IllegalStateException(UiUtils.getString(requireContext(), R.string.error_no_data)));
@@ -108,7 +113,7 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
             bundle.putSerializable(sortByArgKey, finalSortBy);
             bundle.putSerializable(orderByArgKey, finalOrderBy);
 
-            navController.navigate(R.id.navigation_to_exchangeSortDialog, bundle);
+            getNavController().navigate(R.id.navigation_to_exchangeSortDialog, bundle);
         });
 
         binding.chipExchangeSortDelete.setOnClickListener(v -> {
@@ -160,6 +165,7 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
             EspressoIdlingResource.increment();
             binding.srlExchanges.setVisibility(View.GONE);
             binding.shimmerExchanges.setVisibility(View.VISIBLE);
+            exchangeAdapter.setNavController(getNavController());
             return;
         }
         binding.shimmerExchanges.setVisibility(View.GONE);
