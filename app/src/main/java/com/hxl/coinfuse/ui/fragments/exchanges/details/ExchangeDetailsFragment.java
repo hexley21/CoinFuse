@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentExchangeDetailsBinding;
+import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.coinfuse.util.UiUtils;
 import com.hxl.presentation.livedata.DataState;
 import com.hxl.presentation.viewmodels.ExchangeDetailsViewModel;
@@ -45,7 +46,6 @@ public class ExchangeDetailsFragment extends BaseFragment<FragmentExchangeDetail
     protected Class<ExchangeDetailsViewModel> setViewModelClass() {
         return ExchangeDetailsViewModel.class;
     }
-
 
     private String exchangeId;
     private final TradesAdapter tradesAdapter = new TradesAdapter(false);
@@ -127,6 +127,7 @@ public class ExchangeDetailsFragment extends BaseFragment<FragmentExchangeDetail
     }
 
     private void bindArguments() {
+        EspressoIdlingResource.increment();
         assert getArguments() != null;
         final String exchangeName = getArguments().getString(exchangeNameArgKey);
         final String exchangeUrl = getArguments().getString(exchangeUrlArgKey);
@@ -159,12 +160,14 @@ public class ExchangeDetailsFragment extends BaseFragment<FragmentExchangeDetail
 
     // region visibility management
     private void hideLoading() {
+        EspressoIdlingResource.decrement();
         binding.shimmerTrades.setVisibility(View.GONE);
         binding.srlExchangeDetails.setVisibility(View.VISIBLE);
         binding.srlExchangeDetails.setRefreshing(false);
     }
 
     private void showError(Throwable e) {
+        EspressoIdlingResource.decrement();
         binding.srlExchangeDetails.setRefreshing(false);
 
         if (tradesAdapter.getItemCount() > 0) {
@@ -188,6 +191,7 @@ public class ExchangeDetailsFragment extends BaseFragment<FragmentExchangeDetail
     }
 
     private void hideError() {
+        EspressoIdlingResource.decrement();
         binding.errorTradesText.setVisibility(View.GONE);
         binding.iconTradesWifiOff.setVisibility(View.GONE);
         binding.iconErrorTrades.setVisibility(View.GONE);
