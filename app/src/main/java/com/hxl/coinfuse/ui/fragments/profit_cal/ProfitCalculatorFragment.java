@@ -120,7 +120,6 @@ public class ProfitCalculatorFragment extends BaseFragment<FragmentProfitCalcula
             bundle.putParcelable(consumerArgKey, (ParcelableConsumer<Coin>) coin -> {
                 if (coin == null) {
                     ((SearchBar) requireActivity().findViewById(R.id.search_bar)).setText("");
-//                    binding.profitSearchBar.setText("");
                     binding.tfProfitBuy.getEditText().setText("");
                     binding.tfProfitSell.getEditText().setText("");
                     vm.setBuyPriceField(null);
