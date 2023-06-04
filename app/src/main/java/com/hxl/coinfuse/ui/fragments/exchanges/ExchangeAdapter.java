@@ -94,7 +94,7 @@ public class ExchangeAdapter extends BaseAdapter<Exchange, ExchangeAdapter.Excha
     }
 
     static final class ExchangeViewHolder extends RecyclerView.ViewHolder implements Consumer<Exchange> {
-        ItemExchangeBinding binding;
+        final ItemExchangeBinding binding;
 
         public ExchangeViewHolder(ItemExchangeBinding binding) {
             super(binding.getRoot());

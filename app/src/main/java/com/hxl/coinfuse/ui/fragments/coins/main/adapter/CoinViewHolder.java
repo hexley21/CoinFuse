@@ -29,8 +29,8 @@ public class CoinViewHolder extends RecyclerView.ViewHolder implements Consumer<
 
     private static final String TAG = "CoinViewHolder";
 
-    RequestManager glide;
-    ItemCoinBinding binding;
+    final RequestManager glide;
+    final ItemCoinBinding binding;
 
     public CoinViewHolder(ItemCoinBinding binding) {
         super(binding.getRoot());

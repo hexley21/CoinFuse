@@ -63,10 +63,10 @@ import dagger.hilt.android.testing.HiltAndroidTest;
 public class NavigationTest {
 
     @Rule(order = 0)
-    public HiltAndroidRule hiltRule = new HiltAndroidRule(this);
+    public final HiltAndroidRule hiltRule = new HiltAndroidRule(this);
 
     @Rule(order = 1)
-    public ActivityScenarioRule<MainActivity> scenarioRule = new ActivityScenarioRule<>(MainActivity.class);
+    public final ActivityScenarioRule<MainActivity> scenarioRule = new ActivityScenarioRule<>(MainActivity.class);
 
     @Inject
     public BookmarkCoin bookmarkCoin;

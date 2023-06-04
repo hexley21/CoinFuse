@@ -35,7 +35,7 @@ import dagger.hilt.android.testing.HiltAndroidTest;
 public class ProfitCalculatorTest {
 
     @Rule
-    public HiltAndroidRule hiltRule = new HiltAndroidRule(this);
+    public final HiltAndroidRule hiltRule = new HiltAndroidRule(this);
 
     @Before
     public void setUp() {

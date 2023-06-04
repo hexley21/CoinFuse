@@ -3,15 +3,15 @@ package com.hxl.domain.model;
 import java.util.Objects;
 
 public class Exchange {
-    public String exchangeId;
-    public String name;
-    public Integer rank;
-    public Double percentTotalVolume;
-    public Double volumeUsd;
-    public Integer tradingPairs;
-    public Boolean socket;
-    public String exchangeUrl;
-    public Long updated;
+    public final String exchangeId;
+    public final String name;
+    public final Integer rank;
+    public final Double percentTotalVolume;
+    public final Double volumeUsd;
+    public final Integer tradingPairs;
+    public final Boolean socket;
+    public final String exchangeUrl;
+    public final Long updated;
 
     public Exchange(String exchangeId, String name, Integer rank, Double percentTotalVolume, Double volumeUsd, Integer tradingPairs, Boolean socket, String exchangeUrl, Long updated) {
         this.exchangeId = exchangeId;

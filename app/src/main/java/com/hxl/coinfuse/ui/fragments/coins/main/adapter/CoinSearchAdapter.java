@@ -68,8 +68,8 @@ public class CoinSearchAdapter extends BaseAdapter<Coin, CoinSearchAdapter.CoinS
     }
 
     public static class CoinSearchViewHolder extends RecyclerView.ViewHolder implements Consumer<Coin> {
-        ItemCoinSearchBinding binding;
-        RequestManager glide;
+        final ItemCoinSearchBinding binding;
+        final RequestManager glide;
 
         public CoinSearchViewHolder(ItemCoinSearchBinding binding) {
             super(binding.getRoot());

@@ -15,7 +15,7 @@ import io.reactivex.rxjava3.core.Single;
 
 public class CoinPagingSource extends RxPagingSource<Integer, Coin> {
 
-    GetCoins getCoins;
+    final GetCoins getCoins;
 
     public static final int AMOUNT = 50;
 

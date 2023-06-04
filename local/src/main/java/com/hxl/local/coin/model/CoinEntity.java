@@ -12,33 +12,33 @@ public class CoinEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "id")
-    public String id;
+    public final String id;
     @ColumnInfo(name = "rank")
-    public int rank;
+    public final int rank;
     @ColumnInfo(name = "symbol")
-    public String symbol;
+    public final String symbol;
     @ColumnInfo(name = "name")
-    public String name;
+    public final String name;
     @ColumnInfo(name = "supply")
-    public Double supply;
+    public final Double supply;
     @ColumnInfo(name = "max_supply")
-    public Double maxSupply;
+    public final Double maxSupply;
     @ColumnInfo(name = "market_cap_usd")
-    public Double marketCapUsd;
+    public final Double marketCapUsd;
     @ColumnInfo(name = "volume_usd")
-    public Double volumeUsd24Hr;
+    public final Double volumeUsd24Hr;
     @ColumnInfo(name = "price_usd")
-    public Double priceUsd;
+    public final Double priceUsd;
     @ColumnInfo(name = "change_percent")
-    public Float changePercent24Hr;
+    public final Float changePercent24Hr;
     @ColumnInfo(name = "vwap")
-    public Double vwap24Hr;
+    public final Double vwap24Hr;
     @ColumnInfo(name = "explorer")
-    public String explorer;
+    public final String explorer;
     @ColumnInfo(name = "timestamp")
-    public Long timestamp ;
+    public final Long timestamp ;
     @ColumnInfo(name = "img")
-    public String img;
+    public final String img;
 
     public CoinEntity(
             @NonNull String id,

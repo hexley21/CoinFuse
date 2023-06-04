@@ -13,7 +13,7 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class TradeDTOMapperTest {
 
-    TradeDTO fakeDTO = new TradeDTO(
+    final TradeDTO fakeDTO = new TradeDTO(
             "binance",
             "1",
             "BTC",
@@ -28,7 +28,7 @@ public class TradeDTOMapperTest {
             600L
     );
 
-    Trade fakeModel = new Trade(
+    final Trade fakeModel = new Trade(
             "binance",
             1,
             "BTC",

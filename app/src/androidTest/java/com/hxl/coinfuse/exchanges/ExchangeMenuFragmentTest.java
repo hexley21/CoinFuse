@@ -44,7 +44,7 @@ public class ExchangeMenuFragmentTest {
 
 
     @Rule
-    public HiltAndroidRule hiltRule = new HiltAndroidRule(this);
+    public final HiltAndroidRule hiltRule = new HiltAndroidRule(this);
 
     @Before
     public void setUp() {

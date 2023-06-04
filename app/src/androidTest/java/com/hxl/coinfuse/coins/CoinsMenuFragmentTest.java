@@ -53,7 +53,7 @@ import dagger.hilt.android.testing.HiltAndroidTest;
 public class CoinsMenuFragmentTest {
 
     @Rule
-    public HiltAndroidRule hiltRule = new HiltAndroidRule(this);
+    public final HiltAndroidRule hiltRule = new HiltAndroidRule(this);
 
     @Inject
     public InsertCoinSearchQuery insertCoinSearchQuery;

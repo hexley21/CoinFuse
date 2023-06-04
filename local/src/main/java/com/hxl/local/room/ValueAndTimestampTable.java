@@ -9,10 +9,10 @@ public abstract class ValueAndTimestampTable<T> {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "myValue")
-    public T myValue;
+    public final T myValue;
 
     @ColumnInfo(name = "timestamp")
-    public long timestamp;
+    public final long timestamp;
 
     public ValueAndTimestampTable(@NonNull T myValue, long timestamp) {
         this.myValue = myValue;

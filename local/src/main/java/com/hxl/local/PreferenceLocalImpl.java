@@ -6,7 +6,7 @@ import com.hxl.data.repository.pref.PreferenceLocal;
 
 public class PreferenceLocalImpl implements PreferenceLocal {
 
-    SharedPreferences sharedPreferences;
+    final SharedPreferences sharedPreferences;
 
     public PreferenceLocalImpl(SharedPreferences preferences) {
         this.sharedPreferences = preferences;
