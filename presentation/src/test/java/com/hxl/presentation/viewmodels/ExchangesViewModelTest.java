@@ -17,7 +17,6 @@ import com.hxl.presentation.livedata.DataState;
 import com.hxl.presentation.livedata.StateLiveData;
 
 import org.junit.After;
-import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
