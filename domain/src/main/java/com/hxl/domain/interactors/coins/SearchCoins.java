@@ -11,7 +11,7 @@ import io.reactivex.rxjava3.core.Single;
 
 public class SearchCoins {
 
-    public CoinRepository coinRepository;
+    private final CoinRepository coinRepository;
 
     @Inject
     public SearchCoins(CoinRepository coinRepository) {

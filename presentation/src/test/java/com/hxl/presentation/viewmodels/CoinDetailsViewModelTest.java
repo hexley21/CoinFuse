@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
 import com.hxl.domain.interactors.coins.IsCoinBookmarked;
-import com.hxl.presentation.LogcatSetup;
+import com.hxl.presentation.ViewModelSetup;
 import com.hxl.presentation.livedata.DataState;
 
 import org.junit.ClassRule;
@@ -31,7 +31,7 @@ public class CoinDetailsViewModelTest {
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     @ClassRule
-    public static LogcatSetup logcatSetup = new LogcatSetup();
+    public static ViewModelSetup viewModelSetup = new ViewModelSetup();
 
     @Mock
     private IsCoinBookmarked isCoinBookmarked;

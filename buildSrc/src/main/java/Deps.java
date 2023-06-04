@@ -76,7 +76,9 @@ public final class Deps {
         public static final String roomTesting = "androidx.room:room-testing:" + Versions.roomVersion;
         public static final String hilt = "com.google.dagger:hilt-android-testing:" + Versions.hiltVersion;
         public static final String hiltCompiler = "com.google.dagger:hilt-compiler:" + Versions.hiltVersion;
-        public static final String pagingTest =  "androidx.paging:paging-common:" + Versions.pagingVersion;
+        public static final String pagingTest = "androidx.paging:paging-common:" + Versions.pagingVersion;
+        public static final String coroutinesCoreJvm = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:" + Versions.coroutinesVersion;
+        public static final String coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:" + Versions.coroutinesVersion;
     }
 
     public static final class Others {

@@ -15,7 +15,7 @@ import com.hxl.domain.interactors.coins.GetCoin;
 import com.hxl.domain.interactors.coins.GetCoinPriceHistory;
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
-import com.hxl.presentation.LogcatSetup;
+import com.hxl.presentation.ViewModelSetup;
 import com.hxl.presentation.livedata.DataState;
 import com.hxl.presentation.livedata.StateLiveData;
 
@@ -39,7 +39,7 @@ public class CoinPriceViewModelTest {
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     @ClassRule
-    public static LogcatSetup logcatSetup = new LogcatSetup();
+    public static ViewModelSetup viewModelSetup = new ViewModelSetup();
 
     @Mock
     private GetCoin getCoin;

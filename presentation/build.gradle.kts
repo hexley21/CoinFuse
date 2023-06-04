@@ -58,7 +58,9 @@ dependencies {
     testImplementation(Deps.Test.hilt)
     testAnnotationProcessor(Deps.Test.hiltCompiler)
     testImplementation(Deps.Room.roomTesting)
-
+    testImplementation(Deps.Test.pagingTest)
+    testImplementation(Deps.Test.coroutinesCoreJvm)
+    testImplementation(Deps.Test.coroutinesTest)
     // Desugar
     coreLibraryDesugaring(Deps.Others.desugar)
 }
