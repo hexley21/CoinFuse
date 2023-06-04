@@ -1,14 +1,16 @@
 package com.hxl.presentation.fakes;
 
-import static com.hxl.presentation.fakes.PresentationTestConstants.*;
-
-import static java.sql.Types.TIMESTAMP;
+import static com.hxl.presentation.fakes.PresentationTestConstants.randomBoolean;
+import static com.hxl.presentation.fakes.PresentationTestConstants.randomDouble;
+import static com.hxl.presentation.fakes.PresentationTestConstants.randomFloat;
+import static com.hxl.presentation.fakes.PresentationTestConstants.randomInt;
+import static com.hxl.presentation.fakes.PresentationTestConstants.randomLong;
+import static com.hxl.presentation.fakes.PresentationTestConstants.randomName;
 
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
 import com.hxl.domain.model.Exchange;
 import com.hxl.domain.model.Trade;
-import com.hxl.domain.model.ValueAndTimestamp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,18 +39,6 @@ public class FakeDataFactory {
         return fakeCoinPriceHistory;
     }
 
-    public static List<ValueAndTimestamp<String>> getFakeSearchQueries(int size) {
-        List<ValueAndTimestamp<String>> fakeSearchQueries = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            fakeSearchQueries.add(
-                    new ValueAndTimestamp<>(
-                            randomName(),
-                            TIMESTAMP
-                    )
-            );
-        }
-        return fakeSearchQueries;
-    }
     public static List<Exchange> getFakeExchanges(int size) {
         List<Exchange> fakeExchanges = new ArrayList<>();
         for (int i = 0; i < size; i++) {
