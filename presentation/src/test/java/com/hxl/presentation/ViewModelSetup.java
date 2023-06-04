@@ -17,14 +17,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ViewModelSetup extends ExternalResource {
 
-    @Override
-    protected void before() throws Throwable {
-        classSetUp(); // Your setup code goes here
-    }
-
     @SuppressLint("CheckResult")
-    private void classSetUp() {
-        // Your setup code here
+    @Override
+    protected void before() {
         mockStatic(Log.class);
         doAnswer(invocation -> {
             String tag = invocation.getArgument(0);
