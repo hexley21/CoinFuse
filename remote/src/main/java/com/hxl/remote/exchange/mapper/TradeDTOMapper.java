@@ -4,18 +4,6 @@ import com.hxl.domain.model.Trade;
 import com.hxl.remote.exchange.model.TradeDTO;
 
 public final class TradeDTOMapper {
-//    String exchangeId;
-//    Integer rank;
-//    String baseSymbol;
-//    String baseId;
-//    String quoteSymbol;
-//    String quoteId;
-//    Double priceQuote;
-//    Double priceUsd;
-//    Double volumeUsd24Hr;
-//    Double percentExchangeVolume;
-//    Integer tradesCount24Hr;
-//    Long updated;
 
     public static Trade mapFromDto(TradeDTO dto) {
         return new Trade(
