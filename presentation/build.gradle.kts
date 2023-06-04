@@ -50,6 +50,7 @@ dependencies {
     implementation(Deps.Reactive.rxJava)
     implementation(Deps.Reactive.rxAndroid)
     // Test
+    testImplementation(Deps.Test.core)
     testImplementation(Deps.Test.junit)
     testImplementation(Deps.Test.extJunit)
     testImplementation(Deps.Test.roboelectric)
@@ -57,7 +58,6 @@ dependencies {
     testImplementation(Deps.Test.hilt)
     testAnnotationProcessor(Deps.Test.hiltCompiler)
     testImplementation(Deps.Room.roomTesting)
-    androidTestImplementation(Deps.Test.espresso)
 
     // Desugar
     coreLibraryDesugaring(Deps.Others.desugar)

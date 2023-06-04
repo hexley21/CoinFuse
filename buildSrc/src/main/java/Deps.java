@@ -59,6 +59,7 @@ public final class Deps {
     }
 
     public static final class Test {
+        public static final String core = "androidx.arch.core:core-testing:" + Versions.coreVersion;
         public static final String junit = "junit:junit:" + Versions.junitVersion;
         public static final String extJunit = "androidx.test.ext:junit:" + Versions.extJunitVersion;
         public static final String testRunner = "androidx.test:runner:" + Versions.testRunnerVersion;

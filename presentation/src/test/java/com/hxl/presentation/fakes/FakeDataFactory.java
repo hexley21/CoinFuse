@@ -6,6 +6,7 @@ import static java.sql.Types.TIMESTAMP;
 
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
+import com.hxl.domain.model.Trade;
 import com.hxl.domain.model.ValueAndTimestamp;
 
 import java.util.ArrayList;
@@ -46,6 +47,23 @@ public class FakeDataFactory {
             );
         }
         return fakeSearchQueries;
+    }
+
+    public static Trade getTrade() {
+        return new Trade(
+                randomName(),
+                randomInt(),
+                randomName(),
+                randomName(),
+                randomName(),
+                randomName(),
+                randomDouble(),
+                randomDouble(),
+                randomDouble(),
+                randomDouble(),
+                randomInt(),
+                (long) randomInt()
+        );
     }
 
     public static Coin getCoin(String id) {
