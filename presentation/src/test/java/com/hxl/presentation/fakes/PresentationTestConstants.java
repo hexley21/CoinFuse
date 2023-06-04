@@ -32,4 +32,11 @@ public class PresentationTestConstants {
         return random.nextFloat();
     }
 
+    public static long randomLong() {
+        return random.nextLong();
+    }
+    public static boolean randomBoolean() {
+        return random.nextBoolean();
+    }
+
 }
