@@ -54,12 +54,12 @@ public class CoinDetailsFragmentTest {
     @Test
     @FlakyTest
     public void coinDetailsFragmentBehavesAsExpected() {
-
         Bundle bundle = new Bundle();
         bundle.putString(coinArgKey, "bitcoin");
         bundle.putString(coinNameArgKey, "Bitcoin");
         bundle.putString(coinSymbolArgKey, "BTC");
         bundle.putString(coinImgArgKey, "btc");
+
         launchFragmentInHiltContainer(CoinDetailsFragment.class, bundle);
 
         onView(withId(R.id.chip_7d)).perform(click());

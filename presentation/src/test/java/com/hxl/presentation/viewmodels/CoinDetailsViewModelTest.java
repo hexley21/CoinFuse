@@ -1,9 +1,9 @@
 package com.hxl.presentation.viewmodels;
 
-import static com.hxl.presentation.fakes.FakeDataFactory.getTrade;
 import static com.hxl.presentation.fakes.PresentationTestConstants.ID;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doAnswer;
@@ -16,8 +16,7 @@ import android.util.Log;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
-import com.hxl.domain.interactors.coins.GetTradesByCoin;
-import com.hxl.domain.model.Trade;
+import com.hxl.domain.interactors.coins.IsCoinBookmarked;
 import com.hxl.presentation.livedata.DataState;
 
 import org.junit.BeforeClass;
@@ -28,25 +27,24 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins;
 import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CoinExchangesViewModelTest {
+public class CoinDetailsViewModelTest {
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     @Mock
-    private GetTradesByCoin getTradesByCoin;
+    private IsCoinBookmarked isCoinBookmarked;
 
     @InjectMocks
-    private CoinExchangesViewModel viewModel;
+    private CoinDetailsViewModel viewModel;
+
+    private final Exception exception = new Exception("Fake error");
 
     @SuppressLint("CheckResult")
     @BeforeClass
@@ -67,36 +65,31 @@ public class CoinExchangesViewModelTest {
     }
 
     @Test
-    public void fetchTradesSuccess() {
+    public void fetchBookmarkStateSuccess() {
         // Arrange
-        List<Trade> fakeTrades = new ArrayList<>();
-        fakeTrades.add(getTrade());
-        fakeTrades.add(getTrade());
-        when(getTradesByCoin.invoke(anyString())).thenReturn(Single.just(fakeTrades));
+        when(isCoinBookmarked.invoke(anyString())).thenReturn(Single.just(true));
         // Act
-        viewModel.fetchTrades(ID);
+        viewModel.fetchBookmarkState(ID);
         // Assert
-        assertNotNull(viewModel.getCurrentTrades().getValue());
-        assertEquals(DataState.SUCCESS, viewModel.getCurrentTrades().getValue().getState());
-        assertEquals(fakeTrades, viewModel.getCurrentTrades().getValue().getData());
+        assertNotNull(viewModel.getCurrentBookmarkState().getValue());
+        assertEquals(DataState.SUCCESS, viewModel.getCurrentBookmarkState().getValue().getState());
+        assertTrue(viewModel.getCurrentBookmarkState().getValue().getData());
 
-        verify(getTradesByCoin).invoke(ID);
-
+        verify(isCoinBookmarked).invoke(ID);
     }
 
     @Test
-    public void fetchTradesError() {
+    public void fetchBookmarkStateError() {
         // Arrange
-        Throwable fakeError = new Exception();
-        when(getTradesByCoin.invoke(anyString())).thenReturn(Single.error(fakeError));
+        when(isCoinBookmarked.invoke(anyString())).thenReturn(Single.error(exception));
         // Act
-        viewModel.fetchTrades(ID);
+        viewModel.fetchBookmarkState(ID);
         // Assert
-        assertNotNull(viewModel.getCurrentTrades().getValue());
-        assertEquals(DataState.ERROR, viewModel.getCurrentTrades().getValue().getState());
-        assertEquals(fakeError, viewModel.getCurrentTrades().getValue().getError());
+        assertNotNull(viewModel.getCurrentBookmarkState().getValue());
+        assertEquals(DataState.ERROR, viewModel.getCurrentBookmarkState().getValue().getState());
+        assertEquals(exception, viewModel.getCurrentBookmarkState().getValue().getError());
 
-        verify(getTradesByCoin).invoke(ID);
-
+        verify(isCoinBookmarked).invoke(ID);
     }
+
 }
