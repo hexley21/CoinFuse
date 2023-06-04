@@ -43,11 +43,13 @@ public final class Versions {
 
     /* Test */
     // JUnit
+    public static final String coreVersion = "2.2.0";
     public static final String junitVersion = "4.13.2";
     public static final String extJunitVersion = "1.1.5";
     public static final String testRunnerVersion = "1.5.2";
     public static final String roboelectricVersion = "4.9";
     public static final String orchestratorVersion = "1.4.2";
+    public static final String coroutinesVersion = "1.7.1";
     // Mockito
     public static final String mockitoVersion = "5.2.0";
     // espresso

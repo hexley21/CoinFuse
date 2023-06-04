@@ -24,6 +24,7 @@ import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentCoinMenuBinding;
 import com.hxl.coinfuse.ui.fragments.coins.main.adapter.CoinAdapter;
 import com.hxl.coinfuse.ui.fragments.coins.main.adapter.CoinSearchAdapter;
+import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.coinfuse.util.UiUtils;
 import com.hxl.presentation.livedata.DataState;
 import com.hxl.presentation.viewmodels.CoinsMenuViewModel;
@@ -57,6 +58,18 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
     private NavController navController;
     private boolean hasLoaded = false;
 
+    public void setNavController(NavController navController) {
+        this.navController = navController;
+    }
+
+    private NavController getNavController() {
+        if (navController == null) {
+            setNavController(Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main));
+        }
+
+        return navController;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,50 +82,56 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         initPage();
-
-        if (navController == null) {
-            navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
-            coinMenuAdapter.setNavController(navController);
-            coinSearchAdapter.setNavController(navController);
-            searchHistoryCoinsAdapter.setNavController(navController);
-        }
-
         if (!vm.getCurrentCoins().hasObservers()) {
             vm.getCurrentCoins().observe(requireActivity(), coins -> {
                 if (coins.getState() == DataState.SUCCESS) {
-                    coinMenuAdapter.submitData(getLifecycle(), coins.getData());
                     coinMenuAdapter.addLoadStateListener(loadStates -> {
-                        if (loadStates.getRefresh() instanceof LoadState.NotLoading) {
+                        if (loadStates.getRefresh() instanceof LoadState.Loading) {
+                            EspressoIdlingResource.increment();
+                        }
+                        else if (loadStates.getRefresh() instanceof LoadState.NotLoading) {
                             hidePageLoading();
                             hidePageError();
+                            EspressoIdlingResource.decrement();
                         } else if (loadStates.getRefresh() instanceof LoadState.Error) {
                             showPageError(((LoadState.Error) loadStates.getRefresh()).getError());
                             hidePageLoading();
+                            EspressoIdlingResource.decrement();
                         }
                         return null;
                     });
+                    coinMenuAdapter.submitData(getLifecycle(), coins.getData());
                 } else if (coins.getState() == DataState.ERROR) {
                     showSnackBar(UiUtils.getString(requireContext(), R.string.error_something));
+                    EspressoIdlingResource.decrement();
                 }
             });
         }
 
         if (!vm.getCurrentCoinSearch().hasObservers()) {
             vm.getCurrentCoinSearch().observe(requireActivity(), search -> {
-                if (search.getState() == DataState.SUCCESS) {
+                if (search.getState() == DataState.LOADING)
+                    EspressoIdlingResource.increment();
+                else if (search.getState() == DataState.SUCCESS) {
                     coinSearchAdapter.setList(search.getData());
+                    EspressoIdlingResource.decrement();
                 } else if (search.getState() == DataState.ERROR) {
                     showSnackBar(search.getError().getMessage());
+                    EspressoIdlingResource.decrement();
                 }
             });
         }
 
         if (!vm.getCurrentCoinsSearchHistory().hasObservers()) {
             vm.getCurrentCoinsSearchHistory().observe(requireActivity(), searchHistory -> {
-                if (searchHistory.getState() == DataState.SUCCESS) {
+                if (searchHistory.getState() == DataState.LOADING)
+                    EspressoIdlingResource.increment();
+                else if (searchHistory.getState() == DataState.SUCCESS) {
                     searchHistoryCoinsAdapter.setList(searchHistory.getData());
+                    EspressoIdlingResource.decrement();
                 } else if (searchHistory.getState() == DataState.ERROR) {
                     showSnackBar(searchHistory.getError().getMessage());
+                    EspressoIdlingResource.decrement();
                 }
             });
         }
@@ -205,6 +224,10 @@ public class CoinsMenuFragment extends BaseFragment<FragmentCoinMenuBinding, Coi
         if (!hasLoaded) {
             binding.srlCoins.setVisibility(View.GONE);
             binding.shimmerCoins.setVisibility(View.VISIBLE);
+
+            coinMenuAdapter.setNavController(getNavController());
+            coinSearchAdapter.setNavController(getNavController());
+            searchHistoryCoinsAdapter.setNavController(getNavController());
             return;
         }
         binding.srlCoins.setVisibility(View.VISIBLE);

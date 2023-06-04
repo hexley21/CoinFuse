@@ -4,18 +4,18 @@ import java.util.Objects;
 
 public class Trade {
 
-    public String exchangeId;
-    public Integer rank;
-    public String baseSymbol;
-    public String baseId;
-    public String quoteSymbol;
-    public String quoteId;
-    public Double priceQuote;
-    public Double priceUsd;
-    public Double volumeUsd24Hr;
-    public Double percentExchangeVolume;
-    public Integer tradesCount24Hr;
-    public Long updated;
+    public final String exchangeId;
+    public final Integer rank;
+    public final String baseSymbol;
+    public final String baseId;
+    public final String quoteSymbol;
+    public final String quoteId;
+    public final Double priceQuote;
+    public final Double priceUsd;
+    public final Double volumeUsd24Hr;
+    public final Double percentExchangeVolume;
+    public final Integer tradesCount24Hr;
+    public final Long updated;
 
     public Trade(String exchangeId, Integer rank, String baseSymbol, String baseId, String quoteSymbol, String quoteId, Double priceQuote, Double priceUsd, Double volumeUsd24Hr, Double percentExchangeVolume, Integer tradesCount24Hr, Long updated) {
         this.exchangeId = exchangeId;

@@ -19,5 +19,4 @@ public class EraseBookmarks {
         return repository.eraseBookmarks();
     }
 
-    // TODO: add unit tests
 }

@@ -11,7 +11,7 @@ import io.reactivex.rxjava3.core.Single;
 
 public class GetCoinPriceHistory {
 
-    public CoinRepository coinRepository;
+    public final CoinRepository coinRepository;
 
     @Inject
     public GetCoinPriceHistory(CoinRepository coinRepository) {

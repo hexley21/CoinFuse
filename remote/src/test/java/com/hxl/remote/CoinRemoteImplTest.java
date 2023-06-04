@@ -44,7 +44,7 @@ public class CoinRemoteImplTest {
 
     @Mock
     CoinService coinService;
-    CoinDTOMapper mapper = spy(new CoinDTOMapper(ASSET_URL));
+    final CoinDTOMapper mapper = spy(new CoinDTOMapper(ASSET_URL));
 
     @InjectMocks
     CoinRemoteImpl coinSource;

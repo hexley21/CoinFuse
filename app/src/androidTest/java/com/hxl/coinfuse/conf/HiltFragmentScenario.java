@@ -1,4 +1,4 @@
-package com.hxl.coinfuse.util;
+package com.hxl.coinfuse.conf;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -11,12 +11,14 @@ import androidx.test.core.app.ApplicationProvider;
 import com.hxl.coinfuse.HiltTestActivity;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public final class HiltFragmentScenario {
 
     public static <T extends Fragment> ActivityScenario<HiltTestActivity> launchFragmentInHiltContainer(
             Class<T> fragmentClass,
-            Bundle args
+            Bundle args,
+            Consumer<Fragment> consumer
     ) {
         Intent startActivityIntent = Intent.makeMainActivity(
                 new ComponentName(ApplicationProvider.getApplicationContext(), HiltTestActivity.class)
@@ -29,19 +31,29 @@ public final class HiltFragmentScenario {
                             fragmentClass.getName()
                     );
 
+                    consumer.accept(fragment);
+
                     fragment.setArguments(args);
                     activity.getSupportFragmentManager()
                             .beginTransaction()
                             .add(android.R.id.content, fragment, "")
                             .commitNow();
+
+
                 });
 
     }
 
-    public static <T extends Fragment> ActivityScenario<HiltTestActivity> launchFragmentInHiltContainer(
-            Class<T> fragmentClass
-    ) {
-        return launchFragmentInHiltContainer(fragmentClass, new Bundle());
+    public static <T extends Fragment> ActivityScenario<HiltTestActivity> launchFragmentInHiltContainer(Class<T> fragmentClass, Bundle args) {
+        return launchFragmentInHiltContainer(fragmentClass, args, fragment -> {});
+    }
+
+    public static <T extends Fragment> ActivityScenario<HiltTestActivity> launchFragmentInHiltContainer(Class<T> fragmentClass, Consumer<Fragment> consumer) {
+        return launchFragmentInHiltContainer(fragmentClass, new Bundle(), consumer);
+    }
+
+    public static <T extends Fragment> ActivityScenario<HiltTestActivity> launchFragmentInHiltContainer(Class<T> fragmentClass) {
+        return launchFragmentInHiltContainer(fragmentClass, new Bundle(), fragment -> {});
     }
 
 }

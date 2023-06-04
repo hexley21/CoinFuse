@@ -11,6 +11,7 @@ import com.hxl.domain.interactors.coins.DeleteCoinSearchQuery;
 import com.hxl.domain.interactors.coins.IsCoinBookmarked;
 import com.hxl.domain.interactors.coins.UnBookmarkCoin;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -33,6 +34,11 @@ public class CoinDialogViewModelTest extends ViewModel {
     private DeleteCoinSearchQuery deleteCoinSearchQuery;
     @InjectMocks
     private CoinDialogViewModel viewModel;
+
+    @After
+    public void tearDown() {
+        viewModel.onCleared();
+    }
 
     @Test
     public void isCoinBookmarkedReturnsBooleanFromInteractor() {

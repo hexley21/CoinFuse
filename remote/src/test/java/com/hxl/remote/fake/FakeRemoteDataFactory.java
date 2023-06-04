@@ -8,7 +8,6 @@ import static com.hxl.remote.fake.RemoteTestConstants.randomInt;
 import static com.hxl.remote.fake.RemoteTestConstants.randomLong;
 import static com.hxl.remote.fake.RemoteTestConstants.randomName;
 
-import com.hxl.domain.model.Trade;
 import com.hxl.remote.Response;
 import com.hxl.remote.coin.model.CoinDTO;
 import com.hxl.remote.coin.model.HistoryDTO;

@@ -59,12 +59,14 @@ public final class Deps {
     }
 
     public static final class Test {
+        public static final String core = "androidx.arch.core:core-testing:" + Versions.coreVersion;
         public static final String junit = "junit:junit:" + Versions.junitVersion;
         public static final String extJunit = "androidx.test.ext:junit:" + Versions.extJunitVersion;
         public static final String testRunner = "androidx.test:runner:" + Versions.testRunnerVersion;
         public static final String orchestrator = "androidx.test:orchestrator:" + Versions.orchestratorVersion;
         public static final String roboelectric = "org.robolectric:robolectric:" + Versions.roboelectricVersion;
         public static final String mockito = "org.mockito:mockito-core:" + Versions.mockitoVersion;
+        public static final String mockitoAndroid = "org.mockito:mockito-android:" + Versions.mockitoVersion;
         public static final String espresso = "androidx.test.espresso:espresso-core:" + Versions.espressoVersion;
         public static final String espressoContrib = "androidx.test.espresso:espresso-contrib:" + Versions.espressoVersion;
         public static final String espressoIdlingResource = "androidx.test.espresso:espresso-idling-resource:" + Versions.espressoVersion;
@@ -74,7 +76,9 @@ public final class Deps {
         public static final String roomTesting = "androidx.room:room-testing:" + Versions.roomVersion;
         public static final String hilt = "com.google.dagger:hilt-android-testing:" + Versions.hiltVersion;
         public static final String hiltCompiler = "com.google.dagger:hilt-compiler:" + Versions.hiltVersion;
-        public static final String pagingTest =  "androidx.paging:paging-common:" + Versions.pagingVersion;
+        public static final String pagingTest = "androidx.paging:paging-common:" + Versions.pagingVersion;
+        public static final String coroutinesCoreJvm = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:" + Versions.coroutinesVersion;
+        public static final String coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:" + Versions.coroutinesVersion;
     }
 
     public static final class Others {

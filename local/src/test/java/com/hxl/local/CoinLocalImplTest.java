@@ -199,6 +199,35 @@ public class CoinLocalImplTest {
                     return true;
                 });
     }
+
+    @Test
+    public void eraseCoinCacheDeletesCoinsFromDatabase() {
+        // Act
+        Completable insertCoins = coinDao.addCoin(
+                getCoinEntity(KEYS[0], 0),
+                getCoinEntity(KEYS[1], 1),
+                getCoinEntity(KEYS[2], 2)
+        );
+        Single<List<CoinEntity>> coinEntities = coinDao.getCoins();
+        Completable deleteSearch = coinDao.clearCoins();
+        // Assert
+        insertCoins.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertComplete();
+        coinEntities.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.size() == 3);
+        deleteSearch.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        coinEntities.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(List::isEmpty);
+    }
     // endregion
 
     // region bookmarks
@@ -334,6 +363,35 @@ public class CoinLocalImplTest {
                 .assertValue(x -> x);
 
     }
+
+    @Test
+    public void eraseBookmarksDeletesBookmarksFromDatabase() {
+        // Act
+        Completable insertBookmarks = bookmarkDao.bookmarkCoin(
+                new BookmarkEntity(KEYS[0], TIMESTAMP),
+                new BookmarkEntity(KEYS[1], TIMESTAMP),
+                new BookmarkEntity(KEYS[2], TIMESTAMP)
+        );
+        Single<List<BookmarkEntity>> bookmarkEntities = bookmarkDao.getBookmarkedCoinIds();
+        Completable deleteSearch = bookmarkDao.clearBookmarks();
+        // Assert
+        insertBookmarks.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertComplete();
+        bookmarkEntities.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(x -> x.size() == 3);
+        deleteSearch.test()
+                .awaitCount(1)
+                .assertComplete()
+                .assertNoErrors();
+        bookmarkEntities.test()
+                .awaitCount(1)
+                .assertNoErrors()
+                .assertValue(List::isEmpty);
+    }
     // endregion
 
     // region search-history
@@ -402,7 +460,7 @@ public class CoinLocalImplTest {
     }
 
     @Test
-    public void deleteCoinSearchQueriesDeletesQueriesFromDatabase() {
+    public void eraseCoinSearchHistoryDeletesQueriesFromDatabase() {
         // Arrange
         CoinSearchEntity[] fakeSearchEntities = getFakeCoinSearchEntity(KEYS).toArray(new CoinSearchEntity[0]);
         // Act

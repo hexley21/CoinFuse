@@ -91,7 +91,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/sort_apply"
+                            android:id="@+id/sort_coin_apply"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/default_padding"

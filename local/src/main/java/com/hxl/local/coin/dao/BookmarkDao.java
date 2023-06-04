@@ -17,7 +17,7 @@ import io.reactivex.rxjava3.core.Single;
 public interface BookmarkDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Completable bookmarkCoin(BookmarkEntity entity);
+    Completable bookmarkCoin(BookmarkEntity... entity);
 
     @Query("DELETE FROM bookmarks " +
             "WHERE myValue = :id")

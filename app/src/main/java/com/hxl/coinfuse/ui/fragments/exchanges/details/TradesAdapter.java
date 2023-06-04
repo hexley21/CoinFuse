@@ -18,7 +18,7 @@ import java.util.function.Consumer;
 
 public class TradesAdapter extends BaseAdapter<Trade, TradesAdapter.TradesViewHolder> {
 
-    protected boolean hasExchange;
+    protected final boolean hasExchange;
     public TradesAdapter(boolean hasExchange) {
         super(new TradeComparator());
         this.hasExchange = hasExchange;
@@ -32,7 +32,7 @@ public class TradesAdapter extends BaseAdapter<Trade, TradesAdapter.TradesViewHo
 
     public class TradesViewHolder extends RecyclerView.ViewHolder implements Consumer<Trade> {
 
-        ItemTradeBinding binding;
+        final ItemTradeBinding binding;
         public TradesViewHolder(ItemTradeBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

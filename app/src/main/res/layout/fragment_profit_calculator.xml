@@ -52,7 +52,7 @@
                 android:showDividers="middle">
 
                 <com.google.android.material.search.SearchBar
-                    android:id="@+id/search_bar"
+                    android:id="@+id/profit_search_bar"
                     style="@style/CF_SearchBar.Profit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

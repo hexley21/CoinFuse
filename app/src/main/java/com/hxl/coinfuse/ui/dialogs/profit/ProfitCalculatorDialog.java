@@ -15,6 +15,7 @@ import com.hxl.coinfuse.base.BaseDialog;
 import com.hxl.coinfuse.databinding.DialogProfitCoinSearchBinding;
 import com.hxl.coinfuse.ui.dialogs.ParcelableConsumer;
 import com.hxl.coinfuse.ui.fragments.coins.main.adapter.CoinSearchAdapter;
+import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.domain.model.Coin;
 import com.hxl.presentation.livedata.DataState;
 import com.hxl.presentation.viewmodels.ProfitCalculatorDialogViewModel;
@@ -58,10 +59,14 @@ public class ProfitCalculatorDialog extends BaseDialog<DialogProfitCoinSearchBin
         });
 
         vm.getCurrentSearch().observe(requireActivity(), search -> {
-            if (search.getState() == DataState.SUCCESS) {
+            if (search.getState() == DataState.LOADING)
+                EspressoIdlingResource.increment();
+            else if (search.getState() == DataState.SUCCESS) {
                 coinSearchAdapter.setList(search.getData());
+                EspressoIdlingResource.decrement();
             } else if (search.getState() == DataState.ERROR) {
                 Toast.makeText(requireContext(), search.getError().getMessage(), Toast.LENGTH_SHORT).show();
+                EspressoIdlingResource.decrement();
             }
         });
 

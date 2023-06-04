@@ -17,7 +17,5 @@ public interface ExchangeRepository {
     // Remote
     Single<List<Trade>> getTrades(Map<String, String> queryMap);
     // Local
-    Completable insertExchange(List<Exchange> exchanges);
-    Completable insertExchange(Exchange exchange);
     Completable eraseExchanges();
  }

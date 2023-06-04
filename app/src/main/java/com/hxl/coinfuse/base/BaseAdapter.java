@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.hxl.coinfuse.util.EspressoIdlingResource;
-
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -21,9 +19,7 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder & Consum
     }
 
     public void setList(List<T> list) {
-        EspressoIdlingResource.increment();
         differ.submitList(list);
-        EspressoIdlingResource.decrement();
     }
 
     public void addOnDataChangeListener(AsyncListDiffer.ListListener<T> listener) {

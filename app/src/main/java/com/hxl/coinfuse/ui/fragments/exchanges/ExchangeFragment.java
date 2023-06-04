@@ -18,6 +18,7 @@ import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseFragment;
 import com.hxl.coinfuse.databinding.FragmentExchangeBinding;
 import com.hxl.coinfuse.ui.dialogs.SortCallback;
+import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.coinfuse.util.UiUtils;
 import com.hxl.coinfuse.util.PingUtil;
 import com.hxl.presentation.OrderBy;
@@ -54,6 +55,18 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
 
     private int chipVisibility = View.GONE;
 
+    public void setNavController(NavController navController) {
+        this.navController = navController;
+    }
+
+    private NavController getNavController() {
+        if (navController == null) {
+            navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
+        }
+
+        return navController;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,11 +79,6 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
         initPage();
         binding.chipExchangeSortDelete.setVisibility(chipVisibility);
         binding.rvExchanges.setAdapter(exchangeAdapter);
-
-        if (exchangeAdapter.getNavController() == null) {
-            navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_main);
-            exchangeAdapter.setNavController(navController);
-        }
 
         if (!vm.getCurrentExchanges().hasObservers()) {
             vm.getCurrentExchanges().observe(requireActivity(), exchanges -> {
@@ -105,7 +113,7 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
             bundle.putSerializable(sortByArgKey, finalSortBy);
             bundle.putSerializable(orderByArgKey, finalOrderBy);
 
-            navController.navigate(R.id.navigation_to_exchangeSortDialog, bundle);
+            getNavController().navigate(R.id.navigation_to_exchangeSortDialog, bundle);
         });
 
         binding.chipExchangeSortDelete.setOnClickListener(v -> {
@@ -154,8 +162,10 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
     // region visibility management
     private void initPage() {
         if (!hasLoaded) {
+            EspressoIdlingResource.increment();
             binding.srlExchanges.setVisibility(View.GONE);
             binding.shimmerExchanges.setVisibility(View.VISIBLE);
+            exchangeAdapter.setNavController(getNavController());
             return;
         }
         binding.shimmerExchanges.setVisibility(View.GONE);
@@ -166,6 +176,7 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
         binding.srlExchanges.setVisibility(View.VISIBLE);
         binding.srlExchanges.setRefreshing(false);
         hasLoaded = true;
+        EspressoIdlingResource.decrement();
     }
 
     private void showError(Throwable e) {
@@ -190,6 +201,7 @@ public class ExchangeFragment extends BaseFragment<FragmentExchangeBinding, Exch
         binding.iconErrorWifiExchange.setVisibility(View.GONE);
         binding.iconErrorExchange.setVisibility(View.VISIBLE);
         binding.setErrorText(e.getMessage());
+        EspressoIdlingResource.decrement();
 
     }
 

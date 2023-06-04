@@ -1,20 +1,20 @@
 package com.hxl.domain.model;
 
 public class Coin {
-    public String id;
-    public int rank;
-    public String symbol;
-    public String name;
-    public Double supply;
-    public Double maxSupply;
-    public Double marketCapUsd;
-    public Double volumeUsd24Hr;
-    public Double priceUsd;
-    public Float changePercent24Hr;
-    public Double vwap24Hr;
-    public String explorer;
+    public final String id;
+    public final int rank;
+    public final String symbol;
+    public final String name;
+    public final Double supply;
+    public final Double maxSupply;
+    public final Double marketCapUsd;
+    public final Double volumeUsd24Hr;
+    public final Double priceUsd;
+    public final Float changePercent24Hr;
+    public final Double vwap24Hr;
+    public final String explorer;
     public Long timestamp;
-    public String img;
+    public final String img;
 
     public Coin(
             String id,

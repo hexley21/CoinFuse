@@ -13,23 +13,23 @@ public class ExchangeEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "exchangeId")
-    public String exchangeId;
+    public final String exchangeId;
     @ColumnInfo(name = "name")
-    public String name;
+    public final String name;
     @ColumnInfo(name = "rank")
-    public Integer rank;
+    public final Integer rank;
     @ColumnInfo(name = "percentTotalVolume")
-    public Double percentTotalVolume;
+    public final Double percentTotalVolume;
     @ColumnInfo(name = "volumeUsd")
-    public Double volumeUsd;
+    public final Double volumeUsd;
     @ColumnInfo(name = "tradingPairs")
-    public Integer tradingPairs;
+    public final Integer tradingPairs;
     @ColumnInfo(name = "socket")
-    public Boolean socket;
+    public final Boolean socket;
     @ColumnInfo(name = "exchangeUrl")
-    public String exchangeUrl;
+    public final String exchangeUrl;
     @ColumnInfo(name = "updated")
-    public Long updated;
+    public final Long updated;
 
     public ExchangeEntity(@NonNull String exchangeId, String name, Integer rank, Double percentTotalVolume, Double volumeUsd, Integer tradingPairs, Boolean socket, String exchangeUrl, Long updated) {
         this.exchangeId = exchangeId;

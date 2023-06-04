@@ -34,10 +34,13 @@ import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.functions.Consumer;
 
 @AndroidEntryPoint
 public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, BookmarksViewModel> {
+
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     // region binding & view-model
     @Override
@@ -64,9 +67,11 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
 
 
     private final AsyncListDiffer.ListListener<Coin> onDataChange = (old, cur) -> {
+        EspressoIdlingResource.increment();
         binding.shimmerCoins.setVisibility(View.GONE);
         binding.srlCoinBookmarks.setRefreshing(false);
         binding.rvCoinBookmarks.scrollToPosition(0);
+        EspressoIdlingResource.decrement();
     };
 
 
@@ -154,7 +159,6 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
     }
 
     private void getCoins() {
-        EspressoIdlingResource.increment();
         vm.bookmarkedCoins(finalSortBy, finalOrderBy)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -165,7 +169,6 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
     }
 
     private void getCoinsByQuery(String query) {
-        EspressoIdlingResource.increment();
         vm.searchBookmarkedCoins(query, finalSortBy, finalOrderBy)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -200,7 +203,6 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
             }
 
             Log.d(TAG, "fetchBookmarkedCoins: success");
-            EspressoIdlingResource.decrement();
         };
 
 
@@ -209,7 +211,6 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
         binding.srlCoinBookmarks.setRefreshing(false);
         visibilityBookmarkError(e.getMessage());
         Log.e(TAG, "fetchBookmarkedCoins: failed", e);
-        EspressoIdlingResource.decrement();
     };
 
     private void visibilityBookmarkError(String error) {
@@ -222,5 +223,19 @@ public class BookmarksFragment extends BaseFragment<FragmentBookmarksBinding, Bo
     private void setPbVisibilityErrorRefresh() {
         binding.textErrorCoinBookmark.setVisibility(View.GONE);
         binding.iconErrorCoinBookmarks.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        compositeDisposable.clear();
+        Log.d(TAG, "onDestroyView: CompositeDisposable was cleared");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        compositeDisposable.dispose();
+        Log.d(TAG, "onDestroy: CompositeDisposable was disposed");
     }
 }

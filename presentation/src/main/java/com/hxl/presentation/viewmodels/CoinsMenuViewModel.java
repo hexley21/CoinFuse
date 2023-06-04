@@ -37,7 +37,7 @@ public class CoinsMenuViewModel extends ViewModel {
     @NotNull private final SearchCoins searchCoins;
     @NotNull private final GetCoinsBySearchHistory coinsBySearchHistory;
     @NotNull private final InsertCoinSearchQuery insertCoinSearchQuery;
-    @NotNull public Flowable<PagingData<Coin>> coinStream;
+    @NotNull public final Flowable<PagingData<Coin>> coinStream;
 
     private StateLiveData<PagingData<Coin>> currentCoins;
     private StateLiveData<List<Coin>> currentCoinSearch;

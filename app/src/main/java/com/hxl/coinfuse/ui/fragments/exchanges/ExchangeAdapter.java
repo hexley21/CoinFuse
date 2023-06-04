@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.base.BaseAdapter;
 import com.hxl.coinfuse.databinding.ItemExchangeBinding;
-import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.coinfuse.util.comparator.ExchangeComparator;
 import com.hxl.domain.model.Exchange;
 
@@ -77,7 +76,6 @@ public class ExchangeAdapter extends BaseAdapter<Exchange, ExchangeAdapter.Excha
 
         holder.itemView.setOnLongClickListener(v -> openDialog(bundle));
 
-        EspressoIdlingResource.decrement();
     }
 
     private void navigateToDetails(Bundle bundle) {
@@ -89,14 +87,14 @@ public class ExchangeAdapter extends BaseAdapter<Exchange, ExchangeAdapter.Excha
 
     private boolean openDialog(Bundle bundle) {
         assert navController.getCurrentDestination() != null;
-        if (navController.getCurrentDestination().getId() == R.id.navigationFragment) return false;
+        if (navController.getCurrentDestination().getId() != R.id.navigationFragment) return false;
 
         navController.navigate(R.id.navigation_to_exchangeDialog, bundle);
         return true;
     }
 
     static final class ExchangeViewHolder extends RecyclerView.ViewHolder implements Consumer<Exchange> {
-        ItemExchangeBinding binding;
+        final ItemExchangeBinding binding;
 
         public ExchangeViewHolder(ItemExchangeBinding binding) {
             super(binding.getRoot());

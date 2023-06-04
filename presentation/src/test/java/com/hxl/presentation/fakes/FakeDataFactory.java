@@ -1,12 +1,16 @@
 package com.hxl.presentation.fakes;
 
-import static com.hxl.presentation.fakes.PresentationTestConstants.*;
-
-import static java.sql.Types.TIMESTAMP;
+import static com.hxl.presentation.fakes.PresentationTestConstants.randomBoolean;
+import static com.hxl.presentation.fakes.PresentationTestConstants.randomDouble;
+import static com.hxl.presentation.fakes.PresentationTestConstants.randomFloat;
+import static com.hxl.presentation.fakes.PresentationTestConstants.randomInt;
+import static com.hxl.presentation.fakes.PresentationTestConstants.randomLong;
+import static com.hxl.presentation.fakes.PresentationTestConstants.randomName;
 
 import com.hxl.domain.model.Coin;
 import com.hxl.domain.model.CoinPriceHistory;
-import com.hxl.domain.model.ValueAndTimestamp;
+import com.hxl.domain.model.Exchange;
+import com.hxl.domain.model.Trade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,17 +39,59 @@ public class FakeDataFactory {
         return fakeCoinPriceHistory;
     }
 
-    public static List<ValueAndTimestamp<String>> getFakeSearchQueries(int size) {
-        List<ValueAndTimestamp<String>> fakeSearchQueries = new ArrayList<>();
+    public static List<Exchange> getFakeExchanges(int size) {
+        List<Exchange> fakeExchanges = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            fakeSearchQueries.add(
-                    new ValueAndTimestamp<>(
-                            randomName(),
-                            TIMESTAMP
-                    )
+            fakeExchanges.add(getExchange());
+        }
+
+        return fakeExchanges;
+    }
+
+    public static List<Trade> getFakeTrades(int size) {
+        List<Trade> fakeTrades = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            fakeTrades.add(
+                    getTrade()
             );
         }
-        return fakeSearchQueries;
+
+        return fakeTrades;
+    }
+
+    public static Trade getTrade() {
+        return new Trade(
+                randomName(),
+                randomInt(),
+                randomName(),
+                randomName(),
+                randomName(),
+                randomName(),
+                randomDouble(),
+                randomDouble(),
+                randomDouble(),
+                randomDouble(),
+                randomInt(),
+                (long) randomInt()
+        );
+    }
+
+    public static Exchange getExchange(String exchangeId) {
+        return new Exchange(
+                exchangeId,
+                randomName(),
+                randomInt(),
+                randomDouble(),
+                randomDouble(),
+                randomInt(),
+                randomBoolean(),
+                randomName(),
+                randomLong()
+        );
+    }
+
+    public static Exchange getExchange() {
+        return getExchange(randomName());
     }
 
     public static Coin getCoin(String id) {

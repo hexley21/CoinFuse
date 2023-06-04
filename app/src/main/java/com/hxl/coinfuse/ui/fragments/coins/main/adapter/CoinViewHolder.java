@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.RequestManager;
 import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.databinding.ItemCoinBinding;
-import com.hxl.coinfuse.util.EspressoIdlingResource;
 import com.hxl.coinfuse.util.GlideFactory;
 import com.hxl.coinfuse.util.UiUtils;
 import com.hxl.domain.model.Coin;
@@ -30,8 +29,8 @@ public class CoinViewHolder extends RecyclerView.ViewHolder implements Consumer<
 
     private static final String TAG = "CoinViewHolder";
 
-    RequestManager glide;
-    ItemCoinBinding binding;
+    final RequestManager glide;
+    final ItemCoinBinding binding;
 
     public CoinViewHolder(ItemCoinBinding binding) {
         super(binding.getRoot());
@@ -81,11 +80,9 @@ public class CoinViewHolder extends RecyclerView.ViewHolder implements Consumer<
     }
 
     public static void defaultOnBindViewHolder(CoinViewHolder holder, NavController navController, String coinId, String coinName, String coinSymbol, String coinImg, String explorerId) {
-        EspressoIdlingResource.increment();
 
         if (navController == null) {
             Log.e(TAG, "onBindViewHolder: ", new NullPointerException("NavController was null"));
-            EspressoIdlingResource.decrement();
             return;
         }
 
@@ -110,6 +107,5 @@ public class CoinViewHolder extends RecyclerView.ViewHolder implements Consumer<
             return true;
         });
 
-        EspressoIdlingResource.decrement();
     }
 }

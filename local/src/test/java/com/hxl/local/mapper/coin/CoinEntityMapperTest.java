@@ -15,7 +15,7 @@ import org.junit.runners.JUnit4;
 public class CoinEntityMapperTest {
 
     // Arrange
-    CoinEntity entity = new CoinEntity(
+    final CoinEntity entity = new CoinEntity(
             ID,
             1,
             "BTC",
@@ -31,7 +31,7 @@ public class CoinEntityMapperTest {
             TIMESTAMP,
             String.format(ASSET_URL, "btc")
     );
-    Coin coin = new Coin(
+    final Coin coin = new Coin(
             ID,
             1,
             "BTC",

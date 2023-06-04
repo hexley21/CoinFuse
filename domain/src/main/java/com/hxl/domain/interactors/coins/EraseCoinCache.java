@@ -19,5 +19,4 @@ public class EraseCoinCache {
         return repository.eraseCoinCache();
     }
 
-    // TODO: add Unit tests
 }

@@ -31,6 +31,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -50,6 +53,7 @@ dependencies {
     implementation(Deps.Reactive.rxJava)
     implementation(Deps.Reactive.rxAndroid)
     // Test
+    testImplementation(Deps.Test.core)
     testImplementation(Deps.Test.junit)
     testImplementation(Deps.Test.extJunit)
     testImplementation(Deps.Test.roboelectric)
@@ -57,8 +61,9 @@ dependencies {
     testImplementation(Deps.Test.hilt)
     testAnnotationProcessor(Deps.Test.hiltCompiler)
     testImplementation(Deps.Room.roomTesting)
-    androidTestImplementation(Deps.Test.espresso)
-
+    testImplementation(Deps.Test.pagingTest)
+    testImplementation(Deps.Test.coroutinesCoreJvm)
+    testImplementation(Deps.Test.coroutinesTest)
     // Desugar
     coreLibraryDesugaring(Deps.Others.desugar)
 }

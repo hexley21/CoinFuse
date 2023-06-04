@@ -4,11 +4,11 @@ import com.squareup.moshi.Json;
 
 public class HistoryDTO {
     @Json(name = "priceUsd")
-    public String priceUsd;
+    public final String priceUsd;
     @Json(name = "time")
-    public Long time;
+    public final Long time;
     @Json(name = "date")
-    public String date;
+    public final String date;
 
     public HistoryDTO(
             String priceUsd,

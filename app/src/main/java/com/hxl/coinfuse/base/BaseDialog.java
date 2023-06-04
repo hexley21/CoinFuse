@@ -18,7 +18,7 @@ public abstract class BaseDialog<VB extends ViewBinding> extends BottomSheetDial
 
     protected VB binding;
     private Integer defaultOrientation;
-    protected CompositeDisposable compositeDisposable = new CompositeDisposable();
+    protected final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     protected abstract VB setViewBinding(LayoutInflater inflater, ViewGroup container);
     @Nullable

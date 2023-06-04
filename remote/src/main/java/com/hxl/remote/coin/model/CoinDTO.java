@@ -4,29 +4,29 @@ import com.squareup.moshi.Json;
 
 public class CoinDTO {
     @Json(name = "id")
-    public String id;
+    public final String id;
     @Json(name = "rank")
-    public String rank;
+    public final String rank;
     @Json(name = "symbol")
-    public String symbol;
+    public final String symbol;
     @Json(name = "name")
-    public String name;
+    public final String name;
     @Json(name = "supply")
-    public String supply;
+    public final String supply;
     @Json(name = "maxSupply")
-    public String maxSupply;
+    public final String maxSupply;
     @Json(name = "marketCapUsd")
-    public String marketCapUsd;
+    public final String marketCapUsd;
     @Json(name = "volumeUsd24Hr")
-    public String volumeUsd24Hr;
+    public final String volumeUsd24Hr;
     @Json(name = "priceUsd")
-    public String priceUsd;
+    public final String priceUsd;
     @Json(name = "changePercent24Hr")
-    public String changePercent24Hr;
+    public final String changePercent24Hr;
     @Json(name = "vwap24Hr")
-    public String vwap24Hr;
+    public final String vwap24Hr;
     @Json(name = "explorer")
-    public String explorer;
+    public final String explorer;
 
     public CoinDTO(
             String id,

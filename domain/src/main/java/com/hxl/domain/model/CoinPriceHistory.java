@@ -18,8 +18,8 @@ public class CoinPriceHistory {
             this.param = param;
         }
     }
-    public Double priceUsd;
-    public Long time;
+    public final Double priceUsd;
+    public final Long time;
 
     public CoinPriceHistory(
             Double priceUsd,
