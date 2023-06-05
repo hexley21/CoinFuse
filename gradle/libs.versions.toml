@@ -17,7 +17,7 @@ dagger-hilt = "2.45"
 androidx-paging = "3.1.1"
 # UI
 relex-circleindicator = "2.1.6"
-bumptech-glide = "4.15.0"
+bumptech-glide = "4.15.1"
 airbnb-lottie = "6.0.0"
 philjay-chart = "v3.1.0"
 facebook-shimmer = "0.5.0"
@@ -26,11 +26,11 @@ reactivex-rxjava3 = "3.1.6"
 reactivex-rxandroid3 = "3.0.2"
 # Retrofit
 squareup-retrofit2 = "2.9.0"
-squareup-okhttp3 = "5.0.0-alpha.10"
+squareup-okhttp3 = "5.0.0-alpha.11"
 # Room
 androidx-room = "2.5.1"
 # Others
-jetbrains-annotations = "24.0.0"
+jetbrains-annotations = "24.0.1"
 desugar = "2.0.3"
 javax-inject = "1"
 
@@ -39,8 +39,8 @@ junit = "4.13.2"
 androidx-ext-junit = "1.1.5"
 androidx-test-runner = "1.5.2"
 androidx-test-orchestrator = "1.4.2"
-robolectric = "4.9"
-mockito = "5.2.0"
+robolectric = "4.10.3"
+mockito = "5.3.1"
 androidx-espresso = "3.5.1"
 kotlinx-coroutines = "1.7.1"
 
