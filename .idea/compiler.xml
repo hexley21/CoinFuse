@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8">
-      <module name="Crypto_Numismatist.app" target="17" />
-      <module name="Crypto_Numismatist.buildSrc" target="17" />
-      <module name="Crypto_Numismatist.buildSrc.main" target="17" />
-      <module name="Crypto_Numismatist.buildSrc.test" target="17" />
-      <module name="Crypto_Numismatist.local" target="17" />
-      <module name="Crypto_Numismatist.presentation" target="17" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.8" />
   </component>
 </project>

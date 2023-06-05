@@ -1,5 +1,5 @@
 plugins {
-    id(Config.Plugins.javaLibrary)
+    id("java-library")
 }
 
 java {
@@ -7,12 +7,13 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 dependencies {
-    implementation(Deps.Java.javaxInject)
+
+    implementation(libs.javax.inject)
     // RxJava
-    implementation(Deps.Reactive.rxJava)
+    implementation(libs.reactivex.rxjava3.rxjava)
     // Test
-    testImplementation(Deps.Test.junit)
-    testImplementation(Deps.Test.mockito)
+    testImplementation(libs.testing.junit)
+    testImplementation(libs.testing.mockito.core)
     // IDE
-    implementation(Deps.Others.jetbrainsAnno)
+    implementation(libs.jetbrains.annotations)
 }

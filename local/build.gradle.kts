@@ -1,17 +1,17 @@
 @file:Suppress("UnstableApiUsage")
 
 plugins {
-    id(Config.Plugins.androidLibrary)
+    id("com.android.library")
 }
 
 android {
-    namespace = Modules.NameSpaces.local
-    compileSdk = Config.Android.compileSdk
+    namespace = "com.hxl.local"
+    compileSdk = 33
 
     defaultConfig {
-        minSdk = Config.Android.minSdk
+        minSdk = 21
 
-        testInstrumentationRunner = Config.Android.testRunner
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
         signingConfig = signingConfigs.getByName("debug")
     }
@@ -35,22 +35,22 @@ android {
 
 dependencies {
     // Module
-    implementation(project(Modules.data))
-    implementation(project(Modules.domain))
+    implementation(project(":data"))
+    implementation(project(":domain"))
     
     // Room
-    implementation(Deps.Room.room)
-    annotationProcessor(Deps.Room.roomCompiler)
-    implementation(Deps.Room.roomRxJava)
-    implementation(Deps.Room.roomPaging)
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.rxjava3)
+    implementation(libs.androidx.room.paging)
 
     // Test
-    testImplementation(Deps.Test.junit)
-    testImplementation(Deps.Test.extJunit)
-    testImplementation(Deps.Test.roomTesting)
-    testImplementation(Deps.Test.testRunner)
-    testImplementation(Deps.Test.roboelectric)
+    testImplementation(libs.testing.junit)
+    testImplementation(libs.testing.extJunit)
+    testImplementation(libs.testing.androidx.room)
+    testImplementation(libs.testing.testRunner)
+    testImplementation(libs.testing.robolectric)
 
     // Desugar
-    coreLibraryDesugaring(Deps.Others.desugar)
+    coreLibraryDesugaring(libs.desugar)
 }

@@ -1,21 +1,21 @@
 @file:Suppress("UnstableApiUsage")
 
 plugins {
-    id(Config.Plugins.android)
-    id(Config.Plugins.dagger)
+    id("com.android.application")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
-    namespace = Modules.NameSpaces.app
-    compileSdk = Config.Android.compileSdk
+    namespace = "com.hxl.coinfuse"
+    compileSdk = 33
 
     testOptions.unitTests.isIncludeAndroidResources = true
     defaultConfig {
-        applicationId = Environments.appId
-        minSdk = Config.Android.minSdk
-        targetSdk = Config.Android.targetSdk
-        versionCode = Environments.versionCode
-        versionName = Environments.versionName
+        applicationId = "com.hxl.coinfuse"
+        minSdk = 21
+        targetSdk = 33
+        versionCode = 1
+        versionName = "1.0"
 
         testInstrumentationRunner = "com.hxl.coinfuse.conf.AppTestRunner"
         testInstrumentationRunnerArguments.putAll(
@@ -26,8 +26,8 @@ android {
         proguardFiles(getDefaultProguardFile("proguard-android.txt"))
         signingConfig = signingConfigs.getByName("debug")
 
-        buildConfigField("String", "API_URL", "\"" + Environments.apiUrl +"\"")
-        buildConfigField("String", "ASSET_URL", "\"" + Environments.assetUrl +"\"")
+        buildConfigField("String", "API_URL", "\"" + "https://api.coincap.io/v2/" +"\"")
+        buildConfigField("String", "ASSET_URL", "\"" + "https://assets.coincap.io/assets/icons/%s@2x.png" +"\"")
     }
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
@@ -64,73 +64,73 @@ android {
 
 dependencies {
     // Modules
-    implementation(project(Modules.domain))
-    implementation(project(Modules.data))
-    implementation(project(Modules.local))
-    implementation(project(Modules.remote))
-    implementation(project(Modules.presentation))
+    implementation(project(":domain"))
+    implementation(project(":data"))
+    implementation(project(":local"))
+    implementation(project(":remote"))
+    implementation(project(":presentation"))
 
     // Android Core
-    implementation(Deps.Core.appCompat)
-    implementation(Deps.Core.material)
-    implementation(Deps.Core.constraint)
-    implementation(Deps.Core.fragment)
-    implementation(Deps.Core.splash)
-    implementation(Deps.Core.navigation)
-    implementation(Deps.Core.navigationUi)
-    implementation(Deps.Core.navigationFeatures)
-    implementation(Deps.Core.swipeRefreshLayout)
+    implementation(libs.androidx.appCompat)
+    implementation(libs.material.ui)
+    implementation(libs.androidx.constraint)
+    implementation(libs.androidx.fragment)
+    implementation(libs.androidx.splash)
+    implementation(libs.androidx.navigation)
+    implementation(libs.androidx.navigationUi)
+    implementation(libs.androidx.navigationFeatures)
+    implementation(libs.androidx.swipeRefreshLayout)
     // Hilt
-    implementation(Deps.Hilt.hilt)
-    annotationProcessor(Deps.Hilt.hiltCompiler)
+    implementation(libs.dagger.hilt.android)
+    annotationProcessor(libs.dagger.hilt.compiler)
     // LifeCycle
-    implementation(Deps.LifeCycle.viewModel)
-    implementation(Deps.LifeCycle.liveData)
+    implementation(libs.lifecycle.viewmodel)
+    implementation(libs.lifecycle.livedata)
     // Paging
-    implementation(Deps.Paging.paging)
-    implementation(Deps.Paging.pagingRxJava3)
+    implementation(libs.paging.runtime)
+    implementation(libs.paging.rxjava3)
 
     // UI
-    implementation(Deps.UI.circleIndicator)
-    implementation(Deps.UI.glide)
-    implementation(Deps.UI.lottie)
-    implementation(Deps.UI.chart)
-    annotationProcessor(Deps.UI.glideCompiler)
-    implementation(Deps.UI.shimmer)
+    implementation(libs.ui.circleindicator)
+    implementation(libs.ui.glide)
+    implementation(libs.ui.lottie)
+    implementation(libs.ui.chart)
+    annotationProcessor(libs.ui.glide.compiler)
+    implementation(libs.ui.shimmer)
 
     // Reactive
-    implementation(Deps.Reactive.rxJava)
-    implementation(Deps.Reactive.rxAndroid)
+    implementation(libs.reactivex.rxjava3.rxjava)
+    implementation(libs.reactivex.rxjava3.rxandroid)
     // Retrofit
-    implementation(Deps.Retrofit.retrofit)
-    implementation(Deps.Retrofit.retrofitRxJavaAdapter)
-    implementation(Deps.Retrofit.retrofitMoshiConverter)
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.retrofit2.adapter.rxjava3)
+    implementation(libs.retrofit2.converter.moshi)
     // Room
-    implementation(Deps.Room.room)
-    annotationProcessor(Deps.Room.roomCompiler)
-    implementation(Deps.Room.roomRxJava)
-    implementation(Deps.Room.roomPaging)
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.rxjava3)
+    implementation(libs.androidx.room.paging)
 
     // Test
-    testImplementation(Deps.Test.junit)
-    testImplementation(Deps.Test.mockito)
+    testImplementation(libs.testing.junit)
+    testImplementation(libs.testing.mockito.core)
     // Android test
-    androidTestImplementation(Deps.Test.extJunit)
-    androidTestImplementation(Deps.Test.testRunner)
-    androidTestUtil(Deps.Test.orchestrator)
-    androidTestImplementation(Deps.Test.mockitoAndroid)
-    androidTestImplementation(Deps.Test.hilt)
-    androidTestAnnotationProcessor(Deps.Test.hiltCompiler)
+    androidTestImplementation(libs.testing.extJunit)
+    androidTestImplementation(libs.testing.testRunner)
+    androidTestUtil(libs.testing.testOrchestrator)
+    androidTestImplementation(libs.testing.mockito.android)
+    androidTestImplementation(libs.testing.dagger.hilt.android)
+    androidTestAnnotationProcessor(libs.dagger.hilt.compiler)
     // UI test
-    androidTestImplementation(Deps.Test.espresso)
-    androidTestImplementation(Deps.Test.espressoContrib)
-    implementation(Deps.Test.espressoIdlingResource)
-    androidTestImplementation(Deps.Test.navigation)
-    androidTestImplementation(Deps.Test.fragment)
+    androidTestImplementation(libs.testing.espresso.core)
+    androidTestImplementation(libs.testing.espresso.contrib)
+    implementation(libs.testing.espresso.idling)
+    androidTestImplementation(libs.testing.androidx.navigation)
+    androidTestImplementation(libs.testing.androidx.fragment)
 
     // Debug
-    debugImplementation(Deps.Test.fragmentManifest)
+    debugImplementation(libs.testing.androidx.fragment.manifest)
 
     // Desugar
-    coreLibraryDesugaring(Deps.Others.desugar)
+    coreLibraryDesugaring(libs.desugar)
 }

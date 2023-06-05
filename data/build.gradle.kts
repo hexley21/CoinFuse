@@ -1,5 +1,5 @@
 plugins {
-    id(Config.Plugins.javaLibrary)
+    id("java-library")
 }
 
 java {
@@ -8,14 +8,15 @@ java {
 }
 
 dependencies {
-    implementation(Deps.Java.javaxInject)
     // Module
-    implementation(project(Modules.domain))
+    implementation(project(":domain"))
+
+    implementation(libs.javax.inject)
     // Reactive
-    implementation(Deps.Reactive.rxJava)
+    implementation(libs.reactivex.rxjava3.rxjava)
     // Test
-    testImplementation(Deps.Test.junit)
-    testImplementation(Deps.Test.mockito)
+    testImplementation(libs.testing.junit)
+    testImplementation(libs.testing.mockito.core)
     // IDE
-    implementation(Deps.Others.jetbrainsAnno)
+    implementation(libs.jetbrains.annotations)
 }

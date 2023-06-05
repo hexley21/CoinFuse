@@ -1,5 +1,5 @@
 plugins {
-    id(Config.Plugins.javaLibrary)
+    id("java-library")
 }
 
 java {
@@ -9,16 +9,16 @@ java {
 
 dependencies {
     // Module
-    implementation(project(Modules.data))
-    implementation(project(Modules.domain))
+    implementation(project(":data"))
+    implementation(project(":domain"))
     // RxJava
-    implementation(Deps.Reactive.rxJava)
+    implementation(libs.reactivex.rxjava3.rxjava)
     // Retrofit
-    implementation(Deps.Retrofit.retrofit)
-    implementation(Deps.Retrofit.retrofitRxJavaAdapter)
-    implementation(Deps.Retrofit.retrofitMoshiConverter)
-    implementation(Deps.Retrofit.okhttpLoggingInterceptor)
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.retrofit2.adapter.rxjava3)
+    implementation(libs.retrofit2.converter.moshi)
+    implementation(libs.okhttp3.logging)
     // Test
-    testImplementation(Deps.Test.junit)
-    testImplementation(Deps.Test.mockito)
+    testImplementation(libs.testing.junit)
+    testImplementation(libs.testing.mockito.core)
 }

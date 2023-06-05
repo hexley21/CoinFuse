@@ -1,18 +1,18 @@
 @file:Suppress("UnstableApiUsage")
 
 plugins {
-    id(Config.Plugins.androidLibrary)
-    id(Config.Plugins.dagger)
+    id("com.android.library")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
-    namespace = Modules.NameSpaces.presentation
-    compileSdk = Config.Android.compileSdk
+    namespace = "com.hxl.presentation"
+    compileSdk = 33
 
     defaultConfig {
-        minSdk = Config.Android.minSdk
+        minSdk = 21
 
-        testInstrumentationRunner = Config.Android.testRunner
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
         signingConfig = signingConfigs.getByName("debug")
     }
@@ -38,32 +38,32 @@ android {
 
 dependencies {
     // Modules
-    implementation(project(Modules.domain))
+    implementation(project(":domain"))
 
     // Paging
-    implementation(Deps.Paging.paging)
-    implementation(Deps.Paging.pagingRxJava3)
+    implementation(libs.paging.runtime)
+    implementation(libs.paging.rxjava3)
     // Hilt
-    implementation(Deps.Hilt.hilt)
-    annotationProcessor(Deps.Hilt.hiltCompiler)
+    implementation(libs.dagger.hilt.android)
+    annotationProcessor(libs.dagger.hilt.compiler)
     // LifeCycle
-    implementation(Deps.LifeCycle.viewModel)
-    implementation(Deps.LifeCycle.liveData)
+    implementation(libs.lifecycle.viewmodel)
+    implementation(libs.lifecycle.livedata)
     // Reactive
-    implementation(Deps.Reactive.rxJava)
-    implementation(Deps.Reactive.rxAndroid)
+    implementation(libs.reactivex.rxjava3.rxjava)
+    implementation(libs.reactivex.rxjava3.rxandroid)
     // Test
-    testImplementation(Deps.Test.core)
-    testImplementation(Deps.Test.junit)
-    testImplementation(Deps.Test.extJunit)
-    testImplementation(Deps.Test.roboelectric)
-    testImplementation(Deps.Test.mockito)
-    testImplementation(Deps.Test.hilt)
-    testAnnotationProcessor(Deps.Test.hiltCompiler)
-    testImplementation(Deps.Room.roomTesting)
-    testImplementation(Deps.Test.pagingTest)
-    testImplementation(Deps.Test.coroutinesCoreJvm)
-    testImplementation(Deps.Test.coroutinesTest)
+    testImplementation(libs.testing.androidx.arch.core)
+    testImplementation(libs.testing.junit)
+    testImplementation(libs.testing.extJunit)
+    testImplementation(libs.testing.robolectric)
+    testImplementation(libs.testing.mockito.core)
+    testImplementation(libs.testing.dagger.hilt.android)
+    testAnnotationProcessor(libs.dagger.hilt.compiler)
+    testImplementation(libs.testing.androidx.room)
+    testImplementation(libs.testing.paging.common)
+    testImplementation(libs.kotlinx.coroutines.core)
+    testImplementation(libs.kotlinx.coroutines.test)
     // Desugar
-    coreLibraryDesugaring(Deps.Others.desugar)
+    coreLibraryDesugaring(libs.desugar)
 }
