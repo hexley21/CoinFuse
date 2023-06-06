@@ -26,6 +26,12 @@
 -keep class com.bumptech.glide.**
 -keep class org.bouncycastle.** { *; }
 -keep interface org.bouncycastle.**
+-keep class com.hxl.coinfuse.ui.dialogs.DialogCallback
+-keep class com.hxl.coinfuse.ui.dialogs.ParcelableConsumer
+-keep class com.hxl.coinfuse.ui.dialogs.SortCallback
+-keep class com.hxl.presentation.OrderBy
+-keep class com.hxl.presentation.coin.CoinSortBy
+-keep class com.hxl.presentation.exchange.ExchangeSortBy
 
 # Retrofit does reflection on generic parameters. InnerClasses is required to use Signature and
 # EnclosingMethod is required to use InnerClasses.
