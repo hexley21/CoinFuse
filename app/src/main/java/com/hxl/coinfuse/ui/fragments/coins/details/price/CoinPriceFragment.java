@@ -64,7 +64,8 @@ public class CoinPriceFragment extends BaseFragment<FragmentCoinPriceChartBindin
         super.onCreateView(savedInstanceState);
 
         vm.getCurrentCoin().observe(requireActivity(), coin -> {
-            if (coin.getState() == DataState.SUCCESS) {
+            if (coin.getState() == DataState.LOADING) return;
+            else if (coin.getState() == DataState.SUCCESS) {
                 binding.setSymbol(coin.getData().symbol);
                 // Set Price and Currency
                 binding.setPrice(formatDoubleDetailed(coin.getData().priceUsd));

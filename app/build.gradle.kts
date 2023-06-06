@@ -14,8 +14,8 @@ android {
         applicationId = "com.hxl.coinfuse"
         minSdk = 21
         targetSdk = 33
-        versionCode = 3
-        versionName = "1.0.0-beta2"
+        versionCode = 4
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "com.hxl.coinfuse.conf.AppTestRunner"
         testInstrumentationRunnerArguments.putAll(

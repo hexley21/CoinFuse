@@ -54,7 +54,7 @@ public class CoinPriceViewModel extends ViewModel {
     }
 
     public void fetchCoin(String id) {
-        getCurrentCoinPriceHistory().setValue(StateData.loading());
+        getCurrentCoin().setValue(StateData.loading());
         getCoin.invoke(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
