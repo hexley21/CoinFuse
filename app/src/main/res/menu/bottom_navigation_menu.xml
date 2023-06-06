@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_coins"
+        android:enabled="true"
+        android:icon="@drawable/monitoring"
+        android:title="@string/menu_coins" />
+
+    <item
+        android:id="@+id/menu_exchanges"
+        android:enabled="true"
+        android:icon="@drawable/exchanges"
+        android:title="@string/menu_exchanges" />
+
+    <item
+        android:id="@+id/menu_profit_calculator"
+        android:enabled="true"
+        android:icon="@drawable/point_of_sale"
+        android:title="@string/menu_profit" />
+
+    <item
+        android:id="@+id/menu_bookmarks"
+        android:icon="@drawable/bookmark_outlined"
+        android:title="@string/menu_bookmarks" />
+
+    <item
+        android:id="@+id/menu_settings"
+        android:icon="@drawable/settings"
+        android:title="@string/menu_setting" />
+
+</menu>

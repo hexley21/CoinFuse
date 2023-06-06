@@ -1,0 +1,241 @@
+<resources>
+    <string name="app_name" translatable="false">CoinFuse</string>
+
+    <!-- Welcome -->
+    <string name="btn_next">Next</string>
+    <string name="btn_get_started">Get Started</string>
+    <string name="tv_skip">Skip</string>
+    <!-- Walk-through -->
+    <!-- Titles -->
+    <string name="title_welcome">Welcome</string>
+    <string name="title_explore">Explore</string>
+    <string name="title_analyze">Analyze</string>
+    <!-- Descriptions -->
+    <string name="desc_welcome">Crypto Numismatist\n provides Live cryptocurrency market capitalization, prices and more</string>
+    <string name="desc_explore">Price History, Markets &amp; Latest changes of every Crypto Currency.</string>
+    <string name="desc_analyze">Data in easy and compact readable way &amp; share latest information with your friends.</string>
+
+    <!-- Menu -->
+        <!-- Navigation Fragment -->
+    <string name="menu_coins">Coins</string>
+    <string name="menu_exchanges">Exchanges</string>
+    <string name="menu_profit">Profit</string>
+    <string name="menu_bookmarks">Bookmarks</string>
+    <string name="menu_setting">Settings</string>
+        <!-- Exchange Details -->
+    <string name="menu_website">Website</string>
+
+    <!-- Coins menu -->
+    <string name="sort_by">Sort by</string>
+    <string name="hint_search">Search for a coin</string>
+    <string name="search_history">Search history</string>
+
+    <!-- Coin Details -->
+    <string name="coin_price_chart">Price Chart</string>
+    <string name="coin_exchanges">Exchanges</string>
+        <!-- Price Chart -->
+    <string name="statistics">Statistics</string>
+    <string name="tv_market_cap">Market Cap</string>
+    <string name="tv_volume_24h">Volume (24H)</string>
+    <string name="tv_supply">Supply</string>
+    <string name="tv_24h_high">24H High</string>
+    <string name="tv_24h_low">24H Low</string>
+        <!-- Chips -->
+    <string name="chip_24h" translatable="false">24H</string>
+    <string name="chip_7d" translatable="false">7D</string>
+    <string name="chip_14d" translatable="false">14D</string>
+    <string name="chip_1m" translatable="false">1M</string>
+    <string name="chip_2m" translatable="false">2M</string>
+    <string name="chip_6m" translatable="false">6M</string>
+    <string name="chip_1y" translatable="false">1Y</string>
+
+    <!-- Coin Dialog -->
+    <string name="remove_from_bookmarks">Remove from bookmarks</string>
+    <string name="add_to_bookmarks">Add to bookmarks</string>
+    <string name="visit_explorer">Visit Explorer</string>
+    <string name="remove_from_history">Remove from search history</string>
+    <!-- Exchange Dialog -->
+    <string name="visit_website">Visit Website</string>
+
+    <!-- Settings Dialog -->
+    <string name="preference_theme_title">Set Theme</string>
+    <string name="preference_theme_language">Set Language</string>
+
+    <!-- Sort -->
+    <string name="apply">Apply</string>
+
+    <string name="sort_by_asc">Ascending</string>
+    <string name="sort_by_desc">Descending</string>
+        <!-- Coin Sort Dialog -->
+    <string name="sort_by_rank">By Rank</string>
+    <string name="sort_by_name">By Name</string>
+    <string name="sort_by_price">By Price</string>
+    <string name="sort_by_market">By Market Cap</string>
+    <string name="sort_by_volume">By Volume</string>
+    <string name="sort_by_change">By Change 24HR</string>
+    <string name="sort_by_time">By Time</string>
+        <!-- Exchange Sort Dialog -->
+    <string name="sort_by_total_volume_share">By Total volume share</string>
+    <string name="sort_by_trading_pairs">By Trading pairs</string>
+    <string name="sort_by_socket">By Socket</string>
+    <string name="sort_by_updated">By Update</string>
+
+    <!-- Exchange Details -->
+    <string name="exchange_pairs">%s trading pairs</string>
+    <string name="exchange_volume">Volume</string>
+    <string name="exchange_section_exc">EXC</string>
+    <string name="exchange_section_pairs">PAIR</string>
+    <string name="exchange_section_price">PRICE</string>
+    <string name="exchange_section_vol_24">VOL 24H</string>
+
+    <!-- Profit Calculator -->
+    <string name="profit_calculator_title">Profit Calculator</string>
+    <string name="tf_coin_label">Coin</string>
+    <string name="tf_buy_label">Buy Price</string>
+    <string name="tf_sell_label">Sell Price</string>
+    <string name="tf_investment_label">Investment</string>
+    <string name="tf_in_fee_label">Investment Fee</string>
+    <string name="tf_ex_fee_label">Exit Fee</string>
+    <string name="tf_number_hint" translatable="false">0</string>
+    <string name="profit">Profit</string>
+    <string name="profit_n_loss">Profit/Loss</string>
+    <string name="profit_investment_total">Total Investment</string>
+    <string name="profit_exit_total">Total Exit</string>
+
+    <!-- Settings -->
+    <string name="settings_preferences">Preferences</string>
+        <string name="pref_theme">Theme</string>
+        <string name="pref_language">Language</string>
+    <string name="settings_storage">Storage</string>
+        <string name="storage_clear_cache">Clear Cache</string>
+        <string name="storage_clear_bookmarks">Clear Bookmarks</string>
+        <string name="storage_clear_history">Clear Search History</string>
+        <string name="storage_clear_storage">Clear Storage</string>
+    <string name="settings_info">Info</string>
+        <string name="info_about">About us</string>
+        <string name="info_contact">Contact</string>
+        <string name="info_os">Open Source Acknowledgments</string>
+        <string name="info_privacy_policy" translatable="false">Privacy Policy</string>
+        <string name="info_credits" translatable="false">Credits</string>
+        <string name="info_version">App Version</string>
+        <string name="theme_dark">Dark</string>
+        <string name="theme_light">Light</string>
+        <string name="theme_system">System</string>
+    <string name="clear_bookmarks_success">Bookmarks were erased successfully</string>
+    <string name="clear_history_success">Search history was erased successfully</string>
+    <string name="clear_cache_success">App cache was cleared successfully</string>
+    <string name="clear_storage_success">App storage was cleared successfully</string>
+    <string name="clear_bookmarks_fail">Bookmarks erase was failed</string>
+    <string name="clear_history_fail">Search history erased was failed</string>
+    <string name="clear_cache_fail">App cache clear was failed</string>
+    <string name="clear_storage_fail">App storage clear was failed</string>
+    <string name="privacy_policy_link" translatable="false">https://sites.google.com/view/privacy-policy-coinfuse</string>
+    <string name="rate_app">Rate app</string>
+    <string-array name="theme_choice">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>System</item>
+    </string-array>
+    <integer-array name="theme_save">
+        <item>1</item>
+        <item>2</item>
+        <item>-1</item>
+    </integer-array>
+    <string-array name="language_choice">
+        <item>English</item>
+        <item>Georgian</item>
+    </string-array>
+    <string-array name="language_save">
+        <item>en</item>
+        <item>ka</item>
+    </string-array>
+
+    <!-- Credits -->
+    <string-array name="credit_titles">
+        <item>ongakuer - CircleIndicator</item>
+        <item>bumptech - glide</item>
+        <item>airbnb - lottie</item>
+        <item>PhilJay - MPAndroidChart</item>
+        <item>facebook - shimmer-android</item>
+        <item>ReactiveX - RxJava</item>
+        <item>square - retrofit</item>
+        <item>square - okhttp</item>
+        <item>google - dagger</item>
+        <item>mockito - mockito</item>
+        <item>robolectric - robolectric</item>
+        <item>google - Material icons</item>
+    </string-array>
+
+    <string-array name="credit_descriptions">
+        <item>A lightweight indicator like in nexus 5 launcher. (Apache-2.0 license)</item>
+        <item>An image loading and caching library for Android focused on smooth scrolling. (Apache-2.0 license)</item>
+        <item>Render After Effects animations natively on Android and iOS, Web, and React Native. (Apache-2.0 license)</item>
+        <item>A powerful 🚀 Android chart view / graph view library, supporting line- bar- pie- radar- bubble- and candlestick charts as well as scaling, panning and animations. (Apache-2.0 license)</item>
+        <item>An easy, flexible way to add a shimmering effect to any view in an Android app. (BSD license)</item>
+        <item>RxJava – Reactive Extensions for the JVM – a library for composing asynchronous and event-based programs using observable sequences for the Java VM. (Apache-2.0 license)</item>
+        <item>A type-safe HTTP client for Android and the JVM. (Apache-2.0 license)</item>
+        <item>Square’s meticulous HTTP client for the JVM, Android, and GraalVM. (Apache-2.0 license)</item>
+        <item>A fast dependency injector for Android and Java. (Apache-2.0 license)</item>
+        <item>Most popular Mocking framework for unit tests written in Java. (MIT license)</item>
+        <item>Android Unit Testing Framework. (MIT license)</item>
+        <item>Material Design Icons\' growing icon collection allows designers and developers targeting various platforms. (Apache-2.0 / Ubuntu font license)</item>
+    </string-array>
+    <string-array name="credit_links">
+        <item>https://github.com/ongakuer/CircleIndicator</item>
+        <item>https://github.com/bumptech/glide</item>
+        <item>https://github.com/airbnb/lottie-android</item>
+        <item>https://github.com/PhilJay/MPAndroidChart</item>
+        <item>https://github.com/facebook/shimmer-android</item>
+        <item>https://github.com/ReactiveX/RxJava</item>
+        <item>https://github.com/square/retrofit</item>
+        <item>https://github.com/square/okhttp</item>
+        <item>https://github.com/google/dagger</item>
+        <item>https://github.com/mockito/mockito</item>
+        <item>https://github.com/robolectric/robolectric</item>
+        <item>https://fonts.google.com/icons</item>
+    </string-array>
+
+    <!-- General -->
+    <string name="arrow_up" translatable="false">▴</string>
+    <string name="arrow_down" translatable="false">▾</string>
+    <string name="none">None</string>
+    <string name="positive_btn">OK</string>
+    <string name="negative_btn">Cancel</string>
+
+    <!-- Content Description -->
+    <string name="cd_img_walk_through">Walk-through Image</string>
+
+    <!-- About us -->
+    <string name="paragraph_project">About Project</string>
+    <string name="info_project">
+        Welcome to %s, the ultimate destination for tracking cryptocurrency
+        market capitalization. We are passionate about providing you with real-time data and
+        comprehensive insights into the world of cryptocurrencies. \n\n
+        At %s, we understand the rapidly
+        evolving nature of the crypto market and the need for reliable information to make informed
+        decisions. Our app aims to simplify the complex world of cryptocurrencies, offering you a
+        user-friendly interface to explore and analyze the market.
+    </string>
+    <string name="visit_github_page">Open Source and Available on GitHub</string>
+    <string name="contact_developer">Contact developer</string>
+    <string name="abt_rights" translatable="false">All Rights Reserved</string>
+    <string name="github_repo" translatable="false">github.com/hexley21/CoinFuse</string>
+    <string name="developer" translatable="false">a.kupreishvili.21@gmail.com</string>
+
+    <!-- Contact -->
+    <string name="contact_content">
+        We value your feedback and strive to continuously improve our app. If you have any questions,
+        suggestions, or encounter any issues while using %s, please don\'t hesitate to reach out to
+        our us at email below or in github issues. We are here to assist you and provide
+        the best possible user experience.
+        \n\nThank you for choosing %s. We hope you enjoy your journey into the fascinating world of
+        cryptocurrencies!
+    </string>
+
+    <!-- Errors -->
+    <string name="error_no_internet">No internet connection</string>
+    <string name="error_no_data">No data available</string>
+    <string name="error_no_bookmarks">There are no bookmarks</string>
+    <string name="error_no_main_data">No data available…\n refresh this page or reconnect to the internet</string>
+    <string name="error_something">Something went wrong… \n refresh the page</string>
+</resources>

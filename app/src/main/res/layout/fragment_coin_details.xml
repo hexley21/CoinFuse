@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="name" type="String"/>
+        <variable name="symbol" type="String" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorSurface"
+        android:orientation="vertical"
+        tools:context=".ui.fragments.coins.details.CoinDetailsFragment">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/coin_details_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|snap"
+                android:background="?attr/android:colorBackground">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/details_top_app_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/default_padding_tiny"
+                    app:navigationIcon="@drawable/arrow_back" />
+
+                <CheckBox
+                    android:id="@+id/cb_bookmark"
+                    style="@style/CF_Bookmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignBottom="@id/details_top_app_bar"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/default_padding_small"
+                    android:button="@drawable/sl_bookmark" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_detail_coin"
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/details_top_app_bar"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="48dp"
+                    android:padding="@dimen/default_padding_small"
+                    tools:src="@drawable/logo" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/details_top_app_bar"
+                    android:layout_alignParentTop="true"
+                    android:layout_toStartOf="@id/cb_bookmark"
+                    android:layout_toRightOf="@id/img_detail_coin"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/default_padding_small">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|start"
+                        android:maxLines="1"
+                        android:text="@{name}"
+                        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                        android:textColor="?attr/colorOnBackground"
+                        android:textStyle="bold"
+                        app:autoSizeMinTextSize="16sp"
+                        app:autoSizeTextType="uniform"
+                        tools:text="Name" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_symbol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{symbol}"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        tools:text="SMBL" />
+
+                </LinearLayout>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/coin_details_tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/details_top_app_bar"
+                    android:background="?attr/android:colorBackground"
+                    app:layout_scrollFlags="scroll|snap">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/coin_price_chart" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/coin_exchanges" />
+
+                </com.google.android.material.tabs.TabLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/coin_details_tabs"
+                    android:layout_gravity="bottom|end"
+                    android:background="?android:attr/listDivider" />
+
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

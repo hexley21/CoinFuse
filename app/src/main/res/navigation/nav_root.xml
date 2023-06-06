@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_root"
+    app:startDestination="@id/welcomeFragment">
+
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.hxl.coinfuse.ui.fragments.welcome.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome">
+        <action
+            android:id="@+id/welcome_to_navigation"
+            app:destination="@id/navigationFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/welcomeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigationFragment"
+        android:name="com.hxl.coinfuse.ui.fragments.navigation.NavigationFragment"
+        android:label="fragment_navigation"
+        tools:layout="fragment_navigation">
+        <action
+            android:id="@+id/navigation_to_coinDetails"
+            app:destination="@id/coinDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/navigation_to_coinDialog"
+            app:destination="@id/coinDialog"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/navigation_to_coinSortDialog"
+            app:destination="@id/coinSortDialog"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/navigation_to_exchangeSortDialog"
+            app:destination="@+id/exchangeSortDialog"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/navigation_to_ExchangeDetails"
+            app:destination="@id/exchangeDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/navigation_to_exchangeDialog"
+            app:destination="@id/exchangeDialog"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/navigation_to_profitCalculatorDialog"
+            app:destination="@id/profitCalculatorDialog"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
+        <action
+            android:id="@+id/navigation_to_themeDialog"
+            app:destination="@id/themeDialog"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
+        <action
+            android:id="@+id/navigation_to_languageDialog"
+            app:destination="@id/languageDialog"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
+        <action
+            android:id="@+id/navigation_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
+        <action
+            android:id="@+id/navigation_to_contactFragment"
+            app:destination="@id/contactFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
+        <action
+            android:id="@+id/navigation_to_creditsFragment"
+            app:destination="@id/creditsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
+    </fragment>
+    <fragment
+        android:id="@+id/coinDetailsFragment"
+        android:name="com.hxl.coinfuse.ui.fragments.coins.details.CoinDetailsFragment"
+        android:label="fragment_coin_details"
+        tools:layout="@layout/fragment_coin_details" >
+        <argument android:name="coinId"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="coinName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="coinSymbol"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="coinImg"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/coinDialog"
+        android:label="CoinDialog"
+        android:name="com.hxl.coinfuse.ui.dialogs.coins.CoinDialog"
+        tools:layout="@layout/dialog_coin">
+        <argument android:name="coinId"
+            app:argType="string"
+            app:nullable="false"/>
+        <argument android:name="explorerId"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument android:name="searchQuery"
+            app:argType="string"
+            app:nullable="true"/>
+    </dialog>
+    <dialog
+        android:id="@+id/coinSortDialog"
+        android:name="com.hxl.coinfuse.ui.dialogs.coins.CoinSortDialog"
+        android:label="CoinSortDialog"
+        tools:layout="@layout/dialog_coin_sort">
+        <argument android:name="isTimeSortable"
+            app:argType="boolean"
+            app:nullable="false"/>
+        <argument
+            android:name="sortCallback"
+            app:argType="com.hxl.coinfuse.ui.dialogs.SortCallback" />
+        <argument
+            android:name="orderBy"
+            app:argType="com.hxl.presentation.OrderBy"
+            android:defaultValue="DESC" />
+        <argument
+            android:name="sortBy"
+            app:argType="com.hxl.presentation.coin.CoinSortBy"
+            android:defaultValue="RANK" />
+    </dialog>
+    <dialog
+        android:id="@+id/exchangeSortDialog"
+        android:name="com.hxl.coinfuse.ui.dialogs.exchanges.ExchangeSortDialog"
+        android:label="ExchangeSortDialog"
+        tools:layout="@layout/dialog_exchange_sort">
+        <argument
+            android:name="sortCallback"
+            app:argType="com.hxl.coinfuse.ui.dialogs.SortCallback" />
+        <argument
+            android:name="orderBy"
+            app:argType="com.hxl.presentation.OrderBy"
+            android:defaultValue="ASC" />
+        <argument
+            android:name="sortBy"
+            app:argType="com.hxl.presentation.exchange.ExchangeSortBy"
+            android:defaultValue="RANK" />
+    </dialog>
+    <fragment
+        android:id="@+id/exchangeDetailsFragment"
+        android:name="com.hxl.coinfuse.ui.fragments.exchanges.details.ExchangeDetailsFragment"
+        android:label="ExchangeDetailsFragment"
+        tools:layout="@layout/fragment_exchange_details">
+        <argument
+            android:name="exchangeId"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="exchangeName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="exchangeVolume"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="exchangePairs"
+            app:argType="integer" />
+        <argument
+            android:name="exchangeUrl"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <dialog
+        android:id="@+id/exchangeDialog"
+        android:name="com.hxl.coinfuse.ui.dialogs.exchanges.ExchangeDialog"
+        android:label="ExchangeDialog"
+        tools:layout="@layout/dialog_exchange">
+        <argument
+            android:name="exchangeUrl"
+            app:argType="string"
+            app:nullable="true" />
+    </dialog>
+    <dialog
+        android:id="@+id/profitCalculatorDialog"
+        android:name="com.hxl.coinfuse.ui.dialogs.profit.ProfitCalculatorDialog"
+        android:label="ProfitCalculatorDialog" >
+        <argument
+            android:name="consumer"
+            app:argType="com.hxl.coinfuse.ui.dialogs.ParcelableConsumer"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </dialog>
+    <dialog
+        android:id="@+id/themeDialog"
+        android:name="com.hxl.coinfuse.ui.dialogs.settings.ThemeDialog"
+        android:label="ThemeDialog" >
+        <argument
+            android:name="checkedItem"
+            app:argType="integer"
+            android:defaultValue="2" />
+        <argument
+            android:name="consumer"
+            app:argType="com.hxl.coinfuse.ui.dialogs.ParcelableConsumer"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </dialog>
+    <dialog
+        android:id="@+id/languageDialog"
+        android:name="com.hxl.coinfuse.ui.dialogs.settings.LanguageDialog"
+        android:label="LanguageDialog" >
+        <argument
+            android:name="checkedItem"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="consumer"
+            app:argType="com.hxl.coinfuse.ui.dialogs.ParcelableConsumer"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </dialog>
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.hxl.coinfuse.ui.fragments.settings.pages.AboutUsFragment"
+        android:label="AboutUsFragment" />
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="com.hxl.coinfuse.ui.fragments.settings.pages.ContactFragment"
+        android:label="ContactFragment" />
+    <fragment
+        android:id="@+id/creditsFragment"
+        android:name="com.hxl.coinfuse.ui.fragments.settings.pages.CreditsFragment"
+        android:label="CreditsFragment" />
+</navigation>

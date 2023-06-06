@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="5dp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/info_contact"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="24sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:elegantTextHeight="true"
+                android:textColor="?attr/colorOnBackground"
+                android:text="@{@string/contact_content(@string/app_name, @string/app_name)}"
+                tools:text="@string/contact_content"
+                android:textSize="16sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="@string/visit_github_page"
+                android:textAlignment="center"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="16sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_github"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:background="?attr/selectableItemBackground"
+                android:fontFamily="monospace"
+                android:padding="5dp"
+                android:selectAllOnFocus="false"
+                android:text="@string/github_repo"
+                android:textAlignment="center"
+                android:textColor="?attr/colorSecondary"
+                android:textIsSelectable="true"
+                android:textSize="16sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="@string/contact_developer"
+                android:textAlignment="center"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="16sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:background="?attr/selectableItemBackground"
+                android:fontFamily="monospace"
+                android:gravity="center"
+                android:padding="5dp"
+                android:selectAllOnFocus="false"
+                android:text="@string/developer"
+                android:textAlignment="center"
+                android:textColor="?attr/colorSecondary"
+                android:textIsSelectable="true"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

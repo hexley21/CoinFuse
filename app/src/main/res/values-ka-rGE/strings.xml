@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btn_next">შემდეგი</string>
+    <string name="btn_get_started">დაწყება</string>
+    <string name="tv_skip">გამოტოვება</string>
+    <string name="hint_search">ქოინების ძიება</string>
+    <string name="coin_price_chart">ფასები</string>
+    <string name="statistics">სტატისტიკა</string>
+    <string name="tv_market_cap">საბაზრო კაპიტალი</string>
+    <string name="tf_coin_label">ქოინი</string>
+    <string name="tf_buy_label">ყიდვის ფასი</string>
+    <string name="tf_sell_label">გაყიდვის ფასი</string>
+    <string name="tf_investment_label">ინვესტიცია</string>
+    <string name="tf_in_fee_label">ინვესტირების საკომისიო</string>
+    <string name="tf_ex_fee_label">გამოსვლის საკომისიო</string>
+    <string name="error_no_internet">ინტერნეტი არ არის</string>
+    <string name="add_to_bookmarks">შენახულებში დამატება</string>
+    <string name="sort_by_rank">რანგით</string>
+    <string name="sort_by_name">სახელით</string>
+    <string name="sort_by_price">ფასით</string>
+    <string name="sort_by_market">ბაზრის კაპ…</string>
+    <string name="sort_by_volume">მოცულობით</string>
+    <string name="sort_by_change">ცვლილებით</string>
+    <string name="sort_by_time">დროით</string>
+    <string name="visit_website">ვებ-საიტი</string>
+    <string name="apply">მიღება</string>
+    <string name="sort_by_asc">ზრდადობით</string>
+    <string name="sort_by_desc">კლებადობიით</string>
+    <string name="sort_by_total_volume_share">მთლიანი მოცულობის წილით</string>
+    <string name="sort_by_trading_pairs">გაცვლითი წყვილებით</string>
+    <string name="sort_by_socket">სოკეტით</string>
+    <string name="sort_by_updated">განახლებით</string>
+    <string name="exchange_section_exc">გაცვლა</string>
+    <string name="error_no_bookmarks">შენახულები არ არის</string>
+    <string name="profit_calculator_title">მოგების კალკულატორი</string>
+    <string name="profit">მოგება</string>
+    <string name="settings_preferences">პარამეტრები</string>
+    <string name="pref_theme">დიზაინი</string>
+    <string name="pref_language">ენა</string>
+    <string name="settings_storage">მონაცემები</string>
+    <string name="storage_clear_bookmarks">შენახულების წაშლა</string>
+    <string name="storage_clear_history">ძებნის ისტორიის წაშლა</string>
+    <string name="settings_info">ინფორმაცია</string>
+    <string name="info_about">ჩვენს შესახებ</string>
+    <string name="info_contact">კონტაქტი</string>
+    <string name="info_os">ოფენ-სორსი</string>
+    <string name="info_version">აპლიკაციის ვერსია</string>
+    <string name="clear_bookmarks_success">შენახულები წაშლილია</string>
+    <string name="rate_app">აპლიკაციის შეფასება</string>
+    <string name="none">არცერთი</string>
+    <string name="cd_img_walk_through">გზამკლევის სურათი</string>
+
+    <!-- Walkthrough -->
+    <!-- Titles -->
+    <string name="title_welcome">გამარჯობა</string>
+    <string name="title_explore">გამოიკვლიე</string>
+    <string name="title_analyze">გაანალიზე</string>
+    <!-- Descriptions -->
+    <string name="desc_welcome">კეთილი იყოს თქვენი მობრძანება კრიპტო ნუმიზმატისტის აპლიკაციაში. \n ცოცხალი კრიპტოვალუტის საბაზრო კაპიტალი, ფასები და სხვა.</string>
+    <string name="desc_explore">ფასის ისტორია, ბაზრები და ყველა კრიპტოვალუტის უახლესი ცვლილებები.</string>
+    <string name="desc_analyze">მოწოდებული მონაცემები მარტივ და კომპაქტურ ინტერფეისში, ასევე გაუზიარეთ მეგობრებს.</string>
+    <string name="menu_coins">ქოინები</string>
+    <string name="menu_setting">პარამეტრები</string>
+    <string name="menu_profit">მოგება</string>
+    <string name="menu_bookmarks">შენახულები</string>
+    <string name="menu_exchanges">გაცვლები</string>
+    <string name="tv_supply">მარაგი</string>
+    <string name="tv_24h_high">24სთ უმაღლესი</string>
+    <string name="tv_volume_24h">მოცულობა (24სთ)</string>
+    <string name="tv_24h_low">24სთ უმდაბლესი</string>
+    <string name="error_no_data">მონაცემები არ არის</string>
+    <string name="search_history">ძიების ისტორია</string>
+    <string name="visit_explorer">მკვლევართან გადასვლა</string>
+    <string name="remove_from_bookmarks">შენახულებიდან ამოშლა</string>
+    <string name="error_no_main_data">მონაცემები არ არის… \n გადატვირთედ გვერდი ან გადაუერთდით ინტერნეტს</string>
+    <string name="menu_website">ვებ-საიტი</string>
+    <string name="sort_by">დალაგება</string>
+    <string name="exchange_pairs">%s გაცვლების წყვილი</string>
+    <string name="exchange_volume">მოცულობა</string>
+    <string name="exchange_section_pairs">წყვილი</string>
+    <string name="exchange_section_price">ფასი</string>
+    <string name="exchange_section_vol_24">მოც 24ს</string>
+    <string name="coin_exchanges">გაცვლები</string>
+    <string name="error_something">რაღაც არასწორად წავიდა… \\n გადატვირთეთ გვერდი</string>
+    <string name="remove_from_history">ძიების ისტორიიდან ამოშლა</string>
+    <string name="profit_n_loss">მოგება/წაგება</string>
+    <string name="profit_investment_total">ჯამური ინვესტიცია</string>
+    <string name="profit_exit_total">ჯამური გამოსვლა</string>
+    <string name="theme_dark">მუქი</string>
+    <string name="theme_light">ღია</string>
+    <string name="theme_system">სისტემის</string>
+    <string name="storage_clear_cache">ქეშის წაშლა</string>
+    <string name="storage_clear_storage">მონაცემების წაშლა</string>
+    <string name="clear_history_success">ძებნის ისტორია წაშლილია</string>
+    <string name="clear_cache_success">აპლიკაციის ქეში წაშლილია</string>
+    <string name="clear_storage_success">აპლიკაციის მონაცემები წაშლილია</string>
+    <string name="clear_bookmarks_fail">შენახულები წაშლა ვერ მოხერხდა</string>
+    <string name="clear_history_fail">ძებნის ისტორიის წაშლა ვერ მოხერხდა</string>
+    <string name="clear_cache_fail">აპლიკაციის ქეშის წაშლა ვერ მოხერხდა</string>
+    <string name="clear_storage_fail">აპლიკაციის მონაცემების წაშლა ვერ მოხერხდა</string>
+    <string name="positive_btn">კი</string>
+    <string name="negative_btn">არა</string>
+    <string name="preference_theme_title">დიზანინის შეცვლა</string>
+    <string name="preference_theme_language">ენის შეცვლა</string>
+
+    <string-array name="theme_choice">
+        <item>ღია</item>
+        <item>მუქი</item>
+        <item>სისტემური</item>
+    </string-array>
+
+    <string-array name="language_choice">
+        <item>ინგლისური</item>
+        <item>ქართული</item>
+    </string-array>
+
+    <!-- About usd -->
+    <string name="paragraph_project">პროექტის შესახებ</string>
+    <string name="info_project">
+        მოგესალმებით %s-ში, კრიპტოვალუტების ბაზარის კაპიტალიზაციის მონიტორინგის პროგრამაში.
+        ჩვენ გთავაზობთ მონაცემებს რეალურ დროში და მათი დეტალური სტატისტიკა და განხილვა.
+        \n\n%s-ში ჩვენ კარგად გვესმის კრიპტო ბაზრის განვითარებადი ბუნება.
+        ჩვენი აპლიკაცია მიზნად ისახავს კრიპტოვალუტების რთული სამყაროს გამარტივებას.
+    </string>
+    <string name="visit_github_page">Open Source და ხელმისაწვდომია  GitHub-ზე</string>
+    <string name="contact_developer">დაუკავშირდით დეველოპერს</string>
+
+    <!-- Contact -->
+    <string name="contact_content">
+        ჩვენ ვაფასებთ თქვენს გამოხმაურებას და ვცდილობთ მუდმივად გავაუმჯობესოთ ჩვენი აპლიკაცია.
+        თუ თქვენ გაქვთ რაიმე შეკითხვები, შემოთავაზებები, ან შეგექმნათ რაიმე პრობლემა %s-ის გამოყენებისას,
+        გთხოვთ, ნუ მოგერიდებათ დაგვიკავშირდით ქვემოთ მოცემულ ელფოსტაზე ან github issue-ში.
+        ჩვენ აქ ვართ დაგეხმაროთ და მოგაწოდოთ მომხმარებლის საუკეთესო შესაძლო გამოცდილება.
+        \n\nგმადლობთ, რომ აირჩიეთ %s.
+    </string>
+
+
+</resources>

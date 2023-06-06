@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="pairs" type="String" />
+        <variable name="volume" type="String" />
+        <variable name="updated" type="String" />
+
+        <variable name="currency" type="String" />
+
+        <variable name="error_text" type="String" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorSurface">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/srl_exchange_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_exchange_trades"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_trade" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <ImageView
+                android:id="@+id/icon_trades_wifi_off"
+                android:layout_width="@dimen/error_icon_width"
+                android:layout_height="@dimen/error_icon_width"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:importantForAccessibility="no"
+                android:src="@drawable/wifi_off"
+                android:visibility="gone"
+                tools:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/icon_error_trades"
+                android:layout_width="@dimen/error_icon_width"
+                android:layout_height="@dimen/error_icon_width"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:importantForAccessibility="no"
+                android:src="@drawable/error"
+                android:visibility="gone"
+                tools:visibility="invisible" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/error_trades_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="bottom|center"
+                android:paddingTop="@dimen/error_icon_height"
+                android:text="@{error_text}"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                android:visibility="gone"
+                tools:text="Error was caused because of.."
+                tools:visibility="invisible" />
+        </RelativeLayout>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/android:colorBackground">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/exchanges_top_appbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|snap"
+                app:menu="@menu/exchange_details_menu"
+                app:navigationIcon="@drawable/arrow_back"
+                app:subtitle="@{@string/exchange_pairs(pairs)}"
+                app:subtitleTextAppearance="@style/TextAppearance.Material3.LabelLarge"
+                app:subtitleTextColor="?attr/colorOnSurfaceVariant"
+                app:titleCentered="false"
+                app:titleTextColor="?attr/colorOnBackground" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/default_padding"
+                android:paddingTop="@dimen/default_padding"
+                android:paddingEnd="@dimen/default_padding"
+                android:paddingBottom="@dimen/default_padding"
+                app:layout_scrollFlags="scroll|snap">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_exchange_volume"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exchange_volume"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_exchange_volume_val"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_exchange_volume"
+                    android:text="@{currency + volume}"
+                    android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textStyle="bold"
+                    tools:text="$123,456,789,123" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/tv_exchange_volume_val"
+                    android:layout_alignStart="@id/tv_exchange_volume_val"
+                    android:maxLines="1"
+                    android:text='@{updated}'
+                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    tools:text="23:45, 1 Jan 1971" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom|end"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="?attr/colorSurface"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_scrollFlags="scroll|snap"
+                android:paddingTop="@dimen/default_padding_small"
+                android:paddingBottom="@dimen/default_padding_small"
+                android:paddingEnd="@dimen/default_padding"
+                android:paddingStart="@dimen/default_padding">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|start"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/default_padding"
+                    android:paddingEnd="@dimen/default_padding"
+                    android:text="@string/exchange_section_pairs"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:maxEms="8"
+                    android:text="@string/exchange_section_price"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_vol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:minEms="4"
+                    android:paddingStart="@dimen/default_padding"
+                    android:text="@string/exchange_section_vol_24"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom|end"
+                android:layout_weight="1"
+                android:background="?android:attr/listDivider" />
+
+            <include
+                android:id="@+id/shimmer_trades"
+                layout="@layout/shimmer_trades_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                tools:visibility="gone" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
