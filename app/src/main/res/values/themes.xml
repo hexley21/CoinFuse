@@ -32,6 +32,7 @@
         <item name="android:statusBarColor">?attr/statusBarColor</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:navigationBarColor">@color/md_theme_light_background</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
 
         <item name="bookmark">@color/bookmark_light</item>
         <item name="bookmark_ripple">@color/bookmark_light_ripple</item>
