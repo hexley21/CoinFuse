@@ -15,7 +15,7 @@ import com.hxl.coinfuse.R;
 import com.hxl.coinfuse.databinding.FragmentAboutUsBinding;
 import com.hxl.coinfuse.util.UiUtils;
 
-import java.time.Year;
+import java.util.Calendar;
 
 public class AboutUsFragment extends Fragment {
 
@@ -31,7 +31,7 @@ public class AboutUsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.setYear(String.valueOf(Year.now().getValue()));
+        binding.setYear(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
 
         binding.tvEmail.setOnClickListener(v -> openEmail());
         binding.tvGithub.setOnClickListener(v ->openWeb("https://" + UiUtils.getString(requireContext(), R.string.github_repo)));
